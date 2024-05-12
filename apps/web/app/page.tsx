@@ -1,3 +1,5 @@
+import { Test } from '@repo/entities-profile';
+
 export default function Page(): JSX.Element {
-  return <div>hi</div>;
+  return <Test />;
 }
