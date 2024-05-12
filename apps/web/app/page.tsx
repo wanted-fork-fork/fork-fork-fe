@@ -1,4 +1,3 @@
 export default function Page(): JSX.Element {
-  return (<div>hi</div>
-  );
+  return <div>hi</div>;
 }
