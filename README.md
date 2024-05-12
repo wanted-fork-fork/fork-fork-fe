@@ -1,81 +1,78 @@
-# Turborepo starter
-
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
+## 실행 방법
 
 ```sh
-npx create-turbo@latest
+npm i
+npm run dev
 ```
 
-## What's inside?
+## 패키지 추가 방법
 
-This Turborepo includes the following packages/apps:
+## 프로젝트 구성
 
-### Apps and Packages
+FSD를 차용하여 레이어 > 슬라이스 > 세그먼트 구조로 구성
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/config-eslint`: `eslint` configurations (includes `config-eslint-next` and `config-eslint-prettier`)
-- `@repo/config-typescript`: `tsconfig.json`s used throughout the monorepo
+### 레이어 구조
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- `apps`
+    - `web`
+    - `webview`
+    - `mobile-app`
+- `packages`
+    - `pages`
+    - `widgets`
+    - `features`
+    - `entities`
+    - `shared`
+        - `configs`
 
-### Utilities
+#### 각 레이어의 역할
 
-This Turborepo has some additional tools already setup for you:
+- `apps`
+    - 애플리케이션 전체를 관리
+    - 외부와의 연결을 담당
+- `pages`
+    - widgets를 조합하여 한 document에 그려줄 전체 화면을 구성
+    - 외부에서 데이터를 가져와 UI에 주입 (ex. persist store, 외부 API 등)
+    - 전역 상태 관리
+    - (주의) 상세한 UI 구조나 비즈니스 로직에 대해 너무 많이 알지 않도록 할 것
+- `widgets`
+    - features, entities를 조합하여 페이지의 한 섹션을 구성
+- `features`
+    - 데이터 변경을 발생시키는 사용자 액션과 관련된 비즈니스 로직 관리
+- `entities`
+    - 비즈니스 엔티티 모델, 데이터 구조와 관련된 로직 및 UI
+    - (주의) 액션과 관련된 데이터가 포함되면 안 됨
+- `shared`
+    - config - 프로젝트 공통 설정
+    - util - 도메인 의존성이 없는 순수 함수
+    - ui - 도메인 의존성이 없는 UI 컴포넌트
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### 슬라이스 네이밍
 
-### Build
+- `package.json`의 name에 들어갈 네이밍: `@repo/{layer-name}-{slice-name}`
+- 디렉토리 네이밍: `packages/{layer-name}/{slice-name}`
 
-To build all apps and packages, run the following command:
+**규칙**
 
-```
-cd my-turborepo
-pnpm build
-```
+- 단어 사이 구분이 필요할 경우 `-`를 사용한다
 
-### Develop
+### `Entities` 세그먼트 구조
 
-To develop all apps and packages, run the following command:
+각 세그먼트는 모두 optional임
 
-```
-cd my-turborepo
-pnpm dev
-```
+- `api`: API 호출 함수를 정의
+    - `__mocks__`: API 호출 함수에 대한 mock 데이터 정의
+- `lib`: 비즈니스 로직 정의
+- `model`: 비즈니스 엔티티 모델 정의 (TS Type, Zod Schema 등)
+- `ui`: 리액트 컴포넌트 & 스타일
 
-### Remote Caching
+### 규칙
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- 각 레이어의 슬라이스는 패키지로 구성한다
+- 슬라이스는 하위 레이어의 슬라이스가 내보내는 모듈만 참조할 수 있다
+    - (entities 추가 규칙) 슬라이스의 `@x` 디렉토리에서 내보내는 모듈은 같은 레이어의 슬라이스가 참조할 수
+      있다 ([참고](https://github.com/noveogroup-amorgunov/nukeapp/blob/main/docs/en/architecture.md#entities-cross-imports))
+    - (widgets 추가 규칙) `Base`로 시작되는 슬라이스는 다른 슬라이스에서 참조할 수
+      있다 ([참고](https://github.com/noveogroup-amorgunov/nukeapp/blob/main/docs/en/architecture.md#Widgets-cross-imports-custom-sublayers))
+- 각 슬라이스는 `index.ts` 파일에 내보낼 모듈을 정의해야 한다
+    - 일반적으로 슬라이스 외부에서는 `index.ts` 파일을 통해 내보내진 모듈만 참조 가능하다
