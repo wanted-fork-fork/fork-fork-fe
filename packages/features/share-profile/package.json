@@ -1,5 +1,5 @@
 {
-  "name": "@repo/layer-template",
+  "name": "@repo/features-share-profile",
   "private": true,
   "version": "0.0.0",
   "exports": {
@@ -12,6 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@repo/configs-vanilla-extract": "workspace:*",
+    "@repo/entities-profile": "workspace:*",
+    "@vanilla-extract/css": "^1.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

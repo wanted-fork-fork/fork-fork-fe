@@ -110,6 +110,46 @@ importers:
         specifier: ^5.2.0
         version: 5.2.11(@types/node@20.12.12)
 
+  packages/features/share-profile:
+    dependencies:
+      '@repo/configs-vanilla-extract':
+        specifier: workspace:*
+        version: link:../../shared/configs/vanilla-extract
+      '@repo/entities-profile':
+        specifier: workspace:*
+        version: link:../../entities/profile
+      '@vanilla-extract/css':
+        specifier: ^1.15.1
+        version: 1.15.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@repo/configs-typescript':
+        specifier: workspace:*
+        version: link:../../shared/configs/typescript
+      '@types/react':
+        specifier: ^18.2.66
+        version: 18.3.2
+      '@types/react-dom':
+        specifier: ^18.2.22
+        version: 18.3.0
+      '@vanilla-extract/vite-plugin':
+        specifier: ^4.0.9
+        version: 4.0.9(@types/node@20.12.12)(vite@5.2.11(@types/node@20.12.12))
+      '@vitejs/plugin-react':
+        specifier: ^4.2.1
+        version: 4.2.1(vite@5.2.11(@types/node@20.12.12))
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.0
+        version: 5.2.11(@types/node@20.12.12)
+
   packages/shared/configs/dayjs:
     dependencies:
       dayjs:
@@ -160,6 +200,52 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.22
         version: 18.3.0
+      '@vanilla-extract/vite-plugin':
+        specifier: ^4.0.9
+        version: 4.0.9(@types/node@20.12.12)(vite@5.2.11(@types/node@20.12.12))
+      '@vitejs/plugin-react':
+        specifier: ^4.2.1
+        version: 4.2.1(vite@5.2.11(@types/node@20.12.12))
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.0
+        version: 5.2.11(@types/node@20.12.12)
+
+  packages/widgets/profile-list:
+    dependencies:
+      '@repo/configs-vanilla-extract':
+        specifier: workspace:*
+        version: link:../../shared/configs/vanilla-extract
+      '@repo/entities-profile':
+        specifier: workspace:*
+        version: link:../../entities/profile
+      '@repo/features-share-profile':
+        specifier: workspace:*
+        version: link:../../features/share-profile
+      '@vanilla-extract/css':
+        specifier: ^1.15.1
+        version: 1.15.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@repo/configs-typescript':
+        specifier: workspace:*
+        version: link:../../shared/configs/typescript
+      '@types/react':
+        specifier: ^18.2.66
+        version: 18.3.2
+      '@types/react-dom':
+        specifier: ^18.2.22
+        version: 18.3.0
+      '@vanilla-extract/vite-plugin':
+        specifier: ^4.0.9
+        version: 4.0.9(@types/node@20.12.12)(vite@5.2.11(@types/node@20.12.12))
       '@vitejs/plugin-react':
         specifier: ^4.2.1
         version: 4.2.1(vite@5.2.11(@types/node@20.12.12))
