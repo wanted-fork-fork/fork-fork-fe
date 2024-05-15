@@ -1,4 +1,4 @@
-import { Gender } from '../../../shared/types/Gender';
+import { Gender } from 'shared/types/Gender';
 
 export type Profile = {
   name: string;

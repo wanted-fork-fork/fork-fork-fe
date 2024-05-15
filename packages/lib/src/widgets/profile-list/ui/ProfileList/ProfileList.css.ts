@@ -1,4 +1,4 @@
-import { style } from '../../../../configs';
+import { style } from 'configs/vanilla-extract';
 
 export const container = style({
   display: 'flex',

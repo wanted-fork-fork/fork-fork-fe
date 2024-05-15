@@ -1,5 +1,6 @@
-import { Profile } from '../../model';
 import { ReactElement } from 'react';
+import { calculateAge } from 'shared/utils';
+import { Profile } from '../../model';
 import {
   container,
   detailSection,
@@ -12,7 +13,6 @@ import {
   profileName,
   summaryContainer,
 } from './ProfileCard.css';
-import { calculateAge } from '../../../../shared/utils';
 
 type Props = {
   profile: Profile;

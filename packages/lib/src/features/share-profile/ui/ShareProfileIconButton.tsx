@@ -1,6 +1,6 @@
+import { Profile } from 'entities/profile';
+import { Share } from 'shared/icons';
 import { shareProfile } from '../lib';
-import { Profile } from '../../../entities';
-import { Share } from '../../../shared/icons';
 
 type Props = {
   profile: Profile;

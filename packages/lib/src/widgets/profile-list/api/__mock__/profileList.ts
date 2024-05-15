@@ -1,4 +1,4 @@
-import { Profile } from '../../../../entities';
+import { Profile } from 'entities/profile';
 
 export const profileList: Profile[] = [
   {
