@@ -1,7 +1,8 @@
-import { Test } from '../src';
+import { ShareProfileIconButton } from '../src';
+import { profileMock } from '@repo/entities-profile';
 
 function App() {
-  return <Test />;
+  return <ShareProfileIconButton profile={profileMock} />;
 }
 
 export default App;
