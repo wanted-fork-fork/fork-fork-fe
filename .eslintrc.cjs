@@ -15,5 +15,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@conarti/feature-sliced/public-api': ['off']
   },
 }
