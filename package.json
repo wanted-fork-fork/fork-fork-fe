@@ -9,6 +9,10 @@
   },
   "devDependencies": {
     "@repo/config-typescript": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
