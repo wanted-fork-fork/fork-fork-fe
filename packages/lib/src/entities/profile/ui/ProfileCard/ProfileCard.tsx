@@ -8,6 +8,7 @@ import {
   headerRightSection,
   headerSection,
   info,
+  infoWrapper,
   profileImage,
   profileImageContainer,
   profileName,
@@ -28,7 +29,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
         </div>
         <div className={summaryContainer}>
           <strong className={profileName}>{profile.name}</strong>
-          <div>
+          <div className={infoWrapper}>
             <span className={info}>{calculateAge(profile.birthDate)}세</span>
             <span className={info}>{profile.gender === 'FEMALE' ? '여자' : '남자'}</span>
             <span className={info}>서울</span>

@@ -43,11 +43,19 @@ export const summaryContainer = style({
 export const profileName = style({
   fontWeight: '600',
   fontSize: '18px',
+  lineHeight: '14px',
+});
+
+export const infoWrapper = style({
+  fontWeight: '400',
+  fontSize: '14px',
+  lineHeight: '14px',
 });
 
 export const info = style({
   fontWeight: '400',
   fontSize: '14px',
+  lineHeight: '14px',
   selectors: {
     'div > &:not(:last-child)::after': {
       content: '·',
@@ -74,10 +82,12 @@ globalStyle(`${detailTable} th`, {
   color: '#535353',
   fontWeight: '600',
   fontSize: '14px',
+  lineHeight: '14px',
 });
 
 globalStyle(`${detailTable} td`, {
   color: '#282828',
   fontWeight: '500',
   fontSize: '14px',
+  lineHeight: '14px',
 });
