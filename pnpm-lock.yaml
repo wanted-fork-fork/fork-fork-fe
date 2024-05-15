@@ -115,7 +115,7 @@ importers:
         specifier: ^1.15.1
         version: 1.15.1
 
-  templates/template:
+  packages/templates/template:
     dependencies:
       react:
         specifier: ^18.2.0
@@ -126,7 +126,7 @@ importers:
     devDependencies:
       '@repo/config-typescript':
         specifier: workspace:*
-        version: link:../../packages/shared/configs/typescript
+        version: link:../../shared/configs/typescript
       '@types/react':
         specifier: ^18.2.66
         version: 18.3.2

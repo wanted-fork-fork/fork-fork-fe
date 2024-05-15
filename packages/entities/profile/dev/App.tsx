@@ -1,7 +1,5 @@
-import { Test } from '../src';
-
 function App() {
-  return <Test />;
+  return <div />;
 }
 
 export default App;
