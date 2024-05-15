@@ -5,14 +5,6 @@ npm i
 npm run dev
 ```
 
-## 패키지 추가 방법
-
-1. `templates/template` 디렉토리 통째로 복사
-2. package.json > name 변경 (아래 [슬라이스 네이밍](#슬라이스-네이밍) 참고)
-3. `pnpm i`
-
-(TODO: plop으로 변경)
-
 ## 프로젝트 구성
 
 FSD를 차용하여 레이어 > 슬라이스 > 세그먼트 구조로 구성
@@ -24,12 +16,13 @@ FSD를 차용하여 레이어 > 슬라이스 > 세그먼트 구조로 구성
     - `webview`
     - `mobile-app`
 - `packages`
-    - `pages`
-    - `widgets`
-    - `features`
-    - `entities`
-    - `shared`
-        - `configs`
+  - `lib`
+      - `pages`
+      - `widgets`
+      - `features`
+      - `entities`
+      - `shared`
+          - `configs`
 
 #### 각 레이어의 역할
 
@@ -55,13 +48,11 @@ FSD를 차용하여 레이어 > 슬라이스 > 세그먼트 구조로 구성
 
 ### 슬라이스 네이밍
 
-- `package.json`의 name에 들어갈 네이밍: `@repo/{layer-name}-{slice-name}`
 - 디렉토리 네이밍: `packages/{layer-name}/{slice-name}`
 
 **규칙**
 
 - 단어 사이 구분이 필요할 경우 `-`를 사용한다
-- `layer-name`은 레이어 디렉토리 이름을 그대로 사용한다
 
 ### `Entities` 세그먼트 구조
 
