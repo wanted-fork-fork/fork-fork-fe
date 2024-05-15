@@ -2,6 +2,7 @@ import { style } from '@repo/configs-vanilla-extract';
 import { globalStyle } from '@vanilla-extract/css';
 
 export const container = style({
+  position: 'relative',
   background: '#f4f4f4',
   borderRadius: '24px',
   padding: '24px',
@@ -11,7 +12,6 @@ export const container = style({
 });
 
 export const headerSection = style({
-  position: 'relative',
   display: 'flex',
   alignItems: 'center',
   gap: '20px',
