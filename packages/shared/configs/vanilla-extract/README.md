@@ -1,6 +1,6 @@
 ## 설치
 
-1. package.json > dependencies > `@repo/config-vanilla-extract: "workspace:*"` 추가
+1. package.json > dependencies > `@repo/configs-vanilla-extract: "workspace:*"` 추가
 2. `pnpm i @vanilla-extract/css --filter {workspace-name}`
 
 ### vite 플러그인 설치
@@ -13,5 +13,5 @@
 메인 파일에 아래 import 추가
 
 ```ts
-import '@repo/config-vanilla-extract/app.css';
+import '@repo/configs-vanilla-extract/app.css';
 ```

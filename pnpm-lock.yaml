@@ -8,7 +8,7 @@ importers:
 
   .:
     devDependencies:
-      '@repo/config-typescript':
+      '@repo/configs-typescript':
         specifier: workspace:*
         version: link:packages/shared/configs/typescript
       '@typescript-eslint/eslint-plugin':
@@ -48,7 +48,7 @@ importers:
       '@next/eslint-plugin-next':
         specifier: ^14.1.1
         version: 14.2.3
-      '@repo/config-typescript':
+      '@repo/configs-typescript':
         specifier: workspace:*
         version: link:../../packages/shared/configs/typescript
       '@types/eslint':
@@ -72,7 +72,7 @@ importers:
 
   packages/entities/profile:
     dependencies:
-      '@repo/config-vanilla-extract':
+      '@repo/configs-vanilla-extract':
         specifier: workspace:*
         version: link:../../shared/configs/vanilla-extract
       '@repo/shared-utils':
@@ -88,7 +88,7 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@repo/config-typescript':
+      '@repo/configs-typescript':
         specifier: workspace:*
         version: link:../../shared/configs/typescript
       '@types/react':
@@ -134,7 +134,7 @@ importers:
 
   packages/shared/utils:
     dependencies:
-      '@repo/config-dayjs':
+      '@repo/configs-dayjs':
         specifier: workspace:*
         version: link:../configs/dayjs
     devDependencies:
@@ -151,7 +151,7 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@repo/config-typescript':
+      '@repo/configs-typescript':
         specifier: workspace:*
         version: link:../../shared/configs/typescript
       '@types/react':

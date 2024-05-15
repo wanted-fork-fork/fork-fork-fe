@@ -1,4 +1,4 @@
-import { style } from '@repo/config-vanilla-extract';
+import { style } from '@repo/configs-vanilla-extract';
 import { globalStyle } from '@vanilla-extract/css';
 
 export const container = style({

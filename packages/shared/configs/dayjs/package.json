@@ -1,5 +1,5 @@
 {
-  "name": "@repo/config-dayjs",
+  "name": "@repo/configs-dayjs",
   "version": "1.0.0",
   "private": true,
   "exports": {

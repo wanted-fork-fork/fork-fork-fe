@@ -12,14 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@repo/config-vanilla-extract": "workspace:*",
+    "@repo/configs-vanilla-extract": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "@vanilla-extract/css": "^1.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@repo/config-typescript": "workspace:*",
+    "@repo/configs-typescript": "workspace:*",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vanilla-extract/vite-plugin": "^4.0.9",

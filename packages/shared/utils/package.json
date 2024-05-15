@@ -6,7 +6,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@repo/config-dayjs": "workspace:*"
+    "@repo/configs-dayjs": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

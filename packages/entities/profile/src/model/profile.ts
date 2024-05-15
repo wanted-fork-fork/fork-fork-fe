@@ -1,4 +1,4 @@
-import { Gender } from '@repo/config-typescript';
+import { Gender } from '@repo/configs-typescript';
 
 export type Profile = {
   name: string;
