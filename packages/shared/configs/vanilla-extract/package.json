@@ -1,0 +1,11 @@
+{
+  "name": "@repo/config-vanilla-extract",
+  "version": "1.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@vanilla-extract/css": "^1.15.1"
+  }
+}
