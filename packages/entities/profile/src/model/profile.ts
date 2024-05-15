@@ -4,5 +4,5 @@ export type Profile = {
   name: string;
   birthDate: Date;
   gender: Gender;
+  imageSrcList: string[];
 };
-const a = (c) => {};
