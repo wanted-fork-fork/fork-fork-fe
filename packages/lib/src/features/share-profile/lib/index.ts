@@ -1,1 +1,0 @@
-export { shareProfile } from './shareProfile';

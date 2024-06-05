@@ -1,1 +1,0 @@
-export { ShareProfileIconButton } from './ShareProfileIconButton';
