@@ -1,0 +1,79 @@
+.Container {
+    position: relative;
+    background: var(--color-neutral-10);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.Header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ProfileImageContainer {
+    width: 80px;
+    height: 80px;
+}
+
+.ProfileImageContainer img {
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.InfoSummaryContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.InfoSummaryContainer .Name {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 14px;
+    margin: 0;
+}
+
+.InfoSummaryContainer .Info {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.InfoSummaryContainer .Info span:not(:last-child)::after {
+    content: '·';
+    margin: 0 4px;
+}
+
+.DetailTableContainer {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.DetailTable {
+    width: 100%;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 15px;
+    margin: -15px;
+}
+
+.DetailTable th {
+    color: var(--color-neutral-70);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.DetailTable td {
+    color: var(--color-neutral-80);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+}
