@@ -1,6 +1,10 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { ReactNode } from 'react';
 
+import 'src/shared/styles/global.css';
+import 'src/shared/styles/variables.css';
+import 'src/shared/styles/typography.css';
+
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
