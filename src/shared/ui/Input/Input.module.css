@@ -1,0 +1,26 @@
+.Container {
+    border-bottom: 1px solid var(--color-neutral-30);
+    padding: 12px 8px;
+    display: flex;
+}
+
+.Container:focus-within {
+    border-color: var(--color-neutral-90);
+}
+
+.Input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: var(--color-neutral-90);
+}
+
+.SuffixSlotContainer {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+}
