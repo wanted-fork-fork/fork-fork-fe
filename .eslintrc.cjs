@@ -19,7 +19,7 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  ignorePatterns: ["!**/.server", "!**/.client"],
+  ignorePatterns: ["!**/.server", "!**/.client", "src/shared/ui/icons"],
 
   // Base config
   extends: [
@@ -29,6 +29,19 @@ module.exports = {
     "plugin:storybook/recommended",
     "plugin:storybook/recommended"
   ],
+
+  rules: {
+    "jsx-a11y/label-has-associated-control": ["error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }],
+    "jsx-a11y/label-has-for": ["error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }]
+  },
 
   overrides: [
     // React
