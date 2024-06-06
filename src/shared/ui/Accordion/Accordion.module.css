@@ -1,0 +1,28 @@
+.Summary {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 0;
+    color: var(--color-neutral-90);
+
+    width: 100%;
+
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.Summary::-webkit-details-marker {
+    display: none;
+}
+
+.SummaryMarker {
+    margin-left: auto;
+    transition: transform 100ms
+}
+
+details[open] .Summary .SummaryMarker {
+    transform: rotate(90deg)
+}
