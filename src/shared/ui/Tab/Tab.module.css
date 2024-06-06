@@ -1,0 +1,25 @@
+.TabTriggerContainer {
+    display: flex;
+
+}
+
+.TabTrigger {
+    flex-grow: 1;
+
+    appearance: none;
+    border: none;
+    background-color: transparent;
+
+    height: 44px;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: center;
+    color: var(--color-neutral-30);
+
+    &[aria-selected=true] {
+        color: var(--color-neutral-90);
+        border-bottom: 2px solid var(--color-neutral-90);
+    }
+}
