@@ -48,3 +48,7 @@ table {
 html {
     font-family: "Pretendard Variable", "Arial", sans-serif;
 }
+
+* {
+    box-sizing: border-box;
+}

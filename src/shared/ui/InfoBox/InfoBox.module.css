@@ -1,0 +1,18 @@
+.Container {
+    width: 100%;
+    border-radius: 24px;
+    padding: 16px;
+    background-color: var(--color-neutral-10);
+}
+
+.Container.RadiusS {
+    border-radius: 8px;
+}
+
+.Container.RadiusM {
+    border-radius: 16px;
+}
+
+.Container.RadiusL {
+    border-radius: 24px;
+}
