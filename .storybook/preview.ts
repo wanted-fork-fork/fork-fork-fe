@@ -14,7 +14,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['shared', 'entities', 'features', 'widgets', 'pages'],
+        order: ['shared', 'entities', 'features', 'widgets', 'processes', 'pages'],
       },
     },
   },
