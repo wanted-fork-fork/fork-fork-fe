@@ -19,7 +19,7 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  ignorePatterns: ["!**/.server", "!**/.client", "src/shared/ui/icons"],
+  ignorePatterns: ["!**/.server", "!**/.client", "src/shared/ui/icons", "*.d.ts"],
 
   // Base config
   extends: [
