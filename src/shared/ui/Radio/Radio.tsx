@@ -1,7 +1,7 @@
 import styles from './Radio.module.css';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
-type RadioProps = Exclude<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> & {
+export type RadioProps = Exclude<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> & {
   label: string;
 };
 
