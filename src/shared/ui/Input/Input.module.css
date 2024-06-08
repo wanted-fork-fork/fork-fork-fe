@@ -16,6 +16,13 @@
     font-size: 16px;
     line-height: 16px;
     color: var(--color-neutral-90);
+
+    &::placeholder {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+        color: var(--color-neutral-30);
+    }
 }
 
 .SuffixSlotContainer {
@@ -23,4 +30,5 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 16px;
+    color: var(--color-neutral-90);
 }

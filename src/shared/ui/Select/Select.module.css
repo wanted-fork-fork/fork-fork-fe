@@ -1,5 +1,7 @@
 .Label {
     position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
 .Select {
@@ -22,7 +24,7 @@
 
 .Marker {
     position: absolute;
-    top: 0;
+    top: 25%;
     right: 8px;
 }
 

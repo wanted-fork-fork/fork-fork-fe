@@ -6,6 +6,7 @@
     line-height: 16px;
     padding: 12px 0;
     color: var(--color-neutral-90);
+    width: 100%;
 }
 
 .Radio {

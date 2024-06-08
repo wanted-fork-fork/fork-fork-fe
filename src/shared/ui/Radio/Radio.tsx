@@ -5,9 +5,9 @@ export type RadioProps = Exclude<DetailedHTMLProps<InputHTMLAttributes<HTMLInput
   label: string;
 };
 
-export const Radio = ({ label, ...props }: RadioProps) => {
+export const Radio = ({ className, label, ...props }: RadioProps) => {
   return (
-    <label className={styles.Label}>
+    <label className={`${styles.Label} ${className}`}>
       <input className={styles.Radio} type={'radio'} {...props} />
       {label}
     </label>

@@ -1,0 +1,31 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.Label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Legend {
+  margin-bottom: 8px;
+}
+
+.InputGroup {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  align-items: center;
+}
+
+.InputItem {
+  flex-grow: 1;
+}
+
+.AgeInfo {
+  width: 64px;
+  font-weight: 600;
+}

@@ -4,8 +4,8 @@ import { ArrowDown } from 'src/shared/ui/icons';
 
 type SelectProp = PropsWithChildren<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>>;
 
-export const Select = ({ children, ...props }: SelectProp) => (
-  <label className={styles.Label}>
+export const Select = ({ className, children, ...props }: SelectProp) => (
+  <label className={`${styles.Label} ${className}`}>
     <select className={styles.Select} {...props}>
       {children}
     </select>
@@ -25,7 +25,7 @@ const Item = ({ text, ...props }: ItemProp) => (
 );
 
 const DefaultItem = ({ text }: { text: string }) => (
-  <option selected hidden value={''}>
+  <option disabled selected hidden value={''}>
     {text}
   </option>
 );
