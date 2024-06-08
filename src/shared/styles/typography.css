@@ -28,6 +28,20 @@ label.strong {
     line-height: 16px;
 }
 
+legend {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    color: var(--color-neutral-40);
+    line-height: 14px;
+}
+
+legend.strong {
+    font-size: 16px;
+    color: var(--color-neutral-90);
+    line-height: 16px;
+}
+
 small {
     font-size: 13px;
     font-weight: 600;
