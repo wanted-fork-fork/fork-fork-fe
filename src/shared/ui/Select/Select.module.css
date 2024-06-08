@@ -1,0 +1,31 @@
+.Label {
+    position: relative;
+}
+
+.Select {
+    appearance: none;
+    outline: none;
+
+    border: none;
+    border-bottom: 1px solid var(--color-neutral-90);
+    padding: 12px 36px 12px 12px;
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+
+    &:invalid {
+        border-color: var(--color-neutral-30);
+        color: var(--color-neutral-30);
+    }
+}
+
+.Marker {
+    position: absolute;
+    top: 0;
+    right: 8px;
+}
+
+.Item {
+
+}
