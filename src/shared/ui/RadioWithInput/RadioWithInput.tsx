@@ -4,9 +4,9 @@ import styles from 'src/processes/my_profile/JobForm/JobForm.module.css';
 import { useRef } from 'react';
 
 type RadioWithInputProps = RadioProps & {
-  inputPlaceholder: string;
-  inputValue: string;
-  onChangeInputValue: (value: string) => void;
+  inputPlaceholder?: string;
+  inputValue?: string;
+  onChangeInputValue?: (value: string) => void;
 };
 
 export const RadioWithInput = ({ inputPlaceholder, inputValue, onChangeInputValue, ...props }: RadioWithInputProps) => {
@@ -20,7 +20,7 @@ export const RadioWithInput = ({ inputPlaceholder, inputValue, onChangeInputValu
           className={styles.Input}
           placeholder={inputPlaceholder}
           value={inputValue}
-          onChange={(e) => onChangeInputValue(e.target.value)}
+          onChange={(e) => onChangeInputValue?.(e.target.value)}
         />
       )}
     </>
