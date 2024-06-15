@@ -12,6 +12,7 @@ type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HT
 };
 
 export const Button = ({
+  className = '',
   variant,
   color,
   size = 'M',
@@ -23,7 +24,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => (
   <button
-    className={styles.Button}
+    className={`${styles.Button} ${className}`}
     {...props}
     data-variant={variant}
     data-color={color}
