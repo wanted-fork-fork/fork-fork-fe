@@ -4,14 +4,15 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "icons": "npx @svgr/cli --out-dir src/shared/ui/icons -- assets/icons"
+    "build": "remix vite:build",
+    "check:lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "check:ts": "tsc",
+    "test:watch": "vitest --watch",
+    "storybook:dev": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "generate:icon": "npx @svgr/cli --out-dir src/shared/ui/icons -- assets/icons"
   },
   "dependencies": {
     "@remix-run/node": "^2.9.2",
@@ -37,8 +38,10 @@
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-prettier": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
+    "@testing-library/dom": "^10.1.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.38.0",
@@ -48,6 +51,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "jsdom": "^24.1.0",
     "npm-run-all": "^4.1.5",
     "npm-watch": "^0.13.0",
     "prettier": "^3.3.1",
@@ -55,6 +59,7 @@
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
     "vite-plugin-svgr": "^4.2.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^1.6.0"
   }
 }
