@@ -8,10 +8,10 @@ type Location = {
 };
 
 type LocationFormProps = {
-  locations: Location[];
+  locations?: Location[];
 };
 
-export const LocationForm = ({ locations }: LocationFormProps) => {
+export const LocationForm = ({ locations = [] }: LocationFormProps) => {
   const [selectedMainLocation, setSelectedMainLocation] = useState<Location>(locations[0]);
 
   return (
@@ -31,7 +31,7 @@ export const LocationForm = ({ locations }: LocationFormProps) => {
           ))}
         </ul>
         <ul>
-          {selectedMainLocation.subLocations?.map((location) => (
+          {selectedMainLocation?.subLocations?.map((location) => (
             <li key={location.name} className={`${styles.Category} ${styles.SubCategory}`}>
               {location.name}
               <Plus className={styles.Icon} width={16} height={16} color={'#cdcace'} />

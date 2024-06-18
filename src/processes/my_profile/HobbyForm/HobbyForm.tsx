@@ -8,10 +8,10 @@ export type Hobby = {
 };
 
 type HobbyFormProps = {
-  hobbyList: Hobby[];
+  hobbyList?: Hobby[];
 };
 
-export const HobbyForm = ({ hobbyList }: HobbyFormProps) => {
+export const HobbyForm = ({ hobbyList = [] }: HobbyFormProps) => {
   const { list: selectedHobbies, toggle: onClick } = useMultiSelectToggle<Hobby>([]);
 
   const onClickInputTrigger = () => console.log('open input');

@@ -1,0 +1,44 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.Header {
+  margin-bottom: 30px;
+}
+
+.HeaderBar {
+  margin-bottom: 15px;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-neutral-40);
+}
+
+.Description {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--color-neutral-50);
+
+  & strong {
+    font-size: 14px;
+  }
+}
+
+.Main {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.Footer {
+  margin-top: auto;
+  padding: 15px 0;
+}
