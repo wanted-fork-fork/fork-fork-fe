@@ -1,0 +1,46 @@
+.Container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.FileInput {
+    display: none;
+}
+
+.ImageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.InfoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.InfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Positive {
+    color: var(--color-positive);
+}
+
+.Negative {
+    color: var(--color-negative)
+}
+
+.InfoUl {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+
+    & li {
+        margin-bottom: 8px;
+    }
+}

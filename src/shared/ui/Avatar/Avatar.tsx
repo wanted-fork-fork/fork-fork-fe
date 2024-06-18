@@ -3,19 +3,19 @@ import styles from './Avatar.module.css';
 import { useImageLoadingStatus } from 'src/shared/functions/useImageLoadingStatus';
 
 type AvatarProp = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
-  fallback: string;
+  fallback: ReactNode;
   shape: 'circle' | 'roundedSquare';
   size: number;
   actionSlot?: ReactNode;
   onClick?: () => void;
 };
 
-export const Avatar = ({ actionSlot, shape, size, alt, fallback, onClick, ...props }: AvatarProp) => {
+export const Avatar = ({ className = '', actionSlot, shape, size, alt, fallback, onClick, ...props }: AvatarProp) => {
   const loadingStatus = useImageLoadingStatus(props.src);
 
   return (
     <div
-      className={styles.Container}
+      className={`${styles.Container} ${className}`}
       role={onClick ? 'button' : undefined}
       style={{ '--size': size }}
       data-shape={shape}
@@ -23,7 +23,9 @@ export const Avatar = ({ actionSlot, shape, size, alt, fallback, onClick, ...pro
       onClick={onClick}
       onKeyDown={onClick}
     >
-      {loadingStatus === 'success' && <img className={styles.Image} alt={alt ?? '이미지'} data-loading={false} {...props} />}
+      {loadingStatus === 'success' && (
+        <img className={styles.Image} alt={alt ?? '이미지'} data-loading={false} {...props} />
+      )}
       {loadingStatus === 'error' && <span className={styles.Fallback}>{fallback}</span>}
       {actionSlot && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

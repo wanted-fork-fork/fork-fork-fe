@@ -3,8 +3,9 @@ import styles from './InfoBox.module.css';
 
 type Props = PropsWithChildren<{
   radiusSize: 'S' | 'M' | 'L';
+  className?: string;
 }>;
 
-export const InfoBox = ({ radiusSize = 'M', children }: Props) => (
-  <div className={`${styles.Container} ${styles[`Radius${radiusSize}`]}`}>{children}</div>
+export const InfoBox = ({ className = '', radiusSize = 'M', children }: Props) => (
+  <div className={`${styles.Container} ${styles[`Radius${radiusSize}`]} ${className}`}>{children}</div>
 );
