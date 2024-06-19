@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import styles from './JobForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
-
-const JobTypeList = ['STUDENT', 'OFFICE_WORKER', 'FREELANCER', 'ETC'];
-type JobType = (typeof JobTypeList)[number];
+import { JobType } from 'src/entities/profile/types/profileSummary';
 
 const JobMetaList: RadioMeta<JobType>[] = [
   {

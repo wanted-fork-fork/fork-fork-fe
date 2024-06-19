@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import styles from './LocationForm.module.css';
 import { Plus } from 'src/shared/ui/icons';
-
-type Location = {
-  name: string;
-  subLocations?: Location[];
-};
+import { Location } from 'src/entities/profile/types/profileSummary';
 
 type LocationFormProps = {
   locations?: Location[];

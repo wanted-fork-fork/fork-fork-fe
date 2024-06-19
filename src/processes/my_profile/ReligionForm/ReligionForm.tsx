@@ -2,9 +2,8 @@ import { Radio } from 'src/shared/ui/Radio/Radio';
 import styles from './ReligionForm.module.css';
 import { useState } from 'react';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
+import { ReligionType } from 'src/entities/profile/types/profileSummary';
 
-const ReligionTypeList = ['NONE', 'CHRISTIAN', 'BUDDHISM', 'CATHOLIC', 'WON_BUDDHISM', 'ETC'];
-type ReligionType = (typeof ReligionTypeList)[number];
 const ReligionMetaList: RadioMeta<ReligionType>[] = [
   { key: 'NONE', name: '무교', allowInput: false },
   { key: 'CHRISTIAN', name: '기독교', allowInput: false },
