@@ -11,6 +11,7 @@ import { HobbyForm } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { SmokeAlcoholForm } from 'src/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
 import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceForm';
 import styles from './MyProfilePage.module.css';
+import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 
 type StepMeta = {
   title: ({ name }: { name: string }) => ReactNode;
@@ -101,7 +102,7 @@ const Steps = Object.values(Step);
 
 export const MyProfilePage = () => {
   const [currentStepIdx, setCurrentStep] = useState(0);
-  const name = '예진';
+  const name = useProfileFirstName();
 
   const currentStep = Steps[currentStepIdx];
 
