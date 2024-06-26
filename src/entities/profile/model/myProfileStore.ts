@@ -1,31 +1,30 @@
 import { create } from 'zustand';
 import { Gender, JobType, Location, Mbti, ReligionType } from 'src/entities/profile/types/profileSummary';
 import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
-import { DeepPartial } from 'src/shared/types/DeepPartial';
 
 type MyProfile = {
   name: string;
-  gender: Gender;
+  gender?: Gender;
   birthDate: {
-    year: number;
-    month: number;
-    date: number;
+    year?: number;
+    month?: number;
+    date?: number;
   };
-  height: number;
+  height?: number;
   selfImages: File[];
-  mbti: Mbti | null;
+  mbti?: Mbti | null;
   job: {
-    type: JobType;
+    type?: JobType;
     description: string;
   };
   location: Location[];
   religion: {
-    type: ReligionType;
+    type?: ReligionType;
     description?: string;
   };
   hobby: Hobby[];
   alcohol: string;
-  smoking: 'YES' | 'NO' | string;
+  smoking?: 'YES' | 'NO' | string;
   introduce: string;
 };
 
@@ -36,7 +35,7 @@ type Action = {
   setBirthMonth: (month: number) => void;
   setBirthDate: (date: number) => void;
   setHeight: (height: number) => void;
-  setSelfImages: (files: File[]) => void;
+  setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
   setMbti: (mbti: Mbti) => void;
   setJobType: (job: JobType) => void;
   setJobDescription: (description: string) => void;
@@ -49,7 +48,7 @@ type Action = {
   setIntroduce: (value: string) => void;
 };
 
-export const useMyProfileStore = create<DeepPartial<MyProfile> & Action>((set) => ({
+export const useMyProfileStore = create<MyProfile & Action>((set, get) => ({
   name: '',
   setName: (name) => set({ name }),
   gender: undefined,
@@ -65,23 +64,23 @@ export const useMyProfileStore = create<DeepPartial<MyProfile> & Action>((set) =
   height: undefined,
   setHeight: (height) => set({ height }),
   selfImages: [],
-  setSelfImages: (files) => set({ selfImages: files }),
+  setSelfImages: (getState) => set({ selfImages: getState(get().selfImages) }),
   mbti: undefined,
   setMbti: (mbti) => set({ mbti }),
   job: {
     type: undefined,
     description: '',
   },
-  setJobType: (job) => set({ job: { type: job } }),
-  setJobDescription: (desc) => set({ job: { description: desc } }),
+  setJobType: (job) => set({ job: { ...get().job, type: job } }),
+  setJobDescription: (desc) => set({ job: { ...get().job, description: desc } }),
   location: [],
   setLocation: (locations) => set({ location: locations }),
   religion: {
     type: undefined,
     description: '',
   },
-  setReligionType: (religion) => set({ religion: { type: religion } }),
-  setReligionDescription: (desc) => set({ religion: { description: desc } }),
+  setReligionType: (religion) => set({ ...get().religion, religion: { type: religion } }),
+  setReligionDescription: (desc) => set({ ...get().religion, religion: { description: desc } }),
   hobby: [],
   setHobbies: (hobbies) => set({ hobby: hobbies }),
   alcohol: '',

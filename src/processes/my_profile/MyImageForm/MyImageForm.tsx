@@ -1,13 +1,14 @@
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
-import { useState } from 'react';
 import styles from './MyImageForm.module.css';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import { Close, Plus } from 'src/shared/ui/icons';
 import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 export const MyImageForm = () => {
-  const [files, setFiles] = useState<File[]>([]);
+  const files = useMyProfileStore((state) => state.selfImages) ?? [];
+  const setFiles = useMyProfileStore((state) => state.setSelfImages);
   const dataUrlList = useDataUrlListFromFiles(files);
 
   const onFileChanged = (files: File[]) => {
