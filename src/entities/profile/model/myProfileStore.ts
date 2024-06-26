@@ -36,6 +36,17 @@ type Action = {
   setBirthMonth: (month: number) => void;
   setBirthDate: (date: number) => void;
   setHeight: (height: number) => void;
+  setSelfImages: (files: File[]) => void;
+  setMbti: (mbti: Mbti) => void;
+  setJobType: (job: JobType) => void;
+  setJobDescription: (description: string) => void;
+  setLocation: (locations: Location[]) => void;
+  setReligionType: (job: ReligionType) => void;
+  setReligionDescription: (description: string) => void;
+  setHobbies: (hobbies: Hobby[]) => void;
+  setAlcohol: (value: string) => void;
+  setSmoking: (value: string) => void;
+  setIntroduce: (value: string) => void;
 };
 
 export const useMyProfileStore = create<DeepPartial<MyProfile> & Action>((set) => ({
@@ -54,18 +65,29 @@ export const useMyProfileStore = create<DeepPartial<MyProfile> & Action>((set) =
   height: undefined,
   setHeight: (height) => set({ height }),
   selfImages: [],
+  setSelfImages: (files) => set({ selfImages: files }),
   mbti: undefined,
+  setMbti: (mbti) => set({ mbti }),
   job: {
     type: undefined,
     description: '',
   },
+  setJobType: (job) => set({ job: { type: job } }),
+  setJobDescription: (desc) => set({ job: { description: desc } }),
   location: [],
+  setLocation: (locations) => set({ location: locations }),
   religion: {
     type: undefined,
     description: '',
   },
+  setReligionType: (religion) => set({ religion: { type: religion } }),
+  setReligionDescription: (desc) => set({ religion: { description: desc } }),
   hobby: [],
+  setHobbies: (hobbies) => set({ hobby: hobbies }),
   alcohol: '',
+  setAlcohol: (value) => set({ alcohol: value }),
   smoking: undefined,
+  setSmoking: (value) => set({ smoking: value }),
   introduce: '',
+  setIntroduce: (value) => set({ introduce: value }),
 }));
