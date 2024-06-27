@@ -1,0 +1,37 @@
+.Grid {
+    display: grid;
+    gap: 32px;
+}
+
+.GridRow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.Cell {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+}
+
+.CellHeader {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.CellHeaderTitle {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-neutral-60);
+}
+
+.HorizontalList {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+
+    & > * {
+        flex-shrink: 0;
+    }
+}

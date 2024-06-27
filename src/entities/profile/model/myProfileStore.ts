@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Gender, JobType, Location, Mbti, ReligionType } from 'src/entities/profile/types/profileSummary';
 import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 
-type MyProfile = {
+export type MyProfile = {
   name: string;
   gender?: Gender;
   birthDate: {
