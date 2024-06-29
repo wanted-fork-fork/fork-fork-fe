@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { Gender, JobType, Location, ReligionType } from 'src/entities/profile/types/profileSummary';
+import { Gender, JobType, ReligionType } from 'src/entities/profile/types/profileSummary';
+import { Location } from 'src/entities/location/types/location';
 import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';

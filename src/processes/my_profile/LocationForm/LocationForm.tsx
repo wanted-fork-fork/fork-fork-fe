@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './LocationForm.module.css';
 import { Close, Minus, Plus } from 'src/shared/ui/icons';
 import { Location } from 'src/entities/location/types/location';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { Chip } from 'src/shared/ui/Chip/Chip';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 type LocationFormProps = {
   locations?: Location[];
@@ -16,11 +17,16 @@ export const LocationForm = ({ locations = [] }: LocationFormProps) => {
     (a, b) => a.town[0]?.town === b.town[0]?.town,
   );
 
+  const setLocation = useMyProfileStore((state) => state.setLocation);
+  useEffect(() => {
+    setLocation(selectedTownList);
+  }, [selectedTownList]);
+
   return (
     <section>
       <div className={styles.ChipWrapper}>
         {selectedTownList.map((location) => (
-          <Chip key={location.town[0].townName} suffixSlot={<Close width={18} />}>
+          <Chip key={location.town[0].townName} suffixSlot={<Close width={18} />} onClick={() => toggleTown(location)}>
             {location.city.cityName} {location.town[0].townName}
           </Chip>
         ))}
