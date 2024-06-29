@@ -1,7 +1,8 @@
 import { create } from 'zustand';
-import { Gender, JobType, Location, Mbti, ReligionType } from 'src/entities/profile/types/profileSummary';
+import { Gender, JobType, Location, ReligionType } from 'src/entities/profile/types/profileSummary';
 import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { DateObj } from 'src/shared/vo/date';
+import { Mbti } from 'src/shared/vo/mbti';
 
 export type MyProfile = {
   name: string;
@@ -33,7 +34,7 @@ type Action = {
   setBirthDate: (date: number) => void;
   setHeight: (height: number) => void;
   setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
-  setMbti: (mbti: Mbti) => void;
+  setMbti: (mbti: Mbti | null) => void;
   setJobType: (job: JobType) => void;
   setJobDescription: (description: string) => void;
   setLocation: (locations: Location[]) => void;

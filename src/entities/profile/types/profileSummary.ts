@@ -1,5 +1,4 @@
 export type Gender = 'FEMALE' | 'MALE';
-export type Mbti = `${'E' | 'I'}${'S' | 'N'}${'F' | 'T'}${'J' | 'P'}`;
 
 const JobTypeList = ['STUDENT', 'OFFICE_WORKER', 'FREELANCER', 'ETC'];
 export type JobType = (typeof JobTypeList)[number];
