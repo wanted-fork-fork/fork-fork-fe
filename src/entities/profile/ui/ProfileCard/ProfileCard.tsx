@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { ProfileSummary } from 'src/entities/profile/types/profileSummary';
-import { calculateAge } from 'src/entities/profile/lib/calculateAge';
 import styles from './ProfileCard.module.css';
+import { calculateAge } from 'src/shared/vo/date';
 
 type Props = {
   profile: ProfileSummary;

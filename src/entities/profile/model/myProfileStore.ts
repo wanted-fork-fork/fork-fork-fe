@@ -1,15 +1,12 @@
 import { create } from 'zustand';
 import { Gender, JobType, Location, Mbti, ReligionType } from 'src/entities/profile/types/profileSummary';
 import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
+import { DateObj } from 'src/shared/vo/date';
 
 export type MyProfile = {
   name: string;
   gender?: Gender;
-  birthDate: {
-    year?: number;
-    month?: number;
-    date?: number;
-  };
+  birthDate: Partial<DateObj>;
   height?: number;
   selfImages: File[];
   mbti?: Mbti | null;

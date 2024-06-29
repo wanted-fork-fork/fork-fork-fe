@@ -1,11 +1,11 @@
 import { Accordion } from 'src/shared/ui/Accordion/Accordion';
 import { Edit } from 'src/shared/ui/icons';
 import styles from './MyProfile.module.css';
-import { calculateAge } from 'src/entities/profile/lib/calculateAge';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
+import { calculateAge } from 'src/shared/vo/date';
 
 export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
   return (

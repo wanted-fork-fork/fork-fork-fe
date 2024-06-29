@@ -1,8 +1,8 @@
 import styles from 'src/processes/my_profile/PersonalInfoForm/PersonalInfoForm.module.css';
 import { Select } from 'src/shared/ui/Select/Select';
 import { useMemo } from 'react';
-import { calculateAge } from 'src/entities/profile/lib/calculateAge';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { calculateAge } from 'src/shared/vo/date';
 
 const MINIMUM_YEAR = 1960;
 const YearOptionList = Array.from({ length: new Date().getFullYear() - MINIMUM_YEAR + 1 }).map(
