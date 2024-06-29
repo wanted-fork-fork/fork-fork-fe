@@ -1,3 +1,16 @@
+.ChipWrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+
+    height: 32px;
+    margin-bottom: 16px;
+
+    & > * {
+        flex-shrink: 0;
+    }
+}
+
 .Wrapper {
     display: grid;
     grid-template-columns: auto 1fr;

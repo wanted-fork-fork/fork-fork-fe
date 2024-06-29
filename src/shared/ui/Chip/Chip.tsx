@@ -1,21 +1,24 @@
 import { Button } from 'src/shared/ui/Button/Button';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import styles from './Chip.module.css';
 
 type ChipProps = PropsWithChildren<{
+  className?: string;
   selected?: boolean;
   onClick?: () => void;
+  suffixSlot?: ReactNode;
 }>;
 
-export const Chip = ({ selected, onClick, children }: ChipProps) => {
+export const Chip = ({ className = '', selected, onClick, suffixSlot, children }: ChipProps) => {
   return (
     <Button
-      className={styles.Chip}
+      className={`${className} ${styles.Chip}`}
       variant={'outline'}
       widthType={'hug'}
       size={'S'}
       color={selected ? 'primary' : 'neutral'}
       onClick={onClick}
+      suffixSlot={suffixSlot}
     >
       {children}
     </Button>
