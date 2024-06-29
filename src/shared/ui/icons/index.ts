@@ -7,5 +7,6 @@ export { default as Close } from './Close';
 export { default as Edit } from './Edit';
 export { default as Link } from './Link';
 export { default as List } from './List';
+export { default as Minus } from './Minus';
 export { default as Plus } from './Plus';
 export { default as Share } from './Share';
