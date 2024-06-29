@@ -10,21 +10,21 @@ export type MyProfile = {
   gender?: Gender;
   birthDate: Partial<DateObj>;
   height?: number;
-  selfImages: File[];
+  images: File[];
   mbti?: Mbti | null;
   job: {
-    type: JobType | null;
-    description: string;
+    jobCategory: JobType | null;
+    jobName: string;
   };
   location: Location[];
   religion: {
-    type?: ReligionType;
-    description?: string;
+    religionCategory?: ReligionType;
+    religionName?: string;
   };
-  hobby: Hobby[];
-  alcohol: string;
+  hobbies: Hobby[];
+  drinking: string;
   smoking?: 'YES' | 'NO' | string;
-  introduce: string;
+  introduction: string;
 };
 
 type Action = {
@@ -36,15 +36,15 @@ type Action = {
   setHeight: (height: number) => void;
   setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
   setMbti: (mbti: Mbti | null) => void;
-  setJobType: (job: JobType) => void;
-  setJobDescription: (description: string) => void;
+  setJobCategory: (job: JobType) => void;
+  setJobName: (description: string) => void;
   setLocation: (locations: Location[]) => void;
-  setReligionType: (job: ReligionType) => void;
-  setReligionDescription: (description: string) => void;
+  setReligionCategory: (job: ReligionType) => void;
+  setReligionName: (description: string) => void;
   setHobbies: (hobbies: Hobby[]) => void;
-  setAlcohol: (value: string) => void;
+  setDrinking: (value: string) => void;
   setSmoking: (value: string) => void;
-  setIntroduce: (value: string) => void;
+  setIntroduction: (value: string) => void;
 };
 
 export const useMyProfileStore = create<MyProfile & Action>((set, get) => ({
@@ -62,30 +62,30 @@ export const useMyProfileStore = create<MyProfile & Action>((set, get) => ({
   setBirthDate: (date) => set((state) => ({ birthDate: { ...state.birthDate, date } })),
   height: undefined,
   setHeight: (height) => set({ height }),
-  selfImages: [],
-  setSelfImages: (getState) => set({ selfImages: getState(get().selfImages) }),
+  images: [],
+  setSelfImages: (getState) => set({ images: getState(get().images) }),
   mbti: undefined,
   setMbti: (mbti) => set({ mbti }),
   job: {
-    type: null,
-    description: '',
+    jobCategory: null,
+    jobName: '',
   },
-  setJobType: (job) => set({ job: { ...get().job, type: job } }),
-  setJobDescription: (desc) => set({ job: { ...get().job, description: desc } }),
+  setJobCategory: (job) => set({ job: { ...get().job, jobCategory: job } }),
+  setJobName: (desc) => set({ job: { ...get().job, jobName: desc } }),
   location: [],
   setLocation: (locations) => set({ location: locations }),
   religion: {
-    type: undefined,
-    description: '',
+    religionCategory: undefined,
+    religionName: '',
   },
-  setReligionType: (religion) => set({ ...get().religion, religion: { type: religion } }),
-  setReligionDescription: (desc) => set({ ...get().religion, religion: { description: desc } }),
-  hobby: [],
-  setHobbies: (hobbies) => set({ hobby: hobbies }),
-  alcohol: '',
-  setAlcohol: (value) => set({ alcohol: value }),
+  setReligionCategory: (religion) => set({ ...get().religion, religion: { religionCategory: religion } }),
+  setReligionName: (desc) => set({ ...get().religion, religion: { religionName: desc } }),
+  hobbies: [],
+  setHobbies: (hobbies) => set({ hobbies: hobbies }),
+  drinking: '',
+  setDrinking: (value) => set({ drinking: value }),
   smoking: undefined,
   setSmoking: (value) => set({ smoking: value }),
-  introduce: '',
-  setIntroduce: (value) => set({ introduce: value }),
+  introduction: '',
+  setIntroduction: (value) => set({ introduction: value }),
 }));

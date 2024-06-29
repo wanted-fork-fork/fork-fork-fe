@@ -45,7 +45,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
             </div>
             <div className={styles.Cell}>
               <Header title={'종교'} />
-              <span>{profile.religion.type}</span>
+              <span>{profile.religion.religionCategory}</span>
             </div>
           </div>
           <div className={styles.GridRow}>
@@ -61,7 +61,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
           <div className={styles.GridRow}>
             <div className={styles.Cell}>
               <Header title={'신분'} />
-              <span>{profile.job.type}</span>
+              <span>{profile.job.jobCategory}</span>
             </div>
           </div>
           <div className={styles.GridRow}>
@@ -80,7 +80,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
             <div className={styles.Cell}>
               <Header title={'취미'} />
               <div className={styles.HorizontalList}>
-                {profile.hobby.map((hob) => (
+                {profile.hobbies.map((hob) => (
                   <Chip key={hob.name}>{hob.name}</Chip>
                 ))}
               </div>
@@ -93,12 +93,12 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
             </div>
             <div className={styles.Cell}>
               <Header title={'음주 빈도'} />
-              <span>{profile.alcohol}</span>
+              <span>{profile.drinking}</span>
             </div>
           </div>
           <div className={styles.Cell}>
             <Header title={'자기 소개'} />
-            <span>{profile.introduce}</span>
+            <span>{profile.introduction}</span>
           </div>
         </div>
       </Accordion>

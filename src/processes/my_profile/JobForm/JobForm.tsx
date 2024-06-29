@@ -31,10 +31,10 @@ const JobMetaList: RadioMeta<JobType>[] = [
 ];
 
 export const JobForm = () => {
-  const jobType = useMyProfileStore((state) => state.job.type);
-  const description = useMyProfileStore((state) => state.job.description);
-  const setJobType = useMyProfileStore((state) => state.setJobType);
-  const setJobDescription = useMyProfileStore((state) => state.setJobDescription);
+  const jobType = useMyProfileStore((state) => state.job.jobCategory);
+  const description = useMyProfileStore((state) => state.job.jobName);
+  const setJobType = useMyProfileStore((state) => state.setJobCategory);
+  const setJobDescription = useMyProfileStore((state) => state.setJobName);
 
   const onSelect = (job: JobType) => {
     setJobType(job);

@@ -7,7 +7,7 @@ import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFrom
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 export const MyImageForm = () => {
-  const files = useMyProfileStore((state) => state.selfImages) ?? [];
+  const files = useMyProfileStore((state) => state.images) ?? [];
   const setFiles = useMyProfileStore((state) => state.setSelfImages);
   const dataUrlList = useDataUrlListFromFiles(files);
 
