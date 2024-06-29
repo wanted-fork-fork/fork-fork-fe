@@ -12,7 +12,7 @@ export type MyProfile = {
   selfImages: File[];
   mbti?: Mbti | null;
   job: {
-    type?: JobType;
+    type: JobType | null;
     description: string;
   };
   location: Location[];
@@ -66,7 +66,7 @@ export const useMyProfileStore = create<MyProfile & Action>((set, get) => ({
   mbti: undefined,
   setMbti: (mbti) => set({ mbti }),
   job: {
-    type: undefined,
+    type: null,
     description: '',
   },
   setJobType: (job) => set({ job: { ...get().job, type: job } }),

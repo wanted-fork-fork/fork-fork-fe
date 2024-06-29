@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import styles from './JobForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { JobType } from 'src/entities/profile/types/profileSummary';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 const JobMetaList: RadioMeta<JobType>[] = [
   {
@@ -31,22 +31,24 @@ const JobMetaList: RadioMeta<JobType>[] = [
 ];
 
 export const JobForm = () => {
-  const [selected, setSelected] = useState<JobType | null>(null);
-  const [inputValue, setInputValue] = useState<string>('');
+  const jobType = useMyProfileStore((state) => state.job.type);
+  const description = useMyProfileStore((state) => state.job.description);
+  const setJobType = useMyProfileStore((state) => state.setJobType);
+  const setJobDescription = useMyProfileStore((state) => state.setJobDescription);
 
   const onSelect = (job: JobType) => {
-    setSelected(job);
-    setInputValue('');
+    setJobType(job);
+    setJobDescription('');
   };
 
   return (
     <section className={styles.Container} role={'radiogroup'}>
       <RadioList
         radioMetaList={JobMetaList}
-        selected={selected}
+        selected={jobType}
         onSelect={onSelect}
-        inputValue={inputValue}
-        onChangeInputValue={setInputValue}
+        inputValue={description}
+        onChangeInputValue={setJobDescription}
       />
     </section>
   );
