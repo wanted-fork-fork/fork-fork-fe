@@ -3,9 +3,9 @@ import styles from './LocationForm.module.css';
 import { Close } from 'src/shared/ui/icons';
 import { Location } from 'src/entities/location/types/location';
 import { Chip } from 'src/shared/ui/Chip/Chip';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { LocationSelectTable } from 'src/widgets/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
+import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 type LocationFormProps = {
   locations?: Location[];
@@ -26,7 +26,7 @@ export const LocationForm = ({ locations = [] }: LocationFormProps) => {
     toggleTown(loc);
   };
 
-  const setLocation = useMyProfileStore((state) => state.setLocation);
+  const setLocation = useIdlePartnerStore((state) => state.setLocation);
   useEffect(() => {
     setLocation(selectedTownList);
   }, [selectedTownList, setLocation]);

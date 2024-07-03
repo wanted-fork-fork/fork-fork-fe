@@ -14,7 +14,7 @@ export type IdealPartner = {
   };
   style: string;
   images: File[];
-  location?: Location;
+  locations: Location[];
   hobbies: Hobby[];
   religion: {
     religionCategory: ReligionType;
@@ -39,7 +39,7 @@ type Action = {
   setMaxHeight: (value: number) => void;
   setStyle: (value: string) => void;
   setImages: (getState: (prevFiles: File[]) => File[]) => void;
-  setLocation: (value: Location) => void;
+  setLocation: (value: Location[]) => void;
   setHobbies: (hobbies: Hobby[]) => void;
   setReligionCategory: (category: ReligionType) => void;
   setReligionName: (name: string) => void;
@@ -68,8 +68,8 @@ export const useIdlePartnerStore = create<IdealPartner & Action>((set, get) => (
   setStyle: (style) => set({ style }),
   images: [],
   setImages: (getState) => set({ images: getState(get().images) }),
-  location: undefined,
-  setLocation: (location) => set({ location }),
+  locations: [],
+  setLocation: (locations) => set({ locations }),
   hobbies: [],
   setHobbies: (hobbies) => set({ hobbies }),
   religion: {
