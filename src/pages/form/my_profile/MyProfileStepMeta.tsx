@@ -1,7 +1,6 @@
-import { ReactElement, ReactNode, useState } from 'react';
-import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowLeft } from 'src/shared/ui/icons';
+import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { PersonalInfoForm } from 'src/processes/my_profile/PersonalInfoForm/PersonalInfoForm';
+import { isValidDate } from 'src/shared/vo/date';
 import { MyImageForm } from 'src/processes/my_profile/MyImageForm/MyImageForm';
 import { MbtiForm } from 'src/processes/my_profile/MbtiForm/MbtiForm';
 import { JobForm } from 'src/processes/my_profile/JobForm/JobForm';
@@ -10,19 +9,8 @@ import { ReligionForm } from 'src/processes/my_profile/ReligionForm/ReligionForm
 import { HobbyForm } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { SmokeAlcoholForm } from 'src/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
 import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceForm';
-import styles from './MyProfilePage.module.css';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
-import { MyProfile, useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { isValidDate } from 'src/shared/vo/date';
 
-type StepMeta = {
-  title: ({ name }: { name: string }) => ReactNode;
-  description?: () => ReactNode;
-  form: ReactElement;
-  canGoNext: (state: MyProfile) => boolean;
-};
-
-const Step: Record<string, StepMeta> = {
+export const MyProfileStepMeta: Record<string, StepMeta> = {
   PERSONAL_INFO: {
     title: () => (
       <>
@@ -109,41 +97,4 @@ const Step: Record<string, StepMeta> = {
     form: <></>,
     canGoNext: () => true,
   },
-};
-
-const Steps = Object.values(Step);
-
-export const MyProfilePage = () => {
-  const [currentStepIdx, setCurrentStep] = useState(0);
-  const name = useProfileFirstName();
-
-  const currentStep = Steps[currentStepIdx];
-  const canGoNext = useMyProfileStore(currentStep.canGoNext);
-
-  return (
-    <div className={styles.Container}>
-      <header className={styles.Header}>
-        <div className={styles.HeaderBar}>
-          <ArrowLeft type={'button'} onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))} />
-          <span>
-            {currentStepIdx + 1}/{Steps.length}
-          </span>
-        </div>
-        <h2>{currentStep.title({ name })}</h2>
-        {currentStep.description && <small className={styles.Description}>{currentStep.description()}</small>}
-      </header>
-      <main className={styles.Main}>{currentStep.form}</main>
-      <footer className={styles.Footer}>
-        <Button
-          variant={'filled'}
-          widthType={'fill'}
-          color={'primary'}
-          disabled={!canGoNext}
-          onClick={() => setCurrentStep((prev) => Math.min(prev + 1, Steps.length - 1))}
-        >
-          다음
-        </Button>
-      </footer>
-    </div>
-  );
 };

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { MyProfilePage } from 'src/pages/my_profile/MyProfilePage';
+import { MyProfilePage } from 'src/pages/form/my_profile/MyProfilePage';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 
