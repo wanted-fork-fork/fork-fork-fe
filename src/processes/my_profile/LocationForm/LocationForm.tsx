@@ -7,13 +7,9 @@ import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { LocationSelectTable } from 'src/widgets/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 
-type LocationFormProps = {
-  locations?: Location[];
-};
-
 const MAX_LOCATION_COUNT = 5;
 
-export const LocationForm = ({ locations = [] }: LocationFormProps) => {
+export const LocationForm = () => {
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
     [],
     (a, b) => a.town[0]?.town === b.town[0]?.town,
@@ -44,11 +40,7 @@ export const LocationForm = ({ locations = [] }: LocationFormProps) => {
           </Chip>
         ))}
       </div>
-      <LocationSelectTable
-        locations={locations}
-        selectedLocations={selectedTownList}
-        selectLocation={handleSelectLocation}
-      />
+      <LocationSelectTable selectedLocations={selectedTownList} selectLocation={handleSelectLocation} />
     </section>
   );
 };

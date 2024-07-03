@@ -44,11 +44,7 @@ export const LocationForm = ({ locations = [] }: LocationFormProps) => {
           </Chip>
         ))}
       </div>
-      <LocationSelectTable
-        locations={locations}
-        selectedLocations={selectedTownList}
-        selectLocation={handleSelectLocation}
-      />
+      <LocationSelectTable selectedLocations={selectedTownList} selectLocation={handleSelectLocation} />
     </section>
   );
 };
