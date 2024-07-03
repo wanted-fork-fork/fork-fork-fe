@@ -1,3 +1,7 @@
+.Wrapper {
+    padding: 12px 0;
+}
+
 .Label {
     position: relative;
     font-weight: 500;
@@ -12,10 +16,10 @@
 .CheckMark {
     display: flex;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 22px;
-    height: 22px;
+    top: 1px;
+    left: 1px;
+    width: 16px;
+    height: 16px;
     align-items: center;
     justify-content: center;
     color: #fff;
@@ -29,9 +33,10 @@
          display: inline-flex;
          justify-content: center;
          align-items: center;
-         width: 20px;
-         height: 20px;
-         border: 2px solid var(--color-neutral-30);
+         width: 18px;
+         height: 18px;
+         border-radius: 50%;
+         background-color: var(--color-neutral-30);
      }
 
     &:checked + label::before {
