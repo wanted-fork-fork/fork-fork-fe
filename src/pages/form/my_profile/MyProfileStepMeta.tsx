@@ -9,8 +9,9 @@ import { ReligionForm } from 'src/processes/my_profile/ReligionForm/ReligionForm
 import { HobbyForm } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { SmokeAlcoholForm } from 'src/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
 import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceForm';
+import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 
-export const MyProfileStepMeta: Record<string, StepMeta> = {
+export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
   PERSONAL_INFO: {
     title: () => (
       <>
