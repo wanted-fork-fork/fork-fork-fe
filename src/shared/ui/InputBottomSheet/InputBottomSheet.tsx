@@ -24,6 +24,11 @@ export const InputBottomSheet = ({
 }: InputBottomSheetProps) => {
   const [value, setValue] = useState('');
 
+  const handleSubmit = () => {
+    setValue('');
+    onSubmit(value);
+  };
+
   return (
     <Sheet detent={'content-height'} isOpen={open} onClose={onClose}>
       <Sheet.Container>
@@ -34,13 +39,7 @@ export const InputBottomSheet = ({
         <Sheet.Content className={styles.Content}>
           <h2>{title}</h2>
           <Input placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} />
-          <Button
-            disabled={!value}
-            variant={'filled'}
-            color={'primary'}
-            widthType={'fill'}
-            onClick={() => onSubmit(value)}
-          >
+          <Button disabled={!value} variant={'filled'} color={'primary'} widthType={'fill'} onClick={handleSubmit}>
             {submitText}
           </Button>
         </Sheet.Content>

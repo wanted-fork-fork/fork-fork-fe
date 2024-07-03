@@ -3,11 +3,6 @@ export type Gender = 'FEMALE' | 'MALE';
 const JobTypeList = ['STUDENT', 'OFFICE_WORKER', 'FREELANCER', 'ETC'];
 export type JobType = (typeof JobTypeList)[number];
 
-export type Location = {
-  name: string;
-  subLocations?: Location[];
-};
-
 const ReligionTypeList = ['NONE', 'CHRISTIAN', 'BUDDHISM', 'CATHOLIC', 'WON_BUDDHISM', 'ETC'];
 export type ReligionType = (typeof ReligionTypeList)[number];
 

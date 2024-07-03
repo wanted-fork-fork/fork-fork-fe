@@ -1,7 +1,7 @@
 import { Location } from 'src/entities/location/types/location';
-import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { ReligionType } from 'src/entities/profile/types/profileSummary';
 import { create } from 'zustand';
+import { Hobby } from 'src/entities/profile/types/hobby';
 
 export type IdealPartner = {
   ageRange: {

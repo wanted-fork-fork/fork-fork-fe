@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { Gender, JobType, ReligionType } from 'src/entities/profile/types/profileSummary';
 import { Location } from 'src/entities/location/types/location';
-import { Hobby } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
+import { Hobby } from 'src/entities/profile/types/hobby';
 
 export type MyProfile = {
   name: string;

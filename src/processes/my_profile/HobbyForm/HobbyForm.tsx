@@ -1,54 +1,27 @@
 import styles from './HobbyForm.module.css';
-import { Chip } from 'src/shared/ui/Chip/Chip';
-import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
-import { InputTriggerChip } from 'src/shared/ui/Chip/InputTriggerChip/InputTriggerChip';
-import { InputBottomSheet } from 'src/shared/ui/InputBottomSheet/InputBottomSheet';
-import { useState } from 'react';
-
-export type Hobby = {
-  name: string;
-};
+import { ChipList } from 'src/shared/ui/ChipList/ChipList';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { Hobby } from 'src/entities/profile/types/hobby';
 
 type HobbyFormProps = {
   hobbyList?: Hobby[];
 };
 
 export const HobbyForm = ({ hobbyList = [] }: HobbyFormProps) => {
-  const { list: selectedHobbies, toggle: onClick } = useMultiSelectToggle<Hobby>([]);
-  const [customHobbyList, setCustomHobbyList] = useState<Hobby[]>([]);
-
-  const [openInputBottomSheet, setOpenInputBottomSheet] = useState(false);
-
-  const onClickInputTrigger = () => setOpenInputBottomSheet(true);
-
-  const onSubmitHobby = (hobbyName: string) => {
-    setCustomHobbyList((prev) => [...prev, { name: hobbyName }]);
-    setOpenInputBottomSheet(false);
-  };
+  const hobbies = useMyProfileStore((state) => state.hobbies);
+  const setHobbies = useMyProfileStore((state) => state.setHobbies);
 
   return (
-    <>
-      <section className={styles.Container}>
-        {hobbyList.map((hobby) => (
-          <Chip key={hobby.name} selected={selectedHobbies.includes(hobby)} onClick={() => onClick(hobby)}>
-            {hobby.name}
-          </Chip>
-        ))}
-        {customHobbyList.map((hobby) => (
-          <Chip key={hobby.name} selected={selectedHobbies.includes(hobby)} onClick={() => onClick(hobby)}>
-            {hobby.name}
-          </Chip>
-        ))}
-        <InputTriggerChip onClick={onClickInputTrigger} />
-      </section>
-      <InputBottomSheet
-        open={openInputBottomSheet}
-        title={'추가하실 취미를 입려해주세요.'}
-        placeholder={'취미 입력'}
-        submitText={'추가'}
-        onSubmit={onSubmitHobby}
-        onClose={() => setOpenInputBottomSheet(false)}
+    <section className={styles.Container}>
+      <ChipList
+        defaultList={hobbyList}
+        selectedList={hobbies}
+        setSelectedList={setHobbies}
+        customInputTitle={'추가하실 취미를 입력해주세요.'}
+        customInputPlaceholder={'취미 입력'}
+        makeItem={(name) => ({ name })}
+        hasItem={(list, target) => list.some((item) => item.name === target.name)}
       />
-    </>
+    </section>
   );
 };
