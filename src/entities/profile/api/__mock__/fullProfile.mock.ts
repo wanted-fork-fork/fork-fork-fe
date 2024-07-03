@@ -15,7 +15,10 @@ export const fullProfileMock: MyProfile = {
     jobCategory: 'OFFICE_WORKER',
     jobName: '개발자',
   },
-  location: [{ name: '서울시 강남구' }, { name: '경기도 수원시' }],
+  location: [
+    { city: { city: 'SEOUL', cityName: '서울시' }, town: [{ town: 'GANGNAM', townName: '강남구' }] },
+    { city: { city: 'SUWON', cityName: '수원시' }, town: [{ town: 'PALDAL', townName: '팔달구' }] },
+  ],
   religion: {
     religionCategory: 'NONE',
     religionName: '',

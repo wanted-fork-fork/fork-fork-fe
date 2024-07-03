@@ -67,7 +67,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
           <div className={styles.GridRow}>
             <div className={styles.Cell}>
               <Header title={'주로 머무는 지역'} />
-              <span>{profile.location.map((loc) => loc.name).join(', ')}</span>
+              <span>{profile.location.map((loc) => `${loc.city.cityName} ${loc.town[0].townName}`).join(', ')}</span>
             </div>
           </div>
         </div>
