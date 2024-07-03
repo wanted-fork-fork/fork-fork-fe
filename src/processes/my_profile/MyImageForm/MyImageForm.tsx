@@ -1,30 +1,15 @@
-import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import styles from './MyImageForm.module.css';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
-import { Close, Plus } from 'src/shared/ui/icons';
-import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
-import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 
 export const MyImageForm = () => {
   const files = useMyProfileStore((state) => state.images) ?? [];
   const setFiles = useMyProfileStore((state) => state.setSelfImages);
-  const dataUrlList = useDataUrlListFromFiles(files);
-
-  const onFileChanged = (files: File[]) => {
-    setFiles((prev) => [...prev, ...files]);
-  };
 
   return (
     <section className={styles.Container}>
-      <div className={styles.ImageContainer}>
-        <UploadTrigger onUploadFiles={onFileChanged} accept={'image/*'} multiple>
-          {(onClickUpload) => <Avatar fallback={<Plus />} shape={'roundedSquare'} size={72} onClick={onClickUpload} />}
-        </UploadTrigger>
-        {dataUrlList.map((url) => (
-          <Avatar key={url} fallback={''} shape={'roundedSquare'} size={72} src={url} actionSlot={<Close />} />
-        ))}
-      </div>
+      <AvatarList files={files} setFiles={setFiles} />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>
