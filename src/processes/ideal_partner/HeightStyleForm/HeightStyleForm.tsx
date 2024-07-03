@@ -27,8 +27,8 @@ export const HeightStyleForm = () => {
       <RangeSlider
         min={MIN_HEIGHT}
         max={MAX_HEIGHT}
-        minLabel={`${MIN_HEIGHT}cm`}
-        maxLabel={`${MAX_HEIGHT}cm`}
+        minLabel={`${min}cm`}
+        maxLabel={`${max}cm`}
         step={1}
         defaultValue={[min, max]}
         disabled={false}

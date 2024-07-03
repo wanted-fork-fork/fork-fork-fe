@@ -27,8 +27,8 @@ export const AgeForm = () => {
       <RangeSlider
         min={minAge}
         max={maxAge}
-        minLabel={`${minAge}세`}
-        maxLabel={`${maxAge}세`}
+        minLabel={`${min}세`}
+        maxLabel={`${max}세`}
         step={1}
         defaultValue={[min, max]}
         disabled={false}
