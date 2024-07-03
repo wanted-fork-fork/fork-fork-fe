@@ -1,0 +1,5 @@
+.Container {
+  height: 100%;
+  display: grid;
+  gap: 40px;
+}

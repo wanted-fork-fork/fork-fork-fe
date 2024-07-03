@@ -53,14 +53,14 @@ type Action = {
 
 export const useIdlePartnerStore = create<IdealPartner & Action>((set, get) => ({
   ageRange: {
-    min: 0,
-    max: 100,
+    min: 20,
+    max: 30,
   },
   setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
   setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),
   heightRange: {
-    min: 0,
-    max: 100,
+    min: 100,
+    max: 240,
   },
   setMinHeight: (min) => set({ heightRange: { ...get().heightRange, min } }),
   setMaxHeight: (max) => set({ heightRange: { ...get().heightRange, max } }),
