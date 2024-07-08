@@ -1,0 +1,1147 @@
+openapi: 3.0.1
+info:
+  title: GOOGOO API
+  description: GOOGOO API Documentation
+  version: 0.0.1
+servers:
+- url: /
+  description: Default Server URL
+security:
+- Bearer Token: []
+paths:
+  /api/v1/link:
+    post:
+      tags:
+      - link-controller
+      operationId: createLink
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateLinkResponse'
+  /api/v1/info/save/{linkId}:
+    post:
+      tags:
+      - info-controller
+      operationId: saveInfo
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveInfoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/image/upload:
+    post:
+      tags:
+      - image-controller
+      operationId: uploadImage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - image
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+  /api/v1/auth/refresh-token:
+    post:
+      tags:
+      - auth-controller
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - auth-controller
+      operationId: logout
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
+  /api/v1/link/valid/{linkId}:
+    get:
+      tags:
+      - link-controller
+      operationId: validateLink
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ValidateLinkResponse'
+  /api/v1/info/{id}:
+    get:
+      tags:
+      - info-controller
+      operationId: getInfo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Info'
+  /api/v1/info/address:
+    get:
+      tags:
+      - info-controller
+      operationId: getAddress
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CityAndTownResponse'
+  /api/v1/auth/kakao/login:
+    get:
+      tags:
+      - kakao-auth-controller
+      operationId: loginKakao
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
+  /api/v1/auth/info:
+    get:
+      tags:
+      - auth-controller
+      operationId: info
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    CreateLinkResponse:
+      required:
+      - linkId
+      type: object
+      properties:
+        linkId:
+          type: string
+    Book:
+      required:
+      - bookName
+      - cause
+      type: object
+      properties:
+        bookName:
+          type: string
+        cause:
+          type: string
+    Drinking:
+      required:
+      - drinkingCategory
+      type: object
+      properties:
+        drinkingCategory:
+          type: string
+          enum:
+          - NO_PROBLEM
+          - ONE_TWO_TIMES_A_WEEK
+          - ONE_TWO_TIMES_A_MONTH
+          - NEVER
+          - ETC
+        drinkingAmount:
+          type: string
+    IdealPartnerRequest:
+      type: object
+      properties:
+        ageRange:
+          $ref: '#/components/schemas/NumberRange'
+        heightRange:
+          $ref: '#/components/schemas/NumberRange'
+        style:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        location:
+          $ref: '#/components/schemas/Location'
+        hobbies:
+          type: array
+          items:
+            type: string
+        religion:
+          $ref: '#/components/schemas/Religion'
+        drinking:
+          $ref: '#/components/schemas/Drinking'
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        requiredOptions:
+          type: array
+          items:
+            type: string
+        toMatchMaker:
+          type: string
+    InfoImage:
+      required:
+      - imageId
+      - url
+      type: object
+      properties:
+        imageId:
+          type: string
+        url:
+          type: string
+    Job:
+      required:
+      - jobCategory
+      - jobName
+      type: object
+      properties:
+        jobCategory:
+          type: string
+          enum:
+          - STUDENT
+          - EMPLOYEE
+          - FREELANCER
+          - ETC
+        jobName:
+          type: string
+    Location:
+      required:
+      - cities
+      - towns
+      type: object
+      properties:
+        cities:
+          type: array
+          items:
+            type: string
+            enum:
+            - SEOUL
+            - GYEONGGI
+            - INCHEON
+            - DAEJEON
+            - DAEGU
+            - BUSAN
+            - ULSAN
+            - GWANGJU
+            - GANGWON
+            - SEJONG
+            - CHUNGCHEONGNAM
+            - CHUNGCHEONGBUK
+            - GYEONGSANGNAM
+            - GYEONGSANGBUK
+            - JEOLANAM
+            - JEOLABUK
+            - JEJU
+        towns:
+          type: array
+          items:
+            type: string
+            enum:
+            - GANGNAM
+            - GANGDONG
+            - GANGBUK
+            - GANGSEO
+            - GWANAK
+            - GWANGJIN
+            - GURO
+            - GEUMCHEON
+            - NOWON
+            - DOBONG
+            - DONGDAEMUN
+            - DONGJAK
+            - MAPO
+            - SEODAEMUN
+            - SEOCHO
+            - SEONGDONG
+            - SEONGBUK
+            - SONGPA
+            - YANGCHEON
+            - YEONGDEUNGPO
+            - YONGSAN
+            - EUNPYEONG
+            - JONGNO
+            - SEOUL_JUNG
+            - JUNGRANG
+            - GAPYEONG
+            - GOYANG
+            - GWACHEON
+            - GWANGMYEONG
+            - GWANGJU
+            - GURI
+            - GUNPO
+            - GIMPO
+            - NAMYANGJU
+            - DONGDUCHEON
+            - BUCHEON
+            - SEONGNAM
+            - SUWON
+            - SIHEUNG
+            - ANSAN
+            - ANSEONG
+            - ANYANG
+            - YANGJU
+            - YANGPYEONG
+            - YEOJU
+            - YEONCHEON
+            - OSAN
+            - YONGIN
+            - UIWANG
+            - UIJEONGBU
+            - ICHEON
+            - PAJU
+            - PYEONGTAEK
+            - POCHEON
+            - HANAM
+            - HWASEONG
+            - GANGHWA
+            - GYEYANG
+            - NAMDONG
+            - INCHEON_DONG
+            - MICHUHOL
+            - BUPYEONG
+            - SEO
+            - YEONSU
+            - ONGJIN
+            - INCHEON_JUNG
+            - DAEDEOK
+            - DAEJEON_DONG
+            - DAEJEON_SEO
+            - YUSEONG
+            - DAEJEON_JUNG
+            - BUSAN_GANGSEO
+            - GEUMJEONG
+            - GIJANG
+            - BUSAN_NAM
+            - BUSAN_DONG
+            - DONGNAE
+            - BUSANJIN
+            - BUSAN_BUK
+            - SASANG
+            - SAHA
+            - BUSAN_SEO
+            - SUYEONG
+            - YEONJE
+            - YEONGDO
+            - BUSAN_JUNG
+            - HAEUNDAE
+            - ULSAN_NAM
+            - ULSAN_DONG
+            - ULSAN_BUK
+            - ULJU
+            - ULSAN_JUNG
+            - GWANGSAN
+            - GWANGJU_NAM
+            - GWANGJU_DONG
+            - GWANGJU_BUK
+            - GWANGJU_SEO
+            - GANGNEUNG
+            - GOSEONG
+            - DONGHAE
+            - SAMCHEOK
+            - SOKCHO
+            - YANGGU
+            - YANGYANG
+            - YEONGWOL
+            - WONJU
+            - INJE
+            - JEONGSEON
+            - CHEORWON
+            - CHUNCHEON
+            - TAEBAEK
+            - PYEONGCHANG
+            - HONGCHEON
+            - HWACHEON
+            - HOENGSEONG
+            - SEJONG
+            - GOESAN
+            - DANYANG
+            - BOEUN
+            - YEONGDONG
+            - OKCHEON
+            - EUMSEONG
+            - JECHEON
+            - JEUNGPYEONG
+            - JINCHEON
+            - CHEONGJU
+            - CHUNGJU
+            - GYERYONG
+            - GONGJU
+            - GEUMSAN
+            - NONSAN
+            - DANGJIN
+            - BORYEONG
+            - BUYEO
+            - SEOSAN
+            - SEOCHON
+            - ASAN
+            - YEONGI
+            - YESAN
+            - CHEONAN
+            - CHEONGYANG
+            - TAEAN
+            - HONGSEONG
+            - GYEONGSAN
+            - GYEONGJU
+            - GORYEONG
+            - GUMI
+            - GIMCHEON
+            - MUNGYEONG
+            - BONGHWA
+            - SANGJU
+            - SEONGJU
+            - ANDONG
+            - YEONGDEOK
+            - YEONGYANG
+            - YEONGJU
+            - YEONGCHEON
+            - YECHUN
+            - ULLUNG
+            - ULJIN
+            - UISEONG
+            - CHEONGDO
+            - CHEONGSONG
+            - CHILGOK
+            - POHANG
+            - GEOJE
+            - GEOCHANG
+            - GOSEONG_GN
+            - GIMHAE
+            - NAMHAE
+            - MIRYANG
+            - SACHEON
+            - SANCHEONG
+            - YANGSAN
+            - UIRYEONG
+            - JINJU
+            - CHANGNYEONG
+            - CHANGWON
+            - TONGYEONG
+            - HADONG
+            - HAMAN
+            - HAMYANG
+            - HAPCHEON
+            - GOCHANG
+            - GUNSAN
+            - GIMJE
+            - NAMWON
+            - MUJU
+            - BUAN
+            - SUNCHANG
+            - WANJU
+            - IKSAN
+            - IMSIL
+            - JANGSU
+            - JEONJU
+            - JEONGEUP
+            - JINAN
+            - GANGJIN
+            - GOHEUNG
+            - GOKSEONG
+            - GWANGYANG
+            - GURYE
+            - NAJU
+            - DAMYANG
+            - MOKPO
+            - MUAN
+            - BOSEONG
+            - SUNCHEON
+            - SINAN
+            - YEOSU
+            - YEONGGWANG
+            - YEONGAM
+            - WANDO
+            - JANGSEONG
+            - JANGHEUNG
+            - JINDO
+            - HAMPYEONG
+            - HAENAM
+            - HWASUN
+            - JEJU
+            - SEOGWIPO
+            - GUNWEE
+            - DAEGU_NAM
+            - DALSEO
+            - DALSEONG
+            - DAEGU_DONG
+            - DAEGU_BUK
+            - DAEGU_SEO
+            - SUSEONG
+            - DAEGU_JUNG
+    Movie:
+      required:
+      - cause
+      - movieName
+      type: object
+      properties:
+        movieName:
+          type: string
+        cause:
+          type: string
+    NumberRange:
+      required:
+      - max
+      - min
+      type: object
+      properties:
+        min:
+          type: integer
+          format: int32
+        max:
+          type: integer
+          format: int32
+    Religion:
+      required:
+      - religionCategory
+      type: object
+      properties:
+        religionCategory:
+          type: string
+          enum:
+          - CHRISTIANITY
+          - CATHOLICISM
+          - BUDDHISM
+          - ETC
+        religionName:
+          type: string
+    SaveInfoRequest:
+      required:
+      - idealPartner
+      - userInfo
+      type: object
+      properties:
+        userInfo:
+          $ref: '#/components/schemas/UserInfoRequest'
+        idealPartner:
+          $ref: '#/components/schemas/IdealPartnerRequest'
+    Smoking:
+      required:
+      - smokingCategory
+      type: object
+      properties:
+        smokingCategory:
+          type: string
+          enum:
+          - NON_SMOKER
+          - SMOKER
+          - ETC
+        smokingAmount:
+          type: string
+    UserInfoRequest:
+      required:
+      - birthDate
+      - drinking
+      - gender
+      - height
+      - hobbies
+      - images
+      - job
+      - location
+      - mbti
+      - name
+      - religion
+      - smoking
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEAMLE
+        birthDate:
+          type: string
+          format: date-time
+        height:
+          type: integer
+          format: int32
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        mbti:
+          type: string
+          enum:
+          - ENFP
+          - ENFJ
+          - ENTJ
+          - ENTP
+          - ESFJ
+          - ESFP
+          - ESTJ
+          - ESTP
+          - INFJ
+          - INFP
+          - INTJ
+          - INTP
+          - ISFJ
+          - ISFP
+          - ISTJ
+          - ISTP
+        job:
+          $ref: '#/components/schemas/Job'
+        location:
+          $ref: '#/components/schemas/Location'
+        religion:
+          $ref: '#/components/schemas/Religion'
+        hobbies:
+          type: array
+          items:
+            type: string
+        drinking:
+          type: string
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        introduction:
+          type: string
+        pets:
+          type: array
+          items:
+            type: string
+        foods:
+          type: array
+          items:
+            type: string
+        dateStyle:
+          type: array
+          items:
+            type: string
+        book:
+          $ref: '#/components/schemas/Book'
+        movie:
+          $ref: '#/components/schemas/Movie'
+    ImageDto:
+      required:
+      - imageId
+      - url
+      type: object
+      properties:
+        imageId:
+          type: string
+        url:
+          type: string
+    RefreshTokenRequest:
+      required:
+      - accessToken
+      - refreshToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    UserTokenDto:
+      required:
+      - accessToken
+      - refreshToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    Unit:
+      type: object
+    ValidateLinkResponse:
+      required:
+      - isValid
+      - linkId
+      type: object
+      properties:
+        isValid:
+          type: boolean
+        linkId:
+          type: string
+    IdealPartner:
+      type: object
+      properties:
+        ageRange:
+          $ref: '#/components/schemas/NumberRange'
+        heightRange:
+          $ref: '#/components/schemas/NumberRange'
+        style:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        location:
+          $ref: '#/components/schemas/Location'
+        hobbies:
+          type: array
+          items:
+            type: string
+        religion:
+          $ref: '#/components/schemas/Religion'
+        drinking:
+          $ref: '#/components/schemas/Drinking'
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        requiredOptions:
+          type: array
+          items:
+            type: string
+        toMatchMaker:
+          type: string
+    Info:
+      required:
+      - authorId
+      - idealPartner
+      - matchMakerId
+      - userInfo
+      type: object
+      properties:
+        matchMakerId:
+          type: string
+        authorId:
+          type: string
+        userInfo:
+          $ref: '#/components/schemas/UserInfo'
+        idealPartner:
+          $ref: '#/components/schemas/IdealPartner'
+        id:
+          type: string
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+    UserInfo:
+      required:
+      - birthDate
+      - drinking
+      - gender
+      - height
+      - hobbies
+      - images
+      - job
+      - location
+      - mbti
+      - name
+      - religion
+      - smoking
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEAMLE
+        birthDate:
+          type: string
+          format: date-time
+        height:
+          type: integer
+          format: int32
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        mbti:
+          type: string
+          enum:
+          - ENFP
+          - ENFJ
+          - ENTJ
+          - ENTP
+          - ESFJ
+          - ESFP
+          - ESTJ
+          - ESTP
+          - INFJ
+          - INFP
+          - INTJ
+          - INTP
+          - ISFJ
+          - ISFP
+          - ISTJ
+          - ISTP
+        job:
+          $ref: '#/components/schemas/Job'
+        location:
+          $ref: '#/components/schemas/Location'
+        religion:
+          $ref: '#/components/schemas/Religion'
+        hobbies:
+          type: array
+          items:
+            type: string
+        drinking:
+          type: string
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        introduction:
+          type: string
+        pets:
+          type: array
+          items:
+            type: string
+        foods:
+          type: array
+          items:
+            type: string
+        dateStyle:
+          type: array
+          items:
+            type: string
+        book:
+          $ref: '#/components/schemas/Book'
+        movie:
+          $ref: '#/components/schemas/Movie'
+    CityAndTownResponse:
+      required:
+      - city
+      - town
+      type: object
+      properties:
+        city:
+          $ref: '#/components/schemas/CityDto'
+        town:
+          type: array
+          items:
+            $ref: '#/components/schemas/TownDto'
+    CityDto:
+      required:
+      - city
+      - cityName
+      type: object
+      properties:
+        city:
+          type: string
+          enum:
+          - SEOUL
+          - GYEONGGI
+          - INCHEON
+          - DAEJEON
+          - DAEGU
+          - BUSAN
+          - ULSAN
+          - GWANGJU
+          - GANGWON
+          - SEJONG
+          - CHUNGCHEONGNAM
+          - CHUNGCHEONGBUK
+          - GYEONGSANGNAM
+          - GYEONGSANGBUK
+          - JEOLANAM
+          - JEOLABUK
+          - JEJU
+        cityName:
+          type: string
+    TownDto:
+      required:
+      - town
+      - townName
+      type: object
+      properties:
+        town:
+          type: string
+          enum:
+          - GANGNAM
+          - GANGDONG
+          - GANGBUK
+          - GANGSEO
+          - GWANAK
+          - GWANGJIN
+          - GURO
+          - GEUMCHEON
+          - NOWON
+          - DOBONG
+          - DONGDAEMUN
+          - DONGJAK
+          - MAPO
+          - SEODAEMUN
+          - SEOCHO
+          - SEONGDONG
+          - SEONGBUK
+          - SONGPA
+          - YANGCHEON
+          - YEONGDEUNGPO
+          - YONGSAN
+          - EUNPYEONG
+          - JONGNO
+          - SEOUL_JUNG
+          - JUNGRANG
+          - GAPYEONG
+          - GOYANG
+          - GWACHEON
+          - GWANGMYEONG
+          - GWANGJU
+          - GURI
+          - GUNPO
+          - GIMPO
+          - NAMYANGJU
+          - DONGDUCHEON
+          - BUCHEON
+          - SEONGNAM
+          - SUWON
+          - SIHEUNG
+          - ANSAN
+          - ANSEONG
+          - ANYANG
+          - YANGJU
+          - YANGPYEONG
+          - YEOJU
+          - YEONCHEON
+          - OSAN
+          - YONGIN
+          - UIWANG
+          - UIJEONGBU
+          - ICHEON
+          - PAJU
+          - PYEONGTAEK
+          - POCHEON
+          - HANAM
+          - HWASEONG
+          - GANGHWA
+          - GYEYANG
+          - NAMDONG
+          - INCHEON_DONG
+          - MICHUHOL
+          - BUPYEONG
+          - SEO
+          - YEONSU
+          - ONGJIN
+          - INCHEON_JUNG
+          - DAEDEOK
+          - DAEJEON_DONG
+          - DAEJEON_SEO
+          - YUSEONG
+          - DAEJEON_JUNG
+          - BUSAN_GANGSEO
+          - GEUMJEONG
+          - GIJANG
+          - BUSAN_NAM
+          - BUSAN_DONG
+          - DONGNAE
+          - BUSANJIN
+          - BUSAN_BUK
+          - SASANG
+          - SAHA
+          - BUSAN_SEO
+          - SUYEONG
+          - YEONJE
+          - YEONGDO
+          - BUSAN_JUNG
+          - HAEUNDAE
+          - ULSAN_NAM
+          - ULSAN_DONG
+          - ULSAN_BUK
+          - ULJU
+          - ULSAN_JUNG
+          - GWANGSAN
+          - GWANGJU_NAM
+          - GWANGJU_DONG
+          - GWANGJU_BUK
+          - GWANGJU_SEO
+          - GANGNEUNG
+          - GOSEONG
+          - DONGHAE
+          - SAMCHEOK
+          - SOKCHO
+          - YANGGU
+          - YANGYANG
+          - YEONGWOL
+          - WONJU
+          - INJE
+          - JEONGSEON
+          - CHEORWON
+          - CHUNCHEON
+          - TAEBAEK
+          - PYEONGCHANG
+          - HONGCHEON
+          - HWACHEON
+          - HOENGSEONG
+          - SEJONG
+          - GOESAN
+          - DANYANG
+          - BOEUN
+          - YEONGDONG
+          - OKCHEON
+          - EUMSEONG
+          - JECHEON
+          - JEUNGPYEONG
+          - JINCHEON
+          - CHEONGJU
+          - CHUNGJU
+          - GYERYONG
+          - GONGJU
+          - GEUMSAN
+          - NONSAN
+          - DANGJIN
+          - BORYEONG
+          - BUYEO
+          - SEOSAN
+          - SEOCHON
+          - ASAN
+          - YEONGI
+          - YESAN
+          - CHEONAN
+          - CHEONGYANG
+          - TAEAN
+          - HONGSEONG
+          - GYEONGSAN
+          - GYEONGJU
+          - GORYEONG
+          - GUMI
+          - GIMCHEON
+          - MUNGYEONG
+          - BONGHWA
+          - SANGJU
+          - SEONGJU
+          - ANDONG
+          - YEONGDEOK
+          - YEONGYANG
+          - YEONGJU
+          - YEONGCHEON
+          - YECHUN
+          - ULLUNG
+          - ULJIN
+          - UISEONG
+          - CHEONGDO
+          - CHEONGSONG
+          - CHILGOK
+          - POHANG
+          - GEOJE
+          - GEOCHANG
+          - GOSEONG_GN
+          - GIMHAE
+          - NAMHAE
+          - MIRYANG
+          - SACHEON
+          - SANCHEONG
+          - YANGSAN
+          - UIRYEONG
+          - JINJU
+          - CHANGNYEONG
+          - CHANGWON
+          - TONGYEONG
+          - HADONG
+          - HAMAN
+          - HAMYANG
+          - HAPCHEON
+          - GOCHANG
+          - GUNSAN
+          - GIMJE
+          - NAMWON
+          - MUJU
+          - BUAN
+          - SUNCHANG
+          - WANJU
+          - IKSAN
+          - IMSIL
+          - JANGSU
+          - JEONJU
+          - JEONGEUP
+          - JINAN
+          - GANGJIN
+          - GOHEUNG
+          - GOKSEONG
+          - GWANGYANG
+          - GURYE
+          - NAJU
+          - DAMYANG
+          - MOKPO
+          - MUAN
+          - BOSEONG
+          - SUNCHEON
+          - SINAN
+          - YEOSU
+          - YEONGGWANG
+          - YEONGAM
+          - WANDO
+          - JANGSEONG
+          - JANGHEUNG
+          - JINDO
+          - HAMPYEONG
+          - HAENAM
+          - HWASUN
+          - JEJU
+          - SEOGWIPO
+          - GUNWEE
+          - DAEGU_NAM
+          - DALSEO
+          - DALSEONG
+          - DAEGU_DONG
+          - DAEGU_BUK
+          - DAEGU_SEO
+          - SUSEONG
+          - DAEGU_JUNG
+        townName:
+          type: string
+  securitySchemes:
+    Bearer Token:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
