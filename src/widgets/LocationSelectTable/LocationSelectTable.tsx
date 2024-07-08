@@ -3,6 +3,7 @@ import { Minus, Plus } from 'src/shared/ui/icons';
 import { useState } from 'react';
 import { Location } from 'src/entities/location/types/location';
 import { locationListMock } from 'src/entities/location/api/__mock__/location.mock';
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 
 type Props = {
   selectedLocations: Location[];
@@ -16,35 +17,50 @@ export const LocationSelectTable = ({ selectedLocations, selectLocation }: Props
 
   return (
     <div className={styles.Wrapper}>
-      <ul className={styles.MainCategoryColumn}>
-        {locations.map((location) => (
-          <li
-            key={location.city.city}
-            className={`${styles.Category} ${styles.MainCategory}`}
-            role={'option'}
-            aria-selected={selectedMainLocation === location}
-            onClick={() => setSelectedMainLocation(location)}
-          >
-            {location.city.cityName}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {selectedMainLocation.town.map((town) => (
-          <li
-            key={town.townName}
-            className={`${styles.Category} ${styles.SubCategory}`}
-            onClick={() => selectLocation({ city: selectedMainLocation.city, town: [town] })}
-          >
-            {town.townName}
-            {selectedLocations.some(({ town: selectedTown }) => selectedTown[0].town === town.town) ? (
-              <Minus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
-            ) : (
-              <Plus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
-            )}
-          </li>
-        ))}
-      </ul>
+      <ScrollArea.Root className={`${styles.ScrollRoot} ${styles.MainCategoryColumn}`}>
+        <ScrollArea.Viewport className={styles.ScrollViewport}>
+          <ul className={styles.MainCategoryColumn}>
+            {locations.map((location) => (
+              <li
+                key={location.city.city}
+                className={`${styles.Category} ${styles.MainCategory}`}
+                role={'option'}
+                aria-selected={selectedMainLocation === location}
+                onClick={() => setSelectedMainLocation(location)}
+              >
+                {location.city.cityName}
+              </li>
+            ))}
+          </ul>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar orientation={'vertical'}>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
+
+      <ScrollArea.Root className={styles.ScrollRoot}>
+        <ScrollArea.Viewport className={styles.ScrollViewport}>
+          <ul className={styles.SubCategoryColumn}>
+            {selectedMainLocation.town.map((town) => (
+              <li
+                key={town.townName}
+                className={`${styles.Category} ${styles.SubCategory}`}
+                onClick={() => selectLocation({ city: selectedMainLocation.city, town: [town] })}
+              >
+                {town.townName}
+                {selectedLocations.some(({ town: selectedTown }) => selectedTown[0].town === town.town) ? (
+                  <Minus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
+                ) : (
+                  <Plus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
+                )}
+              </li>
+            ))}
+          </ul>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar orientation={'vertical'}>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
     </div>
   );
 };

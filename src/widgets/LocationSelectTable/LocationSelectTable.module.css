@@ -1,6 +1,8 @@
 .Wrapper {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+
+  flex-grow: 1;
+  overflow: hidden;
 
   border: 2px solid var(--color-neutral-30);
   border-left: none;
@@ -9,7 +11,18 @@
   & ul {
     list-style: none;
     padding-left: 0;
+    flex-grow: 1;
   }
+}
+
+.ScrollRoot {
+  height: 100%;
+  width: 100%;
+}
+
+.ScrollViewport {
+  height: 100%;
+  width: 100%;
 }
 
 .MainCategoryColumn {
@@ -17,7 +30,12 @@
   width: 104px;
 }
 
+.SubCategoryColumn {
+}
+
 .Category {
+  width: 100%;
+
   font-size: 16px;
   line-height: 16px;
   font-weight: 500;

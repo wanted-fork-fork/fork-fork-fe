@@ -13,4 +13,5 @@ export const Default: Story = {
   args: {
     locations: locationListMock,
   },
+  decorators: (fn) => <div style={{ height: '100vh' }}>{fn()}</div>,
 };

@@ -18,7 +18,7 @@ export const Default: Story = {
       const firstName = useProfileFirstName();
       return (
         <div style={{ height: 'calc(100vh - 32px)', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-          <div>{fn()}</div>
+          <div style={{ height: '100%', overflow: 'hidden' }}>{fn()}</div>
           <div>
             <span>{firstName}</span>
             <textarea style={{ height: '100%', width: '100%' }} readOnly value={JSON.stringify(store, null, '\t')} />

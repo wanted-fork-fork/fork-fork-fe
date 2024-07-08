@@ -32,7 +32,7 @@ export const LocationForm = ({ locations = [] }: LocationFormProps) => {
   }, [selectedTownList, setLocation]);
 
   return (
-    <section>
+    <section className={styles.Section}>
       <div className={styles.ChipWrapper}>
         {selectedTownList.map((location) => (
           <Chip
