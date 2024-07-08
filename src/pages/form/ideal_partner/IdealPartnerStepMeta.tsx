@@ -7,6 +7,8 @@ import { HobbyForm } from 'src/processes/ideal_partner/HobbyForm/HobbyForm';
 import { ReligionForm } from 'src/processes/ideal_partner/ReligionForm/ReligionForm';
 import { DrinkingForm } from 'src/processes/ideal_partner/DrinkingForm/DrinkingForm';
 import { SmokingForm } from 'src/processes/ideal_partner/SmokingForm/SmokingForm';
+import { RequiredOptionForm } from 'src/processes/ideal_partner/RequiredOptionForm/RequiredOptionForm';
+import { ToMatcherForm } from 'src/processes/ideal_partner/ToMatcherForm/ToMatcherForm';
 
 export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
   AGE: {
@@ -76,10 +78,10 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <></>,
+    form: <RequiredOptionForm />,
     canGoNext: (state) => Boolean(state.requiredOptions.length > 0),
   },
-  TO_MATCHR: {
+  TO_MATCHER: {
     title: () => (
       <>
         주선자에게 추가로 말하고 싶은
@@ -88,7 +90,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <></>,
+    form: <ToMatcherForm />,
     canGoNext: (state) => Boolean(state.toMatchMaker),
   },
 };

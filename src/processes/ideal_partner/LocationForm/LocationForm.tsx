@@ -7,15 +7,12 @@ import { LocationSelectTable } from 'src/widgets/LocationSelectTable/LocationSel
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
-type LocationFormProps = {
-  locations?: Location[];
-};
-
 const MAX_LOCATION_COUNT = 5;
 
-export const LocationForm = ({ locations = [] }: LocationFormProps) => {
+export const LocationForm = () => {
+  const locations = useIdlePartnerStore((state) => state.locations);
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
-    [],
+    locations,
     (a, b) => a.town[0]?.town === b.town[0]?.town,
   );
 
