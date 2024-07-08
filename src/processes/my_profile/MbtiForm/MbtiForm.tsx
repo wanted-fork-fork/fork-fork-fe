@@ -5,18 +5,19 @@ import { isValidMbti, MbtiFirstWord, MbtiFourthWord, MbtiKey, MbtiSecondWord, Mb
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 export const MbtiForm = () => {
+  const mbti = useMyProfileStore((state) => state.mbti);
   const setMbti = useMyProfileStore((state) => state.setMbti);
 
-  const [eiState, setEiState] = useState<MbtiFirstWord | null>(null);
-  const [snState, setSnState] = useState<MbtiSecondWord | null>(null);
-  const [tfState, setTfState] = useState<MbtiThirdWord | null>(null);
-  const [jpState, setJpState] = useState<MbtiFourthWord | null>(null);
+  const [eiState, setEiState] = useState<MbtiFirstWord | null>(mbti?.[0] ?? null);
+  const [snState, setSnState] = useState<MbtiSecondWord | null>(mbti?.[1] ?? null);
+  const [tfState, setTfState] = useState<MbtiThirdWord | null>(mbti?.[2] ?? null);
+  const [jpState, setJpState] = useState<MbtiFourthWord | null>(mbti?.[3] ?? null);
   const [skipState, setSkipState] = useState<boolean>(false);
 
-  const mbti = `${eiState ?? ''}${snState ?? ''}${tfState ?? ''}${jpState ?? ''}`;
+  const mbtiState = `${eiState ?? ''}${snState ?? ''}${tfState ?? ''}${jpState ?? ''}`;
   useEffect(() => {
-    isValidMbti(mbti) ? setMbti(mbti) : setMbti(null);
-  }, [mbti, setMbti]);
+    isValidMbti(mbtiState) ? setMbti(mbtiState) : setMbti(null);
+  }, [mbtiState, setMbti]);
 
   const onClickSkip = () => {
     setSkipState(true);
@@ -56,7 +57,7 @@ export const MbtiForm = () => {
         <Radio label={'입력 안 함'} checked={skipState} onChange={onClickSkip} />
       </div>
       <div className={styles.MbtiResult} data-blank={isBlank}>
-        {mbti}
+        {mbtiState}
       </div>
       <div className={styles.MbtiGrid}>
         <div className={styles.MbtiRow} role={'listbox'}>

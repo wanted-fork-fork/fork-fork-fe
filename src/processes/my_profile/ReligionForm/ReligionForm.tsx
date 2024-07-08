@@ -1,8 +1,8 @@
 import { Radio } from 'src/shared/ui/Radio/Radio';
 import styles from './ReligionForm.module.css';
-import { useState } from 'react';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { ReligionType } from 'src/entities/profile/types/profileSummary';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 
 const ReligionMetaList: RadioMeta<ReligionType>[] = [
   { key: 'NONE', name: '무교', allowInput: false },
@@ -14,8 +14,9 @@ const ReligionMetaList: RadioMeta<ReligionType>[] = [
 ];
 
 export const ReligionForm = () => {
-  const [selected, setSelected] = useState<ReligionType | null>(null);
-  const [inputValue, setInputValue] = useState<string>('');
+  const { religionCategory, religionName } = useMyProfileStore((state) => state.religion);
+  const setReligionCategory = useMyProfileStore((state) => state.setReligionCategory);
+  const setReligionName = useMyProfileStore((state) => state.setReligionName);
 
   return (
     <section className={styles.Container} role={'radiogroup'}>
@@ -24,18 +25,18 @@ export const ReligionForm = () => {
         <Radio
           value={ReligionMetaList[0].key}
           label={ReligionMetaList[0].name}
-          checked={selected === ReligionMetaList[0].key}
-          onChange={() => setSelected(ReligionMetaList[0].key)}
+          checked={religionCategory === ReligionMetaList[0].key}
+          onChange={() => setReligionCategory(ReligionMetaList[0].key)}
         />
       </div>
       <div>
         <p className={styles.Label}>네! 저는..</p>
         <RadioList
           radioMetaList={ReligionMetaList.slice(1)}
-          selected={selected}
-          onSelect={setSelected}
-          inputValue={inputValue}
-          onChangeInputValue={setInputValue}
+          selected={religionCategory}
+          onSelect={setReligionCategory}
+          inputValue={religionName}
+          onChangeInputValue={setReligionName}
         />
       </div>
     </section>

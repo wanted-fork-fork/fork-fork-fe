@@ -10,8 +10,9 @@ import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle'
 const MAX_LOCATION_COUNT = 5;
 
 export const LocationForm = () => {
+  const locations = useMyProfileStore((state) => state.location);
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
-    [],
+    locations,
     (a, b) => a.town[0]?.town === b.town[0]?.town,
   );
 

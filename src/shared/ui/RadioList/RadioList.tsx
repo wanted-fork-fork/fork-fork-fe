@@ -14,7 +14,7 @@ export const RadioList = <RadioKeyType extends string>({
   onChangeInputValue,
 }: {
   radioMetaList: RadioMeta<RadioKeyType>[];
-  selected: RadioKeyType | null;
+  selected?: RadioKeyType | null;
   onSelect: (key: RadioKeyType) => void;
   inputValue?: string;
   onChangeInputValue?: (value: string) => void;
