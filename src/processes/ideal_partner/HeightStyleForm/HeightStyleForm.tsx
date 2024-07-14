@@ -1,5 +1,5 @@
 import styles from './HeightStyleForm.module.css';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { RangeSlider } from 'src/shared/ui/RangeSlider/RangeSlider';
 import { Input } from 'src/shared/ui/Input/Input';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
@@ -8,14 +8,14 @@ const MIN_HEIGHT = 100;
 const MAX_HEIGHT = 240;
 
 export const HeightStyleForm = () => {
-  const { min, max } = useIdlePartnerStore((state) => state.heightRange);
-  const style = useIdlePartnerStore((state) => state.style);
-  const files = useIdlePartnerStore((state) => state.images);
+  const { min, max } = useIdealPartnerStore((state) => state.heightRange);
+  const style = useIdealPartnerStore((state) => state.style);
+  const files = useIdealPartnerStore((state) => state.images);
 
-  const setMin = useIdlePartnerStore((state) => state.setMinHeight);
-  const setMax = useIdlePartnerStore((state) => state.setMaxHeight);
-  const setStyle = useIdlePartnerStore((state) => state.setStyle);
-  const setFiles = useIdlePartnerStore((state) => state.setImages);
+  const setMin = useIdealPartnerStore((state) => state.setMinHeight);
+  const setMax = useIdealPartnerStore((state) => state.setMaxHeight);
+  const setStyle = useIdealPartnerStore((state) => state.setStyle);
+  const setFiles = useIdealPartnerStore((state) => state.setImages);
 
   const onChange = ([min, max]: [number, number]) => {
     setMin(min);

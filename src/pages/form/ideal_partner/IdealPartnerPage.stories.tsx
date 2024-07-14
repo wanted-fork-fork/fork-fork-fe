@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { IdealPartnerPage } from 'src/pages/form/ideal_partner/IdealPartnerPage';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 const meta: Meta<typeof IdealPartnerPage> = {
   component: IdealPartnerPage,
@@ -14,7 +14,7 @@ export const Default: Story = {
   args: {},
   decorators: [
     (fn) => {
-      const store = useIdlePartnerStore();
+      const store = useIdealPartnerStore();
       const firstName = useProfileFirstName();
       return (
         <div style={{ height: 'calc(100vh - 32px)', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>

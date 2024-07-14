@@ -1,6 +1,6 @@
 import styles from './ReligionForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 const religionRadioMeta: RadioMeta<string>[] = [
   { key: 'A', name: '무교', allowInput: false },
@@ -11,10 +11,10 @@ const religionRadioMeta: RadioMeta<string>[] = [
 ];
 
 export const ReligionForm = () => {
-  const religionCategory = useIdlePartnerStore((state) => state.religion.religionCategory);
-  const religionName = useIdlePartnerStore((state) => state.religion.religionName);
-  const setReligionCategory = useIdlePartnerStore((state) => state.setReligionCategory);
-  const setReligionName = useIdlePartnerStore((state) => state.setReligionName);
+  const religionCategory = useIdealPartnerStore((state) => state.religion.religionCategory);
+  const religionName = useIdealPartnerStore((state) => state.religion.religionName);
+  const setReligionCategory = useIdealPartnerStore((state) => state.setReligionCategory);
+  const setReligionName = useIdealPartnerStore((state) => state.setReligionName);
 
   return (
     <section className={styles.Container}>

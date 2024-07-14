@@ -1,5 +1,5 @@
 import styles from './HobbyForm.module.css';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { ChipList } from 'src/shared/ui/ChipList/ChipList';
 import { Hobby } from 'src/entities/profile/types/hobby';
 
@@ -8,8 +8,8 @@ type HobbyFormProps = {
 };
 
 export const HobbyForm = ({ exampleHobbyList = [] }: HobbyFormProps) => {
-  const hobbies = useIdlePartnerStore((state) => state.hobbies);
-  const setHobbies = useIdlePartnerStore((state) => state.setHobbies);
+  const hobbies = useIdealPartnerStore((state) => state.hobbies);
+  const setHobbies = useIdealPartnerStore((state) => state.setHobbies);
 
   return (
     <>

@@ -14,7 +14,7 @@ export const Default: Story = {
   args: {},
   decorators: [
     (fn) => {
-      const store = useMyProfileStore();
+      const store = useMyProfileStore((state) => state);
       const firstName = useProfileFirstName();
       return (
         <div style={{ height: 'calc(100vh - 32px)', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>

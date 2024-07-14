@@ -4,7 +4,7 @@ import styles from './IdealPartnerPage.module.css';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 const Steps = Object.values(IdealPartnerStepMeta);
 export const IdealPartnerPage = () => {
@@ -12,7 +12,7 @@ export const IdealPartnerPage = () => {
   const name = useProfileFirstName();
 
   const currentStep = Steps[currentStepIdx];
-  const canGoNext = useIdlePartnerStore(currentStep.canGoNext);
+  const canGoNext = useIdealPartnerStore(currentStep.canGoNext);
 
   return (
     <div className={styles.Container}>

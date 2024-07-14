@@ -1,6 +1,6 @@
 import styles from './DrinkingForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 const drinkingRadioMeta: RadioMeta<string>[] = [
   { key: 'A', name: '상관 없어요', allowInput: false },
@@ -11,10 +11,10 @@ const drinkingRadioMeta: RadioMeta<string>[] = [
 ];
 
 export const DrinkingForm = () => {
-  const drinkingCategory = useIdlePartnerStore((state) => state.drinking.drinkingCategory);
-  const drinkingAmount = useIdlePartnerStore((state) => state.drinking.drinkingAmount);
-  const setDrinkingCategory = useIdlePartnerStore((state) => state.setDrinkingCategory);
-  const setDrinkingAmount = useIdlePartnerStore((state) => state.setDrinkingAmount);
+  const drinkingCategory = useIdealPartnerStore((state) => state.drinking.drinkingCategory);
+  const drinkingAmount = useIdealPartnerStore((state) => state.drinking.drinkingAmount);
+  const setDrinkingCategory = useIdealPartnerStore((state) => state.setDrinkingCategory);
+  const setDrinkingAmount = useIdealPartnerStore((state) => state.setDrinkingAmount);
 
   return (
     <section className={styles.Container}>

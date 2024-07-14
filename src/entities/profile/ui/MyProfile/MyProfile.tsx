@@ -1,11 +1,11 @@
 import { Accordion } from 'src/shared/ui/Accordion/Accordion';
 import { Edit } from 'src/shared/ui/icons';
 import styles from './MyProfile.module.css';
-import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { calculateAge } from 'src/shared/vo/date';
+import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 
 export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
   return (
@@ -52,9 +52,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
             <div className={styles.Cell}>
               <Header title={'업로드 사진'} />
               <div className={styles.HorizontalList}>
-                {Array.from({ length: 8 }).map((_, idx) => (
-                  <Avatar key={idx.toString()} fallback={''} shape={'roundedSquare'} size={72} src={''} />
-                ))}
+                <AvatarList files={profile.images} />
               </div>
             </div>
           </div>

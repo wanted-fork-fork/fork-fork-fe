@@ -1,10 +1,10 @@
 import { TextArea } from 'src/shared/ui/TextArea/TextArea';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import styles from './ToMatcherForm.module.css';
 
 export const ToMatcherForm = () => {
-  const value = useIdlePartnerStore((state) => state.toMatchMaker);
-  const setValue = useIdlePartnerStore((state) => state.setToMatchMaker);
+  const value = useIdealPartnerStore((state) => state.toMatchMaker);
+  const setValue = useIdealPartnerStore((state) => state.setToMatchMaker);
 
   return (
     <section className={styles.Container}>

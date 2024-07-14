@@ -1,5 +1,5 @@
 import styles from './RequiredOptionForm.module.css';
-import { useIdlePartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { CheckBox } from 'src/shared/ui/CheckBox/CheckBox';
 
 const optionList: { label: string }[] = [
@@ -13,8 +13,8 @@ const optionList: { label: string }[] = [
 ];
 
 export const RequiredOptionForm = () => {
-  const requiredOptions = useIdlePartnerStore((state) => state.requiredOptions);
-  const setRequiredOptions = useIdlePartnerStore((state) => state.setRequiredOptions);
+  const requiredOptions = useIdealPartnerStore((state) => state.requiredOptions);
+  const setRequiredOptions = useIdealPartnerStore((state) => state.setRequiredOptions);
 
   return (
     <section className={styles.Container}>
