@@ -16,6 +16,7 @@
     "generate:api": "orval --config ./orval.config.cjs"
   },
   "dependencies": {
+    "@radix-ui/react-portal": "^1.1.1",
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
