@@ -31,7 +31,6 @@
     display: flex;
     overflow-x: auto;
     gap: 8px;
-    height: 72px;
 
     & > * {
         flex-shrink: 0;
