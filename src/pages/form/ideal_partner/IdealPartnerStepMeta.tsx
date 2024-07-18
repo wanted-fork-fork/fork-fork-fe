@@ -93,4 +93,4 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     form: <ToMatcherForm />,
     canGoNext: (state) => Boolean(state.toMatchMaker),
   },
-};
+} as const;

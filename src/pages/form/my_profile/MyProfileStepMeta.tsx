@@ -98,4 +98,4 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
     form: <></>,
     canGoNext: () => true,
   },
-};
+} as const;

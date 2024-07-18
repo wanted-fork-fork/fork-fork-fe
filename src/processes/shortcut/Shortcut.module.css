@@ -1,0 +1,28 @@
+.FloatingButton {
+    outline: none;
+    border: none;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: var(--color-neutral-20);
+
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+
+    cursor: pointer;
+}
+
+.Header {
+    display: flex;
+    width: 100%;
+}
+
+.CloseButton {
+    margin-left: auto;
+}
+
+.MenuButton {
+    font-size: 16px;
+    font-weight: 500;
+}
