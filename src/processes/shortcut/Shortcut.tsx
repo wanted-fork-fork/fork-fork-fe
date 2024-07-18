@@ -45,7 +45,13 @@ export const Shortcut = () => {
         <Sheet.Container>
           <Sheet.Header className={styles.Header}>
             {selectedKey && (
-              <Button variant={'ghost'} color={'neutral'} widthType={'hug'} onClick={() => setSelectedKey(null)}>
+              <Button
+                variant={'ghost'}
+                color={'neutral'}
+                widthType={'hug'}
+                size={'fit'}
+                onClick={() => setSelectedKey(null)}
+              >
                 <ArrowLeft width={24} />
               </Button>
             )}
@@ -54,6 +60,7 @@ export const Shortcut = () => {
               variant={'ghost'}
               color={'neutral'}
               widthType={'hug'}
+              size={'fit'}
               onClick={onClose}
             >
               <Close width={24} />

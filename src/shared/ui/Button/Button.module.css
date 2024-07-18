@@ -50,6 +50,9 @@
     border-radius: 40px;
     padding: 8px 12px;
 }
+.Button[data-size='fit'] {
+}
+
 
 .Button[data-width-type='fill'] {
     width: 100%;

@@ -8,7 +8,7 @@ type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HT
   suffixSlot?: ReactNode;
   prefixSlot?: ReactNode;
   textAlign?: 'left' | 'center' | 'right';
-  size?: 'S' | 'M';
+  size?: 'fit' | 'S' | 'M';
 };
 
 export const Button = ({

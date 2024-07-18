@@ -33,8 +33,12 @@ export const InputBottomSheet = ({
     <Sheet detent={'content-height'} isOpen={open} onClose={onClose}>
       <Sheet.Container>
         <Sheet.Header className={styles.Header}>
-          <ArrowLeft width={24} />
-          <Close width={24} />
+          <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onClose}>
+            <ArrowLeft width={24} />
+          </Button>
+          <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onClose}>
+            <Close width={24} />
+          </Button>
         </Sheet.Header>
         <Sheet.Content className={styles.Content}>
           <h2>{title}</h2>

@@ -16,7 +16,7 @@
 .Header {
     display: flex;
     width:  100%;
-    padding: 12px 4px 0;
+    padding: 20px 20px 0;
 }
 
 .CloseButton {
