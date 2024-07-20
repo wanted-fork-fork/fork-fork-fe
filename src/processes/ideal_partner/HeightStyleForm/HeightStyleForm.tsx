@@ -4,8 +4,8 @@ import { RangeSlider } from 'src/shared/ui/RangeSlider/RangeSlider';
 import { Input } from 'src/shared/ui/Input/Input';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 
-const MIN_HEIGHT = 100;
-const MAX_HEIGHT = 240;
+export const MIN_IDEAL_HEIGHT = 140;
+export const MAX_IDEAL_HEIGHT = 200;
 
 export const HeightStyleForm = () => {
   const { min, max } = useIdealPartnerStore((state) => state.heightRange);
@@ -25,8 +25,8 @@ export const HeightStyleForm = () => {
   return (
     <section className={styles.Container}>
       <RangeSlider
-        min={MIN_HEIGHT}
-        max={MAX_HEIGHT}
+        min={MIN_IDEAL_HEIGHT}
+        max={MAX_IDEAL_HEIGHT}
         minLabel={`${min}cm`}
         maxLabel={`${max}cm`}
         step={1}

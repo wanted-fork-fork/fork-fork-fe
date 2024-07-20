@@ -3,6 +3,7 @@ import { ReligionType } from 'src/entities/profile/types/profileSummary';
 import { create } from 'zustand';
 import { Hobby } from 'src/entities/profile/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
+import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 
 export type IdealPartner = {
   ageRange: {
@@ -61,8 +62,8 @@ const createStoreHook = () =>
     setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
     setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),
     heightRange: {
-      min: 100,
-      max: 240,
+      min: MIN_IDEAL_HEIGHT,
+      max: MAX_IDEAL_HEIGHT,
     },
     setMinHeight: (min) => set({ heightRange: { ...get().heightRange, min } }),
     setMaxHeight: (max) => set({ heightRange: { ...get().heightRange, max } }),
