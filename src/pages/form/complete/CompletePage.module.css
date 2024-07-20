@@ -1,0 +1,14 @@
+.Wrapper {
+  padding: 0 24px;
+}
+
+.TitleSection {
+  padding-top: 60px;
+}
+
+.Image {
+  width: 80%;
+  position: fixed;
+  right: 0;
+  bottom: 80px;
+}
