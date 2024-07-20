@@ -1,0 +1,32 @@
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.TitleSection {
+    padding: 16px 20px 20px;
+
+    & h2 {
+        margin-bottom: 8px;
+    }
+
+    & small {
+        font-size: 14px;
+        color: var(--color-neutral-50);
+    }
+}
+
+.ContentSection {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.ContentViewport {
+    padding: 20px;
+}
+
+.Footer {
+    padding: 28px 20px 8px;
+}

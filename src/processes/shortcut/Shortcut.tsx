@@ -10,7 +10,7 @@ import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
 export const Shortcut = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [selectedKey, setSelectedKey] = useState<
     | {
         section: 'PROFILE';

@@ -4,12 +4,13 @@ import styles from './ScrollView.module.css';
 
 type ScrollViewProps = PropsWithChildren<{
   rootClassName?: string;
+  viewportClassName?: string;
 }>;
 
-export const ScrollView = ({ rootClassName, children }: ScrollViewProps) => {
+export const ScrollView = ({ rootClassName = '', viewportClassName = '', children }: ScrollViewProps) => {
   return (
     <ScrollArea.Root className={`${styles.ScrollRoot} ${rootClassName}`}>
-      <ScrollArea.Viewport className={styles.ScrollViewport}>{children}</ScrollArea.Viewport>
+      <ScrollArea.Viewport className={`${styles.ScrollViewport} ${viewportClassName}`}>{children}</ScrollArea.Viewport>
       <ScrollArea.Scrollbar orientation={'vertical'}>
         <ScrollArea.Thumb />
       </ScrollArea.Scrollbar>
