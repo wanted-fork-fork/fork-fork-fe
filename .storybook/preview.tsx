@@ -5,9 +5,11 @@ import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
 import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { MemoryRouter } from 'react-router';
 
 const preview: Preview = {
   parameters: {
+    layout: 'fullscreen',
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -22,11 +24,15 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <IdealPartnerProvider>
-        <MyProfileProvider>
-          <Story />
-        </MyProfileProvider>
-      </IdealPartnerProvider>
+      <MemoryRouter initialEntries={['/']}>
+        <IdealPartnerProvider>
+          <MyProfileProvider>
+            <div style={{ height: '100vh' }}>
+              <Story />
+            </div>
+          </MyProfileProvider>
+        </IdealPartnerProvider>
+      </MemoryRouter>
     ),
   ],
 };

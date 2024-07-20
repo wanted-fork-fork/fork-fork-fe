@@ -1,0 +1,54 @@
+.Wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 0 20px 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Image {
+  width: 100%;
+}
+
+/** 바텀시트 **/
+.InfoTitle {
+  margin-bottom: 24px;
+}
+
+.ContentWrapper {
+  display: grid;
+  gap: 4px;
+}
+
+.CheckListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & a {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-neutral-50);
+    text-decoration: none;
+  }
+
+  & label {
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
+
+.InfoList {
+  margin-left: 24px;
+
+  & > li:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.InfoListItem {
+  list-style-type: var(--marker);
+  padding-inline-start: 8px;
+}
