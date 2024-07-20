@@ -15,13 +15,7 @@
   }
 }
 
-.ScrollRoot {
-  height: 100%;
-  width: 100%;
-}
-
-.ScrollViewport {
-  height: 100%;
+.SubCategoryScrollRoot {
   width: 100%;
 }
 
