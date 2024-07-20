@@ -15,6 +15,7 @@ export const Default: Story = {
     submitText: '추가',
     open: true,
     onSubmit: (value) => alert(value),
+    onClose: console.log,
   },
   parameters: {
     viewport: {

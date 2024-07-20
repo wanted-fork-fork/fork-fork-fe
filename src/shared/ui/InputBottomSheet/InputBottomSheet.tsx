@@ -1,9 +1,8 @@
-import { Sheet } from 'react-modal-sheet';
-import styles from './InputBottomSheet.module.css';
-import { ArrowLeft, Close } from 'src/shared/ui/icons';
 import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
 import { useState } from 'react';
+import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
+import styles from './InputBottomSheet.module.css';
 
 type InputBottomSheetProps = {
   open: boolean;
@@ -30,25 +29,19 @@ export const InputBottomSheet = ({
   };
 
   return (
-    <Sheet detent={'content-height'} isOpen={open} onClose={onClose}>
-      <Sheet.Container>
-        <Sheet.Header className={styles.Header}>
-          <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onClose}>
-            <ArrowLeft width={24} />
-          </Button>
-          <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onClose}>
-            <Close width={24} />
-          </Button>
-        </Sheet.Header>
-        <Sheet.Content className={styles.Content}>
-          <h2>{title}</h2>
-          <Input placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} />
+    <BottomSheet detent={'content-height'} isOpen={open} onClose={onClose}>
+      <BottomSheet.Header onClose={onClose} onPrev={onClose} />
+      <BottomSheet.Content
+        className={styles.Content}
+        footerSlot={
           <Button disabled={!value} variant={'filled'} color={'primary'} widthType={'fill'} onClick={handleSubmit}>
             {submitText}
           </Button>
-        </Sheet.Content>
-      </Sheet.Container>
-      <Sheet.Backdrop />
-    </Sheet>
+        }
+      >
+        <h2>{title}</h2>
+        <Input placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} />
+      </BottomSheet.Content>
+    </BottomSheet>
   );
 };
