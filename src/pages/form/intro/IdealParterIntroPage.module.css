@@ -1,0 +1,18 @@
+.Wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 0 20px 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.TitleSection {
+  display: grid;
+  gap: 16px;
+}
+
+.Image {
+  width: 100%;
+}
