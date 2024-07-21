@@ -8,14 +8,14 @@ import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerS
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
+import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
 
 export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${number}px` }) => {
-  const profile = useMyProfileStore((state) => state);
-  const idealPartner = useIdealPartnerStore((state) => state);
-
   const floatingButtonPosition = useRef({ right, bottom });
+
+  const myProfileTouchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+  const ideaelPartnerTouchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
 
   const [open, setOpen] = useState(false);
   const [selectedKey, setSelectedKey] = useState<
@@ -92,7 +92,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
                       <MenuButton
                         key={key}
                         text={shortcutTitle}
-                        disabled={canGoNext(profile)}
+                        disabled={!myProfileTouchedSteps.has(key)}
                         onClick={() => onSelectProfile(key)}
                       />
                     ))}
@@ -104,7 +104,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
                       <MenuButton
                         key={key}
                         text={shortcutTitle}
-                        disabled={canGoNext(idealPartner)}
+                        disabled={!ideaelPartnerTouchedSteps.has(key)}
                         onClick={() => onSelectIdealPartner(key)}
                       />
                     ))}

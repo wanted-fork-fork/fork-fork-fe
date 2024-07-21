@@ -1,18 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import styles from './IdealPartnerPage.module.css';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
 
 const Steps = Object.values(IdealPartnerStepMeta);
+const StepKeys = Object.keys(IdealPartnerStepMeta);
 export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
 
   const currentStep = Steps[currentStepIdx];
   const canGoNext = useIdealPartnerStore(currentStep.canGoNext);
+
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+
+  useEffect(() => {
+    addTouchedStep(StepKeys[currentStepIdx]);
+  }, [addTouchedStep, currentStepIdx]);
 
   const handleClickNext = () => {
     if (currentStepIdx < Steps.length - 1) {

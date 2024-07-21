@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import styles from 'src/pages/form/my_profile/MyProfilePage.module.css';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
+import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
 
 const Steps = Object.values(MyProfileStepMeta);
+const StepKeys = Object.keys(MyProfileStepMeta);
 
 export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const [currentStepIdx, setCurrentStep] = useState(0);
@@ -14,6 +16,12 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
 
   const currentStep = Steps[currentStepIdx];
   const canGoNext = useMyProfileStore(currentStep.canGoNext);
+
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+
+  useEffect(() => {
+    addTouchedStep(StepKeys[currentStepIdx]);
+  }, [addTouchedStep, currentStepIdx]);
 
   const handleClickNext = () => {
     if (currentStepIdx < Steps.length - 1) {
