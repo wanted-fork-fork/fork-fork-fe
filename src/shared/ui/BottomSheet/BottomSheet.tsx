@@ -9,7 +9,7 @@ type BottomSheetProps = PropsWithChildren<Parameters<typeof Sheet>[0]>;
 export const BottomSheet = ({ children, ...props }: BottomSheetProps) => {
   return (
     <Sheet {...props}>
-      <Sheet.Backdrop />
+      <Sheet.Backdrop onTap={props.onClose} />
       <Sheet.Container>{children}</Sheet.Container>
     </Sheet>
   );

@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, Close, List } from 'src/shared/ui/icons';
 import styles from './Shortcut.module.css';
 import { Sheet } from 'react-modal-sheet';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
@@ -9,7 +9,9 @@ import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstNam
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
-export const Shortcut = () => {
+export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${number}px` }) => {
+  const floatingButtonPosition = useRef({ right, bottom });
+
   const [open, setOpen] = useState(false);
   const [selectedKey, setSelectedKey] = useState<
     | {
@@ -23,7 +25,10 @@ export const Shortcut = () => {
     | null
   >(null);
 
-  const onClose = () => setOpen(false);
+  const onClose = () => {
+    setOpen(false);
+    setSelectedKey(null);
+  };
 
   const selectedStep =
     selectedKey &&
@@ -40,7 +45,7 @@ export const Shortcut = () => {
 
   return (
     <>
-      <button className={styles.FloatingButton} onClick={() => setOpen(true)}>
+      <button className={styles.FloatingButton} onClick={() => setOpen(true)} style={floatingButtonPosition.current}>
         <List />
       </button>
       <Sheet detent={'full-height'} isOpen={open} onClose={onClose}>

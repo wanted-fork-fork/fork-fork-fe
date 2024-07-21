@@ -1,7 +1,15 @@
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import styles from './UploadLoadingPage.module.css';
+import { useEffect } from 'react';
 
-export const UploadLoadingPage = ({ name }: { name: string }) => {
+export const UploadLoadingPage = ({ name, onComplete }: { name: string; onComplete: () => void }) => {
+  useEffect(() => {
+    const timer = setTimeout(onComplete, 5_000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <div className={styles.Wrapper}>
       <div className={styles.TitleSection}>

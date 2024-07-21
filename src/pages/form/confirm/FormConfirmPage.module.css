@@ -6,9 +6,10 @@
 }
 
 .TitleSection {
-    padding: 16px 20px 20px;
+    margin-bottom: 20px;
 
     & h2 {
+        margin-top: 16px;
         margin-bottom: 8px;
     }
 
@@ -24,9 +25,9 @@
 }
 
 .ContentViewport {
-    padding: 20px;
+    padding-top: 20px;
 }
 
 .Footer {
-    padding: 28px 20px 8px;
+    padding-top: 24px;
 }

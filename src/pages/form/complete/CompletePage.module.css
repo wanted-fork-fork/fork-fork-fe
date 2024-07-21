@@ -1,5 +1,7 @@
 .Wrapper {
-  padding: 0 24px;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .TitleSection {
@@ -8,7 +10,7 @@
 
 .Image {
   width: 80%;
-  position: fixed;
-  right: 0;
+  position: absolute;
+  right: -20px;
   bottom: 80px;
 }

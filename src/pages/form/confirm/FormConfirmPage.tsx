@@ -7,12 +7,11 @@ import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPart
 import { IdealPartnerProfile } from 'src/entities/ideal_partner/ui/IdealPartnerProfile/IdealPartnerProfile';
 import styles from './FormConfirmPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { Shortcut } from 'src/processes/shortcut/Shortcut';
 
 const TAB_TYPE_LIST = ['PROFILE', 'IDEAL_PARTNER'] as const;
 type TabType = (typeof TAB_TYPE_LIST)[number];
 
-export const FormConfirmPage = () => {
+export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const profile = useMyProfileStore((state) => state);
   const idealPartner = useIdealPartnerStore((state) => state);
   return (
@@ -42,11 +41,10 @@ export const FormConfirmPage = () => {
           </ScrollView>
         </Tab>
         <div className={styles.Footer}>
-          <Button variant={'filled'} widthType={'fill'} color={'primary'}>
+          <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onClickNextStep}>
             확인했어요
           </Button>
         </div>
-        <Shortcut />
       </div>
     </>
   );

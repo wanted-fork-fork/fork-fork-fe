@@ -7,12 +7,20 @@ import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerS
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 const Steps = Object.values(IdealPartnerStepMeta);
-export const IdealPartnerPage = () => {
+export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
 
   const currentStep = Steps[currentStepIdx];
   const canGoNext = useIdealPartnerStore(currentStep.canGoNext);
+
+  const handleClickNext = () => {
+    if (currentStepIdx < Steps.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+    } else {
+      onClickNextStep();
+    }
+  };
 
   return (
     <div className={styles.Container}>
@@ -28,13 +36,7 @@ export const IdealPartnerPage = () => {
       </header>
       <main className={styles.Main}>{currentStep.form}</main>
       <footer className={styles.Footer}>
-        <Button
-          variant={'filled'}
-          widthType={'fill'}
-          color={'primary'}
-          disabled={!canGoNext}
-          onClick={() => setCurrentStep((prev) => Math.min(prev + 1, Steps.length - 1))}
-        >
+        <Button variant={'filled'} widthType={'fill'} color={'primary'} disabled={!canGoNext} onClick={handleClickNext}>
           다음
         </Button>
       </footer>

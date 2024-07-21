@@ -3,9 +3,10 @@ import styles from './IdealParterIntroPage.module.css';
 
 type IdealPartnerIntroPageProps = {
   name: string;
+  onClickNextStep: () => void;
 };
 
-export const IdealPartnerIntroPage = ({ name }: IdealPartnerIntroPageProps) => {
+export const IdealPartnerIntroPage = ({ name, onClickNextStep }: IdealPartnerIntroPageProps) => {
   return (
     <div className={styles.Wrapper}>
       <div />
@@ -22,7 +23,7 @@ export const IdealPartnerIntroPage = ({ name }: IdealPartnerIntroPageProps) => {
         </p>
       </div>
       <img className={styles.Image} src={'/images/googoo_1.png'} alt={'종이를 든 구구'} />
-      <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={() => {}}>
+      <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onClickNextStep}>
         시작하기
       </Button>
     </div>

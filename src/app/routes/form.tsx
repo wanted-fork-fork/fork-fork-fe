@@ -1,9 +1,13 @@
-import { ProfileFormIntroPage } from 'src/pages/form/intro/ProfileFormIntroPage';
+import { Outlet } from '@remix-run/react';
+import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
+import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
-export default function ProfileFormPage() {
+export default function ProfileFormLayout() {
   return (
-    <>
-      <ProfileFormIntroPage />
-    </>
+    <MyProfileProvider>
+      <IdealPartnerProvider>
+        <Outlet />
+      </IdealPartnerProvider>
+    </MyProfileProvider>
   );
 }

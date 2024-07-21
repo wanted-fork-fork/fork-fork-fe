@@ -5,7 +5,7 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import styles from './ProfileFormIntroPage.module.css';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 
-export const ProfileFormIntroPage = () => {
+export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
 
   const { value: checkedPrivacy, toggle: togglePrivacy } = useBoolean(false);
@@ -31,7 +31,13 @@ export const ProfileFormIntroPage = () => {
         <BottomSheet.Header onClose={close} />
         <BottomSheet.Content
           footerSlot={
-            <Button variant={'filled'} widthType={'fill'} color={'primary'} disabled={!canGoNext}>
+            <Button
+              variant={'filled'}
+              widthType={'fill'}
+              color={'primary'}
+              disabled={!canGoNext}
+              onClick={onClickNextStep}
+            >
               확인했어요
             </Button>
           }
