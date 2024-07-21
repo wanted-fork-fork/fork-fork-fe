@@ -1,7 +1,7 @@
 import { Location } from 'src/entities/location/types/location';
 import { ReligionType } from 'src/entities/profile/types/profileSummary';
 import { create } from 'zustand';
-import { Hobby } from 'src/entities/profile/types/hobby';
+import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 

@@ -1,13 +1,9 @@
 import styles from './HobbyForm.module.css';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { ChipList } from 'src/shared/ui/ChipList/ChipList';
-import { Hobby } from 'src/entities/profile/types/hobby';
+import { ExampleHobbyList } from 'src/entities/hobby/constants/hobbies';
 
-type HobbyFormProps = {
-  exampleHobbyList?: Hobby[];
-};
-
-export const HobbyForm = ({ exampleHobbyList = [] }: HobbyFormProps) => {
+export const HobbyForm = () => {
   const hobbies = useIdealPartnerStore((state) => state.hobbies);
   const setHobbies = useIdealPartnerStore((state) => state.setHobbies);
 
@@ -15,7 +11,7 @@ export const HobbyForm = ({ exampleHobbyList = [] }: HobbyFormProps) => {
     <>
       <section className={styles.Container}>
         <ChipList
-          defaultList={exampleHobbyList}
+          defaultList={ExampleHobbyList}
           selectedList={hobbies}
           setSelectedList={setHobbies}
           customInputTitle={'추가하실 취미를 입력해주세요.'}

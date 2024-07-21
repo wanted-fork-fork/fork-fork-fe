@@ -3,7 +3,7 @@ import { Gender, JobType, ReligionType } from 'src/entities/profile/types/profil
 import { Location } from 'src/entities/location/types/location';
 import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
-import { Hobby } from 'src/entities/profile/types/hobby';
+import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 
 export type MyProfile = {

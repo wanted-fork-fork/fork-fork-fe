@@ -10,7 +10,7 @@ import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
   return (
     <section>
-      <Accordion summary={'기본 개인정보'} initialOpen>
+      <Accordion summary={'기본 개인정보'}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
@@ -71,7 +71,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
         </div>
       </Accordion>
       <Spacing size={32} />
-      <Accordion summary={'개인 취향 및 선호도 관련'} initialOpen>
+      <Accordion summary={'개인 취향 및 선호도 관련'}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
@@ -101,7 +101,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
         </div>
       </Accordion>
       <Spacing size={32} />
-      <Accordion summary={'선택 질문'} initialOpen>
+      <Accordion summary={'선택 질문'}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
