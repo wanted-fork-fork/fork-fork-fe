@@ -1,0 +1,70 @@
+.Wrapper {
+  position: relative;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--color-neutral-10);
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 480px) 1fr;
+}
+
+.Main {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  box-shadow: 0 0 17px 2px #0000001A;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.SideSection {
+  height: 100%;
+  padding: 40px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  overflow: hidden;
+}
+
+.Logo {
+  font-family: BMJUA, "Arial", sans-serif;
+  font-size: 32px;
+  text-decoration: none;
+  color: var(--color-primary);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-left: 40px;
+}
+
+.Description {
+  font-family: HSYuji-Regular, "Arial", sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: right;
+
+  position: absolute;
+  right: 150px;
+}
+
+.Highlight {
+  color: var(--color-primary);
+}
+
+.ImageWrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.Image {
+  max-width: 400px;
+}
+
+.QrImage {
+  position: absolute;
+  top: 165px;
+  left: 95px;
+}

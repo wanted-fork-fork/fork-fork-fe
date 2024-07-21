@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import 'src/shared/styles/global.css';
 import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
+import { WideDeviceLayout } from 'src/pages/layout/WideDeviceLayout';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -15,7 +16,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <WideDeviceLayout>{children}</WideDeviceLayout>
         <ScrollRestoration />
         <Scripts />
       </body>
