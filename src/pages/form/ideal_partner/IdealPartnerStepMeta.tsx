@@ -16,12 +16,14 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <AgeForm />,
     canGoNext: (state) => Boolean(state.ageRange.max && state.ageRange.min),
+    shortcutTitle: '선호하는 연령대',
   },
   HEIGHT_STYLE: {
     title: () => <>선호하는 키와 스타일을 알려주세요</>,
     description: () => <></>,
     form: <HeightStyleForm />,
     canGoNext: (state) => Boolean(state.heightRange.min && state.heightRange.max && state.style),
+    shortcutTitle: '선호하는 키, 스타일',
   },
   LOCATION: {
     title: ({ name }) => (
@@ -34,6 +36,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <LocationForm />,
     canGoNext: () => true,
+    shortcutTitle: '상대방이 주로 머무는 지역',
   },
   HOBBY: {
     title: () => (
@@ -44,12 +47,14 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <HobbyForm />,
     canGoNext: (state) => Boolean(state.hobbies.length > 0),
+    shortcutTitle: '상대방의 취미',
   },
   RELIGION: {
     title: () => <>상대방이 어떤 종교이길 희망하시나요?</>,
     description: () => <></>,
     form: <ReligionForm />,
     canGoNext: (state) => Boolean(state.religion.religionCategory),
+    shortcutTitle: '종교',
   },
   DRINKING: {
     title: () => (
@@ -62,12 +67,14 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <DrinkingForm />,
     canGoNext: (state) => Boolean(state.drinking.drinkingCategory),
+    shortcutTitle: '상대방의 음주 빈도',
   },
   SMOKING: {
     title: () => <>상대방의 흡연은 괜찮으신가요?</>,
     description: () => <></>,
     form: <SmokingForm />,
     canGoNext: (state) => Boolean(state.smoking.smokingCategory),
+    shortcutTitle: '상대방의 흡연 여부',
   },
   REQUIRED_OPTIONS: {
     title: () => (
@@ -80,6 +87,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <RequiredOptionForm />,
     canGoNext: (state) => Boolean(state.requiredOptions.length > 0),
+    shortcutTitle: '필수 항목',
   },
   TO_MATCHER: {
     title: () => (
@@ -92,5 +100,6 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     description: () => <></>,
     form: <ToMatcherForm />,
     canGoNext: (state) => Boolean(state.toMatchMaker),
+    shortcutTitle: '주선자에게 하고 싶은 말',
   },
 } as const;

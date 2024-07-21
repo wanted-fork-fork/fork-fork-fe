@@ -5,4 +5,5 @@ export type StepMeta<State> = {
   description?: () => ReactNode;
   form: ReactElement;
   canGoNext: (state: State) => boolean;
+  shortcutTitle: string;
 };
