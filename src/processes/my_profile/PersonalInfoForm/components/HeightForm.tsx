@@ -12,7 +12,7 @@ export const HeightForm = () => {
       <Input
         suffixSlot={'cm'}
         placeholder={'자신의 키를 입력해주세요.'}
-        value={height}
+        value={height ?? ''}
         type={'number'}
         onChange={(e) => setHeight(Number(e.target.value) ?? '')}
       />

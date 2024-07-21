@@ -31,19 +31,19 @@ export const BirthDateForm = () => {
       <legend className={styles.Legend}>나이</legend>
       <div className={styles.InputGroup}>
         <span className={styles.AgeInfo}>만 {calculatedAge}세</span>
-        <Select required value={year} onChange={(e) => setYear(Number(e.currentTarget.value))}>
+        <Select required value={year ?? ''} onChange={(e) => setYear(Number(e.currentTarget.value))}>
           <Select.DefaultItem text={'YYYY'} />
           {YearOptionList.map((year) => (
             <Select.Item key={year} value={year} text={year.toString()} />
           ))}
         </Select>
-        <Select required value={month} onChange={(e) => setMonth(Number(e.currentTarget.value))}>
+        <Select required value={month ?? ''} onChange={(e) => setMonth(Number(e.currentTarget.value))}>
           <Select.DefaultItem text={'MM'} />
           {MonthOptionList.map((month) => (
             <Select.Item key={month} value={month} text={month.toString()} />
           ))}
         </Select>
-        <Select required value={date} onChange={(e) => setDate(Number(e.currentTarget.value))}>
+        <Select required value={date ?? ''} onChange={(e) => setDate(Number(e.currentTarget.value))}>
           <Select.DefaultItem text={'DD'} />
           {DateOptionList.map((date) => (
             <Select.Item key={date} value={date} text={date.toString()} />

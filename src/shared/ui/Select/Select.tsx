@@ -25,7 +25,7 @@ const Item = ({ text, ...props }: ItemProp) => (
 );
 
 const DefaultItem = ({ text }: { text: string }) => (
-  <option disabled selected hidden value={''}>
+  <option disabled hidden value={''}>
     {text}
   </option>
 );
