@@ -27,7 +27,9 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
     <div className={styles.Container}>
       <header className={styles.Header}>
         <div className={styles.HeaderBar}>
-          <ArrowLeft type={'button'} onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))} />
+          {currentStepIdx > 0 && (
+            <ArrowLeft type={'button'} onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))} />
+          )}
           <span>
             {currentStepIdx + 1}/{Steps.length}
           </span>
