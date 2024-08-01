@@ -42,6 +42,23 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
+        {process.env.NODE_ENV === 'development' ? null : (
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4J2WVTTK5" />
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+        
+                  gtag('config', 'G-X4J2WVTTK5');
+                `,
+              }}
+            />
+          </>
+        )}
         <WideDeviceLayout>{children}</WideDeviceLayout>
         <ScrollRestoration />
         <Scripts />
