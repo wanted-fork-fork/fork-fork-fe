@@ -40,8 +40,6 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <Meta />
         <Links />
-      </head>
-      <body>
         {process.env.NODE_ENV === 'development' ? null : (
           <>
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4J2WVTTK5" />
@@ -59,6 +57,8 @@ export function Layout({ children }: { children: ReactNode }) {
             />
           </>
         )}
+      </head>
+      <body>
         <WideDeviceLayout>{children}</WideDeviceLayout>
         <ScrollRestoration />
         <Scripts />
