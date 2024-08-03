@@ -32,10 +32,11 @@
     color: var(--color-neutral-90);
 }
 .Button:disabled {
-    color: var(--color-neutral-50);
-    background-color: transparent;
-    &:not([data-variant='ghost']) {
-        border: 1px solid var(--color-neutral-50);
+    color: var(--color-neutral-30);
+    background-color: var(--color-neutral-20);
+
+    &[data-variant='ghost'] {
+        background-color: transparent;
     }
 }
 
@@ -44,6 +45,8 @@
     height: 48px;
     border-radius: 48px;
     padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
 }
 .Button[data-size='S'] {
     height: 32px;

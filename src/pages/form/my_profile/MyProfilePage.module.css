@@ -26,10 +26,10 @@
 
 .Description {
   display: block;
-  margin-top: 10px;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 21px;
   color: var(--color-neutral-50);
 
   & strong {

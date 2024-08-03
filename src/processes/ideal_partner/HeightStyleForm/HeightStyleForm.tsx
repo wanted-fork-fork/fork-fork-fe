@@ -24,6 +24,7 @@ export const HeightStyleForm = () => {
 
   return (
     <section className={styles.Container}>
+      <label>키</label>
       <RangeSlider
         min={MIN_IDEAL_HEIGHT}
         max={MAX_IDEAL_HEIGHT}
