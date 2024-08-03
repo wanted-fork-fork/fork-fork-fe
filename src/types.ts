@@ -18,6 +18,10 @@ export type UploadImageBody = {
   image: Blob;
 };
 
+export type SaveInfoParams = {
+linkKey: string;
+};
+
 export type TownDtoTown = typeof TownDtoTown[keyof typeof TownDtoTown];
 
 
@@ -294,11 +298,11 @@ export interface CityAndTownResponse {
   town: TownDto[];
 }
 
-export type UserInfoMbti = typeof UserInfoMbti[keyof typeof UserInfoMbti];
+export type ArchivedInfoResponseMbti = typeof ArchivedInfoResponseMbti[keyof typeof ArchivedInfoResponseMbti];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UserInfoMbti = {
+export const ArchivedInfoResponseMbti = {
   ENFP: 'ENFP',
   ENFJ: 'ENFJ',
   ENTJ: 'ENTJ',
@@ -317,33 +321,40 @@ export const UserInfoMbti = {
   ISTP: 'ISTP',
 } as const;
 
-export type UserInfoGender = typeof UserInfoGender[keyof typeof UserInfoGender];
+export type ArchivedInfoResponseGender = typeof ArchivedInfoResponseGender[keyof typeof ArchivedInfoResponseGender];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UserInfoGender = {
+export const ArchivedInfoResponseGender = {
   MALE: 'MALE',
   FEAMLE: 'FEAMLE',
 } as const;
 
-export interface Info {
-  authorId: string;
-  createdBy?: string;
-  createdDate?: string;
+export interface ArchivedInfoResponse {
+  birthDate: string;
+  drinking: string;
+  gender: ArchivedInfoResponseGender;
+  height: number;
+  hobbies: string[];
   id?: string;
-  idealPartner: IdealPartner;
-  matchMakerId: string;
-  updatedBy?: string;
-  updatedDate?: string;
-  userInfo: UserInfo;
+  job: Job;
+  location: Location;
+  mbti: ArchivedInfoResponseMbti;
+  name: string;
+  religion: Religion;
+  smoking: Smoking;
+}
+
+export interface LinkStatusResponse {
+  isOpen: boolean;
+  linkId: string;
+  linkKey: string;
 }
 
 export interface ValidateLinkResponse {
   isValid: boolean;
   linkId: string;
 }
-
-export interface Unit { [key: string]: unknown }
 
 export interface UserTokenDto {
   accessToken: string;
@@ -392,25 +403,9 @@ export const UserInfoRequestGender = {
   FEAMLE: 'FEAMLE',
 } as const;
 
-export interface UserInfoRequest {
-  birthDate: string;
-  book?: Book;
-  dateStyle?: string[];
-  drinking: string;
-  foods?: string[];
-  gender: UserInfoRequestGender;
-  height: number;
-  hobbies: string[];
-  images: InfoImage[];
-  introduction?: string;
-  job: Job;
-  location: Location;
-  mbti: UserInfoRequestMbti;
-  movie?: Movie;
-  name: string;
-  pets?: string[];
-  religion: Religion;
-  smoking: Smoking;
+export interface SaveInfoRequest {
+  idealPartner: IdealPartnerRequest;
+  userInfo: UserInfoRequest;
 }
 
 export type SmokingSmokingCategory = typeof SmokingSmokingCategory[keyof typeof SmokingSmokingCategory];
@@ -426,11 +421,6 @@ export const SmokingSmokingCategory = {
 export interface Smoking {
   smokingAmount?: string;
   smokingCategory: SmokingSmokingCategory;
-}
-
-export interface SaveInfoRequest {
-  idealPartner: IdealPartnerRequest;
-  userInfo: UserInfoRequest;
 }
 
 export type ReligionReligionCategory = typeof ReligionReligionCategory[keyof typeof ReligionReligionCategory];
@@ -746,20 +736,20 @@ export interface InfoImage {
   url: string;
 }
 
-export interface UserInfo {
+export interface UserInfoRequest {
   birthDate: string;
   book?: Book;
   dateStyle?: string[];
   drinking: string;
   foods?: string[];
-  gender: UserInfoGender;
+  gender: UserInfoRequestGender;
   height: number;
   hobbies: string[];
   images: InfoImage[];
   introduction?: string;
   job: Job;
   location: Location;
-  mbti: UserInfoMbti;
+  mbti: UserInfoRequestMbti;
   movie?: Movie;
   name: string;
   pets?: string[];
@@ -784,20 +774,6 @@ export interface Drinking {
   drinkingCategory: DrinkingDrinkingCategory;
 }
 
-export interface IdealPartner {
-  ageRange?: NumberRange;
-  drinking?: Drinking;
-  heightRange?: NumberRange;
-  hobbies?: string[];
-  images?: InfoImage[];
-  location?: Location;
-  religion?: Religion;
-  requiredOptions?: string[];
-  smoking?: Smoking;
-  style?: string;
-  toMatchMaker?: string;
-}
-
 export interface IdealPartnerRequest {
   ageRange?: NumberRange;
   drinking?: Drinking;
@@ -812,12 +788,93 @@ export interface IdealPartnerRequest {
   toMatchMaker?: string;
 }
 
+export type DetailedInfoUserInfoMbti = typeof DetailedInfoUserInfoMbti[keyof typeof DetailedInfoUserInfoMbti];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DetailedInfoUserInfoMbti = {
+  ENFP: 'ENFP',
+  ENFJ: 'ENFJ',
+  ENTJ: 'ENTJ',
+  ENTP: 'ENTP',
+  ESFJ: 'ESFJ',
+  ESFP: 'ESFP',
+  ESTJ: 'ESTJ',
+  ESTP: 'ESTP',
+  INFJ: 'INFJ',
+  INFP: 'INFP',
+  INTJ: 'INTJ',
+  INTP: 'INTP',
+  ISFJ: 'ISFJ',
+  ISFP: 'ISFP',
+  ISTJ: 'ISTJ',
+  ISTP: 'ISTP',
+} as const;
+
+export type DetailedInfoUserInfoGender = typeof DetailedInfoUserInfoGender[keyof typeof DetailedInfoUserInfoGender];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DetailedInfoUserInfoGender = {
+  MALE: 'MALE',
+  FEAMLE: 'FEAMLE',
+} as const;
+
+export interface DetailedInfoIdealPartner {
+  ageRange?: NumberRange;
+  drinking?: Drinking;
+  heightRange?: NumberRange;
+  hobbies?: string[];
+  images?: InfoImage[];
+  location?: Location;
+  religion?: Religion;
+  requiredOptions?: string[];
+  smoking?: Smoking;
+  style?: string;
+  toMatchMaker?: string;
+}
+
+export interface DetailedInfoDto {
+  id: string;
+  idealPartner: DetailedInfoIdealPartner;
+  userInfo: DetailedInfoUserInfo;
+}
+
 export interface Book {
   bookName: string;
   cause: string;
 }
 
+export interface DetailedInfoUserInfo {
+  birthDate: string;
+  book?: Book;
+  dateStyle?: string[];
+  drinking: string;
+  foods?: string[];
+  gender: DetailedInfoUserInfoGender;
+  height: number;
+  hobbies: string[];
+  images: InfoImage[];
+  job: Job;
+  location: Location;
+  mbti: DetailedInfoUserInfoMbti;
+  movie?: Movie;
+  name: string;
+  pets?: string[];
+  religion: Religion;
+  smoking: Smoking;
+}
+
 export interface CreateLinkResponse {
+  isOpen: boolean;
+  linkId: string;
+  linkKey: string;
+}
+
+export interface Unit { [key: string]: unknown }
+
+export interface UpdateLinkOpenRequest {
+  isOpen: boolean;
   linkId: string;
 }
 
@@ -825,21 +882,49 @@ export interface CreateLinkResponse {
 
 
 
-  export const createLink = <TData = AxiosResponse<CreateLinkResponse>>(
+  export const updateLinkOpen = <TData = AxiosResponse<Unit>>(
+    updateLinkOpenRequest: UpdateLinkOpenRequest, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `/api/v1/link/link-open`,
+      updateLinkOpenRequest,options
+    );
+  }
+
+export const regenerateLinkKey = <TData = AxiosResponse<CreateLinkResponse>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
-    return axios.post(
-      `/api/v1/link`,undefined,options
+    return axios.put(
+      `/api/v1/link/key`,undefined,options
+    );
+  }
+
+export const updateInfo = <TData = AxiosResponse<string>>(
+    detailedInfoDto: DetailedInfoDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `/api/v1/info`,
+      detailedInfoDto,options
     );
   }
 
 export const saveInfo = <TData = AxiosResponse<string>>(
-    linkId: string,
-    saveInfoRequest: SaveInfoRequest, options?: AxiosRequestConfig
+    saveInfoRequest: SaveInfoRequest,
+    params: SaveInfoParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/api/v1/info/save/${linkId}`,
-      saveInfoRequest,options
+      `/api/v1/info`,
+      saveInfoRequest,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+export const createLink = <TData = AxiosResponse<CreateLinkResponse>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/link`,undefined,options
     );
   }
 
@@ -872,18 +957,34 @@ export const logout = <TData = AxiosResponse<Unit>>(
   }
 
 export const validateLink = <TData = AxiosResponse<ValidateLinkResponse>>(
-    linkId: string, options?: AxiosRequestConfig
+    linkKey: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/api/v1/link/valid/${linkId}`,options
+      `/api/v1/link/valid/${linkKey}`,options
     );
   }
 
-export const getInfo = <TData = AxiosResponse<Info>>(
+export const getLinkByMatchMakerId = <TData = AxiosResponse<LinkStatusResponse>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/link/status`,options
+    );
+  }
+
+export const getInfo = <TData = AxiosResponse<DetailedInfoDto>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/api/v1/info/${id}`,options
+      `/api/v1/info/detail/${id}`,options
+    );
+  }
+
+export const getAllInfo = <TData = AxiosResponse<ArchivedInfoResponse[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/info/all`,options
     );
   }
 
@@ -913,13 +1014,27 @@ export const info = <TData = AxiosResponse<string>>(
     );
   }
 
-export type CreateLinkResult = AxiosResponse<CreateLinkResponse>
+export const deleteInfo = <TData = AxiosResponse<string>>(
+    id: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `/api/v1/info/${id}`,options
+    );
+  }
+
+export type UpdateLinkOpenResult = AxiosResponse<Unit>
+export type RegenerateLinkKeyResult = AxiosResponse<CreateLinkResponse>
+export type UpdateInfoResult = AxiosResponse<string>
 export type SaveInfoResult = AxiosResponse<string>
+export type CreateLinkResult = AxiosResponse<CreateLinkResponse>
 export type UploadImageResult = AxiosResponse<ImageDto>
 export type RefreshTokenResult = AxiosResponse<UserTokenDto>
 export type LogoutResult = AxiosResponse<Unit>
 export type ValidateLinkResult = AxiosResponse<ValidateLinkResponse>
-export type GetInfoResult = AxiosResponse<Info>
+export type GetLinkByMatchMakerIdResult = AxiosResponse<LinkStatusResponse>
+export type GetInfoResult = AxiosResponse<DetailedInfoDto>
+export type GetAllInfoResult = AxiosResponse<ArchivedInfoResponse[]>
 export type GetAddressResult = AxiosResponse<CityAndTownResponse[]>
 export type LoginKakaoResult = AxiosResponse<UserTokenDto>
 export type InfoResult = AxiosResponse<string>
+export type DeleteInfoResult = AxiosResponse<string>

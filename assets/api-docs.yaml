@@ -9,11 +9,29 @@ servers:
 security:
 - Bearer Token: []
 paths:
-  /api/v1/link:
-    post:
+  /api/v1/link/link-open:
+    put:
       tags:
       - link-controller
-      operationId: createLink
+      operationId: updateLinkOpen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLinkOpenRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
+  /api/v1/link/key:
+    put:
+      tags:
+      - link-controller
+      operationId: regenerateLinkKey
       responses:
         "200":
           description: OK
@@ -21,14 +39,31 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateLinkResponse'
-  /api/v1/info/save/{linkId}:
+  /api/v1/info:
+    put:
+      tags:
+      - info-controller
+      operationId: updateInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetailedInfoDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
     post:
       tags:
       - info-controller
       operationId: saveInfo
       parameters:
-      - name: linkId
-        in: path
+      - name: linkKey
+        in: query
         required: true
         schema:
           type: string
@@ -45,6 +80,18 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/link:
+    post:
+      tags:
+      - link-controller
+      operationId: createLink
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateLinkResponse'
   /api/v1/image/upload:
     post:
       tags:
@@ -98,13 +145,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Unit'
-  /api/v1/link/valid/{linkId}:
+  /api/v1/link/valid/{linkKey}:
     get:
       tags:
       - link-controller
       operationId: validateLink
       parameters:
-      - name: linkId
+      - name: linkKey
         in: path
         required: true
         schema:
@@ -116,7 +163,19 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ValidateLinkResponse'
-  /api/v1/info/{id}:
+  /api/v1/link/status:
+    get:
+      tags:
+      - link-controller
+      operationId: getLinkByMatchMakerId
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LinkStatusResponse'
+  /api/v1/info/detail/{id}:
     get:
       tags:
       - info-controller
@@ -133,7 +192,21 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Info'
+                $ref: '#/components/schemas/DetailedInfoDto'
+  /api/v1/info/all:
+    get:
+      tags:
+      - info-controller
+      operationId: getAllInfo
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArchivedInfoResponse'
   /api/v1/info/address:
     get:
       tags:
@@ -178,15 +251,51 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/info/{id}:
+    delete:
+      tags:
+      - info-controller
+      operationId: deleteInfo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
 components:
   schemas:
-    CreateLinkResponse:
+    UpdateLinkOpenRequest:
       required:
+      - isOpen
       - linkId
       type: object
       properties:
         linkId:
           type: string
+        isOpen:
+          type: boolean
+    Unit:
+      type: object
+    CreateLinkResponse:
+      required:
+      - isOpen
+      - linkId
+      - linkKey
+      type: object
+      properties:
+        linkId:
+          type: string
+        linkKey:
+          type: string
+        isOpen:
+          type: boolean
     Book:
       required:
       - bookName
@@ -197,22 +306,20 @@ components:
           type: string
         cause:
           type: string
-    Drinking:
+    DetailedInfoDto:
       required:
-      - drinkingCategory
+      - id
+      - idealPartner
+      - userInfo
       type: object
       properties:
-        drinkingCategory:
+        id:
           type: string
-          enum:
-          - NO_PROBLEM
-          - ONE_TWO_TIMES_A_WEEK
-          - ONE_TWO_TIMES_A_MONTH
-          - NEVER
-          - ETC
-        drinkingAmount:
-          type: string
-    IdealPartnerRequest:
+        userInfo:
+          $ref: '#/components/schemas/DetailedInfoUserInfo'
+        idealPartner:
+          $ref: '#/components/schemas/DetailedInfoIdealPartner'
+    DetailedInfoIdealPartner:
       type: object
       properties:
         ageRange:
@@ -242,6 +349,103 @@ components:
           items:
             type: string
         toMatchMaker:
+          type: string
+    DetailedInfoUserInfo:
+      required:
+      - birthDate
+      - drinking
+      - gender
+      - height
+      - hobbies
+      - images
+      - job
+      - location
+      - mbti
+      - name
+      - religion
+      - smoking
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEAMLE
+        birthDate:
+          type: string
+          format: date-time
+        height:
+          type: integer
+          format: int32
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        mbti:
+          type: string
+          enum:
+          - ENFP
+          - ENFJ
+          - ENTJ
+          - ENTP
+          - ESFJ
+          - ESFP
+          - ESTJ
+          - ESTP
+          - INFJ
+          - INFP
+          - INTJ
+          - INTP
+          - ISFJ
+          - ISFP
+          - ISTJ
+          - ISTP
+        job:
+          $ref: '#/components/schemas/Job'
+        location:
+          $ref: '#/components/schemas/Location'
+        religion:
+          $ref: '#/components/schemas/Religion'
+        hobbies:
+          type: array
+          items:
+            type: string
+        drinking:
+          type: string
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        pets:
+          type: array
+          items:
+            type: string
+        foods:
+          type: array
+          items:
+            type: string
+        dateStyle:
+          type: array
+          items:
+            type: string
+        book:
+          $ref: '#/components/schemas/Book'
+        movie:
+          $ref: '#/components/schemas/Movie'
+    Drinking:
+      required:
+      - drinkingCategory
+      type: object
+      properties:
+        drinkingCategory:
+          type: string
+          enum:
+          - NO_PROBLEM
+          - ONE_TWO_TIMES_A_WEEK
+          - ONE_TWO_TIMES_A_MONTH
+          - NEVER
+          - ETC
+        drinkingAmount:
           type: string
     InfoImage:
       required:
@@ -567,16 +771,6 @@ components:
           - ETC
         religionName:
           type: string
-    SaveInfoRequest:
-      required:
-      - idealPartner
-      - userInfo
-      type: object
-      properties:
-        userInfo:
-          $ref: '#/components/schemas/UserInfoRequest'
-        idealPartner:
-          $ref: '#/components/schemas/IdealPartnerRequest'
     Smoking:
       required:
       - smokingCategory
@@ -590,6 +784,47 @@ components:
           - ETC
         smokingAmount:
           type: string
+    IdealPartnerRequest:
+      type: object
+      properties:
+        ageRange:
+          $ref: '#/components/schemas/NumberRange'
+        heightRange:
+          $ref: '#/components/schemas/NumberRange'
+        style:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        location:
+          $ref: '#/components/schemas/Location'
+        hobbies:
+          type: array
+          items:
+            type: string
+        religion:
+          $ref: '#/components/schemas/Religion'
+        drinking:
+          $ref: '#/components/schemas/Drinking'
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        requiredOptions:
+          type: array
+          items:
+            type: string
+        toMatchMaker:
+          type: string
+    SaveInfoRequest:
+      required:
+      - idealPartner
+      - userInfo
+      type: object
+      properties:
+        userInfo:
+          $ref: '#/components/schemas/UserInfoRequest'
+        idealPartner:
+          $ref: '#/components/schemas/IdealPartnerRequest'
     UserInfoRequest:
       required:
       - birthDate
@@ -704,8 +939,6 @@ components:
           type: string
         refreshToken:
           type: string
-    Unit:
-      type: object
     ValidateLinkResponse:
       required:
       - isValid
@@ -716,73 +949,26 @@ components:
           type: boolean
         linkId:
           type: string
-    IdealPartner:
-      type: object
-      properties:
-        ageRange:
-          $ref: '#/components/schemas/NumberRange'
-        heightRange:
-          $ref: '#/components/schemas/NumberRange'
-        style:
-          type: string
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/InfoImage'
-        location:
-          $ref: '#/components/schemas/Location'
-        hobbies:
-          type: array
-          items:
-            type: string
-        religion:
-          $ref: '#/components/schemas/Religion'
-        drinking:
-          $ref: '#/components/schemas/Drinking'
-        smoking:
-          $ref: '#/components/schemas/Smoking'
-        requiredOptions:
-          type: array
-          items:
-            type: string
-        toMatchMaker:
-          type: string
-    Info:
+    LinkStatusResponse:
       required:
-      - authorId
-      - idealPartner
-      - matchMakerId
-      - userInfo
+      - isOpen
+      - linkId
+      - linkKey
       type: object
       properties:
-        matchMakerId:
+        linkId:
           type: string
-        authorId:
+        linkKey:
           type: string
-        userInfo:
-          $ref: '#/components/schemas/UserInfo'
-        idealPartner:
-          $ref: '#/components/schemas/IdealPartner'
-        id:
-          type: string
-        createdBy:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        updatedBy:
-          type: string
-        updatedDate:
-          type: string
-          format: date-time
-    UserInfo:
+        isOpen:
+          type: boolean
+    ArchivedInfoResponse:
       required:
       - birthDate
       - drinking
       - gender
       - height
       - hobbies
-      - images
       - job
       - location
       - mbti
@@ -791,23 +977,23 @@ components:
       - smoking
       type: object
       properties:
+        id:
+          type: string
         name:
           type: string
+        birthDate:
+          type: string
+          format: date-time
         gender:
           type: string
           enum:
           - MALE
           - FEAMLE
-        birthDate:
-          type: string
-          format: date-time
+        location:
+          $ref: '#/components/schemas/Location'
         height:
           type: integer
           format: int32
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/InfoImage'
         mbti:
           type: string
           enum:
@@ -827,38 +1013,18 @@ components:
           - ISFP
           - ISTJ
           - ISTP
-        job:
-          $ref: '#/components/schemas/Job'
-        location:
-          $ref: '#/components/schemas/Location'
         religion:
           $ref: '#/components/schemas/Religion'
-        hobbies:
-          type: array
-          items:
-            type: string
+        job:
+          $ref: '#/components/schemas/Job'
         drinking:
           type: string
         smoking:
           $ref: '#/components/schemas/Smoking'
-        introduction:
-          type: string
-        pets:
+        hobbies:
           type: array
           items:
             type: string
-        foods:
-          type: array
-          items:
-            type: string
-        dateStyle:
-          type: array
-          items:
-            type: string
-        book:
-          $ref: '#/components/schemas/Book'
-        movie:
-          $ref: '#/components/schemas/Movie'
     CityAndTownResponse:
       required:
       - city
