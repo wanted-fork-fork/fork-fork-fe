@@ -6,9 +6,10 @@ type UploadTriggerProps = {
   onUploadFiles: (files: File[]) => void;
   accept?: string;
   multiple?: boolean;
+  max?: number;
 };
 
-export const UploadTrigger = ({ onUploadFiles, accept, multiple, children }: UploadTriggerProps) => {
+export const UploadTrigger = ({ onUploadFiles, accept, multiple, max, children }: UploadTriggerProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onTriggerUpload = () => inputRef.current?.click();
@@ -26,6 +27,7 @@ export const UploadTrigger = ({ onUploadFiles, accept, multiple, children }: Upl
         className={styles.FileInput}
         onChange={onFileChanged}
         type={'file'}
+        max={max}
         accept={accept}
         multiple={multiple}
       />

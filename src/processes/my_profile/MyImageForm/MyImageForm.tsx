@@ -9,7 +9,7 @@ export const MyImageForm = () => {
 
   return (
     <section className={styles.Container}>
-      <AvatarList files={files} setFiles={setFiles} />
+      <AvatarList files={files} setFiles={setFiles} maxFileCount={10} />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>

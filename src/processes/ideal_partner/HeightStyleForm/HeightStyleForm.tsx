@@ -50,7 +50,7 @@ export const HeightStyleForm = () => {
           <p className={'label'}>이상형 참고사진</p>
           <p className={styles.PictureLabelDescription}>사진은 최대 10장까지 올릴 수 있어요.</p>
         </div>
-        <AvatarList files={files} setFiles={setFiles} />
+        <AvatarList files={files} setFiles={setFiles} maxFileCount={10} />
       </div>
     </section>
   );
