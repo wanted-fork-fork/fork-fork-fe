@@ -1,0 +1,61 @@
+.Wrapper {
+    height: 100%;
+    position: relative;
+}
+
+.ImageWrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/main_image.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    & h1 {
+        opacity: 0;
+    }
+}
+
+.ButtonWrapper {
+    position: absolute;
+    bottom: 86px;
+
+    display: grid;
+    gap: 8px;
+
+    width: 100%;
+    padding: 0 20px;
+}
+
+.Button {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    border-radius: 48px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.Icon {
+    position: absolute;
+    left: 20px;
+}
+
+.Kakao {
+    background-color: #ffe812;
+    color: #191919;
+    .Icon {
+        top: 9px;
+    }
+}
+
+.Apple {
+    background-color: #13161E;
+    color: #fff;
+    .Icon {
+        top: 13px;
+    }
+}
