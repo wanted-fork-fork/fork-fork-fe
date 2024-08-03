@@ -1,7 +1,18 @@
-.SubCategoryScrollRoot {
+.ScrollRoot {
   height: 100%;
+  min-height: 0;
 }
 
 .ScrollViewport {
   height: 100%;
+}
+
+.Scrollbar {
+  width: 12px;
+  padding: 4px;
+}
+
+.Thumb {
+  background-color: var(--color-neutral-30);
+  border-radius: 8px;
 }

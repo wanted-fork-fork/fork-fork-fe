@@ -10,14 +10,15 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   render: () => (
-    <Select required>
-      <Select.DefaultItem text={'YYYY'} />
-      {Array.from({ length: 50 })
-        .map((_, idx) => 1960 + idx)
-        .map((v) => (
-          <Select.Item key={v} text={v.toString()} value={v} />
-        ))}
-    </Select>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <Select required placeholder={'YYYY'}>
+        {Array.from({ length: 50 })
+          .map((_, idx) => 1960 + idx)
+          .map((v) => (
+            <Select.Item key={v} text={v.toString()} value={v.toString()} />
+          ))}
+      </Select>
+    </div>
   ),
   args: {},
 };
