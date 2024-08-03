@@ -4,3 +4,26 @@
   flex-direction: column;
   gap: 40px;
 }
+
+.HeightInputWrapper {
+  display: grid;
+  gap: 20px;
+}
+
+.StyleInputWrapper{
+  display: grid;
+  gap: 8px;
+}
+
+.PictureLabelContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.PictureLabelDescription {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-neutral-50);
+}

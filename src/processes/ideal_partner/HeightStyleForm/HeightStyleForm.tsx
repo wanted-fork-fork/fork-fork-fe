@@ -24,18 +24,20 @@ export const HeightStyleForm = () => {
 
   return (
     <section className={styles.Container}>
-      <label>키</label>
-      <RangeSlider
-        min={MIN_IDEAL_HEIGHT}
-        max={MAX_IDEAL_HEIGHT}
-        minLabel={`${min}cm`}
-        maxLabel={`${max}cm`}
-        step={1}
-        defaultValue={[min, max]}
-        disabled={false}
-        onChanged={onChange}
-      />
-      <label>
+      <div className={styles.HeightInputWrapper}>
+        <p className={'label'}>키</p>
+        <RangeSlider
+          min={MIN_IDEAL_HEIGHT}
+          max={MAX_IDEAL_HEIGHT}
+          minLabel={`${min}cm`}
+          maxLabel={`${max}cm`}
+          step={1}
+          defaultValue={[min, max]}
+          disabled={false}
+          onChanged={onChange}
+        />
+      </div>
+      <label className={styles.StyleInputWrapper}>
         선호하는 스타일
         <Input
           placeholder={'ex. 눈이 크신 분, 안경이 잘 어울리시는 분'}
@@ -44,7 +46,10 @@ export const HeightStyleForm = () => {
         />
       </label>
       <div>
-        <small>이상형 참고사진</small>
+        <div className={styles.PictureLabelContainer}>
+          <p className={'label'}>이상형 참고사진</p>
+          <p className={styles.PictureLabelDescription}>사진은 최대 10장까지 올릴 수 있어요.</p>
+        </div>
         <AvatarList files={files} setFiles={setFiles} />
       </div>
     </section>
