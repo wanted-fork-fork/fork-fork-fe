@@ -1,5 +1,5 @@
 import { Button } from 'src/shared/ui/Button/Button';
-import { PropsWithChildren, useRef } from 'react';
+import { PropsWithChildren } from 'react';
 import { ArrowLeft, Edit, Share } from 'src/shared/ui/icons';
 import { fullProfileMock } from 'src/entities/profile/api/__mock__/fullProfile.mock';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
@@ -7,21 +7,20 @@ import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
 import { MockIdealPartner } from 'src/entities/ideal_partner/api/__mock__/idealPartner.mock';
 import styles from './ProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { useVisible } from 'src/shared/functions/useVisible';
+import { useInView } from 'react-intersection-observer';
 
 export const ProfilePage = () => {
-  const nameRef = useRef(null);
-  const isNameVisible = useVisible(nameRef);
+  const { ref, inView } = useInView();
 
   const profile = fullProfileMock;
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
 
   const urls = [
     '/images/googoo_1.png',
-    '/images/googoo_1.png',
-    '/images/googoo_1.png',
-    '/images/googoo_1.png',
-    '/images/googoo_1.png',
+    '/images/googoo_2.gif',
+    '/images/googoo_3.png',
+    '/images/googoo_4.png',
+    '/images/logo.png',
   ]; // useDataUrlListFromFiles(profile.images);
 
   return (
@@ -30,7 +29,7 @@ export const ProfilePage = () => {
         <IconButton>
           <ArrowLeft />
         </IconButton>
-        {isNameVisible ? (
+        {inView ? (
           <span />
         ) : (
           <p>
@@ -52,7 +51,7 @@ export const ProfilePage = () => {
             <img key={url} src={url} alt={'프로필 이미지'} />
           ))}
         </div>
-        <h1 className={styles.Name} ref={nameRef}>
+        <h1 className={styles.Name} ref={ref}>
           {profile.name}({profile.gender}, {age})
         </h1>
         <ProfileTab.Root>
