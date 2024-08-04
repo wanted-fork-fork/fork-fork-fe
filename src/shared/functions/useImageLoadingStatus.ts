@@ -1,10 +1,10 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type ImageLoadingStatus = 'idle' | 'success' | 'error' | 'loading';
 export const useImageLoadingStatus = (src?: string) => {
   const [loadingStatus, setLoadingStatus] = useState<ImageLoadingStatus>('idle');
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!src) {
       setLoadingStatus('error');
       return;

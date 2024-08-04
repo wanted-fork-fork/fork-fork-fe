@@ -8,10 +8,12 @@ type Props = {
 
 export const ProfileCardList = ({ profileList }: Props) => {
   return (
-    <div className={styles.Container}>
+    <ul className={styles.Container}>
       {profileList.map((profile) => (
-        <ProfileCard key={profile.name + profile.birthDate.toDateString()} profile={profile} />
+        <li key={profile.name + profile.birthDate.toDateString()}>
+          <ProfileCard profile={profile} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

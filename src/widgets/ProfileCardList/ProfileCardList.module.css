@@ -1,4 +1,6 @@
 .Container {
     display: grid;
     gap: 16px;
+    list-style: none;
+    padding-left: 0;
 }
