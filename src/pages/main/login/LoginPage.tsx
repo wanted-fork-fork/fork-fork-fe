@@ -1,12 +1,6 @@
-import styles from 'src/pages/main/guest/GuestPage.module.css';
-import { useEffect } from 'react';
-import { getAllInfo } from 'src/types';
+import styles from 'src/pages/main/login/LoginPage.module.css';
 
-export const GuestPage = () => {
-  useEffect(() => {
-    getAllInfo().then((data) => console.log(data));
-  }, []);
-
+export const LoginPage = () => {
   return (
     <div className={styles.Wrapper}>
       <div className={styles.ImageWrapper}>
