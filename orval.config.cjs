@@ -1,6 +1,14 @@
 module.exports = {
-  googoo: {
-    input: './assets/api-docs.yaml',
-    output: './src/types.ts',
-  },
+    googoo: {
+        input: './assets/api-docs.yaml',
+        output: {
+            target: './src/types.ts',
+            override: {
+                mutator: {
+                    path: './src/shared/lib/custom_instance.ts',
+                    name: 'customInstance',
+                },
+            },
+        }
+    },
 };
