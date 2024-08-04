@@ -1,0 +1,21 @@
+.Dots {
+  & li {
+    width: 10px;
+    height: 10px;
+  }
+
+  & li button {
+    width: 10px;
+    height: 10px;
+  }
+
+  & li button:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    display: block;
+    background-color: var(--color-neutral-30);
+    border-radius: 20px;
+    opacity: 1;
+  }
+}

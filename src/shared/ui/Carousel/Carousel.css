@@ -1,0 +1,3 @@
+.slick-dots li.slick-active button:before {
+  background-color: var(--color-primary);
+}
