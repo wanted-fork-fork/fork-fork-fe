@@ -22,8 +22,8 @@ export const Tab = <TabType extends string>({ initialTab, children }: PropsWithC
   return <TabProvider initialTab={initialTab}>{children}</TabProvider>;
 };
 
-const TabList = ({ children }: PropsWithChildren) => (
-  <div className={styles.TabTriggerContainer} role={'tablist'}>
+const TabList = ({ className = '', children }: PropsWithChildren<{ className?: string }>) => (
+  <div className={`${styles.TabTriggerContainer} ${className}`} role={'tablist'}>
     {children}
   </div>
 );
@@ -31,7 +31,12 @@ const TabList = ({ children }: PropsWithChildren) => (
 const TabTrigger = <TabType extends string>({ tabType, name }: { tabType: TabType; name: string }) => {
   const { selectedTab, setSelectedTab } = useContext(TabContext);
   return (
-    <button className={styles.TabTrigger} role={'tab'} aria-selected={selectedTab === tabType} onClick={() => setSelectedTab(tabType)}>
+    <button
+      className={styles.TabTrigger}
+      role={'tab'}
+      aria-selected={selectedTab === tabType}
+      onClick={() => setSelectedTab(tabType)}
+    >
       {name}
     </button>
   );

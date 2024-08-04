@@ -1,0 +1,9 @@
+
+.ContentSection {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.ContentViewport {
+    padding-top: 20px;
+}

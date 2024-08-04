@@ -1,0 +1,88 @@
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.Header {
+    flex-shrink: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    text-align: center;
+    height: 44px;
+    padding: 0 20px;
+}
+
+.HeaderIconSection {
+    display: flex;
+    gap: 4px;
+    justify-content: end;
+}
+
+.Body {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.ImageLayout {
+    width: 100%;
+    background-color: var(--color-neutral-10);
+
+    display: grid;
+    overflow: hidden;
+
+    & img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    &[data-itemcount='5'], &[data-itemcount='4'] {
+        grid: 1fr 1fr / 2fr 1fr 1fr;
+
+        & img:nth-child(1) {
+            grid-row: 1 / span 2;
+        }
+    }
+
+    &[data-itemcount='3'] {
+        grid: 1fr 1fr / 2fr 1fr;
+
+        & img:nth-child(1) {
+            grid-row: 1 / span 2;
+        }
+    }
+
+    &[data-itemcount='2'] {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &[data-itemcount='1'] {
+        height: 50vw;
+
+        & img {
+            height: 100%;
+        }
+    }
+}
+
+.Name {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 24px 0;
+    padding: 0 20px;
+}
+
+.TabTriggerList {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+}
+
+.TabContent {
+    padding: 20px 20px 0;
+}

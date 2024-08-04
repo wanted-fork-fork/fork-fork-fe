@@ -39,6 +39,15 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
+a {
+    text-decoration: none !important;
+}
+
+a:-webkit-any-link {
+    color: inherit;
+}
+
 img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;

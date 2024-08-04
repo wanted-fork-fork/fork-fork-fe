@@ -7,10 +7,10 @@ import { calculateAge } from 'src/shared/vo/date';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 
-export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
+export const MyProfileView = ({ profile, initialOpen = false }: { profile: MyProfile; initialOpen?: boolean }) => {
   return (
     <section>
-      <Accordion summary={'기본 개인정보'}>
+      <Accordion summary={'기본 개인정보'} initialOpen={initialOpen}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
@@ -71,7 +71,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
         </div>
       </Accordion>
       <Spacing size={32} />
-      <Accordion summary={'개인 취향 및 선호도 관련'}>
+      <Accordion summary={'개인 취향 및 선호도 관련'} initialOpen={initialOpen}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
@@ -101,7 +101,7 @@ export const MyProfileView = ({ profile }: { profile: MyProfile }) => {
         </div>
       </Accordion>
       <Spacing size={32} />
-      <Accordion summary={'선택 질문'}>
+      <Accordion summary={'선택 질문'} initialOpen={initialOpen}>
         <Spacing size={32} />
         <div className={styles.Grid}>
           <div className={styles.GridRow}>
