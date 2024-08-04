@@ -1,0 +1,10 @@
+.FloatingButton {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    background-color: var(--color-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+}

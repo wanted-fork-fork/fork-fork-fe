@@ -8,6 +8,7 @@
 }
 
 .Main {
+  position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -31,13 +32,16 @@
   font-family: BMJUA, "Arial", sans-serif;
   font-size: 32px;
   text-decoration: none;
-  color: var(--color-primary);
 
   display: flex;
   align-items: center;
   gap: 12px;
 
   margin-left: 40px;
+
+  & span {
+    color: var(--color-primary);
+  }
 }
 
 .Description {
