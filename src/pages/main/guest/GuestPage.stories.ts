@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { GuestPage } from 'src/pages/main/GuestPage';
+import { GuestPage } from 'src/pages/main/guest/GuestPage';
 
 const meta: Meta<typeof GuestPage> = {
   component: GuestPage,
