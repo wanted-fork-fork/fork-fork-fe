@@ -1,0 +1,41 @@
+.Header {
+    height: 44px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 24px 1fr 24px;
+    align-items: center;
+
+    & h2 {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+.UserInfoWrapper {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 0 20px;
+    margin-top: 24px;
+    margin-bottom: 50px;
+    user-select: none;
+
+    & h3 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+.Label {
+    padding: 0 20px;
+    margin-bottom: 8px;
+}
+
+.ButtonWrapper {
+    padding: 0 4px;
+
+    & a {
+        text-decoration: none;
+    }
+}
