@@ -32,7 +32,8 @@
     "react-range-slider-input": "^3.0.7",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "zustand-persist": "^0.4.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",

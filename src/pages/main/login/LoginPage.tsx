@@ -8,7 +8,7 @@ export const LoginPage = () => {
         <h1>내 사랑 구해줄래? 구해줄게!</h1>
       </div>
       <div className={styles.ButtonWrapper}>
-        <Link to={'/?login=true'}>
+        <Link to={import.meta.env.VITE_KAUTH_URL}>
           <button className={`${styles.Button} ${styles.Kakao}`}>
             <span className={styles.Icon}>
               <img src="/images/kakao.png" alt="카카오 로그인" width={29} height={29} />
