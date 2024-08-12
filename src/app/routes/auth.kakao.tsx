@@ -27,13 +27,15 @@ export default function KakaoAuthPage() {
         const response = await loginKakao({
           code,
         });
-        const token = response.accessToken;
+        const token = response.data.accessToken;
         useAuthStore.getState().login(token);
+        location.href = '/';
       } catch (e) {
-        location.replace('/login');
+        console.log(e);
+        location.href = '/login';
       }
     })();
-  }, [code]);
+  }, []);
 
   return <></>;
 }

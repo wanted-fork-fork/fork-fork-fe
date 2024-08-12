@@ -12,7 +12,7 @@ const ACCESS_TOKEN_STORAGE_KEY = 'accessToken';
 export const useAuthStore = create(
   persist<AuthStore>(
     (set) => ({
-      isLoggedIn: false,
+      isLoggedIn: typeof localStorage !== 'undefined' && Boolean(localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)),
       login: (token: string) => {
         localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, token);
         if (token) {
