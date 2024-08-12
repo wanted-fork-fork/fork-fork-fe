@@ -80,6 +80,24 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/sharing/{infoId}:
+    post:
+      tags:
+      - sharing-controller
+      operationId: saveSharing
+      parameters:
+      - name: infoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaveSharingResponse'
   /api/v1/link:
     post:
       tags:
@@ -145,6 +163,24 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Unit'
+  /api/v1/sharing/{sharingId}:
+    get:
+      tags:
+      - sharing-controller
+      operationId: getInfoBySharingId
+      parameters:
+      - name: sharingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InfoToShareResponse'
   /api/v1/link/valid/{linkKey}:
     get:
       tags:
@@ -784,6 +820,13 @@ components:
           - ETC
         smokingAmount:
           type: string
+    SaveSharingResponse:
+      required:
+      - sharingId
+      type: object
+      properties:
+        sharingId:
+          type: string
     IdealPartnerRequest:
       type: object
       properties:
@@ -938,6 +981,135 @@ components:
         accessToken:
           type: string
         refreshToken:
+          type: string
+    InfoToShareIdealPartner:
+      type: object
+      properties:
+        ageRange:
+          $ref: '#/components/schemas/NumberRange'
+        heightRange:
+          $ref: '#/components/schemas/NumberRange'
+        style:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        location:
+          $ref: '#/components/schemas/Location'
+        hobbies:
+          type: array
+          items:
+            type: string
+        religion:
+          $ref: '#/components/schemas/Religion'
+        drinking:
+          $ref: '#/components/schemas/Drinking'
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        requiredOptions:
+          type: array
+          items:
+            type: string
+        toMatchMaker:
+          type: string
+    InfoToShareResponse:
+      required:
+      - idealPartner
+      - sharingId
+      - userInfo
+      type: object
+      properties:
+        sharingId:
+          type: string
+        userInfo:
+          $ref: '#/components/schemas/InfoToShareUserInfo'
+        idealPartner:
+          $ref: '#/components/schemas/InfoToShareIdealPartner'
+    InfoToShareUserInfo:
+      required:
+      - birthDate
+      - drinking
+      - gender
+      - height
+      - hobbies
+      - images
+      - introduction
+      - job
+      - location
+      - mbti
+      - name
+      - religion
+      - smoking
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEAMLE
+        birthDate:
+          type: string
+          format: date-time
+        height:
+          type: integer
+          format: int32
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        mbti:
+          type: string
+          enum:
+          - ENFP
+          - ENFJ
+          - ENTJ
+          - ENTP
+          - ESFJ
+          - ESFP
+          - ESTJ
+          - ESTP
+          - INFJ
+          - INFP
+          - INTJ
+          - INTP
+          - ISFJ
+          - ISFP
+          - ISTJ
+          - ISTP
+        job:
+          $ref: '#/components/schemas/Job'
+        location:
+          $ref: '#/components/schemas/Location'
+        religion:
+          $ref: '#/components/schemas/Religion'
+        hobbies:
+          type: array
+          items:
+            type: string
+        drinking:
+          type: string
+        smoking:
+          $ref: '#/components/schemas/Smoking'
+        pets:
+          type: array
+          items:
+            type: string
+        foods:
+          type: array
+          items:
+            type: string
+        dateStyle:
+          type: array
+          items:
+            type: string
+        book:
+          $ref: '#/components/schemas/Book'
+        movie:
+          $ref: '#/components/schemas/Movie'
+        introduction:
           type: string
     ValidateLinkResponse:
       required:

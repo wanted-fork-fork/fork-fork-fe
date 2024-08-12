@@ -5,7 +5,11 @@
  * GOOGOO API Documentation
  * OpenAPI spec version: 0.0.1
  */
-import { customInstance } from './shared/lib/custom_instance';
+import axios from 'axios'
+import type {
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios'
 export type LoginKakaoParams = {
 code: string;
 };
@@ -352,6 +356,65 @@ export interface ValidateLinkResponse {
   linkId: string;
 }
 
+export type InfoToShareUserInfoMbti = typeof InfoToShareUserInfoMbti[keyof typeof InfoToShareUserInfoMbti];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const InfoToShareUserInfoMbti = {
+  ENFP: 'ENFP',
+  ENFJ: 'ENFJ',
+  ENTJ: 'ENTJ',
+  ENTP: 'ENTP',
+  ESFJ: 'ESFJ',
+  ESFP: 'ESFP',
+  ESTJ: 'ESTJ',
+  ESTP: 'ESTP',
+  INFJ: 'INFJ',
+  INFP: 'INFP',
+  INTJ: 'INTJ',
+  INTP: 'INTP',
+  ISFJ: 'ISFJ',
+  ISFP: 'ISFP',
+  ISTJ: 'ISTJ',
+  ISTP: 'ISTP',
+} as const;
+
+export type InfoToShareUserInfoGender = typeof InfoToShareUserInfoGender[keyof typeof InfoToShareUserInfoGender];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const InfoToShareUserInfoGender = {
+  MALE: 'MALE',
+  FEAMLE: 'FEAMLE',
+} as const;
+
+export interface InfoToShareUserInfo {
+  birthDate: string;
+  book?: Book;
+  dateStyle?: string[];
+  drinking: string;
+  foods?: string[];
+  gender: InfoToShareUserInfoGender;
+  height: number;
+  hobbies: string[];
+  images: InfoImage[];
+  introduction: string;
+  job: Job;
+  location: Location;
+  mbti: InfoToShareUserInfoMbti;
+  movie?: Movie;
+  name: string;
+  pets?: string[];
+  religion: Religion;
+  smoking: Smoking;
+}
+
+export interface InfoToShareResponse {
+  idealPartner: InfoToShareIdealPartner;
+  sharingId: string;
+  userInfo: InfoToShareUserInfo;
+}
+
 export interface UserTokenDto {
   accessToken: string;
   refreshToken: string;
@@ -404,6 +467,10 @@ export interface SaveInfoRequest {
   userInfo: UserInfoRequest;
 }
 
+export interface SaveSharingResponse {
+  sharingId: string;
+}
+
 export type SmokingSmokingCategory = typeof SmokingSmokingCategory[keyof typeof SmokingSmokingCategory];
 
 
@@ -438,6 +505,20 @@ export interface Religion {
 export interface NumberRange {
   max: number;
   min: number;
+}
+
+export interface InfoToShareIdealPartner {
+  ageRange?: NumberRange;
+  drinking?: Drinking;
+  heightRange?: NumberRange;
+  hobbies?: string[];
+  images?: InfoImage[];
+  location?: Location;
+  religion?: Religion;
+  requiredOptions?: string[];
+  smoking?: Smoking;
+  style?: string;
+  toMatchMaker?: string;
 }
 
 export interface Movie {
@@ -877,181 +958,178 @@ export interface UpdateLinkOpenRequest {
 
 
 
-type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
+  export const updateLinkOpen = <TData = AxiosResponse<Unit>>(
+    updateLinkOpenRequest: UpdateLinkOpenRequest, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `/api/v1/link/link-open`,
+      updateLinkOpenRequest,options
+    );
+  }
 
-  export const updateLinkOpen = (
-    updateLinkOpenRequest: UpdateLinkOpenRequest,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<Unit>(
-      {url: `/api/v1/link/link-open`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updateLinkOpenRequest
-    },
-      options);
-    }
-  
-export const regenerateLinkKey = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<CreateLinkResponse>(
-      {url: `/api/v1/link/key`, method: 'PUT'
-    },
-      options);
-    }
-  
-export const updateInfo = (
-    detailedInfoDto: DetailedInfoDto,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<string>(
-      {url: `/api/v1/info`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: detailedInfoDto
-    },
-      options);
-    }
-  
-export const saveInfo = (
+export const regenerateLinkKey = <TData = AxiosResponse<CreateLinkResponse>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `/api/v1/link/key`,undefined,options
+    );
+  }
+
+export const updateInfo = <TData = AxiosResponse<string>>(
+    detailedInfoDto: DetailedInfoDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `/api/v1/info`,
+      detailedInfoDto,options
+    );
+  }
+
+export const saveInfo = <TData = AxiosResponse<string>>(
     saveInfoRequest: SaveInfoRequest,
-    params: SaveInfoParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<string>(
-      {url: `/api/v1/info`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: saveInfoRequest,
-        params
-    },
-      options);
-    }
-  
-export const createLink = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<CreateLinkResponse>(
-      {url: `/api/v1/link`, method: 'POST'
-    },
-      options);
-    }
-  
-export const uploadImage = (
-    uploadImageBody: UploadImageBody,
- options?: SecondParameter<typeof customInstance>,) => {const formData = new FormData();
+    params: SaveInfoParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/info`,
+      saveInfoRequest,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+export const saveSharing = <TData = AxiosResponse<SaveSharingResponse>>(
+    infoId: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/sharing/${infoId}`,undefined,options
+    );
+  }
+
+export const createLink = <TData = AxiosResponse<CreateLinkResponse>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/link`,undefined,options
+    );
+  }
+
+export const uploadImage = <TData = AxiosResponse<ImageDto>>(
+    uploadImageBody: UploadImageBody, options?: AxiosRequestConfig
+ ): Promise<TData> => {const formData = new FormData();
 formData.append('image', uploadImageBody.image)
 
-      return customInstance<ImageDto>(
-      {url: `/api/v1/image/upload`, method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data', },
-       data: formData
-    },
-      options);
-    }
-  
-export const refreshToken = (
-    refreshTokenRequest: RefreshTokenRequest,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UserTokenDto>(
-      {url: `/api/v1/auth/refresh-token`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: refreshTokenRequest
-    },
-      options);
-    }
-  
-export const logout = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<Unit>(
-      {url: `/api/v1/auth/logout`, method: 'POST'
-    },
-      options);
-    }
-  
-export const validateLink = (
-    linkKey: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ValidateLinkResponse>(
-      {url: `/api/v1/link/valid/${linkKey}`, method: 'GET'
-    },
-      options);
-    }
-  
-export const getLinkByMatchMakerId = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<LinkStatusResponse>(
-      {url: `/api/v1/link/status`, method: 'GET'
-    },
-      options);
-    }
-  
-export const getInfo = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<DetailedInfoDto>(
-      {url: `/api/v1/info/detail/${id}`, method: 'GET'
-    },
-      options);
-    }
-  
-export const getAllInfo = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ArchivedInfoResponse[]>(
-      {url: `/api/v1/info/all`, method: 'GET'
-    },
-      options);
-    }
-  
-export const getAddress = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<CityAndTownResponse[]>(
-      {url: `/api/v1/info/address`, method: 'GET'
-    },
-      options);
-    }
-  
-export const loginKakao = (
-    params: LoginKakaoParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UserTokenDto>(
-      {url: `/api/v1/auth/kakao/login`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
-export const info = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<string>(
-      {url: `/api/v1/auth/info`, method: 'GET'
-    },
-      options);
-    }
-  
-export const deleteInfo = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<string>(
-      {url: `/api/v1/info/${id}`, method: 'DELETE'
-    },
-      options);
-    }
-  
-export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
-export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
-export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
-export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
-export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>
-export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>
-export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>
-export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
-export type ValidateLinkResult = NonNullable<Awaited<ReturnType<typeof validateLink>>>
-export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof getLinkByMatchMakerId>>>
-export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
-export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
-export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
-export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
-export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
-export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>
+    return axios.post(
+      `/api/v1/image/upload`,
+      formData,options
+    );
+  }
+
+export const refreshToken = <TData = AxiosResponse<UserTokenDto>>(
+    refreshTokenRequest: RefreshTokenRequest, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/auth/refresh-token`,
+      refreshTokenRequest,options
+    );
+  }
+
+export const logout = <TData = AxiosResponse<Unit>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `/api/v1/auth/logout`,undefined,options
+    );
+  }
+
+export const getInfoBySharingId = <TData = AxiosResponse<InfoToShareResponse>>(
+    sharingId: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/sharing/${sharingId}`,options
+    );
+  }
+
+export const validateLink = <TData = AxiosResponse<ValidateLinkResponse>>(
+    linkKey: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/link/valid/${linkKey}`,options
+    );
+  }
+
+export const getLinkByMatchMakerId = <TData = AxiosResponse<LinkStatusResponse>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/link/status`,options
+    );
+  }
+
+export const getInfo = <TData = AxiosResponse<DetailedInfoDto>>(
+    id: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/info/detail/${id}`,options
+    );
+  }
+
+export const getAllInfo = <TData = AxiosResponse<ArchivedInfoResponse[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/info/all`,options
+    );
+  }
+
+export const getAddress = <TData = AxiosResponse<CityAndTownResponse[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/info/address`,options
+    );
+  }
+
+export const loginKakao = <TData = AxiosResponse<UserTokenDto>>(
+    params: LoginKakaoParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/auth/kakao/login`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+export const info = <TData = AxiosResponse<string>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `/api/v1/auth/info`,options
+    );
+  }
+
+export const deleteInfo = <TData = AxiosResponse<string>>(
+    id: string, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `/api/v1/info/${id}`,options
+    );
+  }
+
+export type UpdateLinkOpenResult = AxiosResponse<Unit>
+export type RegenerateLinkKeyResult = AxiosResponse<CreateLinkResponse>
+export type UpdateInfoResult = AxiosResponse<string>
+export type SaveInfoResult = AxiosResponse<string>
+export type SaveSharingResult = AxiosResponse<SaveSharingResponse>
+export type CreateLinkResult = AxiosResponse<CreateLinkResponse>
+export type UploadImageResult = AxiosResponse<ImageDto>
+export type RefreshTokenResult = AxiosResponse<UserTokenDto>
+export type LogoutResult = AxiosResponse<Unit>
+export type GetInfoBySharingIdResult = AxiosResponse<InfoToShareResponse>
+export type ValidateLinkResult = AxiosResponse<ValidateLinkResponse>
+export type GetLinkByMatchMakerIdResult = AxiosResponse<LinkStatusResponse>
+export type GetInfoResult = AxiosResponse<DetailedInfoDto>
+export type GetAllInfoResult = AxiosResponse<ArchivedInfoResponse[]>
+export type GetAddressResult = AxiosResponse<CityAndTownResponse[]>
+export type LoginKakaoResult = AxiosResponse<UserTokenDto>
+export type InfoResult = AxiosResponse<string>
+export type DeleteInfoResult = AxiosResponse<string>
