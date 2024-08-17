@@ -24,6 +24,7 @@ module.exports = {
   // Base config
   extends: [
     "eslint:recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:storybook/recommended",
     "plugin:storybook/recommended",
     "plugin:storybook/recommended",
