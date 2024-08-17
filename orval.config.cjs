@@ -9,6 +9,7 @@ module.exports = {
                     name: 'customInstance',
                 },
             },
+            mock: true,
         }
     },
 };
