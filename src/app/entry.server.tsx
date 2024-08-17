@@ -15,7 +15,7 @@ import { server } from 'src/shared/lib/mockNode';
 
 const ABORT_DELAY = 5_000;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' && import.meta.env.VITE_USE_MOCK_SERVER === 'true') {
   server.listen();
 }
 
