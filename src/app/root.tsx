@@ -37,7 +37,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ locale });
 };
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
 
 export function Layout({ children }: { children: ReactNode }) {
   // Get the locale from the loader

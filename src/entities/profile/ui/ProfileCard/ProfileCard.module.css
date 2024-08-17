@@ -77,3 +77,14 @@
     font-size: 14px;
     line-height: 14px;
 }
+
+.HobbyList {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    & button {
+        padding: 4px 10px !important;
+        height: 20px !important;
+    }
+}
