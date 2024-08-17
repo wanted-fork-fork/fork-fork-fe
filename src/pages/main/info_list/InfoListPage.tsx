@@ -2,11 +2,11 @@ import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
 import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { profileMock } from 'src/entities/profile/api/__mock__/profile.mock';
 import { Link } from '@remix-run/react';
+import { useGetAllProfileInfo } from 'src/entities/profile/api/useGetAllProfileInfo';
 
 export const InfoListPage = () => {
-  const profileList = Array.from({ length: 10 }).map(() => profileMock);
+  const { data: profileList } = useGetAllProfileInfo();
 
   return (
     <div className={styles.Wrapper}>
