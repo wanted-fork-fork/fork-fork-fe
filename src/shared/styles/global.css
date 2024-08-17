@@ -76,6 +76,14 @@ table {
     border-spacing: 0;
 }
 
+svg {
+    fill: currentColor;
+}
+
+path {
+    fill: currentColor;
+}
+
 html {
     font-family: "Pretendard Variable", "Arial", sans-serif;
 }
