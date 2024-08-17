@@ -27,7 +27,7 @@ export default function KakaoAuthPage() {
         const response = await loginKakao({
           code,
         });
-        const token = response.data.accessToken;
+        const token = response.accessToken;
         useAuthStore.getState().login(token);
         location.href = '/';
       } catch (e) {

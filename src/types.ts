@@ -411,14 +411,12 @@ export interface InfoToShareResponse {
   userInfo: InfoToShareUserInfo;
 }
 
-export interface UserTokenDto {
+export interface AccessTokenResponse {
   accessToken: string;
-  refreshToken: string;
 }
 
 export interface RefreshTokenRequest {
   accessToken: string;
-  refreshToken: string;
 }
 
 export interface ImageDto {
@@ -1035,7 +1033,7 @@ formData.append('image', uploadImageBody.image)
 export const refreshToken = (
     refreshTokenRequest: RefreshTokenRequest,
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UserTokenDto>(
+      return customInstance<AccessTokenResponse>(
       {url: `/api/v1/auth/refresh-token`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: refreshTokenRequest
@@ -1109,7 +1107,7 @@ export const getAddress = (
 export const loginKakao = (
     params: LoginKakaoParams,
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UserTokenDto>(
+      return customInstance<AccessTokenResponse>(
       {url: `/api/v1/auth/kakao/login`, method: 'GET',
         params
     },
