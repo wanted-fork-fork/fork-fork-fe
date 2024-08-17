@@ -6,6 +6,7 @@ import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
 import { WideDeviceLayout } from 'src/pages/layout/WideDeviceLayout';
 import { LinksFunction } from '@remix-run/node';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const links: LinksFunction = () => {
   return [
@@ -28,6 +29,8 @@ export const links: LinksFunction = () => {
     },
   ];
 };
+
+const queryClient = new QueryClient();
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -59,7 +62,9 @@ export function Layout({ children }: { children: ReactNode }) {
         )}
       </head>
       <body>
-        <WideDeviceLayout>{children}</WideDeviceLayout>
+        <QueryClientProvider client={queryClient}>
+          <WideDeviceLayout>{children}</WideDeviceLayout>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
