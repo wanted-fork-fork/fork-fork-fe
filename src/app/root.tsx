@@ -1,12 +1,14 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
 import { ReactNode } from 'react';
 
 import 'src/shared/styles/global.css';
 import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
 import { WideDeviceLayout } from 'src/pages/layout/WideDeviceLayout';
-import { LinksFunction } from '@remix-run/node';
+import { json, LinksFunction, LoaderFunction } from '@remix-run/node';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import i18next from 'src/app/i18next.server';
+import { useTranslation } from 'react-i18next';
 
 export const links: LinksFunction = () => {
   return [
@@ -30,11 +32,21 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const locale = await i18next.getLocale(request);
+  return json({ locale });
+};
+
 const queryClient = new QueryClient();
 
 export function Layout({ children }: { children: ReactNode }) {
+  // Get the locale from the loader
+  const { locale } = useLoaderData<typeof loader>();
+
+  const { i18n } = useTranslation();
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta

@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { ProfileSummary } from 'src/entities/profile/types/profileSummary';
 import styles from './ProfileCard.module.css';
 import { calculateAge } from 'src/shared/vo/date';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   profile: ProfileSummary;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
+  const { t } = useTranslation();
   return (
     <article className={styles.Container}>
       <div className={styles.Header}>
@@ -19,7 +21,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <p className={styles.Name}>{profile.name}</p>
           <div className={styles.Info}>
             <span>{calculateAge(profile.birthDate)}</span>
-            <span>{profile.gender === 'FEMALE' ? '여자' : '남자'}</span>
+            <span>{t(profile.gender)}</span>
             <span>서울시 서초구</span>
           </div>
         </div>
