@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import { Gender, JobType, ReligionType } from 'src/entities/profile/types/profileSummary';
+import { Gender } from 'src/entities/profile/types/profileSummary';
 import { Location } from 'src/entities/location/types/location';
 import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { SmokingSmokingCategory } from 'src/types';
+import { JobJobCategory, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
 export type MyProfile = {
   name: string;
@@ -15,12 +15,12 @@ export type MyProfile = {
   images: File[];
   mbti: Mbti | null;
   job: {
-    jobCategory: JobType | null;
+    jobCategory: JobJobCategory;
     jobName: string;
   };
   location: Location[];
   religion: {
-    religionCategory: ReligionType;
+    religionCategory: ReligionReligionCategory;
     religionName?: string;
   };
   hobbies: Hobby[];
@@ -41,10 +41,10 @@ type Action = {
   setHeight: (height: number) => void;
   setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
   setMbti: (mbti: Mbti | null) => void;
-  setJobCategory: (job: JobType) => void;
+  setJobCategory: (job: JobJobCategory) => void;
   setJobName: (description: string) => void;
   setLocation: (locations: Location[]) => void;
-  setReligionCategory: (job: ReligionType) => void;
+  setReligionCategory: (job: ReligionReligionCategory) => void;
   setReligionName: (description: string) => void;
   setHobbies: (hobbies: Hobby[]) => void;
   setDrinking: (value: string) => void;
@@ -79,7 +79,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     mbti: null,
     setMbti: (mbti) => set({ mbti }),
     job: {
-      jobCategory: null,
+      jobCategory: 'ETC',
       jobName: '',
     },
     setJobCategory: (job) => set({ job: { ...get().job, jobCategory: job } }),

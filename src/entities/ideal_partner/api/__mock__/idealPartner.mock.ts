@@ -8,7 +8,7 @@ export const MockIdealPartner: IdealPartner = {
   images: [],
   locations: [
     { city: { cityName: '서울시', city: 'SEOUL' }, town: [{ town: 'GANGNAM', townName: '강남구' }] },
-    { city: { cityName: '경기도', city: 'RUDRL' }, town: [{ town: 'SUWON', townName: '수원시' }] },
+    { city: { cityName: '경기도', city: 'GYEONGGI' }, town: [{ town: 'SUWON', townName: '수원시' }] },
   ],
   religion: { religionCategory: 'NONE', religionName: '' },
   requiredOptions: [],

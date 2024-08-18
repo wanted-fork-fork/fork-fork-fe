@@ -1,9 +1,9 @@
 import styles from './JobForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
-import { JobType } from 'src/entities/profile/types/profileSummary';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { JobJobCategory } from 'src/types';
 
-const JobMetaList: RadioMeta<JobType>[] = [
+const JobMetaList: RadioMeta<JobJobCategory>[] = [
   {
     key: 'STUDENT',
     name: '학생(대학원생)',
@@ -11,7 +11,7 @@ const JobMetaList: RadioMeta<JobType>[] = [
     placeholder: '학과나 학교를 입력해주세요.',
   },
   {
-    key: 'OFFICE_WORKER',
+    key: 'EMPLOYEE',
     name: '직장인',
     allowInput: true,
     placeholder: '직무나 회사를 입력해주세요.',
@@ -36,7 +36,7 @@ export const JobForm = () => {
   const setJobType = useMyProfileStore((state) => state.setJobCategory);
   const setJobDescription = useMyProfileStore((state) => state.setJobName);
 
-  const onSelect = (job: JobType) => {
+  const onSelect = (job: JobJobCategory) => {
     setJobType(job);
     setJobDescription('');
   };

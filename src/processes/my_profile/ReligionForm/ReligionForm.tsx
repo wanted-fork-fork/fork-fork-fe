@@ -1,15 +1,14 @@
 import { Radio } from 'src/shared/ui/Radio/Radio';
 import styles from './ReligionForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
-import { ReligionType } from 'src/entities/profile/types/profileSummary';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { ReligionReligionCategory } from 'src/types';
 
-const ReligionMetaList: RadioMeta<ReligionType>[] = [
-  { key: 'NONE', name: '무교', allowInput: false },
-  { key: 'CHRISTIAN', name: '기독교', allowInput: false },
+const ReligionMetaList: RadioMeta<ReligionReligionCategory>[] = [
+  // { key: '', name: '무교', allowInput: false },
+  { key: 'CHRISTIANITY', name: '기독교', allowInput: false },
   { key: 'BUDDHISM', name: '불교', allowInput: false },
-  { key: 'CATHOLIC', name: '천주교', allowInput: false },
-  { key: 'WON_BUDDHISM', name: '원불교', allowInput: false },
+  { key: 'CATHOLICISM', name: '천주교', allowInput: false },
   { key: 'ETC', name: '기타(기타 선택 시 직접 입력)', allowInput: true, placeholder: '종교를 입력해주세요.' },
 ];
 

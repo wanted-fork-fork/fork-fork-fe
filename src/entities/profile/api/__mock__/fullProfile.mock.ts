@@ -12,15 +12,15 @@ export const fullProfileMock: MyProfile = {
   images: [],
   mbti: 'ISTP',
   job: {
-    jobCategory: 'OFFICE_WORKER',
+    jobCategory: 'EMPLOYEE',
     jobName: '개발자',
   },
   location: [
     { city: { city: 'SEOUL', cityName: '서울시' }, town: [{ town: 'GANGNAM', townName: '강남구' }] },
-    { city: { city: 'SUWON', cityName: '수원시' }, town: [{ town: 'PALDAL', townName: '팔달구' }] },
+    { city: { city: 'GYEONGGI', cityName: '경기도' }, town: [{ town: 'SUWON', townName: '수원시' }] },
   ],
   religion: {
-    religionCategory: 'NONE',
+    religionCategory: 'ETC',
     religionName: '',
   },
   hobbies: [{ name: '🧗 클라이밍' }, { name: '🥐 맛집탐방' }, { name: '🎬 영화보기' }],
