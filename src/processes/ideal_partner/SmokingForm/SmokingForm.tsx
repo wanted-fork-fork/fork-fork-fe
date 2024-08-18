@@ -1,10 +1,11 @@
 import styles from './SmokingForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { SmokingSmokingCategory } from 'src/types';
 
-const smokingRadioMeta: RadioMeta<string>[] = [
-  { key: 'A', name: '상관 없어요', allowInput: false },
-  { key: 'B', name: '절대 안돼!', allowInput: false },
+const smokingRadioMeta: RadioMeta<SmokingSmokingCategory>[] = [
+  { key: 'SMOKER', name: '상관 없어요', allowInput: false },
+  { key: 'NON_SMOKER', name: '절대 안돼!', allowInput: false },
   { key: 'ETC', name: '기타', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
