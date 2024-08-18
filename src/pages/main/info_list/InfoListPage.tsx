@@ -3,12 +3,9 @@ import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
 import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
-import { useGetAllProfileInfo } from 'src/entities/profile/api/useGetAllProfileInfo';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { ArchivedInfoResponse } from 'src/types';
 
-export const InfoListPage = () => {
+export const InfoListPage = ({ profileList }: { profileList: ArchivedInfoResponse[] }) => {
   return (
     <div className={styles.Wrapper}>
       <div className={styles.Header}>
@@ -17,25 +14,6 @@ export const InfoListPage = () => {
           <Avatar fallback={''} shape={'circle'} size={32} src={'/images/googoo_1.png'} />
         </Link>
       </div>
-      <QueryErrorResetBoundary>
-        {({ reset }) => (
-          <ErrorBoundary onReset={reset} fallbackRender={() => <p>error!</p>}>
-            <Suspense fallback={'loading...'}>
-              <ProfileListSection />
-            </Suspense>
-          </ErrorBoundary>
-        )}
-      </QueryErrorResetBoundary>
-    </div>
-  );
-};
-
-const ProfileListSection = () => {
-  const { data } = useGetAllProfileInfo();
-  const profileList = data.data;
-
-  return (
-    <>
       <p className={styles.ListInfo}>총 {profileList?.length}명</p>
       {profileList?.length ? (
         <ScrollView viewportClassName={styles.Viewport}>
@@ -51,6 +29,6 @@ const ProfileListSection = () => {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 };

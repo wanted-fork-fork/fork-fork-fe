@@ -3,6 +3,9 @@ import { json } from '@remix-run/node';
 import { GenerateFormLink } from 'src/widgets/GenerateFormLink/GenerateFormLink';
 import { authenticate } from 'src/app/server/authenticate';
 import { getAuthSession } from 'src/app/server/sessions';
+import { getAllInfo } from 'src/types';
+import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
+import { useLoaderData } from '@remix-run/react';
 
 export const meta: MetaFunction = () => {
   return [{ title: '구구' }, { name: 'description', content: '내 사랑을 구해줄래? 구해줄게!' }];
@@ -10,14 +13,20 @@ export const meta: MetaFunction = () => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const session = await getAuthSession(request);
-  await authenticate(request, session);
-  return json({});
+  const accessToken = await authenticate(request, session);
+  const { data } = await getAllInfo({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return json({ profileList: data });
 };
 
 export default function Index() {
+  const { profileList } = useLoaderData<typeof loader>();
   return (
     <>
-      {/*<InfoListPage />*/}
+      <InfoListPage profileList={profileList} />
       <GenerateFormLink />
     </>
   );
