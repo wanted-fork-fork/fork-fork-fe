@@ -113,4 +113,6 @@ const createStoreHook = (initialState?: MyProfile) =>
     },
   }));
 
-export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile & Action>(createStoreHook);
+export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(
+  createStoreHook,
+);

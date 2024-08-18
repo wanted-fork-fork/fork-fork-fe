@@ -1,13 +1,15 @@
 import { StoreApi, UseBoundStore } from 'zustand';
 import { createContext, ReactNode, useContext, useRef } from 'react';
 
-export const createStoreContext = <State,>(createStore: () => UseBoundStore<StoreApi<State>>) => {
+export const createStoreContext = <State, StateWithAction extends State>(
+  createStore: (initialState?: State) => UseBoundStore<StoreApi<StateWithAction>>,
+) => {
   const Context = createContext<UseBoundStore<StoreApi<State>> | null>(null);
 
-  const Provider = ({ children }: { children: ReactNode }) => {
-    const storeRef = useRef<UseBoundStore<StoreApi<State>>>();
+  const Provider = ({ children, initialState }: { children: ReactNode; initialState?: State }) => {
+    const storeRef = useRef<UseBoundStore<StoreApi<StateWithAction>>>();
     if (!storeRef.current) {
-      storeRef.current = createStore();
+      storeRef.current = createStore(initialState);
     }
     return <Context.Provider value={storeRef.current}>{children}</Context.Provider>;
   };

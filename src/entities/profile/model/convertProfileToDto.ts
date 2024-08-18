@@ -1,6 +1,6 @@
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
-import { ImageDto, UserInfoRequest, UserInfoRequestMbti } from 'src/types';
-import { convertDateObjectToDate } from 'src/shared/vo/date';
+import { DetailedInfoUserInfo, ImageDto, UserInfoRequest, UserInfoRequestMbti } from 'src/types';
+import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/vo/date';
 
 export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): UserInfoRequest => {
   return {
@@ -27,5 +27,23 @@ export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): Use
     foods: [],
     movie: undefined,
     pets: [],
+  };
+};
+
+export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
+  return {
+    birthDate: convertDateToDateObject(new Date(dto.birthDate)),
+    drinking: dto.drinking,
+    gender: dto.gender === 'FEAMLE' ? 'FEMALE' : 'MALE',
+    height: dto.height,
+    hobbies: dto.hobbies.map((h) => ({ name: h })),
+    images: [],
+    introduction: '',
+    job: dto.job,
+    location: [],
+    mbti: dto.mbti,
+    name: dto.name,
+    religion: dto.religion,
+    smoking: dto.smoking,
   };
 };

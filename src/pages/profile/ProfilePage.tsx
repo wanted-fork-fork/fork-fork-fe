@@ -1,18 +1,20 @@
 import { Button } from 'src/shared/ui/Button/Button';
 import { PropsWithChildren } from 'react';
 import { ArrowLeft, Edit, Share } from 'src/shared/ui/icons';
-import { fullProfileMock } from 'src/entities/profile/api/__mock__/fullProfile.mock';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
 import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
-import { MockIdealPartner } from 'src/entities/ideal_partner/api/__mock__/idealPartner.mock';
 import styles from './ProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { Link } from '@remix-run/react';
 
 export const ProfilePage = () => {
   const { ref, inView } = useInView();
 
-  const profile = fullProfileMock;
+  const profile = useMyProfileStore((state) => state);
+  const idealPartner = useIdealPartnerStore((state) => state);
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
 
   const urls = [
@@ -26,9 +28,11 @@ export const ProfilePage = () => {
   return (
     <div className={styles.Wrapper}>
       <div className={styles.Header}>
-        <IconButton>
-          <ArrowLeft />
-        </IconButton>
+        <Link to={'/'}>
+          <IconButton>
+            <ArrowLeft />
+          </IconButton>
+        </Link>
         {inView ? (
           <span />
         ) : (
@@ -57,7 +61,7 @@ export const ProfilePage = () => {
         <ProfileTab.Root>
           <ProfileTab.TriggerList className={styles.TabTriggerList} />
           <div className={styles.TabContent}>
-            <ProfileTab.Content profile={profile} idealPartner={MockIdealPartner} initialOpen={true} />
+            <ProfileTab.Content profile={profile} idealPartner={idealPartner} initialOpen={true} />
           </div>
         </ProfileTab.Root>
       </ScrollView>

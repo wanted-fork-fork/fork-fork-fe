@@ -6,11 +6,11 @@ import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/
 import { DrinkingDrinkingCategory, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
 export type IdealPartner = {
-  ageRange: {
+  ageRange?: {
     min: number;
     max: number;
   };
-  heightRange: {
+  heightRange?: {
     min: number;
     max: number;
   };
@@ -18,17 +18,17 @@ export type IdealPartner = {
   images: File[];
   locations: Location[];
   hobbies: Hobby[];
-  religion: {
+  religion?: {
     religionCategory: ReligionReligionCategory;
-    religionName: string;
+    religionName?: string;
   };
-  drinking: {
+  drinking?: {
     drinkingCategory: DrinkingDrinkingCategory;
-    drinkingAmount: string;
+    drinkingAmount?: string;
   };
-  smoking: {
+  smoking?: {
     smokingCategory: SmokingSmokingCategory;
-    smokingAmount: string;
+    smokingAmount?: string;
   };
   requiredOptions: string[];
   toMatchMaker: string;
@@ -99,4 +99,6 @@ const createStoreHook = () =>
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),
   }));
 
-export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner & Action>(createStoreHook);
+export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(
+  createStoreHook,
+);

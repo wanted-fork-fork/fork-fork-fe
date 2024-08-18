@@ -12,7 +12,7 @@ export const ProfileCardList = ({ profileList }: Props) => {
     <ul className={styles.Container}>
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
-          <Link to={`/profile/${profile.name}`}>
+          <Link to={`/profile/${profile.id}`}>
             <ProfileCard profile={profile} />
           </Link>
         </li>

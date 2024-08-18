@@ -16,6 +16,14 @@ export const convertDateObjectToDate = ({ year, month, date }: Partial<DateObj>)
   return new Date(`${year}-${month}-${date}`);
 };
 
+export const convertDateToDateObject = (date: Date): DateObj => {
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate(),
+  };
+};
+
 export const calculateAge = (birthDate: Date) => {
   return dayjs(Date.now()).diff(birthDate, 'year');
 };
