@@ -31,7 +31,8 @@ export const InfoListPage = () => {
 };
 
 const ProfileListSection = () => {
-  const { data: profileList } = useGetAllProfileInfo();
+  const { data } = useGetAllProfileInfo();
+  const profileList = data.data;
 
   return (
     <>

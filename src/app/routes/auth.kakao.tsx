@@ -1,8 +1,8 @@
-import { LoaderFunction } from '@remix-run/node';
+import { LoaderFunction, redirect } from '@remix-run/node';
 import { loginKakao } from 'src/types';
-import { useLoaderData } from '@remix-run/react';
-import { useEffect } from 'react';
-import { useAuthStore } from 'src/entities/auth/useAuthStore';
+import { commitSession, getAuthSession } from 'src/app/server/sessions';
+import { authenticate } from 'src/app/server/authenticate';
+import { getRefreshTokenFromHeader } from 'src/app/server/getRefreshToken';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
@@ -15,27 +15,32 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
   }
 
-  return { code };
+  try {
+    const { data, headers } = await loginKakao({ code });
+
+    const refreshToken = getRefreshTokenFromHeader(headers);
+    if (!refreshToken) return redirect('/login');
+
+    const session = await getAuthSession(request);
+    session.set('accessToken', data.accessToken);
+    session.set('refreshToken', refreshToken);
+
+    const token = await authenticate(request, session, request.headers);
+    if (token) {
+      return redirect('/', {
+        headers: {
+          'Set-Cookie': await commitSession(session),
+        },
+      });
+    }
+
+    return redirect('/login');
+  } catch (e) {
+    console.error(e);
+    return redirect('/login');
+  }
 };
 
 export default function KakaoAuthPage() {
-  const { code } = useLoaderData<typeof loader>();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await loginKakao({
-          code,
-        });
-        const token = response.accessToken;
-        useAuthStore.getState().login(token);
-        location.href = '/';
-      } catch (e) {
-        console.log(e);
-        location.href = '/login';
-      }
-    })();
-  }, []);
-
   return <></>;
 }

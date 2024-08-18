@@ -38,12 +38,12 @@ const GenerateFormBottomSheetContent = () => {
 
   useEffect(() => {
     if (status === 'success') {
-      setCurrentKey(data.linkKey);
-      setCurrentOpenState(data.isOpen);
+      setCurrentKey(data.data.linkKey);
+      setCurrentOpenState(data.data.isOpen);
     }
   }, [data, status]);
 
-  linkId.current = data?.linkId ?? null;
+  linkId.current = data?.data.linkId ?? null;
 
   const onToggleLinkOpen = async () => {
     if (!data || !linkId.current) return;
@@ -58,7 +58,7 @@ const GenerateFormBottomSheetContent = () => {
   };
 
   const onClickRegenerate = async () => {
-    const data = await regenerateLinkMutation({});
+    const { data } = await regenerateLinkMutation({});
     setCurrentKey(data.linkKey);
     setCurrentOpenState(data.isOpen);
     linkId.current = data.linkId;
@@ -85,7 +85,7 @@ const GenerateFormBottomSheetContent = () => {
       <h3>링크 설정</h3>
       <div>
         <h4>링크 활성화</h4>
-        <input type={'checkbox'} checked={data.isOpen} onClick={onToggleLinkOpen} />
+        <input type={'checkbox'} checked={data.data.isOpen} onClick={onToggleLinkOpen} />
       </div>
       <div>
         <h4>새로운 링크 생성</h4>
