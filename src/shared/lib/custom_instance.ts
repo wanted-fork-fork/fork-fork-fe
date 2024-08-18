@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { refreshToken } from 'src/types';
+import { redirectToLoginPage } from 'src/shared/functions/redirectToLoginPage';
 
-const instance = axios.create({ baseURL: import.meta.env.VITE_API_BASE_URL });
+const instance = axios.create({ baseURL: import.meta.env.VITE_API_BASE_URL, withCredentials: true });
 
 const getAccessToken = () => localStorage?.getItem('accessToken') ?? null;
 
@@ -47,6 +48,7 @@ instance.interceptors.response.use(
     const { config } = error;
 
     if (config.url.includes('refresh-token') || error.response.status !== 401 || config.sent) {
+      redirectToLoginPage();
       return Promise.reject(error);
     }
 
