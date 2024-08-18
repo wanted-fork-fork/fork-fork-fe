@@ -1,14 +1,44 @@
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import styles from './UploadLoadingPage.module.css';
 import { useEffect } from 'react';
+import { useActionData, useSubmit } from '@remix-run/react';
+import { action } from 'src/app/routes/form.$key';
+import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
+import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
-export const UploadLoadingPage = ({ name, onComplete }: { name: string; onComplete: () => void }) => {
+export const UploadLoadingPage = ({
+  name,
+  linkKey,
+  onComplete,
+}: {
+  name: string;
+  linkKey: string;
+  onComplete: () => void;
+}) => {
+  const result = useActionData<typeof action>();
+  const submit = useSubmit();
+
+  const profile = useMyProfileStore((state) => state);
+  const idealPartner = useIdealPartnerStore((state) => state);
+
   useEffect(() => {
-    const timer = setTimeout(onComplete, 5_000);
-    return () => {
-      clearTimeout(timer);
-    };
+    submit(
+      {
+        linkKey,
+        userInfo: JSON.stringify(convertProfileToDto(profile, [])),
+        idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, [])),
+      },
+      { method: 'post' },
+    );
   }, []);
+
+  useEffect(() => {
+    if (result?.status === 200) {
+      onComplete();
+    }
+  }, [onComplete, result?.status]);
 
   return (
     <div className={styles.Wrapper}>

@@ -5,7 +5,7 @@ import { convertDateObjectToDate } from 'src/shared/vo/date';
 export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): UserInfoRequest => {
   return {
     name: profile.name,
-    birthDate: convertDateObjectToDate(profile.birthDate).toString(),
+    birthDate: convertDateObjectToDate(profile.birthDate).toISOString(),
     drinking: profile.drinking,
     // TODO: 오타 고쳐지면 삼항연산자 부분 삭제
     gender: profile.gender === 'FEMALE' ? 'FEAMLE' : 'MALE',
