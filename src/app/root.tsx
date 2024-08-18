@@ -1,4 +1,13 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useRouteError,
+  useRouteLoaderData,
+} from '@remix-run/react';
 import { ReactNode } from 'react';
 
 import 'src/shared/styles/global.css';
@@ -37,11 +46,33 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ locale });
 };
 
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  // when true, this is what used to go to `CatchBoundary`
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>Oops</h1>
+        <p>Status: {error.status}</p>
+        <p>{error.data.message}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1>Uh oh ...</h1>
+      <p>Something went wrong.</p>
+    </div>
+  );
+}
+
 const queryClient = new QueryClient();
 
 export function Layout({ children }: { children: ReactNode }) {
   // Get the locale from the loader
-  const { locale } = useLoaderData<typeof loader>();
+  const { locale } = useRouteLoaderData<typeof loader>('root');
 
   const { i18n } = useTranslation();
 

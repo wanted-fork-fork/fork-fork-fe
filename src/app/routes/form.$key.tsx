@@ -10,6 +10,8 @@ import { CompletePage } from 'src/pages/form/complete/CompletePage';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
+import { validateLink } from 'src/types';
+import { json, LoaderFunctionArgs } from '@remix-run/node';
 
 const MAX_STEP_COUNT = 7;
 
@@ -22,6 +24,18 @@ const createFormPageStep = ({ name, increase }: { name: string; increase: () => 
   5: <UploadLoadingPage name={name} onComplete={increase} />,
   6: <CompletePage />,
 });
+
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const { key } = params;
+  if (!key) throw new Response('', { status: 404 });
+
+  const { data } = await validateLink(key);
+  if (!data.isValid) throw new Response('', { status: 404 });
+
+  return json({ linkId: data.linkId });
+};
+
+export const action = async () => {};
 
 export default function ProfileFormPage() {
   const name = useProfileFirstName();

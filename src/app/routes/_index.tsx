@@ -3,7 +3,7 @@ import { json } from '@remix-run/node';
 import { GenerateFormLink } from 'src/widgets/GenerateFormLink/GenerateFormLink';
 import { authenticate } from 'src/app/server/authenticate';
 import { getAuthSession } from 'src/app/server/sessions';
-import { getAllInfo } from 'src/types';
+import { getAllInfo, getLinkByMatchMakerId } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useLoaderData } from '@remix-run/react';
 
@@ -19,6 +19,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+  const { data: linkData } = await getLinkByMatchMakerId({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  console.log(linkData);
   return json({ profileList: data });
 };
 
