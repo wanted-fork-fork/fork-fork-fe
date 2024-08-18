@@ -2,20 +2,21 @@ import { Input } from 'src/shared/ui/Input/Input';
 import styles from './SmokeAlcoholForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { SmokingSmokingCategory } from 'src/types';
 
-const SmokeTypeList = ['NO', 'YES', 'ETC'];
-type SmokeType = (typeof SmokeTypeList)[number];
-const SmokeMetaList: RadioMeta<SmokeType>[] = [
-  { key: 'NO', name: '안합니다', allowInput: false },
-  { key: 'YES', name: '합니다', allowInput: false },
+const SmokeMetaList: RadioMeta<SmokingSmokingCategory>[] = [
+  { key: 'NON_SMOKER', name: '안합니다', allowInput: false },
+  { key: 'SMOKER', name: '합니다', allowInput: false },
   { key: 'ETC', name: '기타', allowInput: true, placeholder: '담배는 언제 피는 편인가요?' },
 ];
 
 export const SmokeAlcoholForm = () => {
   const drinking = useMyProfileStore((state) => state.drinking);
   const setDrinking = useMyProfileStore((state) => state.setDrinking);
-  const smoking = useMyProfileStore((state) => state.smoking);
-  const setSmoking = useMyProfileStore((state) => state.setSmoking);
+  const smokingCategory = useMyProfileStore((state) => state.smoking.smokingCategory);
+  const smokingAmount = useMyProfileStore((state) => state.smoking.smokingAmount);
+  const setSmokingCategory = useMyProfileStore((state) => state.setSmokingCategory);
+  const setSmokingAmount = useMyProfileStore((state) => state.setSmokingAmount);
   return (
     <section className={styles.Container}>
       <fieldset>
@@ -28,7 +29,13 @@ export const SmokeAlcoholForm = () => {
       </fieldset>
       <fieldset>
         <legend className={`strong ${styles.Legend}`}>흡연 여부</legend>
-        <RadioList radioMetaList={SmokeMetaList} selected={smoking} onSelect={setSmoking} />
+        <RadioList
+          radioMetaList={SmokeMetaList}
+          selected={smokingCategory}
+          inputValue={smokingAmount}
+          onSelect={setSmokingCategory}
+          onChangeInputValue={setSmokingAmount}
+        />
       </fieldset>
     </section>
   );

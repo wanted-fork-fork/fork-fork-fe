@@ -8,7 +8,7 @@
     "start": "remix-serve ./build/server/index.js",
     "build": "remix vite:build",
     "check:lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "check:ts": "tsc",
+    "check:ts": "tsc --watch",
     "test:watch": "vitest --watch",
     "storybook:dev": "storybook dev -p 6006",
     "storybook:build": "storybook build",

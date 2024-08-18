@@ -25,6 +25,8 @@ export const fullProfileMock: MyProfile = {
   },
   hobbies: [{ name: '🧗 클라이밍' }, { name: '🥐 맛집탐방' }, { name: '🎬 영화보기' }],
   drinking: '아주 가끔',
-  smoking: 'NO',
+  smoking: {
+    smokingCategory: 'NON_SMOKER',
+  },
   introduction: '하이',
 };

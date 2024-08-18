@@ -87,7 +87,7 @@ export const MyProfileView = ({ profile, initialOpen = false }: { profile: MyPro
           <div className={styles.GridRow}>
             <div className={styles.Cell}>
               <ProfileCellHeader title={'흡연여부'} />
-              <span>{profile.smoking}</span>
+              <span>{profile.smoking.smokingCategory}</span>
             </div>
             <div className={styles.Cell}>
               <ProfileCellHeader title={'음주 빈도'} />
