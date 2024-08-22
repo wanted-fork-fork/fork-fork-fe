@@ -1,7 +1,6 @@
 import { LoaderFunction, redirect } from '@remix-run/node';
 import { loginKakao } from 'src/types';
 import { commitSession, getAuthSession } from 'src/app/server/sessions';
-import { authenticate } from 'src/app/server/authenticate';
 import { getRefreshTokenFromHeader } from 'src/app/server/getRefreshToken';
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -25,7 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     session.set('accessToken', data.accessToken);
     session.set('refreshToken', refreshToken);
 
-    const token = await authenticate(request, session, request.headers);
+    const token = await getAuthSession(request);
     if (token) {
       return redirect('/', {
         headers: {

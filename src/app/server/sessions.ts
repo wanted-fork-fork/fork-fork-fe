@@ -24,7 +24,11 @@ const { getSession, commitSession, destroySession } = createCookieSessionStorage
 });
 
 const getAuthSession = async (request: Request) => {
-  return getSession(request.headers.get('Cookie'));
+  const foundSession = await getSession(request.headers.get('Cookie'));
+  if (process.env.NODE_ENV === 'development') {
+    foundSession.set('accessToken', process.env.VITE_DEV_JWT_TOKEN ?? '');
+  }
+  return foundSession;
 };
 
 export { getAuthSession, commitSession, destroySession };
