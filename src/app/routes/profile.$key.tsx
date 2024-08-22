@@ -31,7 +31,7 @@ export default function Page() {
   const { profile } = useLoaderData<typeof loader>();
   const profileInitialState = useMemo(() => convertDtoToProfile(profile.userInfo), [profile.userInfo]);
   const idealPartnerInitialState = useMemo(
-    () => convertDtoToIdealPartner(profile.idealPartner),
+    () => (profile.idealPartner ? convertDtoToIdealPartner(profile.idealPartner) : undefined),
     [profile.idealPartner],
   );
   return (

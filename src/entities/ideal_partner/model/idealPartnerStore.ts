@@ -18,15 +18,15 @@ export type IdealPartner = {
   images: File[];
   locations: Location[];
   hobbies: Hobby[];
-  religion?: {
+  religion: {
     religionCategory: ReligionReligionCategory;
     religionName?: string;
   };
-  drinking?: {
+  drinking: {
     drinkingCategory: DrinkingDrinkingCategory;
     drinkingAmount?: string;
   };
-  smoking?: {
+  smoking: {
     smokingCategory: SmokingSmokingCategory;
     smokingAmount?: string;
   };
@@ -59,14 +59,21 @@ const createStoreHook = () =>
       min: 20,
       max: 30,
     },
-    setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
-    setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),
+    setMinAge: (min) => set({ ageRange: { max: 30, ...get().ageRange, min } }),
+    setMaxAge: (max) => set({ ageRange: { min: 20, ...get().ageRange, max } }),
     heightRange: {
       min: MIN_IDEAL_HEIGHT,
       max: MAX_IDEAL_HEIGHT,
     },
-    setMinHeight: (min) => set({ heightRange: { ...get().heightRange, min } }),
-    setMaxHeight: (max) => set({ heightRange: { ...get().heightRange, max } }),
+    setMinHeight: (min) =>
+      set({
+        heightRange: {
+          max: MAX_IDEAL_HEIGHT,
+          ...get().heightRange,
+          min,
+        },
+      }),
+    setMaxHeight: (max) => set({ heightRange: { min: MIN_IDEAL_HEIGHT, ...get().heightRange, max } }),
     style: '',
     setStyle: (style) => set({ style }),
     images: [],
