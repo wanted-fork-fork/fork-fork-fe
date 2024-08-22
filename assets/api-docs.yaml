@@ -57,29 +57,6 @@ paths:
             '*/*':
               schema:
                 type: string
-    post:
-      tags:
-      - info-controller
-      operationId: saveInfo
-      parameters:
-      - name: linkKey
-        in: query
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SaveInfoRequest'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
   /api/v1/sharing/{infoId}:
     post:
       tags:
@@ -110,6 +87,30 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateLinkResponse'
+  /api/v1/info/save:
+    post:
+      tags:
+      - info-controller
+      operationId: saveInfo
+      parameters:
+      - name: linkKey
+        in: query
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveInfoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
   /api/v1/image/upload:
     post:
       tags:
@@ -292,7 +293,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: string
+                $ref: '#/components/schemas/UserInfoResponse'
   /api/v1/info/{id}:
     delete:
       tags:
@@ -351,7 +352,6 @@ components:
     DetailedInfoDto:
       required:
       - id
-      - idealPartner
       - userInfo
       type: object
       properties:
@@ -362,6 +362,13 @@ components:
         idealPartner:
           $ref: '#/components/schemas/DetailedInfoIdealPartner'
     DetailedInfoIdealPartner:
+      required:
+      - drinking
+      - hobbies
+      - religion
+      - requiredOptions
+      - smoking
+      - toMatchMaker
       type: object
       properties:
         ageRange:
@@ -402,7 +409,6 @@ components:
       - images
       - job
       - location
-      - mbti
       - name
       - religion
       - smoking
@@ -414,7 +420,7 @@ components:
           type: string
           enum:
           - MALE
-          - FEAMLE
+          - FEMALE
         birthDate:
           type: string
           format: date-time
@@ -458,6 +464,8 @@ components:
           type: string
         smoking:
           $ref: '#/components/schemas/Smoking'
+        introduction:
+          type: string
         pets:
           type: array
           items:
@@ -810,6 +818,7 @@ components:
           - CHRISTIANITY
           - CATHOLICISM
           - BUDDHISM
+          - IRRELIGION
           - ETC
         religionName:
           type: string
@@ -834,6 +843,13 @@ components:
         sharingId:
           type: string
     IdealPartnerRequest:
+      required:
+      - drinking
+      - hobbies
+      - religion
+      - requiredOptions
+      - smoking
+      - toMatchMaker
       type: object
       properties:
         ageRange:
@@ -866,7 +882,6 @@ components:
           type: string
     SaveInfoRequest:
       required:
-      - idealPartner
       - userInfo
       type: object
       properties:
@@ -884,7 +899,6 @@ components:
       - images
       - job
       - location
-      - mbti
       - name
       - religion
       - smoking
@@ -896,7 +910,7 @@ components:
           type: string
           enum:
           - MALE
-          - FEAMLE
+          - FEMALE
         birthDate:
           type: string
           format: date-time
@@ -983,6 +997,13 @@ components:
         accessToken:
           type: string
     InfoToShareIdealPartner:
+      required:
+      - drinking
+      - hobbies
+      - religion
+      - requiredOptions
+      - smoking
+      - toMatchMaker
       type: object
       properties:
         ageRange:
@@ -1015,7 +1036,6 @@ components:
           type: string
     InfoToShareResponse:
       required:
-      - idealPartner
       - sharingId
       - userInfo
       type: object
@@ -1037,7 +1057,6 @@ components:
       - introduction
       - job
       - location
-      - mbti
       - name
       - religion
       - smoking
@@ -1049,7 +1068,7 @@ components:
           type: string
           enum:
           - MALE
-          - FEAMLE
+          - FEMALE
         birthDate:
           type: string
           format: date-time
@@ -1141,9 +1160,9 @@ components:
       - gender
       - height
       - hobbies
+      - images
       - job
       - location
-      - mbti
       - name
       - religion
       - smoking
@@ -1160,7 +1179,7 @@ components:
           type: string
           enum:
           - MALE
-          - FEAMLE
+          - FEMALE
         location:
           $ref: '#/components/schemas/Location'
         height:
@@ -1197,6 +1216,10 @@ components:
           type: array
           items:
             type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
     CityAndTownResponse:
       required:
       - city
@@ -1477,6 +1500,18 @@ components:
           - SUSEONG
           - DAEGU_JUNG
         townName:
+          type: string
+    UserInfoResponse:
+      required:
+      - name
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        profileImage:
           type: string
   securitySchemes:
     Bearer Token:
