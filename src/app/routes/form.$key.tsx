@@ -10,7 +10,7 @@ import { CompletePage } from 'src/pages/form/complete/CompletePage';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
-import { saveInfo, validateLink } from 'src/types';
+import { saveInfo } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
@@ -30,8 +30,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { key } = params;
   if (!key) throw new Response('', { status: 404 });
 
-  const { data } = await validateLink(key);
-  if (!data.isValid) throw new Response('', { status: 404 });
+  // const { data } = await validateLink(key);
+  // if (!data.isValid) throw new Response('', { status: 404 });
 
   return json({ linkKey: key });
 };

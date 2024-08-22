@@ -1,8 +1,6 @@
-import { LoaderFunctionArgs } from '@remix-run/node';
 import { ProfilePage } from 'src/pages/profile/ProfilePage';
 import { getInfo } from 'src/types';
-import { getAuthSession } from 'src/app/server/sessions';
-import { authenticate } from 'src/app/server/authenticate';
+import { withAuthenticated } from 'src/app/server/withAuthenticated';
 import { useLoaderData } from '@remix-run/react';
 import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
@@ -10,7 +8,7 @@ import { useMemo } from 'react';
 import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
 import { convertDtoToIdealPartner } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader = withAuthenticated(async ({ params }, accessToken) => {
   const { key } = params;
 
   if (!key) {
@@ -20,8 +18,6 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     });
   }
 
-  const session = await getAuthSession(request);
-  const accessToken = await authenticate(request, session);
   const { data } = await getInfo(key, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -29,7 +25,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   });
 
   return { profile: data };
-};
+});
 
 export default function Page() {
   const { profile } = useLoaderData<typeof loader>();

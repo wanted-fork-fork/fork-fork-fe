@@ -8,7 +8,7 @@ export const MyPage = () => {
   return (
     <>
       <div className={styles.Header}>
-        <Link to={'/?login=true'}>
+        <Link to={'/'}>
           <Close />
         </Link>
         <h2>마이페이지</h2>
