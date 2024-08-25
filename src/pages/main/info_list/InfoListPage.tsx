@@ -3,15 +3,21 @@ import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
 import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
-import { ArchivedInfoResponse } from 'src/types';
+import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 
-export const InfoListPage = ({ profileList }: { profileList: ArchivedInfoResponse[] }) => {
+export const InfoListPage = ({
+  userInfo,
+  profileList,
+}: {
+  userInfo: UserInfoResponse;
+  profileList: ArchivedInfoResponse[];
+}) => {
   return (
     <div className={styles.Wrapper}>
       <div className={styles.Header}>
         <h2>소개 후보</h2>
         <Link to={'/mypage'}>
-          <Avatar fallback={''} shape={'circle'} size={32} src={'/images/googoo_1.png'} />
+          <Avatar fallback={''} shape={'circle'} size={32} src={userInfo.profileImage} />
         </Link>
       </div>
       <p className={styles.ListInfo}>총 {profileList?.length}명</p>
