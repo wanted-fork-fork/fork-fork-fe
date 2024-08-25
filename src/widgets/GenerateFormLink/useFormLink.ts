@@ -41,9 +41,9 @@ export const useFormLink = () => {
     if (!formLink.linkKey) {
       const newLink = await createLinkMutation();
       setFormLink({ ...newLink.data });
-      return `${location.host}/form/${newLink.data.linkKey}`;
+      return `${location.origin}/form/${newLink.data.linkKey}`;
     }
-    return `${location.host}/form/${formLink.linkKey}`;
+    return `${location.origin}/form/${formLink.linkKey}`;
   }, [createLinkMutation, formLink.linkKey]);
 
   const regenerateLink = useCallback(async () => {
