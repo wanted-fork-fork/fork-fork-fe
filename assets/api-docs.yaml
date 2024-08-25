@@ -139,17 +139,11 @@ paths:
       tags:
       - auth-controller
       operationId: refreshToken
-      parameters:
-      - name: refreshToken
-        in: cookie
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RefreshTokenRequest'
+              $ref: '#/components/schemas/UserTokenDto'
         required: true
       responses:
         "200":
@@ -157,7 +151,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/AccessTokenResponse'
+                $ref: '#/components/schemas/UserTokenDto'
   /api/v1/auth/logout:
     post:
       tags:
@@ -281,7 +275,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/AccessTokenResponse'
+                $ref: '#/components/schemas/UserTokenDto'
   /api/v1/auth/info:
     get:
       tags:
@@ -982,19 +976,15 @@ components:
           type: string
         url:
           type: string
-    RefreshTokenRequest:
+    UserTokenDto:
       required:
       - accessToken
+      - refreshToken
       type: object
       properties:
         accessToken:
           type: string
-    AccessTokenResponse:
-      required:
-      - accessToken
-      type: object
-      properties:
-        accessToken:
+        refreshToken:
           type: string
     InfoToShareIdealPartner:
       required:
