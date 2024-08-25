@@ -1,3 +1,7 @@
+.Sheet {
+    z-index: 99 !important;
+}
+
 .Container {
     max-width: 480px;
     left: calc(50% - min(240px, 50%)) !important;

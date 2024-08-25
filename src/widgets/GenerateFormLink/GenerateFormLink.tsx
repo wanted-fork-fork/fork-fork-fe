@@ -5,6 +5,7 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Suspense } from 'react';
 import { useFormLink } from 'src/widgets/GenerateFormLink/useFormLink';
+import toast from 'react-hot-toast';
 
 export const GenerateFormLink = () => {
   const { value: isOpen, setFalse: onClose, setTrue: onClick } = useBoolean(false);
@@ -31,17 +32,17 @@ const GenerateFormBottomSheetContent = () => {
 
   const onToggleLinkOpen = async () => {
     await updateLinkOpenState(!isOpen);
-    alert(`링크를 ${isOpen ? '비' : ''}활성화했습니다`);
+    toast.success(`링크를 ${isOpen ? '비' : ''}활성화했습니다`, { icon: null });
   };
 
   const onClickCopyLink = async () => {
     await navigator.clipboard.writeText(await getLink());
-    alert('복사되었습니다');
+    toast.success('복사되었습니다', { icon: null });
   };
 
   const onClickRegenerate = async () => {
     await regenerateLink();
-    alert('링크를 재생성했습니다');
+    toast.success('링크를 재생성했습니다', { icon: null });
   };
 
   return (

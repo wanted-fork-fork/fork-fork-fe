@@ -18,6 +18,8 @@ import { json, LinksFunction, LoaderFunction } from '@remix-run/node';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import i18next from 'src/app/i18next.server';
 import { useTranslation } from 'react-i18next';
+import { Toaster } from 'react-hot-toast';
+import { ToastOption } from 'src/shared/ui/Toast/toastOption';
 
 export const links: LinksFunction = () => {
   return [
@@ -107,6 +109,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <WideDeviceLayout>{children}</WideDeviceLayout>
+          {typeof window !== 'undefined' && <Toaster position={'bottom-center'} toastOptions={ToastOption} />}
         </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
