@@ -2,10 +2,9 @@ import styles from 'src/features/copy_profile_link/CopyProfileFormLinkButton.mod
 import { Close, Plus } from 'src/shared/ui/icons';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { useBoolean } from 'src/shared/functions/useBoolean';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { getLinkByMatchMakerId, regenerateLinkKey, updateLinkOpen } from 'src/types';
 import { Button } from 'src/shared/ui/Button/Button';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense } from 'react';
+import { useFormLink } from 'src/widgets/GenerateFormLink/useFormLink';
 
 export const GenerateFormLink = () => {
   const { value: isOpen, setFalse: onClose, setTrue: onClick } = useBoolean(false);
@@ -15,7 +14,7 @@ export const GenerateFormLink = () => {
       <button className={styles.FloatingButton} onClick={onClick}>
         <Plus color={'#fff'} />
       </button>
-      <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <BottomSheet isOpen={isOpen} onClose={onClose} detent={'content-height'}>
         <BottomSheet.Header onClose={onClose} />
         <BottomSheet.Content>
           <Suspense fallback={'loading...'}>
@@ -28,50 +27,22 @@ export const GenerateFormLink = () => {
 };
 
 const GenerateFormBottomSheetContent = () => {
-  const { data, status } = useQuery({ queryFn: getLinkByMatchMakerId, queryKey: [] });
-  const { mutateAsync: regenerateLinkMutation } = useMutation({ mutationFn: regenerateLinkKey });
-  const { mutateAsync: updateLinkOpenMutation } = useMutation({ mutationFn: updateLinkOpen });
-
-  const [currentKey, setCurrentKey] = useState('');
-  const [currentOpenState, setCurrentOpenState] = useState(false);
-  const linkId = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (status === 'success') {
-      setCurrentKey(data.data.linkKey);
-      setCurrentOpenState(data.data.isOpen);
-    }
-  }, [data, status]);
-
-  linkId.current = data?.data.linkId ?? null;
+  const { isOpen, getLink, regenerateLink, updateLinkOpenState } = useFormLink();
 
   const onToggleLinkOpen = async () => {
-    if (!data || !linkId.current) return;
-    await updateLinkOpenMutation({ isOpen: !currentOpenState, linkId: linkId.current });
-    alert(`링크를 ${currentOpenState ? '비' : ''}활성화했습니다`);
+    await updateLinkOpenState(!isOpen);
+    alert(`링크를 ${isOpen ? '비' : ''}활성화했습니다`);
   };
 
   const onClickCopyLink = async () => {
-    if (!data) return;
-    await navigator.clipboard.writeText(`${location.host}/form/${currentKey}`);
+    await navigator.clipboard.writeText(await getLink());
     alert('복사되었습니다');
   };
 
   const onClickRegenerate = async () => {
-    const { data } = await regenerateLinkMutation({});
-    setCurrentKey(data.linkKey);
-    setCurrentOpenState(data.isOpen);
-    linkId.current = data.linkId;
+    await regenerateLink();
     alert('링크를 재생성했습니다');
   };
-
-  if (status === 'pending') {
-    return <>loading...</>;
-  }
-
-  if (status === 'error') {
-    return <>error</>;
-  }
 
   return (
     <>
@@ -85,7 +56,7 @@ const GenerateFormBottomSheetContent = () => {
       <h3>링크 설정</h3>
       <div>
         <h4>링크 활성화</h4>
-        <input type={'checkbox'} checked={data.data.isOpen} onClick={onToggleLinkOpen} />
+        <input type={'checkbox'} checked={isOpen} onClick={onToggleLinkOpen} />
       </div>
       <div>
         <h4>새로운 링크 생성</h4>
