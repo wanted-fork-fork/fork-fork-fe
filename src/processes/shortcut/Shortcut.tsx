@@ -1,6 +1,5 @@
-import { ArrowLeft, ArrowRight, Close, List } from 'src/shared/ui/icons';
+import { ArrowRight, List } from 'src/shared/ui/icons';
 import styles from './Shortcut.module.css';
-import { Sheet } from 'react-modal-sheet';
 import { useRef, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
@@ -10,6 +9,7 @@ import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
 import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
+import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 
 export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${number}px` }) => {
   const floatingButtonPosition = useRef({ right, bottom });
@@ -53,85 +53,58 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
       <button className={styles.FloatingButton} onClick={() => setOpen(true)} style={floatingButtonPosition.current}>
         <List />
       </button>
-      <Sheet detent={'full-height'} isOpen={open} onClose={onClose}>
-        <Sheet.Container>
-          <Sheet.Header className={styles.Header}>
-            {selectedKey && (
-              <Button
-                variant={'ghost'}
-                color={'neutral'}
-                widthType={'hug'}
-                size={'fit'}
-                onClick={() => setSelectedKey(null)}
-              >
-                <ArrowLeft width={24} />
-              </Button>
-            )}
-            <Button
-              className={styles.CloseButton}
-              variant={'ghost'}
-              color={'neutral'}
-              widthType={'hug'}
-              size={'fit'}
-              onClick={onClose}
-            >
-              <Close width={24} />
-            </Button>
-          </Sheet.Header>
-          <Sheet.Content className={styles.Content}>
-            {selectedKey === null && (
-              <div className={styles.MenuWrapper}>
+      <BottomSheet detent={'full-height'} isOpen={open} onClose={onClose}>
+        <BottomSheet.Header onPrev={selectedKey ? () => setSelectedKey(null) : undefined} onClose={onClose} />
+        <BottomSheet.Content className={styles.Content}>
+          {selectedKey === null && (
+            <div className={styles.MenuWrapper}>
+              <div className={styles.TitleSection}>
+                <h2>수정하고 싶은 항목을 선택해주세요.</h2>
+                <p>선택 시 해당 항목으로 이동합니다.</p>
+              </div>
+              <ScrollView rootClassName={styles.MenuSection} viewportClassName={styles.MenuSectionViewport}>
                 <div>
-                  <h2>수정하고 싶은 항목을 선택해주세요.</h2>
-                  <p>선택 시 해당 항목으로 이동합니다.</p>
+                  <p className={styles.MenuSectionTitle}>내 정보</p>
+                  {Array.from(Object.entries(MyProfileStepMeta)).map(([key, { shortcutTitle }]) => (
+                    <MenuButton
+                      key={key}
+                      text={shortcutTitle}
+                      disabled={!myProfileTouchedSteps.has(key)}
+                      onClick={() => onSelectProfile(key)}
+                    />
+                  ))}
                 </div>
-                <ScrollView rootClassName={styles.MenuSection}>
-                  <div>
-                    <p className={styles.MenuSectionTitle}>내 정보</p>
-                    {Array.from(Object.entries(MyProfileStepMeta)).map(([key, { shortcutTitle, canGoNext }], idx) => (
-                      <MenuButton
-                        key={key}
-                        text={shortcutTitle}
-                        disabled={!myProfileTouchedSteps.has(key)}
-                        onClick={() => onSelectProfile(key)}
-                      />
-                    ))}
-                  </div>
-                  <Spacing size={24} />
-                  <div>
-                    <p className={styles.MenuSectionTitle}>이상형 정보</p>
-                    {Array.from(Object.entries(IdealPartnerStepMeta)).map(([key, { shortcutTitle, canGoNext }]) => (
-                      <MenuButton
-                        key={key}
-                        text={shortcutTitle}
-                        disabled={!ideaelPartnerTouchedSteps.has(key)}
-                        onClick={() => onSelectIdealPartner(key)}
-                      />
-                    ))}
-                  </div>
-                </ScrollView>
+                <Spacing size={24} />
+                <div>
+                  <p className={styles.MenuSectionTitle}>이상형 정보</p>
+                  {Array.from(Object.entries(IdealPartnerStepMeta)).map(([key, { shortcutTitle }]) => (
+                    <MenuButton
+                      key={key}
+                      text={shortcutTitle}
+                      disabled={!ideaelPartnerTouchedSteps.has(key)}
+                      onClick={() => onSelectIdealPartner(key)}
+                    />
+                  ))}
+                </div>
+              </ScrollView>
+            </div>
+          )}
+          {selectedKey !== null && selectedStep && (
+            <div className={styles.FormWrapper}>
+              <div className={styles.FormHeader}>
+                <h2>{selectedStep.title({ name })}</h2>
+                {selectedStep.description && <small className={styles.Description}>{selectedStep.description()}</small>}
               </div>
-            )}
-            {selectedKey !== null && selectedStep && (
-              <div className={styles.FormWrapper}>
-                <div className={styles.FormHeader}>
-                  <h2>{selectedStep.title({ name })}</h2>
-                  {selectedStep.description && (
-                    <small className={styles.Description}>{selectedStep.description()}</small>
-                  )}
-                </div>
-                <div className={styles.FormMain}>{selectedStep.form}</div>
-                <div className={styles.FormFooter}>
-                  <Button variant={'filled'} widthType={'fill'} color={'primary'}>
-                    변경사항 저장
-                  </Button>
-                </div>
+              <div className={styles.FormMain}>{selectedStep.form}</div>
+              <div className={styles.FormFooter}>
+                <Button variant={'filled'} widthType={'fill'} color={'primary'}>
+                  변경사항 저장
+                </Button>
               </div>
-            )}
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop />
-      </Sheet>
+            </div>
+          )}
+        </BottomSheet.Content>
+      </BottomSheet>
     </>
   );
 };

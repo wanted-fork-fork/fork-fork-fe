@@ -31,8 +31,12 @@
 }
 
 .Content {
-    padding: 8px 20px 0;
+    padding: 8px 0 14px;
     height: 100%;
+}
+
+.TitleSection {
+    padding: 0 20px;
 }
 
 .MenuWrapper {
@@ -52,6 +56,10 @@
 .MenuSection {
     flex-grow: 1;
     overflow: hidden;
+}
+
+.MenuSectionViewport {
+    padding: 0 20px;
 }
 
 .FormWrapper {
