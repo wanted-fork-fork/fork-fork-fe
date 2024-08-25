@@ -3,8 +3,9 @@ import { ArrowRight, Close } from 'src/shared/ui/icons';
 import { Link } from '@remix-run/react';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import styles from './MyPage.module.css';
+import { UserInfoResponse } from 'src/types';
 
-export const MyPage = () => {
+export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
   return (
     <>
       <div className={styles.Header}>
@@ -14,8 +15,8 @@ export const MyPage = () => {
         <h2>마이페이지</h2>
       </div>
       <div className={styles.UserInfoWrapper}>
-        <Avatar fallback={''} shape={'circle'} size={72} src={'/images/googoo_1.png'} />
-        <h3>김유저</h3>
+        <Avatar fallback={''} shape={'circle'} size={72} src={userInfo.profileImage} />
+        <h3>{userInfo.name}</h3>
       </div>
       <p className={`label ${styles.Label}`}>약관 및 정책</p>
       <div className={styles.ButtonWrapper}>

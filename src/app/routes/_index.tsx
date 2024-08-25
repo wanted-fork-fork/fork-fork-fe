@@ -2,7 +2,7 @@ import type { MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { GenerateFormLink } from 'src/widgets/GenerateFormLink/GenerateFormLink';
 import { withAuthenticated } from 'src/app/server/withAuthenticated';
-import { getAllInfo } from 'src/types';
+import { getAllInfo, info } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useLoaderData } from '@remix-run/react';
 
@@ -11,19 +11,24 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = withAuthenticated(async (_, accessToken) => {
-  const { data } = await getAllInfo({
+  const { data: profileList } = await getAllInfo({
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  return json({ profileList: data });
+  const { data: userInfo } = await info({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return json({ userInfo, profileList });
 });
 
 export default function Index() {
-  const { profileList } = useLoaderData<typeof loader>();
+  const { profileList, userInfo } = useLoaderData<typeof loader>();
   return (
     <>
-      <InfoListPage profileList={profileList} />
+      <InfoListPage userInfo={userInfo} profileList={profileList} />
       <GenerateFormLink />
     </>
   );
