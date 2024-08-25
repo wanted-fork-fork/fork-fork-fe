@@ -1,3 +1,8 @@
+.Container {
+    max-width: 480px;
+    left: calc(50% - min(240px, 50%)) !important;
+}
+
 .Header {
     display: flex;
     justify-content: space-between;
