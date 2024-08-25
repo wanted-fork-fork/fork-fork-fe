@@ -2,7 +2,10 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export class AuthorizationError extends Error {}
 
-const instance = axios.create({ baseURL: import.meta.env.VITE_API_BASE_URL, withCredentials: true });
+const instance = axios.create({
+  baseURL: typeof process !== 'undefined' ? process.env.API_BASE_URL : undefined,
+  withCredentials: true,
+});
 
 instance.interceptors.response.use(
   (response) => {
