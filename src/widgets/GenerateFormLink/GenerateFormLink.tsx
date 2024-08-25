@@ -1,7 +1,7 @@
 import styles from './GenerateFormLink.module.css';
 import { Plus } from 'src/shared/ui/icons';
 import { useBoolean } from 'src/shared/functions/useBoolean';
-import { lazy } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 const GenerateFormLinkBottomSheet = lazy(async () => {
   const module = await import('src/widgets/GenerateFormLink/GenerateFormLinkBottomSheet');
@@ -9,14 +9,22 @@ const GenerateFormLinkBottomSheet = lazy(async () => {
 });
 
 export const GenerateFormLink = () => {
-  const { value: isOpen, setFalse: onClose, setTrue: onClick } = useBoolean(false);
+  const [isOnceOpened, setIsOnceOpened] = useState(false);
+  const { value: isOpen, setFalse: onClose, setTrue: open } = useBoolean(false);
+
+  const onClick = () => {
+    setIsOnceOpened(true);
+    open();
+  };
 
   return (
     <>
       <button className={styles.FloatingButton} onClick={onClick}>
         <Plus color={'#fff'} />
       </button>
-      <GenerateFormLinkBottomSheet isOpen={isOpen} onClose={onClose} />
+      <Suspense fallback={<></>}>
+        {isOnceOpened && <GenerateFormLinkBottomSheet isOpen={isOpen} onClose={onClose} />}
+      </Suspense>
     </>
   );
 };
