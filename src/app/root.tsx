@@ -1,5 +1,6 @@
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -8,18 +9,24 @@ import {
   useRouteError,
   useRouteLoaderData,
 } from '@remix-run/react';
-import { ReactNode } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 
 import 'src/shared/styles/global.css';
 import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
+import errorPageStyles from './styles/error.module.css';
 import { WideDeviceLayout } from 'src/pages/layout/WideDeviceLayout';
 import { json, LinksFunction, LoaderFunction } from '@remix-run/node';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import i18next from 'src/app/i18next.server';
 import { useTranslation } from 'react-i18next';
-import { Toaster } from 'react-hot-toast';
+import { Button } from 'src/shared/ui/Button/Button';
 import { ToastOption } from 'src/shared/ui/Toast/toastOption';
+
+const Toaster = lazy(async () => {
+  const module = await import('react-hot-toast');
+  return { default: module.Toaster };
+});
 
 export const links: LinksFunction = () => {
   return [
@@ -54,18 +61,33 @@ export function ErrorBoundary() {
   // when true, this is what used to go to `CatchBoundary`
   if (isRouteErrorResponse(error)) {
     return (
-      <div>
-        <h1>Oops</h1>
-        <p>Status: {error.status}</p>
-        <p>{error.data.message}</p>
+      <div className={errorPageStyles.Wrapper}>
+        <div className={errorPageStyles.TitleSection}>
+          <h2>페이지를 찾을 수 없습니다.</h2>
+          <p>메인으로 이동해주세요.</p>
+        </div>
+        <img className={errorPageStyles.Image} src="/images/404.png" alt="페이지를 찾을 수 없습니다" />
+        <Link to={'/'}>
+          <Button variant={'filled'} widthType={'fill'} color={'primary'}>
+            메인으로 이동
+          </Button>
+        </Link>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Uh oh ...</h1>
-      <p>Something went wrong.</p>
+    <div className={errorPageStyles.Wrapper}>
+      <div className={errorPageStyles.TitleSection}>
+        <h2>알 수 없는 에러가 발생했습니다.</h2>
+        <p>메인으로 이동해주세요.</p>
+      </div>
+      <img className={errorPageStyles.Image} src="/images/404.png" alt="페이지를 찾을 수 없습니다" />
+      <Link to={'/'}>
+        <Button variant={'filled'} widthType={'fill'} color={'primary'}>
+          메인으로 이동
+        </Button>
+      </Link>
     </div>
   );
 }
@@ -74,12 +96,12 @@ const queryClient = new QueryClient();
 
 export function Layout({ children }: { children: ReactNode }) {
   // Get the locale from the loader
-  const { locale } = useRouteLoaderData<typeof loader>('root');
+  const data = useRouteLoaderData<typeof loader>('root');
 
   const { i18n } = useTranslation();
 
   return (
-    <html lang={locale} dir={i18n.dir()}>
+    <html lang={data?.locale ?? 'ko'} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta
@@ -108,8 +130,12 @@ export function Layout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <WideDeviceLayout>{children}</WideDeviceLayout>
-          {typeof window !== 'undefined' && <Toaster position={'bottom-center'} toastOptions={ToastOption} />}
+          <WideDeviceLayout>
+            {children}
+            <Suspense fallback={<></>}>
+              <Toaster position={'bottom-center'} toastOptions={ToastOption} />
+            </Suspense>
+          </WideDeviceLayout>
         </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
