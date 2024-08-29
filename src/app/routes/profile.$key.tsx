@@ -1,14 +1,17 @@
 import { ProfilePage } from 'src/pages/profile/ProfilePage';
 import { getInfo } from 'src/types';
-import { withAuthenticated } from 'src/app/server/withAuthenticated';
+import { authenticate } from 'src/app/server/authenticate';
 import { useLoaderData } from '@remix-run/react';
 import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { useMemo } from 'react';
 import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
 import { convertDtoToIdealPartner } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
+import { LoaderFunction } from '@remix-run/node';
 
-export const loader = withAuthenticated(async ({ params }, accessToken) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const accessToken = await authenticate(request);
+
   const { key } = params;
 
   if (!key) {
@@ -25,7 +28,7 @@ export const loader = withAuthenticated(async ({ params }, accessToken) => {
   });
 
   return { profile: data };
-});
+};
 
 export default function Page() {
   const { profile } = useLoaderData<typeof loader>();

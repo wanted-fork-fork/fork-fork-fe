@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { requestRefreshToken } from 'src/app/server/authenticate';
 
 export class AuthorizationError extends Error {}
 
@@ -11,13 +12,13 @@ instance.interceptors.response.use(
   (response) => {
     return response;
   },
-  async (error) => {
-    console.error(error);
-    const { config } = error;
+  async (e) => {
+    if (e.status !== 401 || e.request.url.includes('refresh') || e.request.config.sent || !e.config) return;
 
-    if (!config.url.includes('refresh-token') && error.response.status === 401) {
-      throw new AuthorizationError();
-    }
+    const accessToken = await requestRefreshToken(e.request);
+    e.config.headers.Authorization = `Bearer ${accessToken}`;
+    e.config.sent = true;
+    return instance(e.config);
   },
 );
 
