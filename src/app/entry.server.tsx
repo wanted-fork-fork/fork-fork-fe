@@ -10,12 +10,30 @@ import Backend from 'i18next-fs-backend';
 import i18n from './i18n'; // your i18n configuration file
 import { resolve } from 'node:path';
 import { server } from 'src/shared/lib/mockNode';
+import axios from 'axios';
+import { requestRefreshToken } from 'src/app/server/authenticate';
 
 const ABORT_DELAY = 5000;
 
 if (process.env.NODE_ENV === 'development' && import.meta.env.VITE_USE_MOCK_SERVER === 'true') {
   server.listen();
 }
+
+axios.defaults.baseURL = process.env.API_BASE_URL;
+axios.defaults.withCredentials = true;
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (e) => {
+    if (e.status !== 401 || e.request.url.includes('refresh') || e.request.config.sent || !e.config) return;
+
+    const accessToken = await requestRefreshToken(e.request);
+    e.config.headers.Authorization = `Bearer ${accessToken}`;
+    e.config.sent = true;
+    return axios(e.config);
+  },
+);
 
 export default async function handleRequest(
   request: Request,
