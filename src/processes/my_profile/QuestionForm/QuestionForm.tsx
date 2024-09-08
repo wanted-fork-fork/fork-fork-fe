@@ -35,6 +35,8 @@ export const QuestionForm = () => {
     setInputType(type);
   };
 
+  const onClose = () => setInputType(null);
+
   return (
     <div className={styles.Wrapper}>
       <QuestionButton filled={pets.length > 0} onClick={() => onClickQuestionButton('PET')} text={'반려동물'} />
@@ -50,9 +52,17 @@ export const QuestionForm = () => {
         onClick={() => onClickQuestionButton('MOVIE')}
         text={'인생 영화'}
       />
-      <BottomSheet isOpen={Boolean(inputType)} onClose={() => setInputType(null)}>
-        <BottomSheet.Header></BottomSheet.Header>
-        <BottomSheet.Content>{inputType && QuestionInputMap[inputType]}</BottomSheet.Content>
+      <BottomSheet isOpen={Boolean(inputType)} onClose={onClose}>
+        <BottomSheet.Header onClose={onClose} />
+        <BottomSheet.Content
+          footerSlot={
+            <Button variant={'filled'} color={'primary'} widthType={'fill'} onClick={onClose}>
+              저장
+            </Button>
+          }
+        >
+          {inputType && QuestionInputMap[inputType]}
+        </BottomSheet.Content>
       </BottomSheet>
     </div>
   );
