@@ -1,6 +1,8 @@
 import styles from './RequiredOptionForm.module.css';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { REQUIRED_OPTION_MAX_COUNT, useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { CheckBox } from 'src/shared/ui/CheckBox/CheckBox';
+import { useCallback } from 'react';
+import toast from 'react-hot-toast';
 
 const optionList: { label: string }[] = [
   { label: '나이' },
@@ -16,6 +18,21 @@ export const RequiredOptionForm = () => {
   const requiredOptions = useIdealPartnerStore((state) => state.requiredOptions);
   const setRequiredOptions = useIdealPartnerStore((state) => state.setRequiredOptions);
 
+  const onSelectValue = useCallback(
+    (value: string, selected: boolean) => {
+      if (!selected) {
+        setRequiredOptions(requiredOptions.filter((x) => x !== value));
+        return;
+      }
+      if (requiredOptions.length >= REQUIRED_OPTION_MAX_COUNT) {
+        toast.success('최대 3개까지 선택 가능합니다', { icon: null });
+        return;
+      }
+      setRequiredOptions([...requiredOptions, value]);
+    },
+    [requiredOptions, setRequiredOptions],
+  );
+
   return (
     <section className={styles.Container}>
       {optionList.map((option) => (
@@ -23,11 +40,7 @@ export const RequiredOptionForm = () => {
           key={option.label}
           checked={requiredOptions.some((o) => o === option.label)}
           label={option.label}
-          onChange={(value) =>
-            value
-              ? setRequiredOptions([...requiredOptions, option.label])
-              : setRequiredOptions(requiredOptions.filter((x) => x !== option.label))
-          }
+          onChange={(selected) => onSelectValue(option.label, selected)}
         />
       ))}
     </section>

@@ -1,6 +1,6 @@
 import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { AgeForm } from 'src/processes/ideal_partner/AgeForm/AgeForm';
-import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { IdealPartner, REQUIRED_OPTION_MAX_COUNT } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { HeightStyleForm } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 import { LocationForm } from 'src/processes/ideal_partner/LocationForm/LocationForm';
 import { HobbyForm } from 'src/processes/ideal_partner/HobbyForm/HobbyForm';
@@ -81,7 +81,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       <>
         지금까지 입력한 것 중에서,
         <br />
-        포기할 수 없는 조건이 있나요? (최대 3개)
+        포기할 수 없는 조건이 있나요? (최대 {REQUIRED_OPTION_MAX_COUNT}개)
       </>
     ),
     description: () => <></>,

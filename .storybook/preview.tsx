@@ -6,6 +6,9 @@ import 'src/shared/styles/typography.css';
 import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { MemoryRouter } from 'react-router';
+import { Suspense } from 'react';
+import { ToastOption } from 'src/shared/ui/Toast/toastOption';
+import { Toaster } from 'react-hot-toast';
 
 const preview: Preview = {
   parameters: {
@@ -29,6 +32,9 @@ const preview: Preview = {
           <MyProfileProvider>
             <div style={{ height: '100vh' }}>
               <Story />
+              <Suspense fallback={<></>}>
+                <Toaster position={'bottom-center'} toastOptions={ToastOption} />
+              </Suspense>
             </div>
           </MyProfileProvider>
         </IdealPartnerProvider>

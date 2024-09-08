@@ -5,6 +5,8 @@ import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 import { DrinkingDrinkingCategory, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
+export const REQUIRED_OPTION_MAX_COUNT = 3;
+
 export type IdealPartner = {
   ageRange?: {
     min: number;
@@ -101,7 +103,8 @@ const createStoreHook = () =>
     setSmokingCategory: (smoking) => set({ smoking: { ...get().smoking, smokingCategory: smoking } }),
     setSmokingAmount: (amount) => set({ smoking: { ...get().smoking, smokingAmount: amount } }),
     requiredOptions: [],
-    setRequiredOptions: (requiredOptions) => set({ requiredOptions }),
+    setRequiredOptions: (requiredOptions) =>
+      requiredOptions.length <= REQUIRED_OPTION_MAX_COUNT && set({ requiredOptions }),
     toMatchMaker: '',
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),
   }));
