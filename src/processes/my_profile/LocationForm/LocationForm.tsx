@@ -14,16 +14,15 @@ export const LocationForm = () => {
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
     locations,
     (a, b) => a.town[0]?.town === b.town[0]?.town,
+    { maxCount: MAX_LOCATION_COUNT },
   );
 
   const handleSelectLocation = (loc: Location) => {
-    if (selectedTownList.length >= MAX_LOCATION_COUNT) {
-      return;
-    }
     toggleTown(loc);
   };
 
   const setLocation = useMyProfileStore((state) => state.setLocation);
+
   useEffect(() => {
     setLocation(selectedTownList);
   }, [selectedTownList, setLocation]);
