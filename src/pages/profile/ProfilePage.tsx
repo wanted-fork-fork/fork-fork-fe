@@ -9,6 +9,8 @@ import { useInView } from 'react-intersection-observer';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { Link } from '@remix-run/react';
+import { Header } from 'src/shared/ui/layout/Header/Header';
+import { Theme } from 'src/shared/styles/constants';
 
 export const ProfilePage = () => {
   const { ref, inView } = useInView();
@@ -27,12 +29,25 @@ export const ProfilePage = () => {
 
   return (
     <div className={styles.Wrapper}>
-      <div className={styles.Header}>
-        <Link to={'/'}>
-          <IconButton>
-            <ArrowLeft />
-          </IconButton>
-        </Link>
+      <Header
+        prefixSlot={
+          <Link to={'/'}>
+            <IconButton>
+              <ArrowLeft color={Theme.color.neutral50} />
+            </IconButton>
+          </Link>
+        }
+        suffixSlot={
+          <div className={styles.HeaderIconSection}>
+            <IconButton>
+              <Edit color={Theme.color.neutral50} />
+            </IconButton>
+            <IconButton>
+              <Share color={Theme.color.neutral50} />
+            </IconButton>
+          </div>
+        }
+      >
         {inView ? (
           <span />
         ) : (
@@ -40,15 +55,7 @@ export const ProfilePage = () => {
             {profile.name}({profile.gender}, {age})
           </p>
         )}
-        <div className={styles.HeaderIconSection}>
-          <IconButton>
-            <Edit />
-          </IconButton>
-          <IconButton>
-            <Share />
-          </IconButton>
-        </div>
-      </div>
+      </Header>
       <ScrollView rootClassName={styles.Body}>
         <div className={styles.ImageLayout} data-itemcount={Math.min(urls.length, 5)}>
           {urls.map((url) => (

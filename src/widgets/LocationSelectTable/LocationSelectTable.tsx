@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Location } from 'src/entities/location/types/location';
 import { locationListMock } from 'src/entities/location/api/__mock__/location.mock';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
+import { Theme } from 'src/shared/styles/constants';
 
 type Props = {
   selectedLocations: Location[];
@@ -42,9 +43,9 @@ export const LocationSelectTable = ({ selectedLocations, selectLocation }: Props
             >
               {town.townName}
               {selectedLocations.some(({ town: selectedTown }) => selectedTown[0].town === town.town) ? (
-                <Minus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
+                <Minus className={styles.Icon} width={16} height={16} color={Theme.color.neutral30} />
               ) : (
-                <Plus className={styles.Icon} width={16} height={16} color={'#cdcace'} />
+                <Plus className={styles.Icon} width={16} height={16} color={Theme.color.neutral30} />
               )}
             </li>
           ))}

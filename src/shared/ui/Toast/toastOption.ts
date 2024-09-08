@@ -1,8 +1,9 @@
 import { ToastOptions } from 'react-hot-toast';
+import { Theme } from 'src/shared/styles/constants';
 
 export const ToastOption: ToastOptions = {
   style: {
-    background: '#918b92',
+    background: Theme.color.neutral50,
     borderRadius: '32px',
     color: '#fff',
     fontSize: '16px',

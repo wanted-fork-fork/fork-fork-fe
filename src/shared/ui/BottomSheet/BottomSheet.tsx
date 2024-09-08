@@ -1,8 +1,7 @@
 import { Sheet } from 'react-modal-sheet';
 import { PropsWithChildren, ReactNode } from 'react';
-import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowLeft, Close } from 'src/shared/ui/icons';
 import styles from './BottomSheet.module.css';
+import { Header } from 'src/shared/ui/layout/Header/Header';
 
 type BottomSheetProps = PropsWithChildren<Parameters<typeof Sheet>[0]>;
 
@@ -20,27 +19,10 @@ type BottomSheetHeaderProps = PropsWithChildren<{
   onPrev?: () => void;
 }>;
 
-const BottomSheetHeader = ({ onPrev, onClose, children }: BottomSheetHeaderProps) => {
+const BottomSheetHeader = (props: BottomSheetHeaderProps) => {
   return (
-    <Sheet.Header className={styles.Header}>
-      {onPrev && (
-        <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onPrev}>
-          <ArrowLeft width={24} />
-        </Button>
-      )}
-      {children}
-      {onClose && (
-        <Button
-          className={styles.CloseButton}
-          variant={'ghost'}
-          color={'neutral'}
-          widthType={'hug'}
-          size={'fit'}
-          onClick={onClose}
-        >
-          <Close width={24} />
-        </Button>
-      )}
+    <Sheet.Header>
+      <Header {...props} />
     </Sheet.Header>
   );
 };

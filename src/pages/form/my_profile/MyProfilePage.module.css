@@ -8,20 +8,10 @@
   margin-bottom: 30px;
 }
 
-.HeaderBar {
-  margin-bottom: 15px;
-  height: 44px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+.FormCount {
   font-weight: 500;
   font-size: 16px;
   color: var(--color-neutral-40);
-
-  & span {
-    margin-left: auto;
-  }
 }
 
 .Description {

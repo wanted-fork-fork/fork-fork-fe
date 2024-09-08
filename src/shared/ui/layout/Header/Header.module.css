@@ -1,0 +1,17 @@
+.Header {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CloseButton {
+  margin-left: auto;
+}
+
+.Suffix {
+  margin-left: auto;
+}
+.Prefix {
+  margin-right: auto;
+}

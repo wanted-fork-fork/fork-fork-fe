@@ -9,6 +9,7 @@ import { DateStyleForm } from 'src/processes/my_profile/QuestionForm/DateStyleFo
 import { FoodForm } from 'src/processes/my_profile/QuestionForm/FoodForm/FoodForm';
 import { MovieForm } from 'src/processes/my_profile/QuestionForm/MovieForm/MovieForm';
 import { PetForm } from 'src/processes/my_profile/QuestionForm/PetForm/PetForm';
+import { Theme } from 'src/shared/styles/constants';
 
 type QuestionType = 'PET' | 'DATE_STYLE' | 'FOOD' | 'DRIVING' | 'BOOK' | 'MOVIE';
 
@@ -76,7 +77,7 @@ const QuestionButton = ({ text, filled, onClick }: { text: string; filled: boole
     widthType={'fill'}
     size={'M'}
     textAlign={'left'}
-    suffixSlot={filled ? <Check color={'#D752FF'} width={24} /> : <Plus color={'#cdcace'} />}
+    suffixSlot={filled ? <Check color={Theme.color.primary} width={24} /> : <Plus color={Theme.color.neutral30} />}
     onClick={onClick}
   >
     {text}

@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import styles from './IdealPartnerPage.module.css';
-import { ArrowLeft } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
+import { Header } from 'src/shared/ui/layout/Header/Header';
+import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
 const Steps = Object.values(IdealPartnerStepMeta);
 const StepKeys = Object.keys(IdealPartnerStepMeta);
@@ -30,20 +31,25 @@ export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => v
     }
   };
 
+  const handleClickPrev = useCallback(() => {
+    setCurrentStep((prev) => Math.max(0, prev - 1));
+  }, []);
+
   return (
     <div className={styles.Container}>
-      <header className={styles.Header}>
-        <div className={styles.HeaderBar}>
-          {currentStepIdx > 0 && (
-            <ArrowLeft type={'button'} onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))} />
-          )}
-          <span>
+      <Header
+        onPrev={currentStepIdx > 0 ? handleClickPrev : undefined}
+        suffixSlot={
+          <span className={styles.FormCount}>
             {currentStepIdx + 1}/{Steps.length}
           </span>
-        </div>
+        }
+      />
+      <Spacing size={15} />
+      <div className={styles.TitleSection}>
         <h2>{currentStep.title({ name })}</h2>
         {currentStep.description && <small className={styles.Description}>{currentStep.description()}</small>}
-      </header>
+      </div>
       <main className={styles.Main}>{currentStep.form({})}</main>
       <footer className={styles.Footer}>
         <Button variant={'filled'} widthType={'fill'} color={'primary'} disabled={!canGoNext} onClick={handleClickNext}>

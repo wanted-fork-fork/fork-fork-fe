@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import styles from 'src/widgets/GenerateFormLink/GenerateFormLink.module.css';
 import { Link, Refresh } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
+import { Theme } from 'src/shared/styles/constants';
 
 export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -70,7 +71,7 @@ const GenerateFormBottomSheetContent = () => {
         <div className={styles.LinkConfig}>
           <p>새로운 링크 생성</p>
           <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={onClickRegenerate}>
-            <Refresh color={'#d752ff'} />
+            <Refresh color={Theme.color.primary} />
           </Button>
         </div>
       </div>

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowLeft } from 'src/shared/ui/icons';
 import styles from 'src/pages/form/my_profile/MyProfilePage.module.css';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
 import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
+import { Header } from 'src/shared/ui/layout/Header/Header';
+import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
 const Steps = Object.values(MyProfileStepMeta);
 const StepKeys = Object.keys(MyProfileStepMeta);
@@ -31,18 +32,21 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
     }
   }, [currentStepIdx, onClickNextStep]);
 
+  const handleClickPrev = useCallback(() => {
+    setCurrentStep((prev) => Math.max(0, prev - 1));
+  }, []);
+
   return (
     <div className={styles.Container}>
-      <header className={styles.Header}>
-        <div className={styles.HeaderBar}>
-          {currentStepIdx > 0 && (
-            <ArrowLeft type={'button'} onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))} />
-          )}
-          <span>
+      <Header
+        onPrev={currentStepIdx > 0 ? handleClickPrev : undefined}
+        suffixSlot={
+          <span className={styles.FormCount}>
             {currentStepIdx + 1}/{Steps.length}
           </span>
-        </div>
-      </header>
+        }
+      />
+      <Spacing size={15} />
       {(currentStep.showTitle ?? true) && (
         <div className={styles.TitleSection}>
           <h2>{currentStep.title({ name })}</h2>
