@@ -1,3 +1,7 @@
+.Sheet {
+    z-index: var(--z-index-input-bottomsheet) !important;
+}
+
 .Content {
     display: grid;
     gap: 24px;

@@ -29,7 +29,7 @@ export const InputBottomSheet = ({
   };
 
   return (
-    <BottomSheet detent={'content-height'} isOpen={open} onClose={onClose}>
+    <BottomSheet className={styles.Sheet} detent={'content-height'} isOpen={open} onClose={onClose}>
       <BottomSheet.Header onClose={onClose} onPrev={onClose} />
       <BottomSheet.Content
         className={styles.Content}

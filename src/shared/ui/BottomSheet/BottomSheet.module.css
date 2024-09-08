@@ -1,5 +1,5 @@
 .Sheet {
-    z-index: 99 !important;
+    z-index: var(--z-index-bottomsheet) !important;
 }
 
 .Container {

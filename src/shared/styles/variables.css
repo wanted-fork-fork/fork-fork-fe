@@ -11,4 +11,9 @@
     --color-neutral-30: #cdcace;
     --color-neutral-20: #ebeaeb;
     --color-neutral-10: #f5f5f5;
+
+    --z-index-bottomsheet: 10;
+    --z-index-input-bottomsheet: 10;
+    --z-index-select: 20;
+    --z-index-image-modal: 30;
 }
