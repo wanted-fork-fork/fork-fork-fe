@@ -21,6 +21,7 @@ enum PersonalInfoStepEnum {
   'GENDER',
   'BIRTHDATE',
   'HEIGHT',
+  'ALL',
 }
 
 const PersonalInfoStepMap = {
@@ -68,26 +69,35 @@ const PersonalInfoStepMap = {
     description: () => '',
     canGoNext: (data: PersonalInfoData) => data.height.toString().length > 0,
   },
+  [PersonalInfoStepEnum.ALL]: {
+    title: () => <>당신에 대해 알려주세요!</>,
+    description: () => '',
+    canGoNext: () => false,
+  },
 } as const;
 
 /**
  * 내 프로필 입력 > 기본 인적사항
  */
 export const PersonalInfoForm = ({ onClickNextForm }: { onClickNextForm?: () => void }) => {
-  const [step, setStep] = useState(PersonalInfoStepEnum.NAME);
   const personalInfoData = useMyProfileStore(({ name, gender, birthDate, height }) => ({
     name,
     gender,
     birthDate,
     height,
   }));
+  const [step, setStep] = useState(() => {
+    const found = Object.entries(PersonalInfoStepMap).find(([, value]) => !value.canGoNext(personalInfoData));
+    if (!found) return !personalInfoData.name ? PersonalInfoStepEnum.NAME : PersonalInfoStepEnum.ALL;
+    return Number(found[0]) as PersonalInfoStepEnum;
+  });
 
   const currentStep = useMemo(() => PersonalInfoStepMap[step], [step]);
   const canShowNext = useMemo(() => step < PersonalInfoStepEnum.HEIGHT || onClickNextForm, [onClickNextForm, step]);
 
   const canClickNext = useMemo(
     () => (step < PersonalInfoStepEnum.HEIGHT || onClickNextForm) && currentStep?.canGoNext(personalInfoData),
-    [onClickNextForm, personalInfoData, step],
+    [currentStep, onClickNextForm, personalInfoData, step],
   );
 
   const onClickNext = () => {

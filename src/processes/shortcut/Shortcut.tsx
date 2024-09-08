@@ -95,7 +95,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
                 <h2>{selectedStep.title({ name })}</h2>
                 {selectedStep.description && <small className={styles.Description}>{selectedStep.description()}</small>}
               </div>
-              <div className={styles.FormMain}>{selectedStep.form}</div>
+              <div className={styles.FormMain}>{selectedStep.form({})}</div>
               <div className={styles.FormFooter}>
                 <Button variant={'filled'} widthType={'fill'} color={'primary'}>
                   변경사항 저장
