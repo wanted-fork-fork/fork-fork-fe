@@ -10,6 +10,7 @@ import { HobbyForm } from 'src/processes/my_profile/HobbyForm/HobbyForm';
 import { SmokeAlcoholForm } from 'src/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
 import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceForm';
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
+import { QuestionForm } from 'src/processes/my_profile/QuestionForm/QuestionForm';
 
 export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
   PERSONAL_INFO: {
@@ -104,7 +105,7 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
         본인을 좀 더 자세히 알려주세요.
       </>
     ),
-    form: <></>,
+    form: <QuestionForm />,
     canGoNext: () => true,
     shortcutTitle: '선택 질문',
   },

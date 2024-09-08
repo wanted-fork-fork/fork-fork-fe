@@ -1,11 +1,11 @@
 import * as React from 'react';
 import type { SVGProps } from 'react';
 const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 20 20" {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24" {...props}>
     <path
-      fill="#fff"
+      fill="#D752FF"
       fillRule="evenodd"
-      d="M15.457 7.707a1 1 0 0 0-1.414-1.414L8.9 11.435 5.707 8.242a1 1 0 1 0-1.414 1.414l3.872 3.872.028.03a1 1 0 0 0 1.414 0z"
+      d="M19.718 7.304a1 1 0 0 1-.022 1.414l-8.946 8.675-6.446-6.25a1 1 0 1 1 1.392-1.437l5.054 4.901 7.554-7.325a1 1 0 0 1 1.414.022"
       clipRule="evenodd"
     />
   </svg>

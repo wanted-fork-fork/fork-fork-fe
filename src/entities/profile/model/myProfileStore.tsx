@@ -5,7 +5,7 @@ import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { JobJobCategory, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { Book, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
 export type MyProfile = {
   name: string;
@@ -30,6 +30,12 @@ export type MyProfile = {
     smokingAmount?: string;
   };
   introduction: string;
+  // 추가 질문
+  book: Book;
+  dateStyle: string[];
+  foods: string[];
+  movie: Movie;
+  pets: string[];
 };
 
 type Action = {
@@ -51,6 +57,13 @@ type Action = {
   setSmokingCategory: (value: SmokingSmokingCategory) => void;
   setSmokingAmount: (value: string) => void;
   setIntroduction: (value: string) => void;
+  setBookName: (value: string) => void;
+  setBookCause: (value: string) => void;
+  setMovieName: (value: string) => void;
+  setMovieCause: (value: string) => void;
+  setDateStyle: (value: string[]) => void;
+  setFoods: (value: string[]) => void;
+  setPets: (value: string[]) => void;
 };
 
 type TouchedStore = {
@@ -111,6 +124,24 @@ const createStoreHook = (initialState?: MyProfile) =>
       newSet.add(key);
       return set({ touched: newSet });
     },
+    book: {
+      bookName: '',
+      cause: '',
+    },
+    setBookName: (value) => set({ book: { ...get().book, bookName: value } }),
+    setBookCause: (value) => set({ book: { ...get().book, cause: value } }),
+    movie: {
+      movieName: '',
+      cause: '',
+    },
+    setMovieName: (value) => set({ movie: { ...get().movie, movieName: value } }),
+    setMovieCause: (value) => set({ movie: { ...get().movie, cause: value } }),
+    dateStyle: [],
+    setDateStyle: (value) => set({ dateStyle: value }),
+    foods: [],
+    setFoods: (value) => set({ foods: value }),
+    pets: [],
+    setPets: (value) => set({ pets: value }),
   }));
 
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(

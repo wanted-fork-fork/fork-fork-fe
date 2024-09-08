@@ -9,6 +9,7 @@ type Props<T extends { name: string }> = {
   setSelectedList: (selected: T[]) => void;
   makeItem: (itemName: string) => T;
   hasItem?: (itemList: T[], targetItem: T) => boolean;
+  isSameItem?: (a: T, b: T) => boolean;
   customInputTitle: string;
   customInputPlaceholder: string;
 };
@@ -19,6 +20,7 @@ export const ChipList = <T extends { name: string }>({
   setSelectedList,
   makeItem,
   hasItem = (list, item) => list.includes(item),
+  isSameItem = (a, b) => a === b,
   customInputTitle,
   customInputPlaceholder,
 }: Props<T>) => {
@@ -37,10 +39,10 @@ export const ChipList = <T extends { name: string }>({
     }
 
     if (hasItem(customList, item)) {
-      setCustomList((prev) => prev.filter((h) => h !== item));
+      setCustomList((prev) => prev.filter((h) => !isSameItem(h, item)));
     }
 
-    setSelectedList(selectedList.filter((h) => h !== item));
+    setSelectedList(selectedList.filter((h) => !isSameItem(h, item)));
   };
 
   const onClickInputTrigger = () => setOpenInputBottomSheet(true);
@@ -54,12 +56,12 @@ export const ChipList = <T extends { name: string }>({
   return (
     <>
       {defaultList.map((item) => (
-        <Chip key={item.name} selected={selectedList.includes(item)} onClick={() => onSelectItem(item)}>
+        <Chip key={item.name} selected={hasItem(selectedList, item)} onClick={() => onSelectItem(item)}>
           {item.name}
         </Chip>
       ))}
       {customList.map((item) => (
-        <Chip key={item.name} selected={selectedList.includes(item)} onClick={() => onSelectItem(item)}>
+        <Chip key={item.name} selected={hasItem(selectedList, item)} onClick={() => onSelectItem(item)}>
           {item.name}
         </Chip>
       ))}
