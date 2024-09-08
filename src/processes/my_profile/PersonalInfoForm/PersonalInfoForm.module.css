@@ -1,3 +1,26 @@
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.TitleSection {
+  margin-bottom: 30px;
+}
+
+.Description {
+  display: block;
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-neutral-50);
+
+  & strong {
+    font-size: 14px;
+  }
+}
+
 .Container {
   display: flex;
   flex-direction: column;
@@ -28,4 +51,8 @@
 .AgeInfo {
   width: 64px;
   font-weight: 600;
+}
+
+.FooterButton {
+  margin-top: auto;
 }

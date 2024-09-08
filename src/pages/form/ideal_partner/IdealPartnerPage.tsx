@@ -44,7 +44,7 @@ export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => v
         <h2>{currentStep.title({ name })}</h2>
         {currentStep.description && <small className={styles.Description}>{currentStep.description()}</small>}
       </header>
-      <main className={styles.Main}>{currentStep.form}</main>
+      <main className={styles.Main}>{currentStep.form({})}</main>
       <footer className={styles.Footer}>
         <Button variant={'filled'} widthType={'fill'} color={'primary'} disabled={!canGoNext} onClick={handleClickNext}>
           다음

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import styles from 'src/pages/form/my_profile/MyProfilePage.module.css';
@@ -23,13 +23,13 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
     addTouchedStep(StepKeys[currentStepIdx]);
   }, [addTouchedStep, currentStepIdx]);
 
-  const handleClickNext = () => {
+  const handleClickNext = useCallback(() => {
     if (currentStepIdx < Steps.length - 1) {
       setCurrentStep((prev) => prev + 1);
     } else {
       onClickNextStep();
     }
-  };
+  }, [currentStepIdx, onClickNextStep]);
 
   return (
     <div className={styles.Container}>
@@ -42,15 +42,27 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
             {currentStepIdx + 1}/{Steps.length}
           </span>
         </div>
-        <h2>{currentStep.title({ name })}</h2>
-        {currentStep.description && <small className={styles.Description}>{currentStep.description()}</small>}
       </header>
-      <main className={styles.Main}>{currentStep.form}</main>
-      <footer className={styles.Footer}>
-        <Button variant={'filled'} widthType={'fill'} color={'primary'} disabled={!canGoNext} onClick={handleClickNext}>
-          다음
-        </Button>
-      </footer>
+      {(currentStep.showTitle ?? true) && (
+        <div className={styles.TitleSection}>
+          <h2>{currentStep.title({ name })}</h2>
+          {currentStep.description && <small className={styles.Description}>{currentStep.description()}</small>}
+        </div>
+      )}
+      <div className={styles.Main}>{currentStep.form({ onClickNextForm: handleClickNext })}</div>
+      <div className={styles.Footer}>
+        {(currentStep.showNextButton ?? true) && (
+          <Button
+            variant={'filled'}
+            widthType={'fill'}
+            color={'primary'}
+            disabled={!canGoNext}
+            onClick={handleClickNext}
+          >
+            다음
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

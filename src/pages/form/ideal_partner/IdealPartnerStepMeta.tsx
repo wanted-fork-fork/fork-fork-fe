@@ -14,15 +14,15 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
   AGE: {
     title: () => <>선호하는 연령대는 어떻게 되나요?</>,
     description: () => <></>,
-    form: <AgeForm />,
-    canGoNext: (state) => Boolean(state.ageRange.max && state.ageRange.min),
+    form: () => <AgeForm />,
+    canGoNext: (state) => Boolean(state.ageRange?.max && state.ageRange.min),
     shortcutTitle: '선호하는 연령대',
   },
   HEIGHT_STYLE: {
     title: () => <>선호하는 키와 스타일을 알려주세요</>,
     description: () => <></>,
-    form: <HeightStyleForm />,
-    canGoNext: (state) => Boolean(state.heightRange.min && state.heightRange.max && state.style),
+    form: () => <HeightStyleForm />,
+    canGoNext: (state) => Boolean(state.heightRange?.min && state.heightRange.max && state.style),
     shortcutTitle: '선호하는 키, 스타일',
   },
   LOCATION: {
@@ -34,7 +34,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <LocationForm />,
+    form: () => <LocationForm />,
     canGoNext: () => true,
     shortcutTitle: '상대방이 주로 머무는 지역',
   },
@@ -45,14 +45,14 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <HobbyForm />,
+    form: () => <HobbyForm />,
     canGoNext: (state) => Boolean(state.hobbies.length > 0),
     shortcutTitle: '상대방의 취미',
   },
   RELIGION: {
     title: () => <>상대방이 어떤 종교이길 희망하시나요?</>,
     description: () => <></>,
-    form: <ReligionForm />,
+    form: () => <ReligionForm />,
     canGoNext: (state) => Boolean(state.religion.religionCategory),
     shortcutTitle: '종교',
   },
@@ -65,14 +65,14 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <DrinkingForm />,
+    form: () => <DrinkingForm />,
     canGoNext: (state) => Boolean(state.drinking.drinkingCategory),
     shortcutTitle: '상대방의 음주 빈도',
   },
   SMOKING: {
     title: () => <>상대방의 흡연은 괜찮으신가요?</>,
     description: () => <></>,
-    form: <SmokingForm />,
+    form: () => <SmokingForm />,
     canGoNext: (state) => Boolean(state.smoking.smokingCategory),
     shortcutTitle: '상대방의 흡연 여부',
   },
@@ -85,7 +85,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <RequiredOptionForm />,
+    form: () => <RequiredOptionForm />,
     canGoNext: (state) => Boolean(state.requiredOptions.length > 0),
     shortcutTitle: '필수 항목',
   },
@@ -98,7 +98,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       </>
     ),
     description: () => <></>,
-    form: <ToMatcherForm />,
+    form: () => <ToMatcherForm />,
     canGoNext: (state) => Boolean(state.toMatchMaker),
     shortcutTitle: '주선자에게 하고 싶은 말',
   },
