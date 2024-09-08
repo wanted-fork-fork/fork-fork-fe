@@ -10,13 +10,13 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       <div className={styles.Cell}>
         <ProfileCellHeader title={'선호하는 연령대'} />
         <span>
-          {profile.ageRange.min}-{profile.ageRange.max}
+          {profile.ageRange?.min}-{profile.ageRange?.max}
         </span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'선호하는 키'} />
         <span>
-          {profile.heightRange.min}-{profile.heightRange.max}
+          {profile.heightRange?.min}-{profile.heightRange?.max}
         </span>
       </div>
       <div className={styles.Cell}>
