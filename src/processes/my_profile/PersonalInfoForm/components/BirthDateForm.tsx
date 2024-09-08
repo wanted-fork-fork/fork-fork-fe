@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { calculateAge } from 'src/shared/vo/date';
 
-const MINIMUM_YEAR = 1960;
+const MINIMUM_YEAR = 1980;
 const YearOptionList = Array.from({ length: new Date().getFullYear() - MINIMUM_YEAR + 1 })
   .map((_, idx) => idx + MINIMUM_YEAR)
   .map((v) => v.toString());
