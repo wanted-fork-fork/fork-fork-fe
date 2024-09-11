@@ -27,8 +27,8 @@ jobs:
               env:
                 - name: NODE_ENV
                   value: production
-                - name: VITE_API_BASE_URL
-                  value: ${{ vars.VITE_API_BASE_URL }}
+                - name: API_BASE_URL
+                  value: ${{ vars.API_BASE_URL }}
                 - name: VITE_KAUTH_URL
                   value: ${{ vars.VITE_KAUTH_URL }}
                 
