@@ -1,0 +1,27 @@
+
+.Container {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 86px;
+}
+
+.TitleSection {
+  & > h2 {
+    margin-bottom: 8px;
+  }
+}
+
+.Description {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  text-align: left;
+  color: var(--color-neutral-50);
+}
+
+.ButtonWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 120px;
+  gap: 8px;
+}

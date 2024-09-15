@@ -4,6 +4,12 @@ import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
 import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
+import { Button } from '../../../shared/ui/Button/Button';
+import { Share } from '../../../shared/ui/icons';
+import { Theme } from '../../../shared/styles/constants';
+import { MouseEvent } from 'react';
+import { ProfileShareBottomSheet } from '../../../features/ProfileShare/ProfileShareBottomSheet';
+import { useBoolean } from '../../../shared/functions/useBoolean';
 
 export const InfoListPage = ({
   userInfo,
@@ -12,6 +18,8 @@ export const InfoListPage = ({
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
 }) => {
+  const { value: isShareOpen, setTrue: open, setFalse: close } = useBoolean(false);
+
   return (
     <div className={styles.Wrapper}>
       <div className={styles.Header}>
@@ -23,7 +31,7 @@ export const InfoListPage = ({
       <p className={styles.ListInfo}>총 {profileList?.length}명</p>
       {profileList?.length ? (
         <ScrollView viewportClassName={styles.Viewport}>
-          <ProfileCardList profileList={profileList} />
+          <ProfileCardList profileList={profileList} profileActionSlot={<ProfileShareTrigger onClick={open} />} />
         </ScrollView>
       ) : (
         <div className={styles.EmptyView}>
@@ -35,6 +43,22 @@ export const InfoListPage = ({
           </p>
         </div>
       )}
+      <ProfileShareBottomSheet isOpen={isShareOpen} onClose={close} />
     </div>
+  );
+};
+
+const ProfileShareTrigger = ({ onClick }: { onClick: () => void }) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    onClick();
+  };
+
+  return (
+    <>
+      <Button variant={'ghost'} widthType={'hug'} color={'neutral'} size={'fit'} onClick={handleClick}>
+        <Share color={Theme.color.neutral50} />
+      </Button>
+    </>
   );
 };

@@ -17,6 +17,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
   const { t } = useTranslation();
   return (
     <article className={styles.Container}>
+      {headerRightSlot && <div className={styles.HeaderRightSlot}>{headerRightSlot}</div>}
       <div className={styles.Header}>
         <div className={styles.ProfileImageContainer}>
           <img src={''} alt={`${profile.name} 대표 사진`} />
@@ -29,7 +30,6 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             <span>서울시 서초구</span>
           </div>
         </div>
-        {headerRightSlot && <div>{headerRightSlot}</div>}
       </div>
       <div className={styles.DetailTableContainer}>
         <table className={styles.DetailTable}>
