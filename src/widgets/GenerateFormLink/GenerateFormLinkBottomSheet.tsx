@@ -6,6 +6,7 @@ import styles from 'src/widgets/GenerateFormLink/GenerateFormLink.module.css';
 import { Link, Refresh } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Theme } from 'src/shared/styles/constants';
+import { IconBoxButton } from '../../shared/ui/IconBoxButton/IconBoxButton';
 
 export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -49,18 +50,13 @@ const GenerateFormBottomSheetContent = () => {
         <small className={styles.Description}>소개를 받고싶어 하는 지인의 정보를 저장하세요.</small>
       </div>
       <div className={styles.ButtonWrapper}>
-        <button onClick={onClickCopyLink}>
-          <div className={styles.ButtonIconWrapper}>
-            <Link />
-          </div>
-          링크 복사
-        </button>
-        <button onClick={onClickCopyLink}>
-          <div className={`${styles.ButtonIconWrapper} ${styles.Kakao}`}>
-            <img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />
-          </div>
-          카카오톡 공유
-        </button>
+        <IconBoxButton icon={<Link />} text={'링크 복사'} onClick={onClickCopyLink} />
+        <IconBoxButton
+          icon={<img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />}
+          iconBackgroundColor={Theme.color.kakao}
+          text={'카카오톡 공유'}
+          onClick={onClickCopyLink}
+        />
       </div>
       <div className={styles.LinkConfigSection}>
         <h3>링크 설정</h3>

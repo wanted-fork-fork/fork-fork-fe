@@ -12,5 +12,6 @@ export const Theme = {
     neutral30: '#cdcace',
     neutral20: '#ebeaeb',
     neutral10: '#f5f5f5',
+    kakao: '#FFE812',
   },
 } as const;
