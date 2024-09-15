@@ -7,9 +7,8 @@ import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Button } from '../../../shared/ui/Button/Button';
 import { Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import { ProfileShareBottomSheet } from '../../../features/ProfileShare/ProfileShareBottomSheet';
-import { useBoolean } from '../../../shared/functions/useBoolean';
 
 export const InfoListPage = ({
   userInfo,
@@ -18,7 +17,7 @@ export const InfoListPage = ({
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
 }) => {
-  const { value: isShareOpen, setTrue: open, setFalse: close } = useBoolean(false);
+  const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
   return (
     <div className={styles.Wrapper}>
@@ -31,7 +30,12 @@ export const InfoListPage = ({
       <p className={styles.ListInfo}>총 {profileList?.length}명</p>
       {profileList?.length ? (
         <ScrollView viewportClassName={styles.Viewport}>
-          <ProfileCardList profileList={profileList} profileActionSlot={<ProfileShareTrigger onClick={open} />} />
+          <ProfileCardList
+            profileList={profileList}
+            profileActionSlot={(profile) => (
+              <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
+            )}
+          />
         </ScrollView>
       ) : (
         <div className={styles.EmptyView}>
@@ -43,7 +47,11 @@ export const InfoListPage = ({
           </p>
         </div>
       )}
-      <ProfileShareBottomSheet isOpen={isShareOpen} onClose={close} />
+      <ProfileShareBottomSheet
+        infoId={shareTargetId}
+        isOpen={Boolean(shareTargetId)}
+        onClose={() => setShareTargetId(null)}
+      />
     </div>
   );
 };

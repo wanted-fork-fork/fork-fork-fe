@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createLink, getLinkByMatchMakerId, regenerateLinkKey, updateLinkOpen, UpdateLinkOpenRequest } from 'src/types';
+import { createFormLink } from '../../shared/functions/linkUtil';
 
 type LinkState = {
   isOpen: boolean;
@@ -41,9 +42,9 @@ export const useFormLink = () => {
     if (!formLink.linkKey) {
       const newLink = await createLinkMutation();
       setFormLink({ ...newLink.data });
-      return `${location.origin}/form/${newLink.data.linkKey}`;
+      return createFormLink(newLink.data.linkKey, true);
     }
-    return `${location.origin}/form/${formLink.linkKey}`;
+    return createFormLink(formLink.linkKey, true);
   }, [createLinkMutation, formLink.linkKey]);
 
   const regenerateLink = useCallback(async () => {

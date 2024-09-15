@@ -6,7 +6,7 @@ import { ReactElement } from 'react';
 
 type Props = {
   profileList: ProfileSummary[];
-  profileActionSlot?: ReactElement;
+  profileActionSlot?: (profile: ProfileSummary) => ReactElement;
 };
 
 export const ProfileCardList = ({ profileList, profileActionSlot }: Props) => {
@@ -15,7 +15,7 @@ export const ProfileCardList = ({ profileList, profileActionSlot }: Props) => {
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
           <Link to={`/profile/${profile.id}`}>
-            <ProfileCard profile={profile} headerRightSlot={profileActionSlot} />
+            <ProfileCard profile={profile} headerRightSlot={profileActionSlot?.(profile)} />
           </Link>
         </li>
       ))}
