@@ -26,6 +26,8 @@ axios.interceptors.response.use(
     return response;
   },
   async (e) => {
+    console.error(e);
+
     if (e.status !== 401 || e.request.url.includes('refresh') || e.request.config.sent || !e.config) return;
 
     const accessToken = await requestRefreshToken(e.request);
