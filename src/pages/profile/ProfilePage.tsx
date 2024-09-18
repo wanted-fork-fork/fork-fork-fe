@@ -11,6 +11,7 @@ import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPart
 import { Link } from '@remix-run/react';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Theme } from 'src/shared/styles/constants';
+import { ImageLayout } from '../../shared/ui/ImageLayout/ImageLayout';
 
 export const ProfilePage = () => {
   const { ref, inView } = useInView();
@@ -57,11 +58,7 @@ export const ProfilePage = () => {
         )}
       </Header>
       <ScrollView rootClassName={styles.Body}>
-        <div className={styles.ImageLayout} data-itemcount={Math.min(urls.length, 5)}>
-          {urls.map((url) => (
-            <img key={url} src={url} alt={'프로필 이미지'} />
-          ))}
-        </div>
+        <ImageLayout urls={urls} />
         <h1 className={styles.Name} ref={ref}>
           {profile.name}({profile.gender}, {age})
         </h1>

@@ -1,0 +1,43 @@
+
+.ImageLayout {
+  width: 100%;
+  background-color: var(--color-neutral-10);
+
+  display: grid;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &[data-itemcount='5'], &[data-itemcount='4'] {
+    grid: 1fr 1fr / 2fr 1fr 1fr;
+
+    & img:nth-child(1) {
+      grid-row: 1 / span 2;
+    }
+  }
+
+  &[data-itemcount='3'] {
+    grid: 1fr 1fr / 2fr 1fr;
+
+    & img:nth-child(1) {
+      grid-row: 1 / span 2;
+    }
+  }
+
+  &[data-itemcount='2'] {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &[data-itemcount='1'] {
+    height: 50vw;
+
+    & img {
+      height: 100%;
+    }
+  }
+}
