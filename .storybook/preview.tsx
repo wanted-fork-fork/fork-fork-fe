@@ -13,6 +13,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
 import i18n from '../src/app/i18n';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const withI18next = (Story: StoryFn) => {
   i18next
@@ -35,6 +36,8 @@ const withI18next = (Story: StoryFn) => {
   );
 };
 
+const queryClient = new QueryClient();
+
 const preview: Preview = {
   parameters: {
     layout: 'fullscreen',
@@ -54,16 +57,18 @@ const preview: Preview = {
     withI18next,
     (Story) => (
       <MemoryRouter initialEntries={['/']}>
-        <IdealPartnerProvider>
-          <MyProfileProvider>
-            <div style={{ height: '100vh' }}>
-              <Story />
-              <Suspense fallback={<></>}>
-                <Toaster position={'bottom-center'} toastOptions={ToastOption} />
-              </Suspense>
-            </div>
-          </MyProfileProvider>
-        </IdealPartnerProvider>
+        <QueryClientProvider client={queryClient}>
+          <IdealPartnerProvider>
+            <MyProfileProvider>
+              <div style={{ height: '100vh' }}>
+                <Story />
+                <Suspense fallback={<></>}>
+                  <Toaster position={'bottom-center'} toastOptions={ToastOption} />
+                </Suspense>
+              </div>
+            </MyProfileProvider>
+          </IdealPartnerProvider>
+        </QueryClientProvider>
       </MemoryRouter>
     ),
   ],

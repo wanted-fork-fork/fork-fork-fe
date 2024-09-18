@@ -40,7 +40,7 @@ export default function Page() {
   return (
     <MyProfileProvider initialState={profileInitialState}>
       <IdealPartnerProvider initialState={idealPartnerInitialState}>
-        <ProfilePage />
+        <ProfilePage infoId={profile.id} />
       </IdealPartnerProvider>
     </MyProfileProvider>
   );
