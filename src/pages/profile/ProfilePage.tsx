@@ -1,6 +1,6 @@
 import { Button } from 'src/shared/ui/Button/Button';
 import { PropsWithChildren, useState } from 'react';
-import { ArrowLeft, Menu, Share } from 'src/shared/ui/icons';
+import { ArrowLeft, Delete, Edit, Menu, Share } from 'src/shared/ui/icons';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
 import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
 import styles from './ProfilePage.module.css';
@@ -11,9 +11,10 @@ import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPart
 import { Link } from '@remix-run/react';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Theme } from 'src/shared/styles/constants';
-import { ImageLayout } from '../../shared/ui/ImageLayout/ImageLayout';
+import { ImageLayout } from 'src/shared/ui/ImageLayout/ImageLayout';
 import { ProfileShareBottomSheet } from 'src/features/ProfileShare/ProfileShareBottomSheet';
 import { useTranslation } from 'react-i18next';
+import { Popover } from 'src/shared/ui/Popover/Popover';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();
@@ -50,9 +51,34 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
               <IconButton onClick={() => setShareOpen(true)}>
                 <Share color={Theme.color.neutral50} />
               </IconButton>
-              <IconButton>
-                <Menu color={Theme.color.neutral50} />
-              </IconButton>
+              <Popover
+                anchorElement={
+                  <IconButton>
+                    <Menu color={Theme.color.neutral50} />
+                  </IconButton>
+                }
+                contentElement={
+                  <>
+                    <Button
+                      variant={'ghost'}
+                      widthType={'fill'}
+                      color={'neutral'}
+                      prefixSlot={<Edit color={Theme.color.neutral90} />}
+                    >
+                      정보 수정
+                    </Button>
+                    <Button
+                      variant={'ghost'}
+                      widthType={'fill'}
+                      color={'neutral'}
+                      prefixSlot={<Delete color={Theme.color.neutral60} />}
+                      className={styles.DeleteButton}
+                    >
+                      삭제하기
+                    </Button>
+                  </>
+                }
+              />
             </div>
           }
         >
