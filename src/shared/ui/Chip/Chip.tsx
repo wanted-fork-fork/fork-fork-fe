@@ -10,7 +10,7 @@ type ChipProps = PropsWithChildren<{
 }>;
 
 export const Chip = ({ className = '', selected, onClick, suffixSlot, children }: ChipProps) => {
-  return (
+  return onClick ? (
     <Button
       className={`${className} ${styles.Chip}`}
       variant={'outline'}
@@ -22,5 +22,7 @@ export const Chip = ({ className = '', selected, onClick, suffixSlot, children }
     >
       {children}
     </Button>
+  ) : (
+    <div className={`${className} ${styles.Chip} ${styles.NonButtonChip}`}>{children}</div>
   );
 };
