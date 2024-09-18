@@ -117,7 +117,6 @@ const createStoreHook = (initialState?: MyProfile) =>
     setSmokingAmount: (value) => set({ smoking: { ...get().smoking, smokingAmount: value } }),
     introduction: '',
     setIntroduction: (value) => set({ introduction: value }),
-    ...initialState,
     touched: new Set(),
     addTouched: (key) => {
       const newSet = new Set(get().touched);
@@ -142,6 +141,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     setFoods: (value) => set({ foods: value }),
     pets: [],
     setPets: (value) => set({ pets: value }),
+    ...initialState,
   }));
 
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(

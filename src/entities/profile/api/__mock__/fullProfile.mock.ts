@@ -29,4 +29,9 @@ export const fullProfileMock: MyProfile = {
     smokingCategory: 'NON_SMOKER',
   },
   introduction: '하이',
+  book: { bookName: '제목', cause: '그냥' },
+  dateStyle: [],
+  foods: ['🍝 파스타'],
+  movie: { movieName: '라라랜드', cause: '그냥' },
+  pets: ['🐶 강아지'],
 };

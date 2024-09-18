@@ -2,29 +2,28 @@ import styles from './JobForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { JobJobCategory } from 'src/types';
+import { DistributedOmit } from '../../../shared/types/distributedOmit';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const JobMetaList: RadioMeta<JobJobCategory>[] = [
+const JobMetaList: DistributedOmit<RadioMeta<JobJobCategory>, 'name'>[] = [
   {
     key: 'STUDENT',
-    name: '학생(대학원생)',
     allowInput: true,
     placeholder: '학과나 학교를 입력해주세요.',
   },
   {
     key: 'EMPLOYEE',
-    name: '직장인',
     allowInput: true,
     placeholder: '직무나 회사를 입력해주세요.',
   },
   {
     key: 'FREELANCER',
-    name: '자영업자, 프리랜서',
     allowInput: true,
     placeholder: '어떤 사업을 하는지 입력해주세요.',
   },
   {
     key: 'ETC',
-    name: '기타',
     allowInput: true,
     placeholder: '기타 하시는 일을 입력해주세요.',
   },
@@ -41,10 +40,20 @@ export const JobForm = () => {
     setJobDescription('');
   };
 
+  const { t } = useTranslation();
+  const meta = useMemo(
+    () =>
+      JobMetaList.map((m) => ({
+        ...m,
+        name: t(`JOB_${m.key}`),
+      })),
+    [t],
+  );
+
   return (
     <section className={styles.Container} role={'radiogroup'}>
       <RadioList
-        radioMetaList={JobMetaList}
+        radioMetaList={meta}
         selected={jobType}
         onSelect={onSelect}
         inputValue={description}

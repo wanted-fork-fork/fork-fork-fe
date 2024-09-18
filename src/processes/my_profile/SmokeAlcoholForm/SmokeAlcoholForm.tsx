@@ -3,11 +3,14 @@ import styles from './SmokeAlcoholForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { SmokingSmokingCategory } from 'src/types';
+import { DistributedOmit } from '../../../shared/types/distributedOmit';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
-const SmokeMetaList: RadioMeta<SmokingSmokingCategory>[] = [
-  { key: 'NON_SMOKER', name: '안합니다', allowInput: false },
-  { key: 'SMOKER', name: '합니다', allowInput: false },
-  { key: 'ETC', name: '기타', allowInput: true, placeholder: '담배는 언제 피는 편인가요?' },
+const smokingRadioMeta: DistributedOmit<RadioMeta<SmokingSmokingCategory>, 'name'>[] = [
+  { key: 'SMOKER', allowInput: false },
+  { key: 'NON_SMOKER', allowInput: false },
+  { key: 'ETC', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
 export const SmokeAlcoholForm = () => {
@@ -17,6 +20,17 @@ export const SmokeAlcoholForm = () => {
   const smokingAmount = useMyProfileStore((state) => state.smoking.smokingAmount);
   const setSmokingCategory = useMyProfileStore((state) => state.setSmokingCategory);
   const setSmokingAmount = useMyProfileStore((state) => state.setSmokingAmount);
+
+  const { t } = useTranslation();
+  const meta = useMemo(
+    () =>
+      smokingRadioMeta.map((m) => ({
+        ...m,
+        name: t(`SMOKING_${m.key}`),
+      })),
+    [t],
+  );
+
   return (
     <section className={styles.Container}>
       <fieldset>
@@ -30,7 +44,7 @@ export const SmokeAlcoholForm = () => {
       <fieldset>
         <legend className={`strong ${styles.Legend}`}>흡연 여부</legend>
         <RadioList
-          radioMetaList={SmokeMetaList}
+          radioMetaList={meta}
           selected={smokingCategory}
           inputValue={smokingAmount}
           onSelect={setSmokingCategory}

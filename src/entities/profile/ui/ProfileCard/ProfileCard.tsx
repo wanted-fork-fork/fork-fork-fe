@@ -43,7 +43,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             <tr>
               <th scope={'row'}>종교</th>
               <td>{getReligionText(profile.religion)}</td>
-            </tr>{' '}
+            </tr>
             <tr>
               <th scope={'row'}>신분</th>
               <td>{getJobText(profile.job)}</td>

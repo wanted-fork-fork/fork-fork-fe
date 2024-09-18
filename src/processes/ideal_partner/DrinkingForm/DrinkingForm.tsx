@@ -2,13 +2,16 @@ import styles from './DrinkingForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { DrinkingDrinkingCategory } from 'src/types';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
+import { DistributedOmit } from '../../../shared/types/distributedOmit';
 
-const drinkingRadioMeta: RadioMeta<DrinkingDrinkingCategory>[] = [
-  { key: 'NO_PROBLEM', name: '상관 없어요', allowInput: false },
-  { key: 'ONE_TWO_TIMES_A_WEEK', name: '주 1-2회 가볍게는 괜찮아요', allowInput: false },
-  { key: 'ONE_TWO_TIMES_A_MONTH', name: '달 1-2회 정도 괜찮아요', allowInput: false },
-  { key: 'NEVER', name: '되도록 안하면 좋겠어요', allowInput: false },
-  { key: 'ETC', name: '기타', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
+const drinkingRadioMeta: DistributedOmit<RadioMeta<DrinkingDrinkingCategory>, 'name'>[] = [
+  { key: 'NO_PROBLEM', allowInput: false },
+  { key: 'ONE_TWO_TIMES_A_WEEK', allowInput: false },
+  { key: 'ONE_TWO_TIMES_A_MONTH', allowInput: false },
+  { key: 'NEVER', allowInput: false },
+  { key: 'ETC', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
 export const DrinkingForm = () => {
@@ -17,10 +20,20 @@ export const DrinkingForm = () => {
   const setDrinkingCategory = useIdealPartnerStore((state) => state.setDrinkingCategory);
   const setDrinkingAmount = useIdealPartnerStore((state) => state.setDrinkingAmount);
 
+  const { t } = useTranslation();
+  const meta = useMemo(
+    () =>
+      drinkingRadioMeta.map((meta) => ({
+        ...meta,
+        name: t(`DRINKING_${meta.key}`),
+      })),
+    [t],
+  );
+
   return (
     <section className={styles.Container}>
       <RadioList
-        radioMetaList={drinkingRadioMeta}
+        radioMetaList={meta}
         selected={drinkingCategory}
         onSelect={setDrinkingCategory}
         inputValue={drinkingAmount}

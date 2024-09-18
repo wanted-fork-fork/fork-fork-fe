@@ -2,13 +2,16 @@ import styles from './ReligionForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { ReligionReligionCategory } from 'src/types';
+import { DistributedOmit } from '../../../shared/types/distributedOmit';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const religionRadioMeta: RadioMeta<ReligionReligionCategory>[] = [
-  // { key: '', name: '무교', allowInput: false },
-  { key: 'CHRISTIANITY', name: '기독교', allowInput: false },
-  { key: 'BUDDHISM', name: '불교', allowInput: false },
-  { key: 'CATHOLICISM', name: '천주교', allowInput: false },
-  { key: 'ETC', name: '기타(기타 선택 시 직접 입력)', allowInput: true, placeholder: '종교를 입력해주세요.' },
+const religionRadioMeta: DistributedOmit<RadioMeta<ReligionReligionCategory>, 'name'>[] = [
+  { key: 'IRRELIGION', allowInput: false },
+  { key: 'CHRISTIANITY', allowInput: false },
+  { key: 'BUDDHISM', allowInput: false },
+  { key: 'CATHOLICISM', allowInput: false },
+  { key: 'ETC', allowInput: true, placeholder: '종교를 입력해주세요.' },
 ];
 
 export const ReligionForm = () => {
@@ -17,10 +20,20 @@ export const ReligionForm = () => {
   const setReligionCategory = useIdealPartnerStore((state) => state.setReligionCategory);
   const setReligionName = useIdealPartnerStore((state) => state.setReligionName);
 
+  const { t } = useTranslation();
+  const meta = useMemo(
+    () =>
+      religionRadioMeta.map((m) => ({
+        ...m,
+        name: t(`RELIGION_${m.key}`),
+      })),
+    [t],
+  );
+
   return (
     <section className={styles.Container}>
       <RadioList
-        radioMetaList={religionRadioMeta}
+        radioMetaList={meta}
         selected={religionCategory}
         onSelect={setReligionCategory}
         inputValue={religionName}

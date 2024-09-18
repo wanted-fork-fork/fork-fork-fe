@@ -3,8 +3,15 @@ import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import styles from 'src/shared/ui/Profile/Profile.module.css';
+import { useTranslation } from 'react-i18next';
+import { getSmokingText } from '../../../profile/lib/getSmokingText';
+import { getDrinkingText } from '../../../profile/lib/getDrinkingText';
+import { getReligionText } from '../../../profile/lib/getReligionText';
+import { getLocationText } from '../../../profile/lib/getLocationText';
 
 export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
+  const { t } = useTranslation();
+
   return (
     <section className={styles.Grid}>
       <div className={styles.Cell}>
@@ -16,7 +23,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       <div className={styles.Cell}>
         <ProfileCellHeader title={'선호하는 키'} />
         <span>
-          {profile.heightRange?.min}-{profile.heightRange?.max}
+          {profile.heightRange?.min}cm-{profile.heightRange?.max}cm
         </span>
       </div>
       <div className={styles.Cell}>
@@ -31,9 +38,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'희망 지역'} />
-        <span>
-          {profile.locations.map(({ city, town }) => town.map((t) => `${city.cityName} ${t.townName}`)).join(', ')}
-        </span>
+        <span>{profile.locations.map(getLocationText).join(', ')}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'취미'} />
@@ -45,15 +50,15 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'종교'} />
-        <span>{profile.religion.religionCategory}</span>
+        <span>{getReligionText(profile.religion)}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'음주 빈도'} />
-        <span>{profile.drinking.drinkingCategory}</span>
+        <span>{getDrinkingText(profile.drinking)}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'흡연여부'} />
-        <span>{profile.smoking.smokingCategory}</span>
+        <span>{getSmokingText(profile.smoking)}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'주선자에게 전달하고 싶은 말'} />
