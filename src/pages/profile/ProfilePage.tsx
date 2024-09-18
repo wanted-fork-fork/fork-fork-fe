@@ -13,9 +13,12 @@ import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Theme } from 'src/shared/styles/constants';
 import { ImageLayout } from '../../shared/ui/ImageLayout/ImageLayout';
 import { ProfileShareBottomSheet } from 'src/features/ProfileShare/ProfileShareBottomSheet';
+import { useTranslation } from 'react-i18next';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();
+
+  const { t } = useTranslation();
 
   const profile = useMyProfileStore((state) => state);
   const idealPartner = useIdealPartnerStore((state) => state);
@@ -57,14 +60,14 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
             <span />
           ) : (
             <p>
-              {profile.name}({profile.gender}, {age})
+              {profile.name}({t(profile.gender)}, {age})
             </p>
           )}
         </Header>
         <ScrollView rootClassName={styles.Body}>
           <ImageLayout urls={urls} />
           <h1 className={styles.Name} ref={ref}>
-            {profile.name}({profile.gender}, {age})
+            {profile.name}({t(profile.gender)}, {age})
           </h1>
           <ProfileTab.Root>
             <ProfileTab.TriggerList className={styles.TabTriggerList} />
