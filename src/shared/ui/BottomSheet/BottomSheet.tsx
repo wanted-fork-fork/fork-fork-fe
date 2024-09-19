@@ -21,7 +21,7 @@ type BottomSheetHeaderProps = PropsWithChildren<{
 
 const BottomSheetHeader = (props: BottomSheetHeaderProps) => {
   return (
-    <Sheet.Header>
+    <Sheet.Header className={styles.Header}>
       <Header {...props} />
     </Sheet.Header>
   );
