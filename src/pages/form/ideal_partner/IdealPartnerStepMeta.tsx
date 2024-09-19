@@ -53,7 +53,9 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     title: () => <>상대방이 어떤 종교이길 희망하시나요?</>,
     description: () => <></>,
     form: () => <ReligionForm />,
-    canGoNext: (state) => Boolean(state.religion.religionCategory),
+    canGoNext: (state) =>
+      state.religion.religionCategory &&
+      (state.religion.religionCategory !== 'ETC' || Boolean(state.religion.religionName)),
     shortcutTitle: '종교',
   },
   DRINKING: {
@@ -66,14 +68,18 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     ),
     description: () => <></>,
     form: () => <DrinkingForm />,
-    canGoNext: (state) => Boolean(state.drinking.drinkingCategory),
+    canGoNext: (state) =>
+      state.drinking.drinkingCategory &&
+      (state.drinking.drinkingCategory !== 'ETC' || Boolean(state.drinking.drinkingAmount)),
     shortcutTitle: '상대방의 음주 빈도',
   },
   SMOKING: {
     title: () => <>상대방의 흡연은 괜찮으신가요?</>,
     description: () => <></>,
     form: () => <SmokingForm />,
-    canGoNext: (state) => Boolean(state.smoking.smokingCategory),
+    canGoNext: (state) =>
+      state.smoking.smokingCategory &&
+      (state.smoking.smokingCategory !== 'ETC' || Boolean(state.smoking.smokingAmount)),
     shortcutTitle: '상대방의 흡연 여부',
   },
   REQUIRED_OPTIONS: {

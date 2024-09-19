@@ -44,7 +44,7 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
   JOB: {
     title: ({ name }) => <>{name}님은 현재 어떤 일을 하시나요?</>,
     form: () => <JobForm />,
-    canGoNext: (state) => Boolean(state.job.jobCategory),
+    canGoNext: (state) => Boolean(state.job.jobCategory) && Boolean(state.job.jobName.trim()),
     shortcutTitle: '현재 하는 일',
   },
   LOCATION: {
@@ -57,7 +57,9 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
   RELIGION: {
     title: () => <>종교는 있으신가요?</>,
     form: () => <ReligionForm />,
-    canGoNext: (state) => Boolean(state.religion.religionCategory),
+    canGoNext: (state) =>
+      state.religion.religionCategory &&
+      (state.religion.religionCategory !== 'ETC' || Boolean(state.religion.religionName)),
     shortcutTitle: '종교',
   },
   HOBBY: {
@@ -76,7 +78,10 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
       </>
     ),
     form: () => <SmokeAlcoholForm />,
-    canGoNext: (state) => Boolean(state.drinking && state.smoking),
+    canGoNext: (state) =>
+      Boolean(state.drinking) &&
+      state.smoking.smokingCategory &&
+      (state.smoking.smokingCategory !== 'ETC' || Boolean(state.smoking.smokingAmount)),
     shortcutTitle: '술자리 빈도 및 흡연 여부',
   },
   INTRODUCE: {
