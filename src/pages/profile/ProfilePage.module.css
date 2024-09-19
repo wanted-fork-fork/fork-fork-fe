@@ -26,6 +26,30 @@
     color: var(--color-neutral-60) !important;
 }
 
+.DeleteModal {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+    width: 100%;
+    padding: 24px
+}
+
+.DeleteModalBody {
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.DeleteModalFooter {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 8px;
+    width: 100%;
+}
+
 .Body {
     flex-grow: 1;
     overflow: hidden;
