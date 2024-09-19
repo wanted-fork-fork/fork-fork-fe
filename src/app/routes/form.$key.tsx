@@ -48,11 +48,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     // @ts-ignore
     { userInfo: JSON.parse(body.get('userInfo')), idealPartner: JSON.parse(body.get('idealPartner')) },
     { linkKey },
-    {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_DEV_JWT_TOKEN}`,
-      },
-    },
   );
 
   return { status, data };
