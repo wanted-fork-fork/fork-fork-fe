@@ -14,4 +14,6 @@ export { default as Minus } from './Minus';
 export { default as Plus } from './Plus';
 export { default as Refresh } from './Refresh';
 export { default as Share } from './Share';
+export { default as ToggleOff } from './ToggleOff';
+export { default as ToggleOn } from './ToggleOn';
 export { default as UncheckedRadio } from './UncheckedRadio';

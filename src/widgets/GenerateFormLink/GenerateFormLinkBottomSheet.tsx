@@ -7,6 +7,7 @@ import { Link, Refresh } from 'src/shared/ui/icons';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Theme } from 'src/shared/styles/constants';
 import { IconBoxButton } from '../../shared/ui/IconBoxButton/IconBoxButton';
+import { Toggle } from 'src/shared/ui/Toggle/Toggle';
 
 export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -62,7 +63,7 @@ const GenerateFormBottomSheetContent = () => {
         <h3>링크 설정</h3>
         <div className={styles.LinkConfig}>
           <p>기존 링크 활성화</p>
-          <input type={'checkbox'} checked={isOpen} onClick={onToggleLinkOpen} />
+          <Toggle onToggle={onToggleLinkOpen} checked={isOpen} />
         </div>
         <div className={styles.LinkConfig}>
           <p>새로운 링크 생성</p>
