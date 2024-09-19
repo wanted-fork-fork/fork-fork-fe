@@ -2,10 +2,11 @@ import { MyPage as _MyPage } from 'src/pages/mypage/MyPage';
 import { authenticate } from 'src/app/server/authenticate';
 import { info } from 'src/types';
 import { useLoaderData } from '@remix-run/react';
-import { LoaderFunction } from '@remix-run/node';
+import { json, LoaderFunction } from '@remix-run/node';
+import { commitSession } from 'src/app/server/sessions';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const accessToken = await authenticate(request);
+  const { accessToken, newSession } = await authenticate(request);
 
   const { data: userInfo } = await info({
     headers: {
@@ -13,7 +14,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
   });
 
-  return { userInfo };
+  return json(
+    { userInfo },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
 };
 
 export default function MyPage() {

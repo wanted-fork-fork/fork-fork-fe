@@ -5,13 +5,14 @@ import { getAllInfo, info } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useLoaderData } from '@remix-run/react';
 import { GenerateFormLink } from 'src/widgets/GenerateFormLink/GenerateFormLink';
+import { commitSession } from 'src/app/server/sessions';
 
 export const meta: MetaFunction = () => {
   return [{ title: '구구' }, { name: 'description', content: '내 사랑을 구해줄래? 구해줄게!' }];
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const accessToken = await authenticate(request);
+  const { accessToken, newSession } = await authenticate(request);
 
   const { data: profileList } = await getAllInfo({
     headers: {
@@ -25,7 +26,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
   });
 
-  return json({ userInfo, profileList });
+  return json(
+    { userInfo, profileList },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
 };
 
 export default function Index() {

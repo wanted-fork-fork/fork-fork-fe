@@ -7,10 +7,11 @@ import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPart
 import { useMemo } from 'react';
 import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
 import { convertDtoToIdealPartner } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
-import { LoaderFunction } from '@remix-run/node';
+import { json, LoaderFunction } from '@remix-run/node';
+import { commitSession } from 'src/app/server/sessions';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const accessToken = await authenticate(request);
+  const { accessToken, newSession } = await authenticate(request);
 
   const { key } = params;
 
@@ -27,7 +28,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     },
   });
 
-  return { profile: data };
+  return json(
+    { profile: data },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
 };
 
 export default function Page() {

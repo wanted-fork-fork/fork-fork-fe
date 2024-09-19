@@ -1,14 +1,13 @@
 import { LoaderFunction, redirect } from '@remix-run/node';
 import { loginKakao } from 'src/types';
-import { commitSession, getAuthSession } from 'src/app/server/sessions';
-import dayjs from 'dayjs';
+import { commitSession, generateExpiredDate, getAuthSession } from 'src/app/server/sessions';
 
 export const loader: LoaderFunction = async ({ request }) => {
   if (import.meta.env.DEV) {
     const session = await getAuthSession(request);
     session.set('accessToken', process.env.VITE_DEV_JWT_TOKEN ?? '');
     session.set('refreshToken', process.env.VITE_DEV_JWT_TOKEN ?? '');
-    session.set('expiredAt', dayjs().add(1, 'day').valueOf().toString());
+    session.set('expiredAt', generateExpiredDate());
 
     return redirect('/', {
       headers: {
@@ -33,7 +32,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     const session = await getAuthSession(request);
     session.set('accessToken', data.accessToken);
     session.set('refreshToken', data.refreshToken);
-    session.set('expiredAt', dayjs().add(1, 'day').valueOf().toString());
+    session.set('expiredAt', generateExpiredDate());
 
     return redirect('/', {
       headers: {

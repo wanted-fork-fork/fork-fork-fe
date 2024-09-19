@@ -1,4 +1,4 @@
-import { LoaderFunction } from '@remix-run/node';
+import { json, LoaderFunction } from '@remix-run/node';
 import { authenticate } from '../server/authenticate';
 import { getInfoBySharingId } from '../../types';
 import { useLoaderData } from '@remix-run/react';
@@ -6,9 +6,10 @@ import { useMemo } from 'react';
 import { convertDtoToProfile } from '../../entities/profile/model/convertProfileToDto';
 import { MyProfileProvider } from '../../entities/profile/model/myProfileStore';
 import { ProfilePage } from '../../pages/profile/ProfilePage';
+import { commitSession } from 'src/app/server/sessions';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const accessToken = await authenticate(request);
+  const { accessToken, newSession } = await authenticate(request);
 
   const { key } = params;
 
@@ -25,7 +26,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     },
   });
 
-  return { profile: data };
+  return json(
+    { profile: data },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
 };
 
 export default function Page() {
@@ -34,7 +42,7 @@ export default function Page() {
 
   return (
     <MyProfileProvider initialState={profileInitialState}>
-      <ProfilePage />
+      <ProfilePage infoId={profile.id} />
     </MyProfileProvider>
   );
 }

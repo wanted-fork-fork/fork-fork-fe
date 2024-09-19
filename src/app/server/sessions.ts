@@ -1,4 +1,5 @@
-import { createCookieSessionStorage, Session } from '@remix-run/node';
+import { createCookieSessionStorage } from '@remix-run/node';
+import dayjs from 'dayjs';
 
 type AuthSessionData = {
   accessToken: string;
@@ -10,7 +11,8 @@ type SessionFlashData = {
   error: string;
 };
 
-export type AuthSession = Session<AuthSessionData, SessionFlashData>;
+export const generateExpiredDate = () => dayjs().add(1, 'day').toString();
+export const isDateExpired = (date: string) => dayjs(date).isBefore(dayjs());
 
 const { getSession, commitSession, destroySession } = createCookieSessionStorage<AuthSessionData, SessionFlashData>({
   cookie: {

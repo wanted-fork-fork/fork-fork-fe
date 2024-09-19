@@ -1,6 +1,5 @@
 import { redirect } from '@remix-run/node';
-import { commitSession, getAuthSession } from 'src/app/server/sessions';
-import dayjs from 'dayjs';
+import { destroySession, generateExpiredDate, getAuthSession, isDateExpired } from 'src/app/server/sessions';
 import { refreshToken } from 'src/types';
 
 export const authenticate = async (request: Request) => {
@@ -12,29 +11,33 @@ export const authenticate = async (request: Request) => {
     throw redirect('/login');
   }
 
-  if (!expiredAt || dayjs(expiredAt).diff(dayjs(), 'day') > 1) {
-    return await requestRefreshToken(request);
+  if (!expiredAt || isDateExpired(expiredAt)) {
+    const { data } = await requestRefreshToken(request);
+
+    session.set('accessToken', data.accessToken);
+    session.set('refreshToken', data.refreshToken);
+    session.set('expiredAt', generateExpiredDate());
+
+    return { accessToken: data.accessToken, newSession: session };
   }
 
-  return accessToken;
+  return { accessToken };
 };
 
 export const requestRefreshToken = async (request: Request) => {
   const session = await getAuthSession(request);
-  const { data } = await refreshToken({
-    accessToken: session.get('accessToken')!,
-    refreshToken: session.get('refreshToken')!,
-  });
-
-  session.set('accessToken', data.accessToken);
-  session.set('refreshToken', data.refreshToken);
-
-  if (request.method === 'GET')
-    throw redirect(request.url, {
-      headers: {
-        'Set-Cookie': await commitSession(session),
-      },
+  try {
+    const { data } = await refreshToken({
+      accessToken: session.get('accessToken')!,
+      refreshToken: session.get('refreshToken')!,
     });
 
-  return data.accessToken;
+    return { data };
+  } catch (e) {
+    throw redirect('/login', {
+      headers: {
+        'Set-Cookie': await destroySession(session),
+      },
+    });
+  }
 };
