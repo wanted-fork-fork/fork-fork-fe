@@ -5,7 +5,7 @@ import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { Book, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { Book, ImageDto, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
 export type MyProfile = {
   name: string;
@@ -13,6 +13,7 @@ export type MyProfile = {
   birthDate: Partial<DateObj>;
   height: number;
   images: File[];
+  imageDtoList: ImageDto[];
   mbti: Mbti | null;
   job: {
     jobCategory: JobJobCategory;
@@ -88,6 +89,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     height: 0,
     setHeight: (height) => set({ height }),
     images: [],
+    imageDtoList: [],
     setSelfImages: (getState) => set({ images: getState(get().images) }),
     mbti: null,
     setMbti: (mbti) => set({ mbti }),

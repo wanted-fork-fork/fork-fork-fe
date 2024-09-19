@@ -7,6 +7,7 @@ import { getSmokingText } from 'src/entities/profile/lib/getSmokingText';
 import { getReligionText } from 'src/entities/profile/lib/getReligionText';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { getJobText } from 'src/entities/profile/lib/getJobText';
+import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 
 type Props = {
   profile: ProfileSummary;
@@ -20,7 +21,13 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
       {headerRightSlot && <div className={styles.HeaderRightSlot}>{headerRightSlot}</div>}
       <div className={styles.Header}>
         <div className={styles.ProfileImageContainer}>
-          <img src={''} alt={`${profile.name} 대표 사진`} />
+          <Avatar
+            fallback={profile.name[0]}
+            src={profile.images[0]?.url}
+            alt={`${profile.name} 대표 사진`}
+            size={80}
+            shape={'circle'}
+          />
         </div>
         <div className={styles.InfoSummaryContainer}>
           <p className={styles.Name}>{profile.name}</p>

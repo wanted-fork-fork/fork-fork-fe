@@ -27,13 +27,7 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
 
   const [isShareOpen, setShareOpen] = useState(false);
 
-  const urls = [
-    '/images/googoo_1.png',
-    '/images/googoo_2.gif',
-    '/images/googoo_3.png',
-    '/images/googoo_4.png',
-    '/images/logo.png',
-  ]; // useDataUrlListFromFiles(profile.images);
+  const urls = profile.imageDtoList.map((image) => image.url);
 
   return (
     <>

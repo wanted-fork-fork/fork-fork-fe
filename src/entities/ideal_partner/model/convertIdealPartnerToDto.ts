@@ -27,6 +27,7 @@ export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPa
     heightRange: dto.heightRange,
     hobbies: dto.hobbies?.map((h) => ({ name: h })) ?? [],
     images: [],
+    imageDtoList: dto.images ?? [],
     locations: [],
     religion: dto.religion,
     requiredOptions: dto.requiredOptions ?? [],

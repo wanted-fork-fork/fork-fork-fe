@@ -21,11 +21,11 @@ export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): Use
     religion: profile.religion,
     smoking: profile.smoking,
     // 추가 질문
-    book: undefined,
-    dateStyle: [],
-    foods: [],
-    movie: undefined,
-    pets: [],
+    book: profile.book,
+    dateStyle: profile.dateStyle,
+    foods: profile.foods,
+    movie: profile.movie,
+    pets: profile.pets,
   };
 };
 
@@ -37,6 +37,7 @@ export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
     height: dto.height,
     hobbies: dto.hobbies.map((h) => ({ name: h })),
     images: [],
+    imageDtoList: dto.images,
     introduction: '',
     job: dto.job,
     location: [],
@@ -44,5 +45,10 @@ export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
     name: dto.name,
     religion: dto.religion,
     smoking: dto.smoking,
+    pets: dto.pets ?? [],
+    foods: dto.foods ?? [],
+    dateStyle: dto.dateStyle ?? [],
+    book: dto.book ?? { bookName: '', cause: '' },
+    movie: dto.movie ?? { movieName: '', cause: '' },
   };
 };

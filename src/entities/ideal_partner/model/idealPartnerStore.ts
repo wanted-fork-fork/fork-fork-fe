@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
-import { DrinkingDrinkingCategory, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { DrinkingDrinkingCategory, ImageDto, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 
 export const REQUIRED_OPTION_MAX_COUNT = 3;
 
@@ -18,6 +18,7 @@ export type IdealPartner = {
   };
   style: string;
   images: File[];
+  imageDtoList: ImageDto[];
   locations: Location[];
   hobbies: Hobby[];
   religion: {
@@ -79,6 +80,7 @@ const createStoreHook = () =>
     style: '',
     setStyle: (style) => set({ style }),
     images: [],
+    imageDtoList: [],
     setImages: (getState) => set({ images: getState(get().images) }),
     locations: [],
     setLocation: (locations) => set({ locations }),
