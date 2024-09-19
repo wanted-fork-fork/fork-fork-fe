@@ -5,8 +5,8 @@ import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
 import { convertDtoToProfile } from '../../entities/profile/model/convertProfileToDto';
 import { MyProfileProvider } from '../../entities/profile/model/myProfileStore';
-import { ProfilePage } from '../../pages/profile/ProfilePage';
 import { commitSession } from 'src/app/server/sessions';
+import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -42,7 +42,7 @@ export default function Page() {
 
   return (
     <MyProfileProvider initialState={profileInitialState}>
-      <ProfilePage infoId={profile.id} />
+      <SharedProfilePage />
     </MyProfileProvider>
   );
 }

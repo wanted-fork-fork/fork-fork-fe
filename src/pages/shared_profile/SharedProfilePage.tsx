@@ -38,7 +38,7 @@ export const SharedProfilePage = () => {
       <ScrollView rootClassName={styles.Body}>
         <ImageLayout urls={urls} />
         <h1 className={styles.Name} ref={ref}>
-          {profile.name}({profile.gender}, {age})
+          {profile.name}({t(profile.gender)}, {age})
         </h1>
         <div className={styles.ContentWrapper}>
           <PersonalInfoGrid profile={profile} />

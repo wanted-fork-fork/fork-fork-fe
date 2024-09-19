@@ -26,7 +26,7 @@ export const SmokeAlcoholForm = () => {
     () =>
       smokingRadioMeta.map((m) => ({
         ...m,
-        name: t(`SMOKING_${m.key}`),
+        name: t(`INFO_SMOKING_${m.key}`),
       })),
     [t],
   );
