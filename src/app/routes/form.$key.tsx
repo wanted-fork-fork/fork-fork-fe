@@ -12,7 +12,7 @@ import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
 import { saveInfo, validateLink } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 
 const MAX_STEP_COUNT = 7;
 
@@ -63,6 +63,8 @@ export default function ProfileFormPage() {
   const formPageStep = useMemo(() => createFormPageStep({ name, linkKey, increase }), [linkKey, name]);
 
   const showShortcut = [1, 3, 4].includes(step);
+
+  useBeforeUnload((e) => e.preventDefault());
 
   return (
     <div className={styles.Wrapper}>
