@@ -1,6 +1,3 @@
-import { Button } from 'src/shared/ui/Button/Button';
-import { PropsWithChildren, useState } from 'react';
-import { ArrowLeft, Delete, Edit, Menu, Share } from 'src/shared/ui/icons';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
 import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
 import styles from './ProfilePage.module.css';
@@ -8,13 +5,10 @@ import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { Link } from '@remix-run/react';
-import { Header } from 'src/shared/ui/layout/Header/Header';
-import { Theme } from 'src/shared/styles/constants';
 import { ImageLayout } from 'src/shared/ui/ImageLayout/ImageLayout';
-import { ProfileShareBottomSheet } from 'src/features/ProfileShare/ProfileShareBottomSheet';
 import { useTranslation } from 'react-i18next';
-import { Popover } from 'src/shared/ui/Popover/Popover';
+import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
+import { useMemo } from 'react';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();
@@ -25,65 +19,12 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const idealPartner = useIdealPartnerStore((state) => state);
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
 
-  const [isShareOpen, setShareOpen] = useState(false);
-
-  const urls = profile.imageDtoList.map((image) => image.url);
+  const urls = useMemo(() => profile.imageDtoList.map((image) => image.url), [profile.imageDtoList]);
 
   return (
     <>
       <div className={styles.Wrapper}>
-        <Header
-          prefixSlot={
-            <Link to={'/'}>
-              <IconButton>
-                <ArrowLeft color={Theme.color.neutral50} />
-              </IconButton>
-            </Link>
-          }
-          suffixSlot={
-            <div className={styles.HeaderIconSection}>
-              <IconButton onClick={() => setShareOpen(true)}>
-                <Share color={Theme.color.neutral50} />
-              </IconButton>
-              <Popover
-                anchorElement={
-                  <IconButton>
-                    <Menu color={Theme.color.neutral50} />
-                  </IconButton>
-                }
-                contentElement={
-                  <>
-                    <Button
-                      variant={'ghost'}
-                      widthType={'fill'}
-                      color={'neutral'}
-                      prefixSlot={<Edit color={Theme.color.neutral90} />}
-                    >
-                      정보 수정
-                    </Button>
-                    <Button
-                      variant={'ghost'}
-                      widthType={'fill'}
-                      color={'neutral'}
-                      prefixSlot={<Delete color={Theme.color.neutral60} />}
-                      className={styles.DeleteButton}
-                    >
-                      삭제하기
-                    </Button>
-                  </>
-                }
-              />
-            </div>
-          }
-        >
-          {inView ? (
-            <span />
-          ) : (
-            <p>
-              {profile.name}({t(profile.gender)}, {age})
-            </p>
-          )}
-        </Header>
+        <ProfilePageHeader profile={profile} infoId={infoId} showTitle={!inView} />
         <ScrollView rootClassName={styles.Body}>
           <ImageLayout urls={urls} />
           <h1 className={styles.Name} ref={ref}>
@@ -97,13 +38,6 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
           </ProfileTab.Root>
         </ScrollView>
       </div>
-      <ProfileShareBottomSheet isOpen={isShareOpen} onClose={() => setShareOpen(false)} infoId={infoId} />
     </>
   );
 };
-
-const IconButton = ({ children, onClick }: PropsWithChildren<{ onClick?: () => void }>) => (
-  <Button variant={'ghost'} widthType={'hug'} size={'fit'} color={'neutral'} onClick={onClick}>
-    {children}
-  </Button>
-);
