@@ -54,8 +54,8 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
         </div>
       )}
       <div className={styles.Main}>{currentStep.form({ onClickNextForm: handleClickNext })}</div>
-      <div className={styles.Footer}>
-        {(currentStep.showNextButton ?? true) && (
+      {(currentStep.showNextButton ?? true) && (
+        <div className={styles.Footer}>
           <Button
             variant={'filled'}
             widthType={'fill'}
@@ -65,8 +65,8 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
           >
             다음
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
