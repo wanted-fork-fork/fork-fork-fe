@@ -1,12 +1,14 @@
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import styles from './UploadLoadingPage.module.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useActionData, useSubmit } from '@remix-run/react';
 import { action } from 'src/app/routes/form.$key';
 import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
 import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useMutation } from '@tanstack/react-query';
+import { ImageDto, uploadImage } from 'src/types';
 
 export const UploadLoadingPage = ({
   name,
@@ -23,15 +25,50 @@ export const UploadLoadingPage = ({
   const profile = useMyProfileStore((state) => state);
   const idealPartner = useIdealPartnerStore((state) => state);
 
+  const { mutateAsync: uploadMutation } = useMutation({
+    mutationFn: uploadImage,
+  });
+
+  const uploadFileList = async (files: File[], onUpload: () => void) =>
+    (
+      await Promise.allSettled(
+        files.map(async (file) => {
+          const result = await uploadMutation({ image: file });
+          onUpload();
+          return result;
+        }),
+      )
+    )
+      .map((result) => (result.status === 'fulfilled' ? result.value.data : null))
+      .filter(Boolean) as ImageDto[];
+
+  const [progress, setProgress] = useState<number>(0);
+
   useEffect(() => {
-    submit(
-      {
-        linkKey,
-        userInfo: JSON.stringify(convertProfileToDto(profile, [])),
-        idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, [])),
-      },
-      { method: 'post' },
-    );
+    (async () => {
+      const profileImageList = profile.images;
+      const idealPartnerImageList = idealPartner.images;
+
+      const total = profileImageList.length + idealPartnerImageList.length + 1;
+
+      const [profileImageResults, idealImageResults] = await Promise.all([
+        uploadFileList(profileImageList, () => {
+          setProgress((prev) => prev + 1 / total);
+        }),
+        uploadFileList(idealPartnerImageList, () => {
+          setProgress((prev) => prev + 1 / total);
+        }),
+      ]);
+
+      submit(
+        {
+          linkKey,
+          userInfo: JSON.stringify(convertProfileToDto(profile, profileImageResults)),
+          idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, idealImageResults)),
+        },
+        { method: 'post' },
+      );
+    })();
   }, []);
 
   useEffect(() => {
@@ -51,8 +88,8 @@ export const UploadLoadingPage = ({
         </p>
       </div>
       <div className={styles.ImageSection}>
-        <img src={'/images/googoo_2.gif'} alt={'타자를 치는 구구'} />
-        <p>0%</p>
+        <img src={'/images/loading.gif'} alt={'타자를 치는 구구'} />
+        <p>{(progress * 100).toFixed(0)}%</p>
       </div>
       <InfoBox radiusSize="S">
         <h3>막간 소개팅 꿀팁</h3>
