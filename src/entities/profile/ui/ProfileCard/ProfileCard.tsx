@@ -42,17 +42,17 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             </tr>
             <tr>
               <th scope={'row'}>종교</th>
-              <td>{getReligionText(profile.religion)}</td>
+              <td colSpan={3}>{getReligionText(profile.religion)}</td>
             </tr>
             <tr>
               <th scope={'row'}>신분</th>
-              <td>{getJobText(profile.job)}</td>
+              <td colSpan={3}>{getJobText(profile.job)}</td>
             </tr>
             <tr>
               <th scope={'row'}>음주</th>
               <td>{profile.drinking}</td>
               <th scope={'row'}>흡연</th>
-              <td>{getSmokingText(profile.smoking)}</td>
+              <td>{getSmokingText(profile.smoking, 'INFO')}</td>
             </tr>
             <tr>
               <th scope={'row'}>취미</th>

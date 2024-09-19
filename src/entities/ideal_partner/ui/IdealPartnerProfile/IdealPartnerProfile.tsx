@@ -58,7 +58,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'흡연여부'} />
-        <span>{getSmokingText(profile.smoking)}</span>
+        <span>{getSmokingText(profile.smoking, 'IDEAL')}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'주선자에게 전달하고 싶은 말'} />

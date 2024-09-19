@@ -20,7 +20,7 @@ export const TasteInfoGrid = ({ profile }: { profile: MyProfile }) => {
       <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'흡연여부'} />
-          <span>{getSmokingText(profile.smoking)}</span>
+          <span>{getSmokingText(profile.smoking, 'INFO')}</span>
         </div>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'음주 빈도'} />
