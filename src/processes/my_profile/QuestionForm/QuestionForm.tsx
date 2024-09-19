@@ -30,7 +30,7 @@ export const QuestionForm = () => {
     dateStyle,
     foods,
   }));
-  const [inputType, setInputType] = useState<QuestionType | null>('FOOD');
+  const [inputType, setInputType] = useState<QuestionType | null>(null);
 
   const onClickQuestionButton = (type: QuestionType) => {
     setInputType(type);
@@ -53,7 +53,7 @@ export const QuestionForm = () => {
         onClick={() => onClickQuestionButton('MOVIE')}
         text={'인생 영화'}
       />
-      <BottomSheet isOpen={Boolean(inputType)} onClose={onClose}>
+      <BottomSheet isOpen={Boolean(inputType)} onClose={onClose} detent={'content-height'}>
         <BottomSheet.Header onClose={onClose} />
         <BottomSheet.Content
           footerSlot={
