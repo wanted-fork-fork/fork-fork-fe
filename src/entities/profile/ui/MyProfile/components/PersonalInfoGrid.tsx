@@ -4,13 +4,13 @@ import { getReligionText } from '../../../lib/getReligionText';
 import { AvatarList } from '../../../../../shared/ui/AvatarList/AvatarList';
 import { getJobText } from '../../../lib/getJobText';
 import { getLocationText } from '../../../lib/getLocationText';
-import { calculateAge } from '../../../../../shared/vo/date';
+import { calculateAge, convertDateObjectToDate } from '../../../../../shared/vo/date';
 import { useTranslation } from 'react-i18next';
 import { MyProfile } from '../../../model/myProfileStore';
 
 export const PersonalInfoGrid = ({ profile }: { profile: MyProfile }) => {
   const { t } = useTranslation();
-  const age = calculateAge(new Date(`${profile.birthDate.year}-${profile.birthDate.month}-${profile.birthDate.date}`));
+  const age = calculateAge(convertDateObjectToDate(profile.birthDate));
   return (
     <div className={styles.Grid}>
       <div className={styles.GridRow}>

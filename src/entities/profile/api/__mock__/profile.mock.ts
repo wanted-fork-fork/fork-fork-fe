@@ -1,8 +1,9 @@
 import { ProfileSummary } from 'src/entities/profile/types/profileSummary';
+import dayjs from 'dayjs';
 
 export const profileMock: ProfileSummary = {
   name: '강이름',
-  birthDate: new Date('1996-05-15').toString(),
+  birthDate: dayjs('1996/05/15').toString(),
   gender: 'MALE',
   height: 160,
   hobbies: ['뜨개질'],

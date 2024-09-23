@@ -1,8 +1,7 @@
 import styles from 'src/processes/my_profile/PersonalInfoForm/PersonalInfoForm.module.css';
 import { Select } from 'src/shared/ui/Select/Select';
-import { useMemo } from 'react';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { calculateAge } from 'src/shared/vo/date';
+import { useProfileAge } from 'src/entities/profile/lib/useProfileAge';
 
 const MINIMUM_YEAR = 1980;
 const YearOptionList = Array.from({ length: new Date().getFullYear() - MINIMUM_YEAR + 1 })
@@ -20,22 +19,18 @@ export const BirthDateForm = () => {
   const year = useMyProfileStore((state) => state.birthDate?.year)?.toString();
   const month = useMyProfileStore((state) => state.birthDate?.month)?.toString();
   const date = useMyProfileStore((state) => state.birthDate?.date)?.toString();
+  const age = useProfileAge();
   const setYear = useMyProfileStore((state) => state.setBirthYear);
   const setMonth = useMyProfileStore((state) => state.setBirthMonth);
   const setDate = useMyProfileStore((state) => state.setBirthDate);
-  const calculatedAge = useMemo(() => {
-    if (!year || !month || !date) {
-      return '--';
-    }
 
-    return calculateAge(new Date(`${year}-${month}-${date}`));
-  }, [year, month, date]);
+  const hasFullDate = year && month && date;
 
   return (
     <fieldset>
       <legend className={styles.Legend}>나이</legend>
       <div className={styles.InputGroup}>
-        <span className={styles.AgeInfo}>만 {calculatedAge}세</span>
+        <span className={styles.AgeInfo}>만 {hasFullDate ? age : '--'}세</span>
         <Select required value={year ?? ''} placeholder={'YYYY'} onValueChange={(value) => setYear(Number(value))}>
           {YearOptionList.map((year) => (
             <Select.Item key={year} value={year} text={year.toString()} />

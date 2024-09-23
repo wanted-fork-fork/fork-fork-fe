@@ -13,7 +13,7 @@ export const isValidDate = (date: Partial<DateObj>) => {
 export const convertDateObjectToDate = ({ year, month, date }: Partial<DateObj>) => {
   if (!year || !month || !date) return new Date();
 
-  return new Date(`${year}-${month}-${date}`);
+  return dayjs(`${year}/${month}/${date}`).toDate();
 };
 
 export const convertDateToDateObject = (date: Date): DateObj => {
