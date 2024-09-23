@@ -1,11 +1,11 @@
-import { ActionFunction, json, LoaderFunction } from '@remix-run/node';
-import { authenticate } from 'src/app/server/authenticate';
+import { ActionFunction, LoaderFunction } from '@remix-run/node';
+import { authenticate, authenticateWithoutRedirection } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 
 const apiURL = new URL(process.env.API_BASE_URL ?? '');
 
 export const loader: LoaderFunction = async (args) => {
-  const { accessToken, newSession } = await authenticate(args.request);
+  const { accessToken, newSession } = (await authenticate(args.request)) ?? {};
 
   const url = new URL(args.request.url);
   url.protocol = apiURL.protocol;
@@ -21,15 +21,13 @@ export const loader: LoaderFunction = async (args) => {
       },
     }),
   );
-  return json(await response.json(), {
-    headers: {
-      ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
-    },
-  });
+  if (newSession) response.headers.set('Set-Cookie', await commitSession(newSession));
+
+  return response;
 };
 
 export const action: ActionFunction = async (args) => {
-  const { accessToken, newSession } = await authenticate(args.request);
+  const { accessToken, newSession } = (await authenticateWithoutRedirection(args.request)) ?? {};
 
   const url = new URL(args.request.url);
   url.protocol = apiURL.protocol;
@@ -46,9 +44,8 @@ export const action: ActionFunction = async (args) => {
       },
     }),
   );
-  return json(await response.json(), {
-    headers: {
-      ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
-    },
-  });
+
+  if (newSession) response.headers.set('Set-Cookie', await commitSession(newSession));
+
+  return response;
 };
