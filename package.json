@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "remix vite:dev --port 3000",
+    "dev:host": "remix vite:dev --port 3000 --host",
     "start": "remix-serve ./build/server/index.js",
     "build": "remix vite:build",
     "check:lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
