@@ -20,6 +20,7 @@ export const HeightForm = () => {
     <label className={styles.Label}>
       키
       <Input
+        inputMode={'numeric'}
         suffixSlot={'cm'}
         placeholder={'자신의 키를 입력해주세요.'}
         value={height || ''}
