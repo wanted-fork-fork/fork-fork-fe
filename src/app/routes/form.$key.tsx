@@ -41,16 +41,23 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const linkKey = body.get('linkKey');
   if (typeof linkKey !== 'string') return { status: 400 };
 
-  const { data, status } = await saveInfo(
-    // TODO: zod로 타입 체크
-    // TODO: 이미지 업로드
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { userInfo: JSON.parse(body.get('userInfo')), idealPartner: JSON.parse(body.get('idealPartner')) },
-    { linkKey },
-  );
+  try {
+    const { data, status } = await saveInfo(
+      // TODO: zod로 타입 체크
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      { userInfo: JSON.parse(body.get('userInfo')), idealPartner: JSON.parse(body.get('idealPartner')) },
+      { linkKey },
+    );
 
-  return { status, data };
+    return { status, data };
+  } catch (e) {
+    console.error(e, {
+      userInfo: JSON.parse(body.get('userInfo') as string),
+      idealPartner: JSON.parse(body.get('idealPartner') as string),
+    });
+    return { status: 500 };
+  }
 };
 
 export default function ProfileFormPage() {
