@@ -31,6 +31,8 @@ jobs:
                   value: ${{ vars.API_BASE_URL }}
                 - name: VITE_KAUTH_URL
                   value: ${{ vars.VITE_KAUTH_URL }}
+                - name: VITE_KAKAO_SDK_KEY
+                  value: ${{ secrets.VITE_KAKAO_SDK_KEY }}
                 
               ports: 3000
               build: npm run build
