@@ -1,4 +1,3 @@
-import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
 import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
@@ -9,6 +8,7 @@ import { Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
 import { MouseEvent, useState } from 'react';
 import { ProfileShareBottomSheet } from '../../../features/ProfileShare/ProfileShareBottomSheet';
+import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
 
 export const InfoListPage = ({
   userInfo,
@@ -24,7 +24,7 @@ export const InfoListPage = ({
       <div className={styles.Header}>
         <h2>소개 후보</h2>
         <Link to={'/mypage'}>
-          <Avatar fallback={''} shape={'circle'} size={32} src={userInfo.profileImage} />
+          <UserAvatar size={32} imageSrc={userInfo.profileImage} />
         </Link>
       </div>
       <p className={styles.ListInfo}>총 {profileList?.length}명</p>
