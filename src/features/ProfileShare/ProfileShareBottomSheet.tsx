@@ -7,6 +7,8 @@ import { useMutation } from '@tanstack/react-query';
 import { saveSharing } from '../../types';
 import toast from 'react-hot-toast';
 import { copyLink, createSharedProfileLink } from '../../shared/functions/linkUtil';
+import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
+import { useCallback } from 'react';
 
 export const ProfileShareBottomSheet = ({
   isOpen,
@@ -21,17 +23,30 @@ export const ProfileShareBottomSheet = ({
     mutationFn: saveSharing,
   });
 
-  const onClickShareLink = async () => {
+  const generateLink = useCallback(async () => {
     if (!infoId) return;
 
     try {
       const result = await mutateAsync(infoId);
-      const link = createSharedProfileLink(result.data.sharingId, true);
-      void copyLink(link);
-      toast.success('링크가 복사되었습니다', { icon: null });
+      return createSharedProfileLink(result.data.sharingId, true);
     } catch (e) {
       console.error(e);
     }
+  }, []);
+
+  const onClickShareLink = async () => {
+    const link = await generateLink();
+    if (!link) return;
+
+    await copyLink(link);
+    toast.success('링크가 복사되었습니다', { icon: null });
+  };
+
+  const onClickShareKakao = async () => {
+    const link = await generateLink();
+    if (!link) return;
+
+    await KakaoSdk.instance().shareMessage({ url: link });
   };
 
   return (
@@ -48,7 +63,7 @@ export const ProfileShareBottomSheet = ({
             icon={<img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />}
             iconBackgroundColor={Theme.color.kakao}
             text={'카카오톡 공유'}
-            onClick={onClickShareLink}
+            onClick={onClickShareKakao}
           />
         </div>
       </BottomSheet.Content>

@@ -8,6 +8,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { Theme } from 'src/shared/styles/constants';
 import { IconBoxButton } from '../../shared/ui/IconBoxButton/IconBoxButton';
 import { Toggle } from 'src/shared/ui/Toggle/Toggle';
+import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 
 export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -35,6 +36,10 @@ const GenerateFormBottomSheetContent = () => {
     toast.success('복사되었습니다', { icon: null });
   };
 
+  const onClickShareKakao = async () => {
+    await KakaoSdk.instance().shareMessage({ url: await getLink() });
+  };
+
   const onClickRegenerate = async () => {
     await regenerateLink();
     toast.success('링크를 재생성했습니다', { icon: null });
@@ -56,7 +61,7 @@ const GenerateFormBottomSheetContent = () => {
           icon={<img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />}
           iconBackgroundColor={Theme.color.kakao}
           text={'카카오톡 공유'}
-          onClick={onClickCopyLink}
+          onClick={onClickShareKakao}
         />
       </div>
       <div className={styles.LinkConfigSection}>
