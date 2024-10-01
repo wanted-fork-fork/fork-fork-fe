@@ -1,11 +1,9 @@
 import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
-import { authenticate } from '../server/authenticate';
 import { getInfoBySharingId } from '../../types';
 import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
 import { convertDtoToProfile } from '../../entities/profile/model/convertProfileToDto';
 import { MyProfileProvider } from '../../entities/profile/model/myProfileStore';
-import { commitSession } from 'src/app/server/sessions';
 import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
 
 export const meta: MetaFunction = () => {
@@ -18,9 +16,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  const { accessToken, newSession } = await authenticate(request);
-
+export const loader: LoaderFunction = async ({ params }) => {
   const { key } = params;
 
   if (!key) {
@@ -30,20 +26,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
-  const { data } = await getInfoBySharingId(key, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const { data } = await getInfoBySharingId(key);
 
-  return json(
-    { profile: data },
-    {
-      headers: {
-        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
-      },
-    },
-  );
+  return json({ profile: data });
 };
 
 export default function Page() {
