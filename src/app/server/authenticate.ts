@@ -3,13 +3,11 @@ import { destroySession, generateExpiredDate, getAuthSession, isDateExpired } fr
 import { refreshToken } from 'src/types';
 
 export const authenticate = async (request: Request) => {
-  const token = authenticateWithoutRedirection(request);
-
-  if (!token) {
+  const result = await authenticateWithoutRedirection(request);
+  if (!result) {
     throw redirect('/login');
   }
-
-  return token;
+  return result;
 };
 
 export const authenticateWithoutRedirection = async (request: Request) => {
