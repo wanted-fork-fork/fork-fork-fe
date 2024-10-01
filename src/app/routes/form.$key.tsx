@@ -11,7 +11,7 @@ import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstNam
 import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
 import { saveInfo, validateLink } from 'src/types';
-import { ActionFunctionArgs, json, LoaderFunctionArgs } from '@remix-run/node';
+import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
 import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 
 const MAX_STEP_COUNT = 7;
@@ -25,6 +25,16 @@ const createFormPageStep = ({ name, linkKey, increase }: { name: string; linkKey
   5: <UploadLoadingPage name={name} linkKey={linkKey} onComplete={increase} />,
   6: <CompletePage />,
 });
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: '[구구] 당신에 대해 알려주세요!' },
+    { name: 'description', content: '당신은 어떤 사람인가요? 입력해주시면 좋은 소식 전해드릴게요!' },
+    { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_form.png' },
+    { property: 'og:image:width', content: '800' },
+    { property: 'og:image:height', content: '400' },
+  ];
+};
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { key } = params;

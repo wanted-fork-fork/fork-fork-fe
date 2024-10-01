@@ -16,7 +16,7 @@ import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
 import errorPageStyles from './styles/error.module.css';
 import { WideDeviceLayout } from 'src/pages/layout/WideDeviceLayout';
-import { json, LinksFunction, LoaderFunction } from '@remix-run/node';
+import { json, LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import i18next from 'src/app/i18next.server';
 import { useTranslation } from 'react-i18next';
@@ -47,6 +47,16 @@ export const links: LinksFunction = () => {
       href: '/apple-touch-icon.png',
       sizes: '180x180',
     },
+  ];
+};
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: '구구(GooGoo)' },
+    { name: 'description', content: '내 사랑을 구해줄래? 구해줄게!' },
+    { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_default.png' },
+    { property: 'og:image:width', content: '800' },
+    { property: 'og:image:height', content: '400' },
   ];
 };
 
