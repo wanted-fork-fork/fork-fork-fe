@@ -31,6 +31,9 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
           </Button>
         </Link>
       </div>
+      <Link to={'/logout'} className={styles.Logout}>
+        로그아웃
+      </Link>
     </>
   );
 };
