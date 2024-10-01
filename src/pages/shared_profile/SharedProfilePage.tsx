@@ -10,6 +10,7 @@ import { PersonalInfoGrid } from 'src/entities/profile/ui/MyProfile/components/P
 import { TasteInfoGrid } from 'src/entities/profile/ui/MyProfile/components/TasteInfoGrid';
 import { QuestionInfoGrid } from 'src/entities/profile/ui/MyProfile/components/QuestionInfoGrid';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
+import { useMemo } from 'react';
 
 export const SharedProfilePage = () => {
   const { t } = useTranslation();
@@ -17,14 +18,7 @@ export const SharedProfilePage = () => {
 
   const profile = useMyProfileStore((state) => state);
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
-
-  const urls = [
-    '/images/googoo_1.png',
-    '/images/googoo_2.gif',
-    '/images/googoo_3.png',
-    '/images/googoo_4.png',
-    '/images/logo.png',
-  ]; // useDataUrlListFromFiles(profile.images);
+  const urls = useMemo(() => profile.imageDtoList.map((dto) => dto.url), [profile]);
 
   return (
     <div className={styles.Wrapper}>
