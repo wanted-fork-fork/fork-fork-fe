@@ -7,6 +7,7 @@ export const loader: LoaderFunction = async (args) => {
   url.protocol = apiURL.protocol;
   url.host = apiURL.host;
   url.port = apiURL.port;
+  url.pathname = '/health';
 
   return fetch(url.toString(), new Request(args.request));
 };
