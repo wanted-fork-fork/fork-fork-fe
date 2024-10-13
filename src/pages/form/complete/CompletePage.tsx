@@ -8,7 +8,9 @@ export const CompletePage = () => {
         <br />
         제가 꼭 좋은 소식 전해드릴게요!
       </h2>
-      <img className={styles.Image} src={'/images/googoo_3.png'} alt={'인사하는 구구'} />
+      <div className={styles.ImageWrapper}>
+        <img className={styles.Image} src={'/images/form_complete.png'} alt={'인사하는 구구'} />
+      </div>
     </div>
   );
 };
