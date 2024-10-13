@@ -29,7 +29,7 @@ export const TasteInfoGrid = ({ profile }: { profile: MyProfile }) => {
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'자기 소개'} />
-        <span>{profile.introduction}</span>
+        <span className={styles.Introduce}>{profile.introduction}</span>
       </div>
     </div>
   );
