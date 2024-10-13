@@ -11,6 +11,10 @@
     padding: 10px 20px 0;
 }
 
+.InnerHeader {
+    padding-bottom: 0 !important;
+}
+
 .CloseButton {
     margin-left: auto;
 }

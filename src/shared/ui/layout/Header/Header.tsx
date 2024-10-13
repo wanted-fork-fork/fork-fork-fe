@@ -10,14 +10,16 @@ export const Header = ({
   onPrev,
   onClose,
   children,
+  className = '',
 }: PropsWithChildren<{
   suffixSlot?: ReactNode;
   prefixSlot?: ReactNode;
   onClose?: () => void;
   onPrev?: () => void;
+  className?: string;
 }>) => {
   return (
-    <div className={styles.Header}>
+    <div className={`${styles.Header} ${className}`}>
       {onPrev && (
         <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onPrev}>
           <ArrowLeft width={24} color={Theme.color.neutral50} />
