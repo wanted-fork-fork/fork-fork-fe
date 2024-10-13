@@ -1,10 +1,15 @@
 
-.ImageLayout {
+.Carousel {
   width: 100%;
+  max-width: 480px;
+  height: 256px;
   background-color: var(--color-neutral-10);
 
-  display: grid;
   overflow: hidden;
+
+  & div {
+    height: 100%;
+  }
 
   & img {
     width: 100%;
@@ -12,32 +17,18 @@
     object-fit: cover;
     object-position: center;
   }
+}
 
-  &[data-itemcount='5'], &[data-itemcount='4'] {
-    grid: 1fr 1fr / 2fr 1fr 1fr;
+.Step {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px 12px;
+  background-color: #FFFFFF4D;
+  border-radius: 40px;
+  pointer-events: none;
+}
 
-    & img:nth-child(1) {
-      grid-row: 1 / span 2;
-    }
-  }
-
-  &[data-itemcount='3'] {
-    grid: 1fr 1fr / 2fr 1fr;
-
-    & img:nth-child(1) {
-      grid-row: 1 / span 2;
-    }
-  }
-
-  &[data-itemcount='2'] {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  &[data-itemcount='1'] {
-    height: 50vw;
-
-    & img {
-      height: 100%;
-    }
-  }
+.Container {
+  position: relative;
 }

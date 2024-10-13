@@ -9,9 +9,12 @@ export const Carousel = forwardRef<Slider, PropsWithChildren<Settings>>(function
   { children, ...options },
   ref,
 ) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const SliderComponent = typeof window === 'undefined' ? Slider.default : Slider;
   return (
-    <Slider dotsClass={`slick-dots ${styles.Dots}`} {...options} ref={ref}>
+    <SliderComponent dotsClass={`slick-dots ${styles.Dots}`} {...options} ref={ref}>
       {children}
-    </Slider>
+    </SliderComponent>
   );
 });
