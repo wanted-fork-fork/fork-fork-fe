@@ -32,7 +32,7 @@ export const ProfileShareBottomSheet = ({
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  }, [infoId, mutateAsync]);
 
   const onClickShareLink = async () => {
     const link = await generateLink();
