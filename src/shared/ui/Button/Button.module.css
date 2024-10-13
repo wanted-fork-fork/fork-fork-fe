@@ -54,6 +54,8 @@
     padding: 8px 12px;
 }
 .Button[data-size='fit'] {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
