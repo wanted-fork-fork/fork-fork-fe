@@ -30,7 +30,7 @@ export const InputBottomSheet = ({
 
   return (
     <BottomSheet className={styles.Sheet} detent={'content-height'} isOpen={open} onClose={onClose}>
-      <BottomSheet.Header onClose={onClose} onPrev={onClose} />
+      <BottomSheet.Header onClose={onClose} />
       <BottomSheet.Content
         className={styles.Content}
         footerSlot={
