@@ -10,7 +10,7 @@ export const TasteInfoGrid = ({ profile }: { profile: MyProfile }) => {
       <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'취미'} />
-          <div className={styles.HorizontalList}>
+          <div className={styles.ChipList}>
             {profile.hobbies.map((hob) => (
               <Chip key={hob.name}>{hob.name}</Chip>
             ))}

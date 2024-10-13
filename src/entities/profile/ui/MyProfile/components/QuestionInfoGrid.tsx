@@ -9,7 +9,7 @@ export const QuestionInfoGrid = ({ profile }: { profile: MyProfile }) => {
       <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'반려동물'} />
-          <div className={styles.HorizontalList}>
+          <div className={styles.ChipList}>
             {profile.pets.map((pet) => (
               <Chip key={pet}>{pet}</Chip>
             ))}
@@ -19,7 +19,7 @@ export const QuestionInfoGrid = ({ profile }: { profile: MyProfile }) => {
       <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'음식'} />
-          <div className={styles.HorizontalList}>
+          <div className={styles.ChipList}>
             {profile.foods.map((food) => (
               <Chip key={food}>{food}</Chip>
             ))}
@@ -29,7 +29,7 @@ export const QuestionInfoGrid = ({ profile }: { profile: MyProfile }) => {
       <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader title={'데이트 스타일'} />
-          <div className={styles.HorizontalList}>
+          <div className={styles.ChipList}>
             {profile.dateStyle.map((style) => (
               <Chip key={style}>{style}</Chip>
             ))}

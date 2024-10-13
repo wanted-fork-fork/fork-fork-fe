@@ -42,7 +42,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'취미'} />
-        <div className={styles.HorizontalList}>
+        <div className={styles.ChipList}>
           {profile.hobbies.map((hobby) => (
             <Chip key={hobby.name}>{hobby.name}</Chip>
           ))}
