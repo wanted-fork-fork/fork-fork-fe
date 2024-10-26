@@ -16,12 +16,6 @@ export const LoginPage = () => {
             카카오톡으로 시작하기
           </button>
         </Link>
-        <button className={`${styles.Button} ${styles.Apple}`} disabled>
-          <span className={styles.Icon}>
-            <img src="/images/apple.png" alt="카카오 로그인" width={19} height={22} />
-          </span>
-          Apple 계정으로 시작하기
-        </button>
       </div>
     </div>
   );
