@@ -1,21 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { UploadLoadingPage } from 'src/pages/form/complete/UploadLoadingPage';
-import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
-import { fullProfileMock } from 'src/entities/profile/api/__mock__/fullProfile.mock';
-import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { MockIdealPartner } from 'src/entities/ideal_partner/api/__mock__/idealPartner.mock';
+import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
 
-const meta: Meta<typeof UploadLoadingPage> = {
-  component: UploadLoadingPage,
+const meta: Meta<typeof UploadLoadingPageView> = {
+  component: UploadLoadingPageView,
 };
 
 export default meta;
-type Story = StoryObj<typeof UploadLoadingPage>;
+type Story = StoryObj<typeof UploadLoadingPageView>;
 
 export const Default: Story = {
-  args: {},
-  decorators: [
-    (fn) => <MyProfileProvider initialState={fullProfileMock}>{fn()}</MyProfileProvider>,
-    (fn) => <IdealPartnerProvider initialState={MockIdealPartner}>{fn()}</IdealPartnerProvider>,
-  ],
+  args: {
+    name: '예진',
+    progress: 0.33,
+  },
 };

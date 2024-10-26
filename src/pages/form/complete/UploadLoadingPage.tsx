@@ -1,4 +1,3 @@
-import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import styles from './UploadLoadingPage.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useActionData, useSubmit } from '@remix-run/react';
@@ -10,6 +9,7 @@ import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPart
 import { useMutation } from '@tanstack/react-query';
 import { ImageDto, uploadImage } from 'src/types';
 import { Button } from 'src/shared/ui/Button/Button';
+import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
 
 export const UploadLoadingPage = ({
   name,
@@ -90,24 +90,7 @@ export const UploadLoadingPage = ({
   return (
     <div className={styles.Wrapper}>
       {!error ? (
-        <>
-          <div className={styles.TitleSection}>
-            <h2>{name}님의 정보를 업로드하고 있습니다.</h2>
-            <p>
-              업로드 중에 나가면 정보가 사라져요!
-              <br />
-              잠시만 기다려주세요.
-            </p>
-          </div>
-          <div className={styles.ImageSection}>
-            <img src={'/images/loading.gif'} alt={'타자를 치는 구구'} />
-            <p>{(progress * 100).toFixed(0)}%</p>
-          </div>
-          <InfoBox radiusSize="S">
-            <h3>막간 소개팅 꿀팁</h3>
-            <p>꿀팁 들어갈 장소</p>
-          </InfoBox>
-        </>
+        <UploadLoadingPageView name={name} progress={progress} />
       ) : (
         <>
           <div className={styles.TitleSection}>
