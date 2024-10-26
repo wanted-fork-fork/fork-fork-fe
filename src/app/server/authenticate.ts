@@ -1,5 +1,11 @@
 import { redirect } from '@remix-run/node';
-import { destroySession, generateExpiredDate, getAuthSession, isDateExpired } from 'src/app/server/sessions';
+import {
+  destroySession,
+  generateExpiredDate,
+  getAuthSession,
+  getAuthSessionFromHeaders,
+  isDateExpired,
+} from 'src/app/server/sessions';
 import { refreshToken } from 'src/types';
 
 export const authenticate = async (request: Request) => {
@@ -20,7 +26,7 @@ export const authenticateWithoutRedirection = async (request: Request) => {
   }
 
   if (!expiredAt || isDateExpired(expiredAt)) {
-    const { data } = await requestRefreshToken(request);
+    const { data } = await requestRefreshToken(request.headers);
 
     session.set('accessToken', data.accessToken);
     session.set('refreshToken', data.refreshToken);
@@ -32,8 +38,8 @@ export const authenticateWithoutRedirection = async (request: Request) => {
   return { accessToken };
 };
 
-export const requestRefreshToken = async (request: Request) => {
-  const session = await getAuthSession(request);
+export const requestRefreshToken = async (headers: Headers) => {
+  const session = await getAuthSessionFromHeaders(headers);
   try {
     const { data } = await refreshToken({
       accessToken: session.get('accessToken')!,

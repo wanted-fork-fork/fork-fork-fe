@@ -30,4 +30,8 @@ const getAuthSession = async (request: Request) => {
   return await getSession(request.headers.get('Cookie'));
 };
 
-export { getAuthSession, commitSession, destroySession };
+const getAuthSessionFromHeaders = async (headers: Headers) => {
+  return await getSession(headers.get('Cookie'));
+};
+
+export { getAuthSession, getAuthSessionFromHeaders, commitSession, destroySession };
