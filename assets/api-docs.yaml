@@ -164,7 +164,31 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Unit'
-  /api/v1/sharing/{sharingId}:
+  /health:
+    get:
+      tags:
+      - health-controller
+      operationId: health
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /health/log:
+    get:
+      tags:
+      - health-controller
+      operationId: log
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/sharing/public/{sharingId}:
     get:
       tags:
       - sharing-controller
@@ -986,46 +1010,9 @@ components:
           type: string
         refreshToken:
           type: string
-    InfoToShareIdealPartner:
-      required:
-      - drinking
-      - hobbies
-      - religion
-      - requiredOptions
-      - smoking
-      - toMatchMaker
-      type: object
-      properties:
-        ageRange:
-          $ref: '#/components/schemas/NumberRange'
-        heightRange:
-          $ref: '#/components/schemas/NumberRange'
-        style:
-          type: string
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/InfoImage'
-        location:
-          $ref: '#/components/schemas/Location'
-        hobbies:
-          type: array
-          items:
-            type: string
-        religion:
-          $ref: '#/components/schemas/Religion'
-        drinking:
-          $ref: '#/components/schemas/Drinking'
-        smoking:
-          $ref: '#/components/schemas/Smoking'
-        requiredOptions:
-          type: array
-          items:
-            type: string
-        toMatchMaker:
-          type: string
     InfoToShareResponse:
       required:
+      - expiredDate
       - sharingId
       - userInfo
       type: object
@@ -1034,8 +1021,9 @@ components:
           type: string
         userInfo:
           $ref: '#/components/schemas/InfoToShareUserInfo'
-        idealPartner:
-          $ref: '#/components/schemas/InfoToShareIdealPartner'
+        expiredDate:
+          type: string
+          format: date-time
     InfoToShareUserInfo:
       required:
       - birthDate
@@ -1047,13 +1035,10 @@ components:
       - introduction
       - job
       - location
-      - name
       - religion
       - smoking
       type: object
       properties:
-        name:
-          type: string
         gender:
           type: string
           enum:
