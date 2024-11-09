@@ -8,18 +8,15 @@ import { ImageDto } from 'src/types';
 type Props = {
   imageDtoList: ImageDto[];
   setFiles?: (getState: (prevFiles: File[]) => File[]) => void;
+  onClickRemove?: (url: string, fileIdx?: number) => void;
   maxFileCount?: number;
 };
 
-export const AvatarList = ({ imageDtoList = [], setFiles, maxFileCount }: Props) => {
+export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFileCount }: Props) => {
   const canAddFile = Boolean(setFiles && (!maxFileCount || imageDtoList.length < maxFileCount));
 
   const onFileChanged = (files: File[]) => {
     setFiles?.((prev) => [...prev, ...files].slice(0, maxFileCount));
-  };
-
-  const onClickRemove = (targetIdx: number) => {
-    setFiles?.((prev) => prev.filter((_, idx) => idx !== targetIdx));
   };
 
   return (
@@ -29,14 +26,16 @@ export const AvatarList = ({ imageDtoList = [], setFiles, maxFileCount }: Props)
           {(onClickUpload) => <Avatar fallback={<Plus />} shape={'roundedSquare'} size={72} onClick={onClickUpload} />}
         </UploadTrigger>
       )}
-      {imageDtoList.map(({ url }, idx) => (
+      {imageDtoList.map(({ url, imageId }) => (
         <AvatarWithModal
           key={url}
           fallback={''}
           shape={'roundedSquare'}
           size={72}
           src={url}
-          actionSlot={<Close onClick={() => onClickRemove(idx)} />}
+          actionSlot={
+            <Close onClick={() => onClickRemove?.(url, isNaN(Number(imageId)) ? Number(imageId) : undefined)} />
+          }
         />
       ))}
     </div>

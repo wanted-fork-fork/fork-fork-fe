@@ -6,7 +6,7 @@ import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { Book, ImageDto, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 
 export type MyProfile = {
@@ -49,6 +49,7 @@ type Action = {
   setBirthDate: (date: number) => void;
   setHeight: (height: number) => void;
   setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
+  setImageDtoList: (getState: (prevFiles: ImageDto[]) => ImageDto[]) => void;
   setMbti: (mbti: Mbti | null) => void;
   setJobCategory: (job: JobJobCategory) => void;
   setJobName: (description: string) => void;
@@ -93,6 +94,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     images: [],
     imageDtoList: [],
     setSelfImages: (getState) => set({ images: getState(get().images) }),
+    setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
     mbti: null,
     setMbti: (mbti) => set({ mbti }),
     job: {
@@ -170,4 +172,17 @@ export const useMyProfileImages = () => {
       ),
     ];
   }, [imageDtoList, urls]);
+};
+
+export const useRemoveProfileImageDto = () => {
+  const setImageFiles = useMyProfileStore((state) => state.setSelfImages);
+  const setImageDtoList = useMyProfileStore((state) => state.setImageDtoList);
+
+  return useCallback(
+    (targetUrl: string, fileIdx?: number) => {
+      setImageFiles((prev) => prev.filter((_, idx) => idx !== fileIdx));
+      setImageDtoList((prev) => prev.filter(({ url }) => url !== targetUrl));
+    },
+    [setImageDtoList, setImageFiles],
+  );
 };

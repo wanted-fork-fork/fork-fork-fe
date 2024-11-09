@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import { useSubmit } from '@remix-run/react';
 import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
 import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
+import { useUploadProfileImage } from 'src/features/upload_image/useUploadProfileImage';
 
 type Props = {
   infoId: string;
@@ -23,20 +24,27 @@ export const EditInfoPage = ({ infoId }: Props) => {
 
   const submit = useSubmit();
 
+  const { upload } = useUploadProfileImage();
   const onCompleteEdit = useCallback((close: () => void) => {
     toast.success('변경사항이 저장되었습니다.');
     close();
   }, []);
 
-  const onSubmit = () =>
+  const onSubmit = useCallback(async () => {
+    const { profileImageResults, idealImageResults } = await upload(profile.images, idealPartner.images);
+
+    const profileImageDtos = [...profile.imageDtoList, ...profileImageResults];
+    const idealImageDtos = [...idealPartner.imageDtoList, ...idealImageResults];
+
     submit(
       {
         id: infoId,
-        userInfo: JSON.stringify(convertProfileToDto(profile, profile.imageDtoList)),
-        idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, idealPartner.imageDtoList)),
+        userInfo: JSON.stringify(convertProfileToDto(profile, profileImageDtos)),
+        idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, idealImageDtos)),
       },
       { method: 'post' },
     );
+  }, [idealPartner, infoId, profile, submit, upload]);
 
   return (
     <div className={styles.Wrapper}>
