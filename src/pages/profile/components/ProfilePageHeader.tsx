@@ -64,14 +64,16 @@ export const ProfilePageHeader = ({
               }
               contentElement={
                 <>
-                  <Button
-                    variant={'ghost'}
-                    widthType={'fill'}
-                    color={'neutral'}
-                    prefixSlot={<Edit color={Theme.color.neutral90} />}
-                  >
-                    정보 수정
-                  </Button>
+                  <Link to={'edit'}>
+                    <Button
+                      variant={'ghost'}
+                      widthType={'fill'}
+                      color={'neutral'}
+                      prefixSlot={<Edit color={Theme.color.neutral90} />}
+                    >
+                      정보 수정
+                    </Button>
+                  </Link>
                   <Button
                     variant={'ghost'}
                     widthType={'fill'}
