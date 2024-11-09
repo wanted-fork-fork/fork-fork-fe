@@ -5,15 +5,11 @@
     height: 100%;
 }
 
-.Header {
-    flex-shrink: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    align-items: center;
-    text-align: center;
-    height: 44px;
+.InnerHeader {
+    padding-left: 0;
+    padding-right: 0;
 }
+
 
 .TitleSection {
     margin-bottom: 20px;

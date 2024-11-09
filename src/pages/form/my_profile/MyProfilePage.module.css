@@ -32,6 +32,11 @@
   overflow-y: auto;
 }
 
+.InnerHeader {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .Footer {
   margin-top: auto;
   padding-top: 24px;

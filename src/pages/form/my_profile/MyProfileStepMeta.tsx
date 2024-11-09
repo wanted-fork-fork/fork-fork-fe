@@ -12,8 +12,8 @@ import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceF
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { QuestionForm } from 'src/processes/my_profile/QuestionForm/QuestionForm';
 
-export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
-  PERSONAL_INFO: {
+export const MyProfileStepMeta = {
+  PROFILE_PERSONAL_INFO: {
     title: () => '',
     form: ({ onClickNextForm }) => <PersonalInfoForm onClickNextForm={onClickNextForm} />,
     canGoNext: (state) => Boolean(state.name && state.gender && isValidDate(state.birthDate) && state.height),
@@ -21,7 +21,7 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
     showTitle: false,
     shortcutTitle: '이름/성별/나이/키',
   },
-  MY_IMAGE: {
+  PROFILE_MY_IMAGE: {
     title: ({ name }) => (
       <>
         상대방이 {name}님에 대해 더 잘 알 수 있도록
@@ -34,27 +34,27 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
     canGoNext: (state) => state.images.length > 0,
     shortcutTitle: '사진',
   },
-  MBTI: {
+  PROFILE_MBTI: {
     title: ({ name }) => <>{name}님의 MBTI를 알려주세요.</>,
     description: () => '해당하는 MBTI를 한 개씩 선택해주세요.',
     form: () => <MbtiForm />,
     canGoNext: (state) => Boolean(state.mbti),
     shortcutTitle: 'MBTI',
   },
-  JOB: {
+  PROFILE_JOB: {
     title: ({ name }) => <>{name}님은 현재 어떤 일을 하시나요?</>,
     form: () => <JobForm />,
     canGoNext: (state) => Boolean(state.job.jobCategory) && Boolean(state.job.jobName.trim()),
     shortcutTitle: '현재 하는 일',
   },
-  LOCATION: {
+  PROFILE_LOCATION: {
     title: ({ name }) => <>{name}님이 주로 계시는 지역은 어디인가요?</>,
     description: () => '집, 직장 등 오래 머무르는 지역 최대 5곳을 선택해주세요.',
     form: () => <LocationForm />,
     canGoNext: (state) => state.location.length > 0,
     shortcutTitle: '주로 머무는 지역',
   },
-  RELIGION: {
+  PROFILE_RELIGION: {
     title: () => <>종교는 있으신가요?</>,
     form: () => <ReligionForm />,
     canGoNext: (state) =>
@@ -62,14 +62,14 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
       (state.religion.religionCategory !== 'ETC' || Boolean(state.religion.religionName)),
     shortcutTitle: '종교',
   },
-  HOBBY: {
+  PROFILE_HOBBY: {
     title: ({ name }) => <>{name}님의 취미는 무엇인가요?</>,
     description: () => '선택지에 없다면 직접 추가도 가능해요.',
     form: () => <HobbyForm />,
     canGoNext: () => true,
     shortcutTitle: '취미',
   },
-  SMOKE_ALCOHOL: {
+  PROFILE_SMOKE_ALCOHOL: {
     title: ({ name }) => (
       <>
         {name}님의 술자리 빈도수와
@@ -84,7 +84,7 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
       (state.smoking.smokingCategory !== 'ETC' || Boolean(state.smoking.smokingAmount)),
     shortcutTitle: '술자리 빈도 및 흡연 여부',
   },
-  INTRODUCE: {
+  PROFILE_INTRODUCE: {
     title: () => <>자기 소개가 더 필요하신가요?</>,
     description: () => (
       <>
@@ -97,7 +97,7 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
     canGoNext: (state) => Boolean(state.introduction),
     shortcutTitle: '자기 소개',
   },
-  MORE_QUESTION: {
+  PROFILE_MORE_QUESTION: {
     title: () => <>다음과 같은 질문도 있어요</>,
     description: () => (
       <>
@@ -110,4 +110,4 @@ export const MyProfileStepMeta: Record<string, StepMeta<MyProfile>> = {
     canGoNext: () => true,
     shortcutTitle: '선택 질문',
   },
-} as const;
+} as const satisfies Record<string, StepMeta<MyProfile>>;
