@@ -1,5 +1,5 @@
 import styles from './HeightStyleForm.module.css';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerImages, useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { RangeSlider } from 'src/shared/ui/RangeSlider/RangeSlider';
 import { Input } from 'src/shared/ui/Input/Input';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
@@ -8,9 +8,13 @@ export const MIN_IDEAL_HEIGHT = 140;
 export const MAX_IDEAL_HEIGHT = 200;
 
 export const HeightStyleForm = () => {
-  const { min, max } = useIdealPartnerStore((state) => state.heightRange);
+  const { min, max } = useIdealPartnerStore((state) => state.heightRange) ?? {
+    min: MIN_IDEAL_HEIGHT,
+    max: MAX_IDEAL_HEIGHT,
+  };
   const style = useIdealPartnerStore((state) => state.style);
-  const files = useIdealPartnerStore((state) => state.images);
+
+  const imageDtoList = useIdealPartnerImages();
 
   const setMin = useIdealPartnerStore((state) => state.setMinHeight);
   const setMax = useIdealPartnerStore((state) => state.setMaxHeight);
@@ -50,7 +54,7 @@ export const HeightStyleForm = () => {
           <p className={'label'}>이상형 참고사진</p>
           <p className={styles.PictureLabelDescription}>사진은 최대 10장까지 올릴 수 있어요.</p>
         </div>
-        <AvatarList files={files} setFiles={setFiles} maxFileCount={10} />
+        <AvatarList imageDtoList={imageDtoList} setFiles={setFiles} maxFileCount={10} />
       </div>
     </section>
   );

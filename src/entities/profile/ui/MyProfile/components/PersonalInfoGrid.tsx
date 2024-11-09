@@ -6,7 +6,7 @@ import { getJobText } from '../../../lib/getJobText';
 import { getLocationText } from '../../../lib/getLocationText';
 import { calculateAge, convertDateObjectToDate } from '../../../../../shared/vo/date';
 import { useTranslation } from 'react-i18next';
-import { MyProfile } from '../../../model/myProfileStore';
+import { MyProfile, useMyProfileImages } from '../../../model/myProfileStore';
 import { EditProfileFunction } from 'src/features/EditInfo/ProfileEditContext';
 
 export const PersonalInfoGrid = ({
@@ -18,6 +18,8 @@ export const PersonalInfoGrid = ({
 }) => {
   const { t } = useTranslation();
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
+  const dtoList = useMyProfileImages();
+
   return (
     <div className={styles.Grid}>
       <div className={styles.GridRow}>
@@ -56,7 +58,7 @@ export const PersonalInfoGrid = ({
         <div className={styles.Cell}>
           <ProfileCellHeader title={'업로드 사진'} onClickEdit={() => onClickEdit?.('PROFILE_MY_IMAGE')} />
           <div className={styles.HorizontalList}>
-            <AvatarList files={profile.images} />
+            <AvatarList imageDtoList={dtoList} />
           </div>
         </div>
       </div>

@@ -1,15 +1,19 @@
 import styles from './MyImageForm.module.css';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { useMyProfileImages, useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
+import { useMemo } from 'react';
 
 export const MyImageForm = () => {
   const files = useMyProfileStore((state) => state.images) ?? [];
   const setFiles = useMyProfileStore((state) => state.setSelfImages);
 
+  const dtoList = useMyProfileImages();
+  const urls = useMemo(() => dtoList.map((dto) => dto.url), [dtoList]);
+
   return (
     <section className={styles.Container}>
-      <AvatarList files={files} setFiles={setFiles} maxFileCount={10} />
+      <AvatarList urls={urls} setFiles={setFiles} maxFileCount={10} />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>

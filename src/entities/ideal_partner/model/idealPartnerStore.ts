@@ -4,6 +4,8 @@ import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 import { DrinkingDrinkingCategory, ImageDto, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
+import { useMemo } from 'react';
 
 export const REQUIRED_OPTION_MAX_COUNT = 3;
 
@@ -114,3 +116,23 @@ const createStoreHook = () =>
 export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(
   createStoreHook,
 );
+
+export const useIdealPartnerImages = () => {
+  const imageFiles = useIdealPartnerStore((state) => state.images);
+  const imageDtoList = useIdealPartnerStore((state) => state.imageDtoList);
+
+  const urls = useDataUrlListFromFiles(imageFiles);
+
+  return useMemo(() => {
+    return [
+      ...imageDtoList,
+      ...(urls.filter(Boolean) as string[]).map(
+        (url) =>
+          ({
+            imageId: 'null',
+            url,
+          }) satisfies ImageDto,
+      ),
+    ];
+  }, [imageDtoList, urls]);
+};

@@ -2,19 +2,17 @@ import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { Close, Plus } from 'src/shared/ui/icons';
 import styles from './AvatarList.module.css';
-import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 import { AvatarWithModal } from 'src/shared/ui/AvatarWithModal/AvatarWithModal';
+import { ImageDto } from 'src/types';
 
 type Props = {
-  files: File[];
+  imageDtoList: ImageDto[];
   setFiles?: (getState: (prevFiles: File[]) => File[]) => void;
   maxFileCount?: number;
 };
 
-export const AvatarList = ({ files = [], setFiles, maxFileCount }: Props) => {
-  const dataUrlList = useDataUrlListFromFiles(files);
-
-  const canAddFile = Boolean(setFiles && (!maxFileCount || files.length < maxFileCount));
+export const AvatarList = ({ imageDtoList = [], setFiles, maxFileCount }: Props) => {
+  const canAddFile = Boolean(setFiles && (!maxFileCount || imageDtoList.length < maxFileCount));
 
   const onFileChanged = (files: File[]) => {
     setFiles?.((prev) => [...prev, ...files].slice(0, maxFileCount));
@@ -31,7 +29,7 @@ export const AvatarList = ({ files = [], setFiles, maxFileCount }: Props) => {
           {(onClickUpload) => <Avatar fallback={<Plus />} shape={'roundedSquare'} size={72} onClick={onClickUpload} />}
         </UploadTrigger>
       )}
-      {dataUrlList.map((url, idx) => (
+      {imageDtoList.map(({ url }, idx) => (
         <AvatarWithModal
           key={url}
           fallback={''}

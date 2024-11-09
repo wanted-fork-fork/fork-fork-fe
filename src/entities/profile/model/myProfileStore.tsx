@@ -6,6 +6,8 @@ import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { Book, ImageDto, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { useMemo } from 'react';
+import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 
 export type MyProfile = {
   name: string;
@@ -149,3 +151,23 @@ const createStoreHook = (initialState?: MyProfile) =>
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(
   createStoreHook,
 );
+
+export const useMyProfileImages = () => {
+  const imageFiles = useMyProfileStore((state) => state.images);
+  const imageDtoList = useMyProfileStore((state) => state.imageDtoList);
+
+  const urls = useDataUrlListFromFiles(imageFiles);
+
+  return useMemo(() => {
+    return [
+      ...imageDtoList,
+      ...(urls.filter(Boolean) as string[]).map(
+        (url) =>
+          ({
+            imageId: 'null',
+            url,
+          }) satisfies ImageDto,
+      ),
+    ];
+  }, [imageDtoList, urls]);
+};
