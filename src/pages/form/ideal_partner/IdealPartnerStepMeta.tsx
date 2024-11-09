@@ -10,22 +10,22 @@ import { SmokingForm } from 'src/processes/ideal_partner/SmokingForm/SmokingForm
 import { RequiredOptionForm } from 'src/processes/ideal_partner/RequiredOptionForm/RequiredOptionForm';
 import { ToMatcherForm } from 'src/processes/ideal_partner/ToMatcherForm/ToMatcherForm';
 
-export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
-  AGE: {
+export const IdealPartnerStepMeta = {
+  IDEAL_AGE: {
     title: () => <>선호하는 연령대는 어떻게 되나요?</>,
     description: () => <></>,
     form: () => <AgeForm />,
     canGoNext: (state) => Boolean(state.ageRange?.max && state.ageRange.min),
     shortcutTitle: '선호하는 연령대',
   },
-  HEIGHT_STYLE: {
+  IDEAL_HEIGHT_STYLE: {
     title: () => <>선호하는 키와 스타일을 알려주세요</>,
     description: () => <></>,
     form: () => <HeightStyleForm />,
     canGoNext: (state) => Boolean(state.heightRange?.min && state.heightRange.max && state.style),
     shortcutTitle: '선호하는 키, 스타일',
   },
-  LOCATION: {
+  IDEAL_LOCATION: {
     title: ({ name }) => (
       <>
         상대방이 어느 지역에 있어야
@@ -38,7 +38,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     canGoNext: () => true,
     shortcutTitle: '상대방이 주로 머무는 지역',
   },
-  HOBBY: {
+  IDEAL_HOBBY: {
     title: () => (
       <>
         상대방이 어떤 취미생활을 할 때<br />좀 더 관심이 갈 것 같나요?
@@ -49,7 +49,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     canGoNext: (state) => Boolean(state.hobbies.length > 0),
     shortcutTitle: '상대방의 취미',
   },
-  RELIGION: {
+  IDEAL_RELIGION: {
     title: () => <>상대방이 어떤 종교이길 희망하시나요?</>,
     description: () => <></>,
     form: () => <ReligionForm />,
@@ -58,7 +58,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       (state.religion.religionCategory !== 'ETC' || Boolean(state.religion.religionName)),
     shortcutTitle: '종교',
   },
-  DRINKING: {
+  IDEAL_DRINKING: {
     title: () => (
       <>
         상대방의 음주 빈도는
@@ -73,7 +73,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       (state.drinking.drinkingCategory !== 'ETC' || Boolean(state.drinking.drinkingAmount)),
     shortcutTitle: '상대방의 음주 빈도',
   },
-  SMOKING: {
+  IDEAL_SMOKING: {
     title: () => <>상대방의 흡연은 괜찮으신가요?</>,
     description: () => <></>,
     form: () => <SmokingForm />,
@@ -82,7 +82,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
       (state.smoking.smokingCategory !== 'ETC' || Boolean(state.smoking.smokingAmount)),
     shortcutTitle: '상대방의 흡연 여부',
   },
-  REQUIRED_OPTIONS: {
+  IDEAL_REQUIRED_OPTIONS: {
     title: () => (
       <>
         지금까지 입력한 것 중에서,
@@ -95,7 +95,7 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     canGoNext: (state) => Boolean(state.requiredOptions.length > 0),
     shortcutTitle: '필수 항목',
   },
-  TO_MATCHER: {
+  IDEAL_TO_MATCHER: {
     title: () => (
       <>
         주선자에게 추가로 말하고 싶은
@@ -108,4 +108,4 @@ export const IdealPartnerStepMeta: Record<string, StepMeta<IdealPartner>> = {
     canGoNext: (state) => Boolean(state.toMatchMaker),
     shortcutTitle: '주선자에게 하고 싶은 말',
   },
-} as const;
+} as const satisfies Record<string, StepMeta<IdealPartner>>;

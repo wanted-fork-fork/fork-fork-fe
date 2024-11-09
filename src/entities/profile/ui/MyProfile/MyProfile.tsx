@@ -4,7 +4,7 @@ import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { PersonalInfoGrid } from './components/PersonalInfoGrid';
 import { TasteInfoGrid } from './components/TasteInfoGrid';
 import { QuestionInfoGrid } from 'src/entities/profile/ui/MyProfile/components/QuestionInfoGrid';
-import { useProfileEditContext } from 'src/pages/form/confirm/ProfileEditContext';
+import { useProfileEditContext } from 'src/features/EditInfo/ProfileEditContext';
 
 export const MyProfileView = ({ profile, initialOpen = false }: { profile: MyProfile; initialOpen?: boolean }) => {
   const value = useProfileEditContext();

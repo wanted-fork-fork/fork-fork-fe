@@ -93,7 +93,9 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
             <div className={styles.FormWrapper}>
               <div className={styles.FormHeader}>
                 <h2>{selectedStep.title({ name })}</h2>
-                {selectedStep.description && <small className={styles.Description}>{selectedStep.description()}</small>}
+                {'description' in selectedStep && (
+                  <small className={styles.Description}>{selectedStep.description()}</small>
+                )}
               </div>
               <div className={styles.FormMain}>{selectedStep.form({})}</div>
               <div className={styles.FormFooter}>
