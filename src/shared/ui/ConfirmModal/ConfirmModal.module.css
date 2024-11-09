@@ -1,0 +1,65 @@
+.Wrapper {
+    padding: 0 20px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Dim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--color-neutral-90);
+    opacity: 50%;
+}
+
+.Container {
+    position: relative;
+    padding: 24px;
+    border-radius: 16px;
+
+    display: grid;
+    gap: 24px;
+    width: 100%;
+
+    background-color: var(--color-neutral-0);
+}
+
+.TitleWrapper {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    & h3 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
+    }
+
+    & p {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+.CancelButton {
+    border-color: var(--color-neutral-90) !important;
+}
+
+.ButtonWrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8px;
+}
