@@ -12,5 +12,6 @@ type Story = StoryObj<typeof ExpiredDateTimer>;
 export const Default: Story = {
   args: {
     expiredDate: dayjs().add(1, 'day').toDate(),
+    type: 'NUDGE',
   },
 };

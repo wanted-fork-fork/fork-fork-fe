@@ -1,7 +1,7 @@
 
 .Carousel {
   width: 100%;
-  max-width: 480px;
+  max-width: min(480px, 100vw);
   height: 256px;
   background-color: var(--color-neutral-10);
 

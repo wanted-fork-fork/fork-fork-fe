@@ -36,7 +36,7 @@ export const SharedProfilePage = ({ expiredDate }: Props) => {
       )}
       <ScrollView rootClassName={styles.Body}>
         <ImageLayout urls={urls} />
-        <ExpiredDateTimer expiredDate={expiredDate} />
+        <ExpiredDateTimer expiredDate={expiredDate} type={inView ? 'BOX' : 'NUDGE'} />
         <h1 className={styles.Name} ref={ref}>
           {profile.name}({t(profile.gender)}, {age})
         </h1>
