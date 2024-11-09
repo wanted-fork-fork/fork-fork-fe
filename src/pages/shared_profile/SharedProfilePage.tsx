@@ -11,8 +11,13 @@ import { TasteInfoGrid } from 'src/entities/profile/ui/MyProfile/components/Tast
 import { QuestionInfoGrid } from 'src/entities/profile/ui/MyProfile/components/QuestionInfoGrid';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMemo } from 'react';
+import { ExpiredDateTimer } from 'src/pages/shared_profile/components/ExpiredDateTimer';
 
-export const SharedProfilePage = () => {
+type Props = {
+  expiredDate: Date;
+};
+
+export const SharedProfilePage = ({ expiredDate }: Props) => {
   const { t } = useTranslation();
   const { ref, inView } = useInView();
 
@@ -31,6 +36,7 @@ export const SharedProfilePage = () => {
       )}
       <ScrollView rootClassName={styles.Body}>
         <ImageLayout urls={urls} />
+        <ExpiredDateTimer expiredDate={expiredDate} />
         <h1 className={styles.Name} ref={ref}>
           {profile.name}({t(profile.gender)}, {age})
         </h1>

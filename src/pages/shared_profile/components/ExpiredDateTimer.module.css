@@ -1,0 +1,28 @@
+.Box {
+  padding: 15px 20px;
+  background-color: var(--color-neutral-70);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Description {
+  font-weight: 600;
+  font-size: 14px;
+
+  color: var(--color-neutral-0)
+}
+
+.Timer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100px;
+}
+
+.TimerText {
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 600;
+}

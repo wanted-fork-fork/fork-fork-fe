@@ -29,19 +29,21 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const { data } = await getInfoBySharingId(key);
 
-  return json({ profile: data, key });
+  return json({ profile: data, key, expiredDate: data.expiredDate });
 };
 
 export default function Page() {
-  const { profile, key } = useLoaderData<typeof loader>();
+  const { profile, key, expiredDate: rawExpiredDate } = useLoaderData<typeof loader>();
   const profileInitialState = useMemo(
     () => convertDtoToProfile({ ...profile.userInfo, name: getNickname(key) }),
-    [profile.userInfo],
+    [key, profile.userInfo],
   );
+
+  const expiredDate = useMemo(() => new Date(rawExpiredDate), [rawExpiredDate]);
 
   return (
     <MyProfileProvider initialState={profileInitialState}>
-      <SharedProfilePage />
+      <SharedProfilePage expiredDate={expiredDate} />
     </MyProfileProvider>
   );
 }
