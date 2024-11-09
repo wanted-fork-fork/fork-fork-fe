@@ -6,10 +6,11 @@ import { Link, useNavigate } from '@remix-run/react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Modal } from 'src/shared/ui/Modal/Modal';
 import toast from 'react-hot-toast';
-import { PropsWithChildren, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { deleteInfo } from 'src/types';
 import { ProfileShareBottomSheet } from 'src/features/ProfileShare/ProfileShareBottomSheet';
+import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 
 type Props = {
   infoId: string;
@@ -91,9 +92,3 @@ export const ProfileHeaderActions = ({ infoId, name }: Props) => {
     </>
   );
 };
-
-const IconButton = ({ children, onClick }: PropsWithChildren<{ onClick?: () => void }>) => (
-  <Button variant={'ghost'} widthType={'hug'} size={'fit'} color={'neutral'} onClick={onClick}>
-    {children}
-  </Button>
-);

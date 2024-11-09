@@ -10,6 +10,10 @@ import { useTranslation } from 'react-i18next';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
 import { useMemo } from 'react';
 import { ProfileHeaderActions } from 'src/pages/profile/components/ProfileHeaderActions';
+import { ArrowLeft } from 'src/shared/ui/icons';
+import { Theme } from 'src/shared/styles/constants';
+import { Link } from '@remix-run/react';
+import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();
@@ -26,6 +30,13 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
     <div className={styles.Wrapper}>
       <ProfilePageHeader
         profile={profile}
+        prefix={
+          <Link to={'/'}>
+            <IconButton>
+              <ArrowLeft color={Theme.color.neutral50} />
+            </IconButton>
+          </Link>
+        }
         suffix={<ProfileHeaderActions infoId={infoId} name={profile.name} />}
         showTitle={!inView}
       />
