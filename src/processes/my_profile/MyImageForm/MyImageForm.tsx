@@ -1,15 +1,21 @@
 import styles from './MyImageForm.module.css';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import {
+  useMyProfileImages,
+  useMyProfileStore,
+  useRemoveProfileImageDto,
+} from 'src/entities/profile/model/myProfileStore';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 
 export const MyImageForm = () => {
-  const files = useMyProfileStore((state) => state.images) ?? [];
   const setFiles = useMyProfileStore((state) => state.setSelfImages);
+  const removeImageDto = useRemoveProfileImageDto();
+
+  const dtoList = useMyProfileImages();
 
   return (
     <section className={styles.Container}>
-      <AvatarList files={files} setFiles={setFiles} maxFileCount={10} />
+      <AvatarList imageDtoList={dtoList} setFiles={setFiles} maxFileCount={10} onClickRemove={removeImageDto} />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>

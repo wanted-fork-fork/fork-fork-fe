@@ -4,6 +4,8 @@ import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 import { DrinkingDrinkingCategory, ImageDto, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
+import { useCallback, useMemo } from 'react';
 
 export const REQUIRED_OPTION_MAX_COUNT = 3;
 
@@ -44,6 +46,7 @@ type Action = {
   setMaxHeight: (value: number) => void;
   setStyle: (value: string) => void;
   setImages: (getState: (prevFiles: File[]) => File[]) => void;
+  setImageDtoList: (getState: (prevFiles: ImageDto[]) => ImageDto[]) => void;
   setLocation: (value: Location[]) => void;
   setHobbies: (hobbies: Hobby[]) => void;
   setReligionCategory: (category: ReligionReligionCategory) => void;
@@ -82,6 +85,7 @@ const createStoreHook = () =>
     images: [],
     imageDtoList: [],
     setImages: (getState) => set({ images: getState(get().images) }),
+    setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
     locations: [],
     setLocation: (locations) => set({ locations }),
     hobbies: [],
@@ -114,3 +118,36 @@ const createStoreHook = () =>
 export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(
   createStoreHook,
 );
+
+export const useIdealPartnerImages = () => {
+  const imageFiles = useIdealPartnerStore((state) => state.images);
+  const imageDtoList = useIdealPartnerStore((state) => state.imageDtoList);
+
+  const urls = useDataUrlListFromFiles(imageFiles);
+
+  return useMemo(() => {
+    return [
+      ...imageDtoList,
+      ...(urls.filter(Boolean) as string[]).map(
+        (url, idx) =>
+          ({
+            imageId: idx.toString(),
+            url,
+          }) satisfies ImageDto,
+      ),
+    ];
+  }, [imageDtoList, urls]);
+};
+
+export const useRemoveIdealPartnerImageDto = () => {
+  const setImageFiles = useIdealPartnerStore((state) => state.setImages);
+  const setImageDtoList = useIdealPartnerStore((state) => state.setImageDtoList);
+
+  return useCallback(
+    (targetUrl: string, fileIdx?: number) => {
+      setImageFiles((prev) => prev.filter((_, idx) => idx !== fileIdx));
+      setImageDtoList((prev) => prev.filter(({ url }) => url !== targetUrl));
+    },
+    [setImageDtoList, setImageFiles],
+  );
+};

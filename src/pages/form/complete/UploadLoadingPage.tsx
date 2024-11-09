@@ -6,10 +6,9 @@ import { convertProfileToDto } from 'src/entities/profile/model/convertProfileTo
 import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { useMutation } from '@tanstack/react-query';
-import { ImageDto, uploadImage } from 'src/types';
 import { Button } from 'src/shared/ui/Button/Button';
 import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
+import { useUploadProfileImage } from 'src/features/upload_image/useUploadProfileImage';
 
 export const UploadLoadingPage = ({
   name,
@@ -26,41 +25,10 @@ export const UploadLoadingPage = ({
   const profile = useMyProfileStore((state) => state);
   const idealPartner = useIdealPartnerStore((state) => state);
 
-  const { mutateAsync: uploadMutation } = useMutation({
-    mutationFn: uploadImage,
-  });
-
-  const uploadFileList = async (files: File[], onUpload: () => void) => {
-    const results: ImageDto[] = [];
-    // 한번에 너무 많이 요청하지 않도록 하나씩 업로드 요청
-    for (const file of files) {
-      try {
-        const result = await uploadMutation({ image: file });
-        onUpload();
-        results.push(result.data);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return results;
-  };
-
-  const [progress, setProgress] = useState<number>(0);
+  const { progress, upload: uploadFiles } = useUploadProfileImage();
 
   const upload = useCallback(async () => {
-    const profileImageList = profile.images;
-    const idealPartnerImageList = idealPartner.images;
-
-    const total = profileImageList.length + idealPartnerImageList.length + 1;
-
-    const [profileImageResults, idealImageResults] = await Promise.all([
-      uploadFileList(profileImageList, () => {
-        setProgress((prev) => prev + 1 / total);
-      }),
-      uploadFileList(idealPartnerImageList, () => {
-        setProgress((prev) => prev + 1 / total);
-      }),
-    ]);
+    const { profileImageResults, idealImageResults } = await uploadFiles(profile.images, idealPartner.images);
 
     submit(
       {
@@ -70,10 +38,9 @@ export const UploadLoadingPage = ({
       },
       { method: 'post' },
     );
-  }, []);
+  }, [idealPartner, linkKey, profile, submit, uploadFiles]);
 
   useEffect(() => {
-    setProgress(0);
     upload();
   }, []);
 
@@ -103,7 +70,6 @@ export const UploadLoadingPage = ({
             color={'primary'}
             onClick={() => {
               setError(false);
-              setProgress(0);
               upload();
             }}
           >

@@ -1,4 +1,4 @@
-import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { IdealPartner, useIdealPartnerImages } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
@@ -12,6 +12,8 @@ import { useProfileEditContext } from 'src/features/EditInfo/ProfileEditContext'
 export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
   const value = useProfileEditContext();
   const onClickEdit = value.canEdit ? value.onEdit : undefined;
+
+  const imageDtoList = useIdealPartnerImages();
 
   return (
     <section className={styles.Grid}>
@@ -34,7 +36,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       <div className={styles.Cell}>
         <ProfileCellHeader title={'이상형 참고 사진'} onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')} />
         <span>
-          <AvatarList files={profile.images} />
+          <AvatarList imageDtoList={imageDtoList} />
         </span>
       </div>
       <div className={styles.Cell}>

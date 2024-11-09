@@ -6,6 +6,8 @@ import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import { Book, ImageDto, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import { useCallback, useMemo } from 'react';
+import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 
 export type MyProfile = {
   name: string;
@@ -47,6 +49,7 @@ type Action = {
   setBirthDate: (date: number) => void;
   setHeight: (height: number) => void;
   setSelfImages: (getState: (prevFiles: File[]) => File[]) => void;
+  setImageDtoList: (getState: (prevFiles: ImageDto[]) => ImageDto[]) => void;
   setMbti: (mbti: Mbti | null) => void;
   setJobCategory: (job: JobJobCategory) => void;
   setJobName: (description: string) => void;
@@ -91,6 +94,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     images: [],
     imageDtoList: [],
     setSelfImages: (getState) => set({ images: getState(get().images) }),
+    setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
     mbti: null,
     setMbti: (mbti) => set({ mbti }),
     job: {
@@ -149,3 +153,36 @@ const createStoreHook = (initialState?: MyProfile) =>
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(
   createStoreHook,
 );
+
+export const useMyProfileImages = () => {
+  const imageFiles = useMyProfileStore((state) => state.images);
+  const imageDtoList = useMyProfileStore((state) => state.imageDtoList);
+
+  const urls = useDataUrlListFromFiles(imageFiles);
+
+  return useMemo(() => {
+    return [
+      ...imageDtoList,
+      ...(urls.filter(Boolean) as string[]).map(
+        (url) =>
+          ({
+            imageId: 'null',
+            url,
+          }) satisfies ImageDto,
+      ),
+    ];
+  }, [imageDtoList, urls]);
+};
+
+export const useRemoveProfileImageDto = () => {
+  const setImageFiles = useMyProfileStore((state) => state.setSelfImages);
+  const setImageDtoList = useMyProfileStore((state) => state.setImageDtoList);
+
+  return useCallback(
+    (targetUrl: string, fileIdx?: number) => {
+      setImageFiles((prev) => prev.filter((_, idx) => idx !== fileIdx));
+      setImageDtoList((prev) => prev.filter(({ url }) => url !== targetUrl));
+    },
+    [setImageDtoList, setImageFiles],
+  );
+};

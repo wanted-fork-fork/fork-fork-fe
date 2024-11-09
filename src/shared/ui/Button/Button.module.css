@@ -30,6 +30,12 @@
 }
 .Button:not(:disabled)[data-variant='ghost'] {
     color: var(--color-neutral-90);
+    &[data-color='primary'] {
+        color: var(--color-primary);
+    }
+    &[data-color='neutral'] {
+        color: var(--color-neutral-90);
+    }
 }
 .Button:disabled {
     color: var(--color-neutral-30);
