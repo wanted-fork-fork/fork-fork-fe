@@ -1,9 +1,9 @@
 import { Button } from 'src/shared/ui/Button/Button';
 import { CheckBox } from 'src/shared/ui/CheckBox/CheckBox';
-import { Link } from '@remix-run/react';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import styles from './ProfileFormIntroPage.module.css';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
+import { PRIVACY_POLICY_URL } from 'src/shared/constants/url';
 
 export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
@@ -46,7 +46,9 @@ export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () 
           <div className={styles.ContentWrapper}>
             <div className={styles.CheckListItem}>
               <CheckBox checked={checkedPrivacy} label={'개인정보 처리방침 동의'} onChange={togglePrivacy} />
-              <Link to="https://www.naver.com">보기</Link>
+              <a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">
+                보기
+              </a>
             </div>
             <div className={styles.CheckListItem}>
               <CheckBox checked={checkedTerm} label={'안내사항을 모두 확인했습니다.'} onChange={toggleTerm} />

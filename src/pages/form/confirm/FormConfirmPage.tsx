@@ -19,7 +19,7 @@ export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => vo
 
   return (
     <div className={styles.Wrapper}>
-      <Header onPrev={console.log} />
+      <Header className={styles.InnerHeader} onPrev={console.log} />
       <div className={styles.TitleSection}>
         <h2>입력한 정보를 마지막으로 확인해주세요.</h2>
         <small>각 답변을 선택하면 수정이 가능합니다.</small>

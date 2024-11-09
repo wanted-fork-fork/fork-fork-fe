@@ -10,6 +10,19 @@ import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
 import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
+import toast from 'react-hot-toast';
+import { StepMeta } from 'src/shared/types/FormStepMeta';
+import { MyProfile } from 'src/entities/profile/model/myProfileStore';
+import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
+
+const ProfileMetaList = Array.from(Object.entries(MyProfileStepMeta)) as [
+  keyof typeof MyProfileStepMeta,
+  StepMeta<MyProfile>,
+][];
+const IdealPartnerMetaList = Array.from(Object.entries(IdealPartnerStepMeta)) as [
+  keyof typeof IdealPartnerStepMeta,
+  StepMeta<IdealPartner>,
+][];
 
 export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${number}px` }) => {
   const floatingButtonPosition = useRef({ right, bottom });
@@ -48,6 +61,11 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
     setSelectedKey({ section: 'IDEAL_PARTNER', key });
   };
 
+  const onCompleteEdit = () => {
+    setSelectedKey(null);
+    toast.success('변경사항이 저장되었습니다.', { icon: null });
+  };
+
   return (
     <>
       <button className={styles.FloatingButton} onClick={() => setOpen(true)} style={floatingButtonPosition.current}>
@@ -65,7 +83,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
               <ScrollView rootClassName={styles.MenuSection} viewportClassName={styles.MenuSectionViewport}>
                 <div>
                   <p className={styles.MenuSectionTitle}>내 정보</p>
-                  {Array.from(Object.entries(MyProfileStepMeta)).map(([key, { shortcutTitle }]) => (
+                  {ProfileMetaList.map(([key, { shortcutTitle }]) => (
                     <MenuButton
                       key={key}
                       text={shortcutTitle}
@@ -77,7 +95,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
                 <Spacing size={24} />
                 <div>
                   <p className={styles.MenuSectionTitle}>이상형 정보</p>
-                  {Array.from(Object.entries(IdealPartnerStepMeta)).map(([key, { shortcutTitle }]) => (
+                  {IdealPartnerMetaList.map(([key, { shortcutTitle }]) => (
                     <MenuButton
                       key={key}
                       text={shortcutTitle}
@@ -99,7 +117,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
               </div>
               <div className={styles.FormMain}>{selectedStep.form({})}</div>
               <div className={styles.FormFooter}>
-                <Button variant={'filled'} widthType={'fill'} color={'primary'}>
+                <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onCompleteEdit}>
                   변경사항 저장
                 </Button>
               </div>
