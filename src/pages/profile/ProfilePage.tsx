@@ -9,6 +9,7 @@ import { ImageLayout } from 'src/shared/ui/ImageLayout/ImageLayout';
 import { useTranslation } from 'react-i18next';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
 import { useMemo } from 'react';
+import { ProfileHeaderActions } from 'src/pages/profile/components/ProfileHeaderActions';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();
@@ -22,22 +23,24 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const urls = useMemo(() => profile.imageDtoList.map((image) => image.url), [profile.imageDtoList]);
 
   return (
-    <>
-      <div className={styles.Wrapper}>
-        <ProfilePageHeader profile={profile} infoId={infoId} showTitle={!inView} />
-        <ScrollView rootClassName={styles.Body}>
-          <ImageLayout urls={urls} />
-          <h1 className={styles.Name} ref={ref}>
-            {profile.name}({t(profile.gender)}, {age})
-          </h1>
-          <ProfileTab.Root>
-            <ProfileTab.TriggerList className={styles.TabTriggerList} />
-            <div className={styles.TabContent}>
-              <ProfileTab.Content profile={profile} idealPartner={idealPartner} initialOpen={true} />
-            </div>
-          </ProfileTab.Root>
-        </ScrollView>
-      </div>
-    </>
+    <div className={styles.Wrapper}>
+      <ProfilePageHeader
+        profile={profile}
+        suffix={<ProfileHeaderActions infoId={infoId} name={profile.name} />}
+        showTitle={!inView}
+      />
+      <ScrollView rootClassName={styles.Body}>
+        <ImageLayout urls={urls} />
+        <h1 className={styles.Name} ref={ref}>
+          {profile.name}({t(profile.gender)}, {age})
+        </h1>
+        <ProfileTab.Root>
+          <ProfileTab.TriggerList className={styles.TabTriggerList} />
+          <div className={styles.TabContent}>
+            <ProfileTab.Content profile={profile} idealPartner={idealPartner} initialOpen={true} />
+          </div>
+        </ProfileTab.Root>
+      </ScrollView>
+    </div>
   );
 };
