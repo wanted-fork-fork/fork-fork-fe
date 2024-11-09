@@ -7,18 +7,24 @@ import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPart
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
 import { Button } from 'src/shared/ui/Button/Button';
 import { ProfileEditProvider } from 'src/features/EditInfo/ProfileEditContext';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSubmit } from '@remix-run/react';
+import { useBeforeUnload, useNavigate, useSubmit } from '@remix-run/react';
 import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
 import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
 import { useUploadProfileImage } from 'src/features/upload_image/useUploadProfileImage';
+import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
+import { IconButton } from 'src/shared/ui/IconButton/IconButton';
+import { Theme } from 'src/shared/styles/constants';
+import { ArrowLeft } from 'src/shared/ui/icons';
 
 type Props = {
   infoId: string;
 };
 
 export const EditInfoPage = ({ infoId }: Props) => {
+  useBeforeUnload((e) => e.preventDefault());
+
   const profile = useMyProfileStore((state) => state);
   const idealPartner = useIdealPartnerStore((state) => state);
 
@@ -46,34 +52,58 @@ export const EditInfoPage = ({ infoId }: Props) => {
     );
   }, [idealPartner, infoId, profile, submit, upload]);
 
+  const [openConfirm, setConfirm] = useState(false);
+  const onClickPrev = () => setConfirm(true);
+
+  const navigate = useNavigate();
+  const onNavigatePrev = useCallback(() => {
+    navigate(`/profile/${infoId}`);
+  }, [infoId, navigate]);
+
   return (
-    <div className={styles.Wrapper}>
-      <ProfilePageHeader
-        profile={profile}
-        showTitle
-        suffix={
-          <Button
-            className={pageStyles.CompleteButton}
-            size={'fit'}
-            variant={'ghost'}
-            widthType={'hug'}
-            color={'primary'}
-            onClick={onSubmit}
-          >
-            완료
-          </Button>
-        }
+    <>
+      <div className={styles.Wrapper}>
+        <ProfilePageHeader
+          profile={profile}
+          showTitle
+          prefix={
+            <IconButton onClick={onClickPrev}>
+              <ArrowLeft color={Theme.color.neutral50} />
+            </IconButton>
+          }
+          suffix={
+            <Button
+              className={pageStyles.CompleteButton}
+              size={'fit'}
+              variant={'ghost'}
+              widthType={'hug'}
+              color={'primary'}
+              onClick={onSubmit}
+            >
+              완료
+            </Button>
+          }
+        />
+        <ProfileEditProvider onCompleteEdit={onCompleteEdit}>
+          <ScrollView rootClassName={styles.Body}>
+            <ProfileTab.Root>
+              <ProfileTab.TriggerList className={styles.TabTriggerList} />
+              <div className={styles.TabContent}>
+                <ProfileTab.Content profile={profile} idealPartner={idealPartner} initialOpen={true} />
+              </div>
+            </ProfileTab.Root>
+          </ScrollView>
+        </ProfileEditProvider>
+      </div>
+      <ConfirmModal
+        show={openConfirm}
+        title={'변경사항을 저장하지 않고 나가시나요?'}
+        description={'저장하지 않고 나가면 바뀐 정보가 사라져요.'}
+        cancelText={'나갈게요'}
+        confirmText={'저장 후 종료'}
+        onCancel={onNavigatePrev}
+        onConfirm={onSubmit}
       />
-      <ProfileEditProvider onCompleteEdit={onCompleteEdit}>
-        <ScrollView rootClassName={styles.Body}>
-          <ProfileTab.Root>
-            <ProfileTab.TriggerList className={styles.TabTriggerList} />
-            <div className={styles.TabContent}>
-              <ProfileTab.Content profile={profile} idealPartner={idealPartner} initialOpen={true} />
-            </div>
-          </ProfileTab.Root>
-        </ScrollView>
-      </ProfileEditProvider>
-    </div>
+    </>
   );
 };
