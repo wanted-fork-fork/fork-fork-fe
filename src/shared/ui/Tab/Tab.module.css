@@ -18,10 +18,10 @@
     font-weight: 500;
     line-height: 16px;
     text-align: center;
-    color: var(--color-neutral-30);
+    color: var(--color-neutral-300);
 
     &[aria-selected=true] {
-        color: var(--color-neutral-90);
-        border-bottom: 2px solid var(--color-neutral-90);
+        color: var(--color-neutral-900);
+        border-bottom: 2px solid var(--color-neutral-900);
     }
 }

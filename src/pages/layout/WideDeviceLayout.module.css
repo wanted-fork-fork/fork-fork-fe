@@ -2,7 +2,7 @@
   position: relative;
   width: 100dvw;
   height: 100dvh;
-  background-color: var(--color-neutral-10);
+  background-color: var(--color-neutral-100);
   display: grid;
   grid-template-columns: 1fr minmax(auto, 480px) 1fr;
 }

@@ -1,7 +1,7 @@
 .Button {
   border: none;
   outline: none;
-  background-color: var(--color-neutral-10);
+  background-color: var(--color-neutral-100);
   border-radius: 16px;
 
   display: flex;

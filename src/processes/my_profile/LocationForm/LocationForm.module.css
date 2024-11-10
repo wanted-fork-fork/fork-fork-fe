@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
 
-    border: 2px solid var(--color-neutral-30);
+    border: 2px solid var(--color-neutral-300);
     border-left: none;
     border-right: none;
 

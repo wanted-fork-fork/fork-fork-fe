@@ -6,7 +6,7 @@
     padding-bottom: 30px;
 
     & label > span {
-        color: var(--color-neutral-90);
+        color: var(--color-neutral-900);
         display: block;
         margin-bottom: 8px;
     }
@@ -18,7 +18,7 @@
     gap: 8px;
 
     & small {
-        color: var(--color-neutral-50);
+        color: var(--color-neutral-500);
         font-size: 14px;
     }
 }

@@ -2,15 +2,15 @@
     --color-primary: #d752ff;
     --color-positive: #3bb5a3;
     --color-negative: #f35b5b;
-    --color-neutral-90: #121113;
-    --color-neutral-80: #333036;
-    --color-neutral-70: #534e55;
-    --color-neutral-60: #726d74;
-    --color-neutral-50: #918b92;
-    --color-neutral-40: #afaab1;
-    --color-neutral-30: #cdcace;
-    --color-neutral-20: #ebeaeb;
-    --color-neutral-10: #f5f5f5;
+    --color-neutral-900: #121113;
+    --color-neutral-800: #333036;
+    --color-neutral-700: #534e55;
+    --color-neutral-600: #726d74;
+    --color-neutral-500: #918b92;
+    --color-neutral-400: #afaab1;
+    --color-neutral-300: #cdcace;
+    --color-neutral-200: #ebeaeb;
+    --color-neutral-100: #f5f5f5;
     --color-neutral-0: #fff;
 
     --z-index-bottomsheet: 10;

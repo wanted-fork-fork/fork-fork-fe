@@ -10,7 +10,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 16px;
-    background-color: var(--color-neutral-10);
+    background-color: var(--color-neutral-100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
                 rgba(255, 255, 255, 0) 40%,
                 rgba(255, 255, 255, .5) 50%,
                 rgba(255, 255, 255, 0) 60%
-        ) var(--color-neutral-10);
+        ) var(--color-neutral-100);
         background-size: 200% 100%;
         background-position-x: 180%;
         animation: 1s shine ease-in-out infinite;

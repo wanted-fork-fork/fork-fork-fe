@@ -1,11 +1,11 @@
 .Slider {
     width: 100%;
-    background-color: var(--color-neutral-30);
+    background-color: var(--color-neutral-300);
     border-radius: 0;
     height: 4px;
 
     & > :last-child {
-        background-color: var(--color-neutral-90);
+        background-color: var(--color-neutral-900);
     }
 
     & > [role="slider"] {

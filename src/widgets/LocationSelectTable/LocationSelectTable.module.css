@@ -4,7 +4,7 @@
   flex-grow: 1;
   overflow: hidden;
 
-  border: 2px solid var(--color-neutral-30);
+  border: 2px solid var(--color-neutral-300);
   border-left: none;
   border-right: none;
 
@@ -20,7 +20,7 @@
 }
 
 .MainCategoryColumn {
-  border-right: 1px solid var(--color-neutral-30);
+  border-right: 1px solid var(--color-neutral-300);
   width: 104px;
 }
 
@@ -41,14 +41,14 @@
   cursor: pointer;
 
   &:not(:last-child) {
-    border-bottom: 1px solid var(--color-neutral-30);
+    border-bottom: 1px solid var(--color-neutral-300);
   }
 }
 
 .MainCategory {
   &:not([aria-selected=true]) {
-    background-color: var(--color-neutral-10);
-    color: var(--color-neutral-30);
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-300);
   }
 }
 
