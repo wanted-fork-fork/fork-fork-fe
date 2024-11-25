@@ -9,6 +9,51 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+export const Default: Story = {
+  render: () => {
+    const variantList = ['filled', 'outline', 'ghost'] as const;
+    const colorList = ['primary', 'neutral'] as const;
+    const widthType = ['fill', 'hug'] as const;
+    const size = ['fit', 'S', 'M'] as const;
+    return (
+      <div style={{ display: 'grid', gap: '20px', padding: '20px' }}>
+        <div style={{ display: 'grid', gap: '8px' }}>
+          <h3>variant</h3>
+          {variantList.map((v) => (
+            <Button key={v} variant={v} color={'primary'} widthType={'hug'}>
+              variant: {v}
+            </Button>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gap: '8px' }}>
+          <h3>color</h3>
+          {colorList.map((v) => (
+            <Button key={v} variant={'filled'} color={v} widthType={'hug'}>
+              color: {v}
+            </Button>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gap: '8px' }}>
+          <h3>widthType</h3>
+          {widthType.map((v) => (
+            <Button key={v} variant={'filled'} color={'primary'} widthType={v}>
+              widthType: {v}
+            </Button>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gap: '8px' }}>
+          <h3>size</h3>
+          {size.map((v) => (
+            <Button key={v} variant={'filled'} color={'primary'} widthType={'hug'} size={v}>
+              size: {v}
+            </Button>
+          ))}
+        </div>
+      </div>
+    );
+  },
+};
+
 export const PrimaryButton: Story = {
   args: {
     variant: 'filled',
