@@ -94,7 +94,7 @@ export const MyProfileStepMeta = {
       </>
     ),
     form: () => <IntroduceForm />,
-    canGoNext: (state) => Boolean(state.introduction),
+    canGoNext: () => true,
     shortcutTitle: '자기 소개',
   },
   PROFILE_MORE_QUESTION: {
