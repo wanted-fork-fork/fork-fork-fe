@@ -7,7 +7,7 @@ const buttonStyle = cva(styles.Button, {
     widthType: { fill: styles.WidthType_Fill, hug: styles.WidthType_Hug },
     textAlign: { left: styles.TextAlign_Left, center: styles.TextAlign_Center, right: styles.TextAlign_Right },
     size: { M: styles.Size_M, S: styles.Size_S, fit: styles.Size_Fit },
-    variant: { filled: '', outline: '', ghost: '' },
+    variant: { filled: '', outline: '', ghost: styles.Variant_Ghost },
     color: { primary: '', neutral: '' },
   },
   compoundVariants: [

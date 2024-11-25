@@ -38,11 +38,16 @@
 
 .Variant_Ghost_Neutral {
     color: var(--color-neutral-900);
+    background-color: transparent;
 }
 
 .Button:disabled {
     color: var(--color-neutral-300);
     background-color: var(--color-neutral-200);
+
+    &.Variant_Ghost {
+        background-color: transparent;
+    }
 }
 
 .Disabled_Ghost {
@@ -100,8 +105,4 @@
 
 .Center {
     flex-grow: 1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
