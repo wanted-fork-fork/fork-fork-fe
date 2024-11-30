@@ -84,6 +84,10 @@ path {
     fill: currentColor;
 }
 
+button {
+    color: var(--color-neutral-900);
+}
+
 html {
     font-family: "Pretendard Variable", "Arial", sans-serif;
 }
