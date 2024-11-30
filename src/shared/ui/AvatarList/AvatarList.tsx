@@ -35,7 +35,7 @@ export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFile
           src={url}
           actionSlot={
             onClickRemove && (
-              <Close onClick={() => onClickRemove?.(url, isNaN(Number(imageId)) ? Number(imageId) : undefined)} />
+              <Close onClick={() => onClickRemove?.(url, !isNaN(Number(imageId)) ? Number(imageId) : undefined)} />
             )
           }
         />

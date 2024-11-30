@@ -164,9 +164,9 @@ export const useMyProfileImages = () => {
     return [
       ...imageDtoList,
       ...(urls.filter(Boolean) as string[]).map(
-        (url) =>
+        (url, idx) =>
           ({
-            imageId: 'null',
+            imageId: idx.toString(),
             url,
           }) satisfies ImageDto,
       ),
