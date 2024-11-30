@@ -6,6 +6,7 @@ import { convertDtoToProfile } from '../../entities/profile/model/convertProfile
 import { MyProfileProvider } from '../../entities/profile/model/myProfileStore';
 import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
 import { getNickname } from 'src/entities/profile/lib/getNickname';
+import { ErrorPage } from 'src/pages/error/ErrorPage';
 
 export const meta: MetaFunction = () => {
   return [
@@ -27,13 +28,32 @@ export const loader: LoaderFunction = async ({ params }) => {
     });
   }
 
-  const { data } = await getInfoBySharingId(key);
+  const { data, status } = await getInfoBySharingId(key, {
+    validateStatus: (status) => status >= 200 && status <= 400,
+  });
+
+  if (status === 400) {
+    return json({ expired: true });
+  }
 
   return json({ profile: data, key, expiredDate: data.expiredDate });
 };
 
 export default function Page() {
+  const { expired } = useLoaderData<typeof loader>();
+
+  if (expired) {
+    return (
+      <ErrorPage title={'더이상 이 정보를 볼 수 없습니다.\n주선자에게 정보를 다시 요청해주세요.'} description={''} />
+    );
+  }
+
+  return <_Page />;
+}
+
+const _Page = () => {
   const { profile, key, expiredDate: rawExpiredDate } = useLoaderData<typeof loader>();
+
   const profileInitialState = useMemo(
     () => convertDtoToProfile({ ...profile.userInfo, name: getNickname(key) }),
     [key, profile.userInfo],
@@ -46,4 +66,4 @@ export default function Page() {
       <SharedProfilePage expiredDate={expiredDate} />
     </MyProfileProvider>
   );
-}
+};
