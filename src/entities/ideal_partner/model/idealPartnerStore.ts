@@ -59,7 +59,7 @@ type Action = {
   setToMatchMaker: (value: string) => void;
 };
 
-const createStoreHook = () =>
+const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
     ageRange: {
       min: 20,
@@ -113,6 +113,7 @@ const createStoreHook = () =>
       requiredOptions.length <= REQUIRED_OPTION_MAX_COUNT && set({ requiredOptions }),
     toMatchMaker: '',
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),
+    ...initialState,
   }));
 
 export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(
