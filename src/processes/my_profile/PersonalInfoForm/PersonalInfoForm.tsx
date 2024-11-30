@@ -72,7 +72,7 @@ const PersonalInfoStepMap = {
   [PersonalInfoStepEnum.ALL]: {
     title: () => <>당신에 대해 알려주세요!</>,
     description: () => '',
-    canGoNext: () => false,
+    canGoNext: () => true,
   },
 } as const;
 
