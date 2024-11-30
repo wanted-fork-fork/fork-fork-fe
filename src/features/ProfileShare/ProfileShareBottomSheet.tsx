@@ -6,7 +6,7 @@ import styles from './ProfileShareBottomSheet.module.css';
 import { useMutation } from '@tanstack/react-query';
 import { saveSharing } from '../../types';
 import toast from 'react-hot-toast';
-import { copyLink, createSharedProfileLink } from '../../shared/functions/linkUtil';
+import { createSharedProfileLink } from '../../shared/functions/linkUtil';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 import { useCallback } from 'react';
 
@@ -35,10 +35,7 @@ export const ProfileShareBottomSheet = ({
   }, [infoId, mutateAsync]);
 
   const onClickShareLink = async () => {
-    const link = await generateLink();
-    if (!link) return;
-
-    await copyLink(link);
+    await navigator.clipboard.writeText((await generateLink()) ?? '');
     toast.success('링크가 복사되었습니다', { icon: null });
   };
 
