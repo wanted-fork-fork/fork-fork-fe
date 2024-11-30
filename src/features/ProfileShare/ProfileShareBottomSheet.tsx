@@ -35,8 +35,10 @@ export const ProfileShareBottomSheet = ({
   }, [infoId, mutateAsync]);
 
   const onClickShareLink = async () => {
-    await navigator.clipboard.writeText((await generateLink()) ?? '');
-    toast.success('링크가 복사되었습니다', { icon: null });
+    const link = (await generateLink()) ?? '';
+    setTimeout(() => {
+      navigator.clipboard.writeText(link).then(() => toast.success('링크가 복사되었습니다', { icon: null }));
+    }, 0);
   };
 
   const onClickShareKakao = async () => {
