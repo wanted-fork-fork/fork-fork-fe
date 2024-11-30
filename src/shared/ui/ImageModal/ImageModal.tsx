@@ -17,6 +17,17 @@ export const ImageModal = ({ showModal, closeModal, closeOnClickOutside = true, 
         <Portal>
           <div className={styles.ImageModal}>
             <div className={styles.ImageModalDim} onClick={closeOnClickOutside ? closeModal : undefined} />
+            <div className={styles.ImageModalHeader}>
+              <Button
+                color={'neutral'}
+                variant={'ghost'}
+                widthType={'hug'}
+                className={styles.ImageModalCloseButton}
+                onClick={closeModal}
+              >
+                <Close color={'#fff'} />
+              </Button>
+            </div>
             <div className={styles.ImageModalWrapper}>
               <img
                 className={styles.ImageModalImg}
@@ -26,15 +37,6 @@ export const ImageModal = ({ showModal, closeModal, closeOnClickOutside = true, 
                 {...props}
               />
             </div>
-            <Button
-              color={'neutral'}
-              variant={'ghost'}
-              widthType={'hug'}
-              className={styles.ImageModalCloseButton}
-              onClick={closeModal}
-            >
-              <Close />
-            </Button>
           </div>
         </Portal>
       )}
