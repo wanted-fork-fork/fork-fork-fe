@@ -7,7 +7,7 @@ type BottomSheetProps = PropsWithChildren<Parameters<typeof Sheet>[0]>;
 
 export const BottomSheet = ({ children, className = '', ...props }: BottomSheetProps) => {
   return (
-    <Sheet {...props} className={`${styles.Sheet} ${className}`}>
+    <Sheet {...props} disableScrollLocking={true} className={`${styles.Sheet} ${className}`}>
       <Sheet.Backdrop onTap={props.onClose} />
       <Sheet.Container className={styles.Container}>{children}</Sheet.Container>
     </Sheet>
