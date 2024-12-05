@@ -24,7 +24,9 @@ export const ChipList = <T extends { name: string }>({
   customInputTitle,
   customInputPlaceholder,
 }: Props<T>) => {
-  const [customList, setCustomList] = useState<T[]>(selectedList.filter((item) => !defaultList.includes(item)));
+  const [customList, setCustomList] = useState<T[]>(
+    selectedList.filter((item) => !defaultList.some((d) => d.name === item.name)),
+  );
 
   const [openInputBottomSheet, setOpenInputBottomSheet] = useState(false);
 

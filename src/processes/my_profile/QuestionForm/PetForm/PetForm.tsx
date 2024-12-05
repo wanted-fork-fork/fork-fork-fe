@@ -14,6 +14,8 @@ const makeItem = (name: string) => ({
 const hasItem = (itemList: { name: string }[], targetItem: { name: string }) =>
   itemList.some((item) => item.name === targetItem.name);
 
+const isSameItem = (a: { name: string }, b: { name: string }) => a.name === b.name;
+
 export const PetForm = () => {
   const name = useProfileFirstName();
   const { pets, setPets } = useMyProfileStore(({ pets, setPets }) => ({ pets, setPets }));
@@ -39,6 +41,7 @@ export const PetForm = () => {
           selectedList={selectedPetList}
           setSelectedList={onSelectPet}
           hasItem={hasItem}
+          isSameItem={isSameItem}
           makeItem={makeItem}
           customInputTitle={'추가 할 반려동물을 입력해주세요.'}
           customInputPlaceholder={'ex. 구피, 기니피그...'}
