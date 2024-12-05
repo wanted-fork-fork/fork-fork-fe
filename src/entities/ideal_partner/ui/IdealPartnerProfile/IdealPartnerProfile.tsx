@@ -63,7 +63,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
         <ProfileCellHeader title={'흡연여부'} onClickEdit={() => onClickEdit?.('IDEAL_SMOKING')} />
         <span>{getSmokingText(profile.smoking, 'IDEAL')}</span>
       </div>
-      <div className={styles.Cell}>
+      <div className={`${styles.Cell} ${styles.Introduce}`}>
         <ProfileCellHeader
           title={'주선자에게 전달하고 싶은 말'}
           onClickEdit={() => onClickEdit?.('IDEAL_TO_MATCHER')}

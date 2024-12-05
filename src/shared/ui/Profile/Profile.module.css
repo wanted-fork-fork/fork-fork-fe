@@ -1,6 +1,7 @@
 .Grid {
     display: grid;
     gap: 32px;
+    padding-bottom: 32px;
 }
 
 .GridRow {
@@ -50,4 +51,5 @@
 
 .Introduce {
     line-height: 150%;
+    white-space: pre-wrap;
 }
