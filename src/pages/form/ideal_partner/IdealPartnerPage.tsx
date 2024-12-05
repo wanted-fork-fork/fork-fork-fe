@@ -21,7 +21,9 @@ export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => v
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
 
   useEffect(() => {
-    addTouchedStep(StepKeys[currentStepIdx]);
+    if (currentStepIdx > 0) {
+      addTouchedStep(StepKeys[currentStepIdx - 1]);
+    }
   }, [addTouchedStep, currentStepIdx]);
 
   const handleClickNext = () => {

@@ -5,6 +5,7 @@ import { ReligionReligionCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useIdealPartnerFormProcessStore } from '../_store/idealPartnerFormProcessStore';
 
 const religionRadioMeta: DistributedOmit<RadioMeta<ReligionReligionCategory>, 'name'>[] = [
   { key: 'IRRELIGION', allowInput: false },
@@ -20,6 +21,14 @@ export const ReligionForm = () => {
   const setReligionCategory = useIdealPartnerStore((state) => state.setReligionCategory);
   const setReligionName = useIdealPartnerStore((state) => state.setReligionName);
 
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
+
+  const onSelect = (category: ReligionReligionCategory) => {
+    setReligionCategory(category);
+    addTouchedStep('IDEAL_RELIGION');
+  };
+
   const { t } = useTranslation();
   const meta = useMemo(
     () =>
@@ -34,8 +43,8 @@ export const ReligionForm = () => {
     <section className={styles.Container}>
       <RadioList
         radioMetaList={meta}
-        selected={religionCategory}
-        onSelect={setReligionCategory}
+        selected={touchedSteps.has('IDEAL_RELIGION') ? religionCategory : null}
+        onSelect={onSelect}
         inputValue={religionName}
         onChangeInputValue={setReligionName}
       />

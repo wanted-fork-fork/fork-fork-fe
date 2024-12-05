@@ -6,6 +6,7 @@ import { SmokingSmokingCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { useMyProfileFormProcessStore } from '../_store/myProfileFormProcessStore';
 
 const smokingRadioMeta: DistributedOmit<RadioMeta<SmokingSmokingCategory>, 'name'>[] = [
   { key: 'SMOKER', allowInput: false },
@@ -31,6 +32,14 @@ export const SmokeAlcoholForm = () => {
     [t],
   );
 
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+
+  const onSelect = (category: SmokingSmokingCategory) => {
+    setSmokingCategory(category);
+    addTouchedStep('PROFILE_SMOKE_ALCOHOL');
+  };
+
   return (
     <section className={styles.Container}>
       <fieldset>
@@ -45,9 +54,9 @@ export const SmokeAlcoholForm = () => {
         <legend className={`strong ${styles.Legend}`}>흡연 여부</legend>
         <RadioList
           radioMetaList={meta}
-          selected={smokingCategory}
+          selected={touchedSteps.has('PROFILE_SMOKE_ALCOHOL') ? smokingCategory : null}
           inputValue={smokingAmount}
-          onSelect={setSmokingCategory}
+          onSelect={onSelect}
           onChangeInputValue={setSmokingAmount}
         />
       </fieldset>

@@ -5,6 +5,7 @@ import { JobJobCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMyProfileFormProcessStore } from '../_store/myProfileFormProcessStore';
 
 const JobMetaList: DistributedOmit<RadioMeta<JobJobCategory>, 'name'>[] = [
   {
@@ -35,9 +36,13 @@ export const JobForm = () => {
   const setJobType = useMyProfileStore((state) => state.setJobCategory);
   const setJobDescription = useMyProfileStore((state) => state.setJobName);
 
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+
   const onSelect = (job: JobJobCategory) => {
     setJobType(job);
     setJobDescription('');
+    addTouchedStep('PROFILE_JOB');
   };
 
   const { t } = useTranslation();
@@ -54,7 +59,7 @@ export const JobForm = () => {
     <section className={styles.Container} role={'radiogroup'}>
       <RadioList
         radioMetaList={meta}
-        selected={jobType}
+        selected={touchedSteps.has('PROFILE_JOB') ? jobType : null}
         onSelect={onSelect}
         inputValue={description}
         onChangeInputValue={setJobDescription}

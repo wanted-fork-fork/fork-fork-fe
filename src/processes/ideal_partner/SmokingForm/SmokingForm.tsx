@@ -5,6 +5,7 @@ import { SmokingSmokingCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { useIdealPartnerFormProcessStore } from '../_store/idealPartnerFormProcessStore';
 
 const smokingRadioMeta: DistributedOmit<RadioMeta<SmokingSmokingCategory>, 'name'>[] = [
   { key: 'SMOKER', allowInput: false },
@@ -17,6 +18,14 @@ export const SmokingForm = () => {
   const smokingAmount = useIdealPartnerStore((state) => state.smoking.smokingAmount);
   const setSmokingCategory = useIdealPartnerStore((state) => state.setSmokingCategory);
   const setSmokingAmount = useIdealPartnerStore((state) => state.setSmokingAmount);
+
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
+
+  const onSelect = (category: SmokingSmokingCategory) => {
+    setSmokingCategory(category);
+    addTouchedStep('IDEAL_SMOKING');
+  };
 
   const { t } = useTranslation();
   const meta = useMemo(
@@ -32,8 +41,8 @@ export const SmokingForm = () => {
     <section className={styles.Container}>
       <RadioList
         radioMetaList={meta}
-        selected={smokingCategory}
-        onSelect={setSmokingCategory}
+        selected={touchedSteps.has('IDEAL_SMOKING') ? smokingCategory : null}
+        onSelect={onSelect}
         inputValue={smokingAmount}
         onChangeInputValue={setSmokingAmount}
       />

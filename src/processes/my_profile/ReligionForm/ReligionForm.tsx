@@ -6,6 +6,7 @@ import { ReligionReligionCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { useMyProfileFormProcessStore } from '../_store/myProfileFormProcessStore';
 
 const religionRadioMeta: DistributedOmit<RadioMeta<ReligionReligionCategory>, 'name'>[] = [
   { key: 'IRRELIGION', allowInput: false },
@@ -19,6 +20,14 @@ export const ReligionForm = () => {
   const { religionCategory, religionName } = useMyProfileStore((state) => state.religion);
   const setReligionCategory = useMyProfileStore((state) => state.setReligionCategory);
   const setReligionName = useMyProfileStore((state) => state.setReligionName);
+
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+
+  const onSelect = (category: ReligionReligionCategory) => {
+    setReligionCategory(category);
+    addTouchedStep('PROFILE_RELIGION');
+  };
 
   const { t } = useTranslation();
   const meta = useMemo(
@@ -45,8 +54,8 @@ export const ReligionForm = () => {
         <p className={styles.Label}>네! 저는..</p>
         <RadioList
           radioMetaList={meta.slice(1)}
-          selected={religionCategory}
-          onSelect={setReligionCategory}
+          selected={touchedSteps.has('PROFILE_RELIGION') ? religionCategory : null}
+          onSelect={onSelect}
           inputValue={religionName}
           onChangeInputValue={setReligionName}
         />
