@@ -38,7 +38,7 @@ export const MyProfileStepMeta = {
     title: ({ name }) => <>{name}님의 MBTI를 알려주세요.</>,
     description: () => '해당하는 MBTI를 한 개씩 선택해주세요.',
     form: () => <MbtiForm />,
-    canGoNext: (state) => Boolean(state.mbti),
+    canGoNext: (state, checkTouched) => state.mbti !== null || Boolean(checkTouched?.('PROFILE_MBTI')),
     shortcutTitle: 'MBTI',
   },
   PROFILE_JOB: {

@@ -3,16 +3,21 @@ import { useEffect, useState } from 'react';
 import styles from './MbtiForm.module.css';
 import { isValidMbti, MbtiFirstWord, MbtiFourthWord, MbtiKey, MbtiSecondWord, MbtiThirdWord } from 'src/shared/vo/mbti';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { useMyProfileFormProcessStore } from '../_store/myProfileFormProcessStore';
 
 export const MbtiForm = () => {
   const mbti = useMyProfileStore((state) => state.mbti);
   const setMbti = useMyProfileStore((state) => state.setMbti);
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+  const hasTouchedStep = useMyProfileFormProcessStore((state) => state.hasTouchedStep);
 
   const [eiState, setEiState] = useState<MbtiFirstWord | null>(mbti?.[0] ?? null);
   const [snState, setSnState] = useState<MbtiSecondWord | null>(mbti?.[1] ?? null);
   const [tfState, setTfState] = useState<MbtiThirdWord | null>(mbti?.[2] ?? null);
   const [jpState, setJpState] = useState<MbtiFourthWord | null>(mbti?.[3] ?? null);
-  const [skipState, setSkipState] = useState<boolean>(false);
+  const [skipState, setSkipState] = useState<boolean>(mbti === null);
+
+  const isSkipChecked = skipState && hasTouchedStep('PROFILE_MBTI');
 
   const mbtiState = `${eiState ?? ''}${snState ?? ''}${tfState ?? ''}${jpState ?? ''}`;
   useEffect(() => {
@@ -25,6 +30,8 @@ export const MbtiForm = () => {
     setSnState(null);
     setTfState(null);
     setJpState(null);
+    setMbti(null);
+    addTouchedStep('PROFILE_MBTI');
   };
 
   const onClickMbti = (key: MbtiKey) => {
@@ -54,7 +61,7 @@ export const MbtiForm = () => {
   return (
     <section className={styles.Container}>
       <div className={styles.RadioContainer}>
-        <Radio label={'입력 안 함'} checked={skipState} onChange={onClickSkip} />
+        <Radio label={'입력 안 함'} checked={isSkipChecked} onChange={onClickSkip} />
       </div>
       <div className={styles.MbtiResult} data-blank={isBlank}>
         {mbtiState}

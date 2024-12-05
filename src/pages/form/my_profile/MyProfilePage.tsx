@@ -17,12 +17,18 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
   const name = useProfileFirstName();
 
   const currentStep = Steps[currentStepIdx];
-  const canGoNext = useMyProfileStore(currentStep.canGoNext);
 
   const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+  const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+
+  const canGoNext = useMyProfileStore((state) =>
+    currentStep.canGoNext(state, (key) => touchedSteps.has(key as keyof typeof MyProfileStepMeta)),
+  );
 
   useEffect(() => {
-    addTouchedStep(StepKeys[currentStepIdx]);
+    if (currentStepIdx > 0) {
+      addTouchedStep(StepKeys[currentStepIdx - 1]);
+    }
   }, [addTouchedStep, currentStepIdx]);
 
   const handleClickNext = useCallback(() => {

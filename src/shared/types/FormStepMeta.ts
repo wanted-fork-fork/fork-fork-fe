@@ -6,7 +6,7 @@ export type StepMeta<State> = {
   title: ({ name }: { name: string }) => ReactNode;
   description?: () => ReactNode;
   form: ({ onClickNextForm }: FormProps) => ReactElement<FormProps>;
-  canGoNext: (state: State) => boolean;
+  canGoNext: (state: State, checkTouched?: (key: string) => boolean) => boolean;
   /**
    * @default true
    */
