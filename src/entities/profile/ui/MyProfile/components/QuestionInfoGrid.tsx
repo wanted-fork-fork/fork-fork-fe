@@ -11,50 +11,61 @@ export const QuestionInfoGrid = ({
   profile: MyProfile;
   onClickEdit?: EditProfileFunction;
 }) => {
+  const showBlankValue = Boolean(onClickEdit);
   return (
     <div className={styles.Grid}>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'반려동물'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
-          <div className={styles.ChipList}>
-            {profile.pets.map((pet) => (
-              <Chip key={pet}>{pet}</Chip>
-            ))}
+      {(showBlankValue || profile.pets.length > 0) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'반려동물'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
+            <div className={styles.ChipList}>
+              {profile.pets.map((pet) => (
+                <Chip key={pet}>{pet}</Chip>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'음식'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
-          <div className={styles.ChipList}>
-            {profile.foods.map((food) => (
-              <Chip key={food}>{food}</Chip>
-            ))}
+      )}
+      {(showBlankValue || profile.foods.length > 0) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'음식'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
+            <div className={styles.ChipList}>
+              {profile.foods.map((food) => (
+                <Chip key={food}>{food}</Chip>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'데이트 스타일'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
-          <div className={styles.ChipList}>
-            {profile.dateStyle.map((style) => (
-              <Chip key={style}>{style}</Chip>
-            ))}
+      )}
+      {(showBlankValue || profile.dateStyle.length > 0) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'데이트 스타일'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
+            <div className={styles.ChipList}>
+              {profile.dateStyle.map((style) => (
+                <Chip key={style}>{style}</Chip>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'인생책'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
-          <b>{profile.book.bookName}</b> <span>{profile.book.cause}</span>
+      )}
+      {(showBlankValue || profile.book.bookName) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'인생책'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
+            <b>{profile.book.bookName}</b> <span>{profile.book.cause}</span>
+          </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'인생영화'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
-          <b>{profile.movie.movieName}</b> <span>{profile.movie.cause}</span>
+      )}
+      {(showBlankValue || profile.movie.movieName) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'인생영화'} onClickEdit={() => onClickEdit?.('PROFILE_MORE_QUESTION')} />
+            <b>{profile.movie.movieName}</b> <span>{profile.movie.cause}</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

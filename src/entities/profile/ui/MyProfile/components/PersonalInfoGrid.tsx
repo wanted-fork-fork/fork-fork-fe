@@ -20,60 +20,86 @@ export const PersonalInfoGrid = ({
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
   const dtoList = useMyProfileImages();
 
+  const showBlankValue = onClickEdit;
+
   return (
     <div className={styles.Grid}>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'이름'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
-          <span>{profile.name}</span>
+      {(showBlankValue || profile.name || profile.gender) && (
+        <div className={styles.GridRow}>
+          {(showBlankValue || profile.name) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'이름'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
+              <span>{profile.name}</span>
+            </div>
+          )}
+          {(showBlankValue || profile.gender) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'성별'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
+              <span>{t(profile.gender)}</span>
+            </div>
+          )}
         </div>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'성별'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
-          <span>{t(profile.gender)}</span>
+      )}
+      {(showBlankValue || profile.birthDate || profile.height) && (
+        <div className={styles.GridRow}>
+          {(showBlankValue || profile.birthDate) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'나이'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
+              <span>
+                {age}세 ({profile.birthDate.year}년 {profile.birthDate.month}월)
+              </span>
+            </div>
+          )}
+          {(showBlankValue || profile.height) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'키(신장)'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
+              <span>{profile.height}cm</span>
+            </div>
+          )}
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'나이'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
-          <span>
-            {age}세 ({profile.birthDate.year}년 {profile.birthDate.month}월)
-          </span>
+      )}
+      {(showBlankValue || profile) && (
+        <div className={styles.GridRow}>
+          {(showBlankValue || profile.mbti) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'MBTI'} onClickEdit={() => onClickEdit?.('PROFILE_MBTI')} />
+              <span>{profile.mbti}</span>
+            </div>
+          )}
+          {(showBlankValue || profile.religion) && (
+            <div className={styles.Cell}>
+              <ProfileCellHeader title={'종교'} onClickEdit={() => onClickEdit?.('PROFILE_RELIGION')} />
+              <span>{getReligionText(profile.religion)}</span>
+            </div>
+          )}
         </div>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'키(신장)'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
-          <span>{profile.height}cm</span>
-        </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'MBTI'} onClickEdit={() => onClickEdit?.('PROFILE_MBTI')} />
-          <span>{profile.mbti}</span>
-        </div>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'종교'} onClickEdit={() => onClickEdit?.('PROFILE_RELIGION')} />
-          <span>{getReligionText(profile.religion)}</span>
-        </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'업로드 사진'} onClickEdit={() => onClickEdit?.('PROFILE_MY_IMAGE')} />
-          <div className={styles.HorizontalList}>
-            <AvatarList imageDtoList={dtoList} />
+      )}
+      {(showBlankValue || profile.imageDtoList.length > 0) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'업로드 사진'} onClickEdit={() => onClickEdit?.('PROFILE_MY_IMAGE')} />
+            <div className={styles.HorizontalList}>
+              <AvatarList imageDtoList={dtoList} />
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'신분'} onClickEdit={() => onClickEdit?.('PROFILE_JOB')} />
-          <span>{getJobText(profile.job)}</span>
+      )}
+      {(showBlankValue || profile.job) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'신분'} onClickEdit={() => onClickEdit?.('PROFILE_JOB')} />
+            <span>{getJobText(profile.job)}</span>
+          </div>
         </div>
-      </div>
-      <div className={styles.GridRow}>
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'주로 머무는 지역'} onClickEdit={() => onClickEdit?.('PROFILE_LOCATION')} />
-          <span>{profile.location.map(getLocationText).join(', ')}</span>
+      )}
+      {(showBlankValue || profile.location.length > 0) && (
+        <div className={styles.GridRow}>
+          <div className={styles.Cell}>
+            <ProfileCellHeader title={'주로 머무는 지역'} onClickEdit={() => onClickEdit?.('PROFILE_LOCATION')} />
+            <span>{profile.location.map(getLocationText).join(', ')}</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
