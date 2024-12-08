@@ -18,7 +18,7 @@ export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): Use
       cities: profile.location.map((l) => l.city.city),
       towns: profile.location.flatMap((l) => l.town.map((t) => t.town)),
     },
-    mbti: (profile.mbti as UserInfoRequestMbti) ?? 'INFP',
+    mbti: (profile.mbti as UserInfoRequestMbti) ?? null,
     religion: profile.religion,
     smoking: profile.smoking,
     // 추가 질문
