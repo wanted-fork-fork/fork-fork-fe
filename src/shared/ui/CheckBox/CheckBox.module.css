@@ -24,7 +24,7 @@
     height: 16px;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--color-neutral-0);
 }
 
 .CheckBox {

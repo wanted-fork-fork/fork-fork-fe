@@ -14,7 +14,7 @@
   overflow: hidden;
   margin: auto;
   box-shadow: 0 0 17px 2px #0000001A;
-  background-color: #fff;
+  background-color: var(--color-neutral-0);
 }
 
 .SideSection {

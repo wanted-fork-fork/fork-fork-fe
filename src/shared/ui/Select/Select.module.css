@@ -33,7 +33,7 @@
 
 .SelectContent {
     z-index: var(--z-index-select);
-    background-color: #fff;
+    background-color: var(--color-neutral-0);
     box-shadow: 0 0 11px 0 #00000024;
     border-radius: 8px;
     width: var(--radix-select-trigger-width);

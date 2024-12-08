@@ -15,7 +15,7 @@
 
 .Variant_Filled_Neutral {
     background-color: var(--color-neutral-200);
-    color: #fff;
+    color: var(--color-neutral-0);
 }
 
 .Variant_Outline_Primary {
