@@ -1,6 +1,7 @@
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { DetailedInfoUserInfo, ImageDto, UserInfoRequest, UserInfoRequestMbti } from 'src/types';
 import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/vo/date';
+import { Location } from 'src/entities/location/types/location';
 
 export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): UserInfoRequest => {
   return {
@@ -40,7 +41,19 @@ export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
     imageDtoList: dto.images,
     introduction: '',
     job: dto.job,
-    location: [],
+    location:
+      (dto.location?.towns
+        .map((town, idx) => {
+          const city = dto.location?.cities[idx];
+          if (!city) return null;
+          return dto.location?.cities[idx]
+            ? ({
+                town: [{ town, townName: `TOWN_${town}` }],
+                city: { city, cityName: `CITY_${city}` },
+              } satisfies Location)
+            : null;
+        })
+        .filter(Boolean) as Location[]) || [],
     mbti: dto.mbti ?? null,
     name: dto.name,
     religion: dto.religion,
