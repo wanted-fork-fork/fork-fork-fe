@@ -4,6 +4,8 @@ import { Close, Plus } from 'src/shared/ui/icons';
 import styles from './AvatarList.module.css';
 import { AvatarWithModal } from 'src/shared/ui/AvatarWithModal/AvatarWithModal';
 import { ImageDto } from 'src/types';
+import { ImageModal } from 'src/shared/ui/ImageModal/ImageModal';
+import { useMemo, useState } from 'react';
 
 type Props = {
   imageDtoList: ImageDto[];
@@ -13,6 +15,16 @@ type Props = {
 };
 
 export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFileCount }: Props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(0);
+
+  const handleClickAvatar = (idx: number) => {
+    setInitialSlide(idx);
+    setShowModal(true);
+  };
+
+  const image = useMemo(() => imageDtoList.map((dto) => ({ src: dto.url, alt: dto.url })), [imageDtoList]);
+
   const canAddFile = Boolean(setFiles && (!maxFileCount || imageDtoList.length < maxFileCount));
 
   const onFileChanged = (files: File[]) => {
@@ -26,13 +38,14 @@ export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFile
           {(onClickUpload) => <Avatar fallback={<Plus />} shape={'roundedSquare'} size={72} onClick={onClickUpload} />}
         </UploadTrigger>
       )}
-      {imageDtoList.map(({ url, imageId }) => (
+      {imageDtoList.map(({ url, imageId }, idx) => (
         <AvatarWithModal
           key={url}
           fallback={''}
           shape={'roundedSquare'}
           size={72}
           src={url}
+          onClick={() => handleClickAvatar(idx)}
           actionSlot={
             onClickRemove && (
               <Close onClick={() => onClickRemove?.(url, !isNaN(Number(imageId)) ? Number(imageId) : undefined)} />
@@ -40,6 +53,12 @@ export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFile
           }
         />
       ))}
+      <ImageModal
+        showModal={showModal}
+        closeModal={() => setShowModal(false)}
+        imageList={image}
+        initialSlide={initialSlide}
+      />
     </div>
   );
 };
