@@ -8,6 +8,8 @@ import { getReligionText } from 'src/entities/profile/lib/getReligionText';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { getJobText } from 'src/entities/profile/lib/getJobText';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
+import { getLocationText } from 'src/entities/profile/lib/getLocationText';
+import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
 
 type Props = {
   profile: ProfileSummary;
@@ -34,7 +36,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}</span>
-            <span>서울시 서초구</span>
+            <span>{getLocationText(convertDtoToLocation(profile.location)[0])}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,11 @@
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
-import { DetailedInfoUserInfo, ImageDto, UserInfoRequest, UserInfoRequestMbti } from 'src/types';
+import {
+  DetailedInfoUserInfo,
+  ImageDto,
+  Location as LocationDto,
+  UserInfoRequest,
+  UserInfoRequestMbti,
+} from 'src/types';
 import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/vo/date';
 import { Location } from 'src/entities/location/types/location';
 
@@ -30,6 +36,21 @@ export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): Use
   };
 };
 
+export const convertDtoToLocation = (dto: LocationDto) => {
+  return dto?.towns
+    .map((town, idx) => {
+      const city = dto?.cities[idx];
+      if (!city) return null;
+      return dto?.cities[idx]
+        ? ({
+            town: [{ town, townName: `TOWN_${town}` }],
+            city: { city, cityName: `CITY_${city}` },
+          } satisfies Location)
+        : null;
+    })
+    .filter(Boolean) as Location[];
+};
+
 export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
   return {
     birthDate: convertDateToDateObject(new Date(dto.birthDate)),
@@ -41,19 +62,7 @@ export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
     imageDtoList: dto.images,
     introduction: '',
     job: dto.job,
-    location:
-      (dto.location?.towns
-        .map((town, idx) => {
-          const city = dto.location?.cities[idx];
-          if (!city) return null;
-          return dto.location?.cities[idx]
-            ? ({
-                town: [{ town, townName: `TOWN_${town}` }],
-                city: { city, cityName: `CITY_${city}` },
-              } satisfies Location)
-            : null;
-        })
-        .filter(Boolean) as Location[]) || [],
+    location: convertDtoToLocation(dto.location),
     mbti: dto.mbti ?? null,
     name: dto.name,
     religion: dto.religion,

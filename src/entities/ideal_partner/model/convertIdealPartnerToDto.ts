@@ -1,6 +1,6 @@
 import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { DetailedInfoIdealPartner, IdealPartnerRequest, ImageDto } from 'src/types';
-import { Location } from 'src/entities/location/types/location';
+import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
 
 export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: ImageDto[]): IdealPartnerRequest => {
   return {
@@ -29,19 +29,7 @@ export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPa
     hobbies: dto.hobbies?.map((h) => ({ name: h })) ?? [],
     images: [],
     imageDtoList: dto.images ?? [],
-    locations:
-      (dto.location?.towns
-        .map((town, idx) => {
-          const city = dto.location?.cities[idx];
-          if (!city) return null;
-          return dto.location?.cities[idx]
-            ? ({
-                town: [{ town, townName: `TOWN_${town}` }],
-                city: { city, cityName: `CITY_${city}` },
-              } satisfies Location)
-            : null;
-        })
-        .filter(Boolean) as Location[]) || [],
+    locations: dto.location ? convertDtoToLocation(dto.location) : [],
     religion: dto.religion,
     requiredOptions: dto.requiredOptions ?? [],
     smoking: dto.smoking,
