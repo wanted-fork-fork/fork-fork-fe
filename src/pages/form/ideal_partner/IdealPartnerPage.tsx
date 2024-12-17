@@ -24,6 +24,9 @@ export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => v
     if (currentStepIdx > 0) {
       addTouchedStep(StepKeys[currentStepIdx - 1]);
     }
+    if (currentStepIdx === StepKeys.length) {
+      addTouchedStep(StepKeys[currentStepIdx]);
+    }
   }, [addTouchedStep, currentStepIdx]);
 
   const handleClickNext = () => {
