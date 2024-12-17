@@ -18,6 +18,9 @@ type Props = {
 
 export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
   const { t } = useTranslation();
+
+  const location = convertDtoToLocation(profile.location)[0];
+
   return (
     <article className={styles.Container}>
       {headerRightSlot && <div className={styles.HeaderRightSlot}>{headerRightSlot}</div>}
@@ -36,7 +39,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}</span>
-            <span>{getLocationText(convertDtoToLocation(profile.location)[0])}</span>
+            <span>{location ? getLocationText(location) : ''}</span>
           </div>
         </div>
       </div>
