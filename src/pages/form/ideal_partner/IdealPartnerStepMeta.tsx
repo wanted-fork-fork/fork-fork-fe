@@ -35,7 +35,7 @@ export const IdealPartnerStepMeta = {
     ),
     description: () => <></>,
     form: () => <LocationForm />,
-    canGoNext: () => true,
+    canGoNext: (state) => state.locations.length > 0,
     shortcutTitle: '상대방이 주로 머무는 지역',
   },
   IDEAL_HOBBY: {
