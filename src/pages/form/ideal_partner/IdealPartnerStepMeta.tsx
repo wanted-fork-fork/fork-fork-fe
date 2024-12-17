@@ -105,7 +105,7 @@ export const IdealPartnerStepMeta = {
     ),
     description: () => <></>,
     form: () => <ToMatcherForm />,
-    canGoNext: (state) => Boolean(state.toMatchMaker),
+    canGoNext: () => true,
     shortcutTitle: '주선자에게 하고 싶은 말',
   },
 } as const satisfies Record<string, StepMeta<IdealPartner>>;
