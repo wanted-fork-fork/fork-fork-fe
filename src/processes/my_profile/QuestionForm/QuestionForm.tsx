@@ -3,7 +3,7 @@ import { Check, Plus } from 'src/shared/ui/icons';
 import styles from './QuestionForm.module.css';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { ReactNode, useState } from 'react';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { MyProfile, useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { BookForm } from 'src/processes/my_profile/QuestionForm/BookForm/BookForm';
 import { DateStyleForm } from 'src/processes/my_profile/QuestionForm/DateStyleForm/DateStyleForm';
 import { FoodForm } from 'src/processes/my_profile/QuestionForm/FoodForm/FoodForm';
@@ -22,21 +22,42 @@ const QuestionInputMap: Record<QuestionType, ReactNode> = {
   PET: <PetForm />,
 };
 
+const validate = (key: QuestionType, data: Pick<MyProfile, 'pets' | 'movie' | 'book' | 'dateStyle' | 'foods'>) => {
+  switch (key) {
+    case 'PET':
+    case 'DATE_STYLE':
+    case 'FOOD':
+    case 'DRIVING':
+      return true;
+    case 'BOOK':
+      return data.book.bookName && data.book.cause;
+    case 'MOVIE':
+      return data.movie.movieName && data.movie.cause;
+  }
+  return false;
+};
 export const QuestionForm = () => {
-  const { pets, movie, book, dateStyle, foods } = useMyProfileStore(({ pets, movie, book, dateStyle, foods }) => ({
+  const data = useMyProfileStore(({ pets, movie, book, dateStyle, foods }) => ({
     pets,
     movie,
     book,
     dateStyle,
     foods,
   }));
+  const { pets, movie, book, dateStyle, foods } = data;
   const [inputType, setInputType] = useState<QuestionType | null>(null);
+
+  const canSubmit = inputType && validate(inputType, data);
 
   const onClickQuestionButton = (type: QuestionType) => {
     setInputType(type);
   };
 
   const onClose = () => setInputType(null);
+
+  const onSubmit = () => {
+    setInputType(null);
+  };
 
   return (
     <div className={styles.Wrapper}>
@@ -57,7 +78,7 @@ export const QuestionForm = () => {
         <BottomSheet.Header onClose={onClose} />
         <BottomSheet.Content
           footerSlot={
-            <Button variant={'filled'} color={'primary'} widthType={'fill'} onClick={onClose}>
+            <Button variant={'filled'} color={'primary'} widthType={'fill'} onClick={onSubmit} disabled={!canSubmit}>
               저장
             </Button>
           }
