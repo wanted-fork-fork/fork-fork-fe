@@ -5,17 +5,18 @@ import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore
 import { ProfileEditBody } from 'src/features/EditInfo/ProfileEditBody';
 
 type Props = {
-  stepMeta: StepMeta<MyProfile> | StepMeta<IdealPartner> | null;
+  type: 'PROFILE' | 'IDEAL_PARTNER';
+  stepMeta: StepMeta<MyProfile | IdealPartner> | null;
   onClose: () => void;
   onCompleteEdit: () => void;
 };
 
-export const ProfileEditBottomSheet = ({ stepMeta, onClose, onCompleteEdit }: Props) => {
+export const ProfileEditBottomSheet = ({ type, stepMeta, onClose, onCompleteEdit }: Props) => {
   return (
     <BottomSheet isOpen={Boolean(stepMeta)} onClose={onClose}>
       <BottomSheet.Header onPrev={onClose} onClose={onClose} />
       <BottomSheet.Content>
-        {stepMeta && <ProfileEditBody stepMeta={stepMeta} onCompleteEdit={onCompleteEdit} />}
+        {stepMeta && <ProfileEditBody type={type} stepMeta={stepMeta} onCompleteEdit={onCompleteEdit} />}
       </BottomSheet.Content>
     </BottomSheet>
   );

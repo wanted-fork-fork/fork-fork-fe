@@ -50,7 +50,9 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
 
   const selectedStep =
     selectedKey &&
-    (selectedKey.section === 'PROFILE' ? MyProfileStepMeta[selectedKey.key] : IdealPartnerStepMeta[selectedKey.key]);
+    ((selectedKey.section === 'PROFILE'
+      ? MyProfileStepMeta[selectedKey.key]
+      : IdealPartnerStepMeta[selectedKey.key]) as StepMeta<MyProfile | IdealPartner>);
 
   const onSelectProfile = (key: keyof typeof MyProfileStepMeta) => {
     setSelectedKey({ section: 'PROFILE', key });
@@ -108,7 +110,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
           )}
           {selectedKey !== null && selectedStep && (
             <div className={styles.FormWrapper}>
-              <ProfileEditBody stepMeta={selectedStep} onCompleteEdit={onCompleteEdit} />
+              <ProfileEditBody type={selectedKey.section} stepMeta={selectedStep} onCompleteEdit={onCompleteEdit} />
             </div>
           )}
         </BottomSheet.Content>
