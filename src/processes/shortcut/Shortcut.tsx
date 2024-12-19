@@ -4,7 +4,6 @@ import { useRef, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMyProfileFormProcessStore } from 'src/processes/my_profile/_store/myProfileFormProcessStore';
@@ -14,6 +13,7 @@ import toast from 'react-hot-toast';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { ProfileEditBody } from 'src/features/EditInfo/ProfileEditBody';
 
 const ProfileMetaList = Array.from(Object.entries(MyProfileStepMeta)) as [
   keyof typeof MyProfileStepMeta,
@@ -28,7 +28,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
   const floatingButtonPosition = useRef({ right, bottom });
 
   const myProfileTouchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
-  const ideaelPartnerTouchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
+  const idealPartnerTouchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
 
   const [open, setOpen] = useState(false);
   const [selectedKey, setSelectedKey] = useState<
@@ -51,7 +51,6 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
   const selectedStep =
     selectedKey &&
     (selectedKey.section === 'PROFILE' ? MyProfileStepMeta[selectedKey.key] : IdealPartnerStepMeta[selectedKey.key]);
-  const name = useProfileFirstName();
 
   const onSelectProfile = (key: keyof typeof MyProfileStepMeta) => {
     setSelectedKey({ section: 'PROFILE', key });
@@ -99,7 +98,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
                     <MenuButton
                       key={key}
                       text={shortcutTitle}
-                      disabled={!ideaelPartnerTouchedSteps.has(key)}
+                      disabled={!idealPartnerTouchedSteps.has(key)}
                       onClick={() => onSelectIdealPartner(key)}
                     />
                   ))}
@@ -109,18 +108,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
           )}
           {selectedKey !== null && selectedStep && (
             <div className={styles.FormWrapper}>
-              <div className={styles.FormHeader}>
-                <h2>{selectedStep.title({ name })}</h2>
-                {'description' in selectedStep && (
-                  <small className={styles.Description}>{selectedStep.description()}</small>
-                )}
-              </div>
-              <div className={styles.FormMain}>{selectedStep.form({})}</div>
-              <div className={styles.FormFooter}>
-                <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onCompleteEdit}>
-                  변경사항 저장
-                </Button>
-              </div>
+              <ProfileEditBody stepMeta={selectedStep} onCompleteEdit={onCompleteEdit} />
             </div>
           )}
         </BottomSheet.Content>
