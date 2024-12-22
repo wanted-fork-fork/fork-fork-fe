@@ -12,14 +12,14 @@ import { ToMatcherForm } from 'src/processes/ideal_partner/ToMatcherForm/ToMatch
 
 export const IdealPartnerStepMeta = {
   IDEAL_AGE: {
-    title: () => <>선호하는 연령대는 어떻게 되나요?</>,
+    title: () => <>선호하는 연령대가 있나요?</>,
     description: () => <></>,
     form: () => <AgeForm />,
     canGoNext: (state) => Boolean(state.ageRange?.max && state.ageRange.min),
     shortcutTitle: '선호하는 연령대',
   },
   IDEAL_HEIGHT_STYLE: {
-    title: () => <>선호하는 키와 스타일을 알려주세요</>,
+    title: () => <>이상형을 볼 때 외모가 중요한가요?</>,
     description: () => <></>,
     form: () => <HeightStyleForm />,
     canGoNext: (state) => Boolean(state.heightRange?.min && state.heightRange.max && state.style),
@@ -28,9 +28,9 @@ export const IdealPartnerStepMeta = {
   IDEAL_LOCATION: {
     title: ({ name }) => (
       <>
-        상대방이 어느 지역에 있어야
+        상대방의 주 활동지역과 거리가
         <br />
-        {name}님과 만나기 좋을까요?
+        {name}님에게 중요하신가요?
       </>
     ),
     description: () => <></>,
@@ -41,7 +41,9 @@ export const IdealPartnerStepMeta = {
   IDEAL_HOBBY: {
     title: () => (
       <>
-        상대방이 어떤 취미생활을 할 때<br />좀 더 관심이 갈 것 같나요?
+        상대방과 취미생활이
+        <br />
+        비슷한 것을 선호하시나요?
       </>
     ),
     description: () => <></>,

@@ -1,8 +1,13 @@
-import { Location } from 'src/entities/location/types/location';
 import { create } from 'zustand';
-import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { DrinkingDrinkingCategory, ImageDto, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import {
+  IdealPartnerDrinkingDrinkingCategory,
+  IdealPartnerRequestHobbies,
+  IdealPartnerRequestLocation,
+  IdealPartnerSmokingSmokingCategory,
+  ImageDto,
+  ReligionReligionCategory,
+} from 'src/types';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 import { useCallback, useMemo } from 'react';
 
@@ -20,18 +25,18 @@ export type IdealPartner = {
   style: string;
   images: File[];
   imageDtoList: ImageDto[];
-  locations: Location[];
-  hobbies: Hobby[];
+  locations: IdealPartnerRequestLocation;
+  hobbies: IdealPartnerRequestHobbies;
   religion: {
     religionCategory: ReligionReligionCategory;
     religionName?: string;
   };
   drinking: {
-    drinkingCategory: DrinkingDrinkingCategory;
+    drinkingCategory: IdealPartnerDrinkingDrinkingCategory;
     drinkingAmount?: string;
   };
   smoking: {
-    smokingCategory: SmokingSmokingCategory;
+    smokingCategory: IdealPartnerSmokingSmokingCategory;
     smokingAmount?: string;
   };
   requiredOptions: string[];
@@ -48,13 +53,13 @@ type Action = {
   setStyle: (value: string) => void;
   setImages: (getState: (prevFiles: File[]) => File[]) => void;
   setImageDtoList: (getState: (prevFiles: ImageDto[]) => ImageDto[]) => void;
-  setLocation: (value: Location[]) => void;
-  setHobbies: (hobbies: Hobby[]) => void;
+  setLocation: (value: IdealPartnerRequestLocation) => void;
+  setHobbies: (hobbies: IdealPartnerRequestHobbies) => void;
   setReligionCategory: (category: ReligionReligionCategory) => void;
   setReligionName: (name: string) => void;
-  setDrinkingCategory: (category: DrinkingDrinkingCategory) => void;
+  setDrinkingCategory: (category: IdealPartnerDrinkingDrinkingCategory) => void;
   setDrinkingAmount: (name: string) => void;
-  setSmokingCategory: (category: SmokingSmokingCategory) => void;
+  setSmokingCategory: (category: IdealPartnerSmokingSmokingCategory) => void;
   setSmokingAmount: (name: string) => void;
   setRequiredOptions: (options: string[]) => void;
   setToMatchMaker: (value: string) => void;
@@ -82,9 +87,9 @@ const createStoreHook = (initialState?: IdealPartner) =>
     imageDtoList: [],
     setImages: (getState) => set({ images: getState(get().images) }),
     setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
-    locations: [],
+    locations: 'NOT_IMPORTANT',
     setLocation: (locations) => set({ locations }),
-    hobbies: [],
+    hobbies: 'NOT_IMPORTANT',
     setHobbies: (hobbies) => set({ hobbies }),
     religion: {
       religionCategory: 'ETC',
