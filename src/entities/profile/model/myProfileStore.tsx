@@ -69,6 +69,7 @@ type Action = {
   setReligionName: (description: string) => void;
   setHobbies: (hobbies: Hobby[]) => void;
   setDrinkingCategory: (value: UserInfoDrinkingDrinkingCategory) => void;
+  setDrinkingAmount: (value: string) => void;
   setSmokingCategory: (value: UserInfoSmokingSmokingCategory) => void;
   setSmokingAmount: (value: string) => void;
   setIntroduction: (value: string) => void;
@@ -125,7 +126,8 @@ const createStoreHook = (initialState?: MyProfile) =>
     hobbies: [],
     setHobbies: (hobbies) => set({ hobbies: hobbies }),
     drinking: { drinkingCategory: 'DRINKER', drinkingAmount: '' },
-    setDrinkingCategory: (value) => set({ drinking: { drinkingCategory: value } }),
+    setDrinkingCategory: (value) => set({ drinking: { ...get().drinking, drinkingCategory: value } }),
+    setDrinkingAmount: (value) => set({ drinking: { ...get().drinking, drinkingAmount: value } }),
     smoking: {
       smokingCategory: 'ETC',
       smokingAmount: '',

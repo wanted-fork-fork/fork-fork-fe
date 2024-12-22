@@ -1,6 +1,8 @@
 {
   "MALE": "남",
   "FEMALE": "여",
+  "INFO_DRINKING_DRINKER": "합니다",
+  "INFO_DRINKING_NON_DRINKER": "안합니다",
   "INFO_SMOKING_SMOKER": "합니다",
   "INFO_SMOKING_NON_SMOKER": "안합니다",
   "INFO_SMOKING_ETC": "기타",
