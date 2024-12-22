@@ -1,45 +1,48 @@
-import { useEffect } from 'react';
 import styles from './LocationForm.module.css';
-import { Close } from 'src/shared/ui/icons';
-import { Location } from 'src/entities/location/types/location';
-import { Chip } from 'src/shared/ui/Chip/Chip';
-import { LocationSelectTable } from 'src/widgets/LocationSelectTable/LocationSelectTable';
-import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
+import { IdealPartnerRequestLocation } from 'src/types';
+import { useIdealPartnerFormProcessStore } from 'src/processes/ideal_partner/_store/idealPartnerFormProcessStore';
+import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import { Chip } from 'src/shared/ui/Chip/Chip';
+import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 
-const MAX_LOCATION_COUNT = 5;
+const locationRadioMeta: RadioMeta<IdealPartnerRequestLocation>[] = [
+  { key: 'IMPORTANT', allowInput: false, name: '중요해요. 저와 가까운 분을 선호해요' },
+  { key: 'NOT_IMPORTANT', allowInput: false, name: '상관없어요' },
+];
 
 export const LocationForm = () => {
+  const name = useProfileFirstName();
+  const selectedLocations = useMyProfileStore((state) => state.location);
+
   const locations = useIdealPartnerStore((state) => state.locations);
-  const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
-    locations,
-    (a, b) => a.town[0]?.town === b.town[0]?.town,
-    { maxCount: MAX_LOCATION_COUNT },
-  );
+  const setLocations = useIdealPartnerStore((state) => state.setLocation);
+  const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
 
-  const handleSelectLocation = (loc: Location) => {
-    toggleTown(loc);
+  const onSelect = (category: IdealPartnerRequestLocation) => {
+    setLocations(category);
+    addTouchedStep('IDEAL_LOCATION');
   };
-
-  const setLocation = useIdealPartnerStore((state) => state.setLocation);
-  useEffect(() => {
-    setLocation(selectedTownList);
-  }, [selectedTownList, setLocation]);
 
   return (
     <section className={styles.Section}>
+      <small className={styles.Description}>{name}님이 선택하신 지역</small>
       <div className={styles.ChipWrapper}>
-        {selectedTownList.map((location) => (
-          <Chip
-            key={location.town[0].townName}
-            suffixSlot={<Close width={18} />}
-            onClick={() => handleSelectLocation(location)}
-          >
-            {location.city.cityName} {location.town[0].townName}
+        {selectedLocations.map((l) => (
+          <Chip key={l.town[0].town} className={styles.Chip}>
+            {l.city.cityName} {l.town[0].townName}
           </Chip>
         ))}
       </div>
-      <LocationSelectTable selectedLocations={selectedTownList} selectLocation={handleSelectLocation} />
+      <div>
+        <RadioList
+          radioMetaList={locationRadioMeta}
+          selected={touchedSteps.has('IDEAL_LOCATION') ? locations : null}
+          onSelect={onSelect}
+        />
+      </div>
     </section>
   );
 };

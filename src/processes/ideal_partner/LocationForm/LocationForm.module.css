@@ -6,12 +6,18 @@
     overflow: hidden;
 }
 
+.Description {
+    color: var(--color-neutral-400);
+}
+
+.Chip {
+    color: var(--color-neutral-500);
+}
+
 .ChipWrapper {
     display: flex;
     overflow-x: auto;
     gap: 12px;
-
-    height: 32px;
 
     flex-shrink: 0;
 
