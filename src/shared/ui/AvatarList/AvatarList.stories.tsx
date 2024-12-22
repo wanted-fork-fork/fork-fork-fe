@@ -10,8 +10,8 @@ export default meta;
 type Story = StoryObj<typeof AvatarList>;
 
 function AvatarListStory() {
-  const [files, setFiles] = useState<File[]>([]);
-  return <AvatarList files={files} setFiles={setFiles} />;
+  const [, setFiles] = useState<File[]>([]);
+  return <AvatarList imageDtoList={[]} setFiles={setFiles} />;
 }
 
 export const Default: Story = {

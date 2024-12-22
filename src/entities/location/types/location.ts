@@ -1,4 +1,4 @@
-import { LocationCitiesItem, LocationTownsItem } from 'src/types';
+import { UserInfoLocationCitiesItem, UserInfoLocationTownsItem } from 'src/types';
 
 export type Location = {
   city: City;
@@ -6,11 +6,11 @@ export type Location = {
 };
 
 export type City = {
-  city: LocationCitiesItem;
+  city: UserInfoLocationCitiesItem;
   cityName: string;
 };
 
 export type Town = {
-  town: LocationTownsItem;
+  town: UserInfoLocationTownsItem;
   townName: string;
 };

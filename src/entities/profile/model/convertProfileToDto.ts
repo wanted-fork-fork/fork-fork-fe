@@ -2,7 +2,7 @@ import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import {
   DetailedInfoUserInfo,
   ImageDto,
-  Location as LocationDto,
+  UserInfoLocation as LocationDto,
   UserInfoRequest,
   UserInfoRequestMbti,
 } from 'src/types';

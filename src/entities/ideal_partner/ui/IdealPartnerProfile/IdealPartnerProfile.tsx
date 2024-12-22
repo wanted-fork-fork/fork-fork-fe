@@ -1,12 +1,10 @@
 import { IdealPartner, useIdealPartnerImages } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
-import { Chip } from 'src/shared/ui/Chip/Chip';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import styles from 'src/shared/ui/Profile/Profile.module.css';
 import { getSmokingText } from '../../../profile/lib/getSmokingText';
 import { getDrinkingText } from '../../../profile/lib/getDrinkingText';
 import { getReligionText } from '../../../profile/lib/getReligionText';
-import { getLocationText } from '../../../profile/lib/getLocationText';
 import { useProfileEditContext } from 'src/features/EditInfo/ProfileEditContext';
 
 export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
@@ -49,22 +47,14 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
           </span>
         </div>
       )}
-      {(showBlankValue || profile.locations.length > 0) && (
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'희망 지역'} onClickEdit={() => onClickEdit?.('IDEAL_LOCATION')} />
-          <span>{profile.locations.map(getLocationText).join(', ')}</span>
-        </div>
-      )}
-      {(showBlankValue || profile.hobbies.length > 0) && (
-        <div className={styles.Cell}>
-          <ProfileCellHeader title={'취미'} onClickEdit={() => onClickEdit?.('IDEAL_HOBBY')} />
-          <div className={styles.ChipList}>
-            {profile.hobbies.map((hobby) => (
-              <Chip key={hobby.name}>{hobby.name}</Chip>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className={styles.Cell}>
+        <ProfileCellHeader title={'희망 지역'} onClickEdit={() => onClickEdit?.('IDEAL_LOCATION')} />
+        <span>{profile.locations}</span>
+      </div>
+      <div className={styles.Cell}>
+        <ProfileCellHeader title={'취미'} onClickEdit={() => onClickEdit?.('IDEAL_HOBBY')} />
+        <div className={styles.ChipList}>{profile.hobbies}</div>
+      </div>
       {(showBlankValue || profile.religion) && (
         <div className={styles.Cell}>
           <ProfileCellHeader title={'종교'} onClickEdit={() => onClickEdit?.('IDEAL_RELIGION')} />

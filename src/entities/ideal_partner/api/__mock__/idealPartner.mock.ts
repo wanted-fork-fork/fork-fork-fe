@@ -1,18 +1,16 @@
 import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 export const MockIdealPartner: IdealPartner = {
+  imageDtoList: [],
   ageRange: { max: 25, min: 20 },
   drinking: { drinkingAmount: '주 1-2회 가볍게는 괜찮아요', drinkingCategory: 'ONE_TWO_TIMES_A_WEEK' },
   heightRange: { max: 180, min: 175 },
-  hobbies: [{ name: '맛집탐방' }, { name: '뜨개질' }],
+  hobbies: 'NOT_IMPORTANT',
   images: [],
-  locations: [
-    { city: { cityName: '서울시', city: 'SEOUL' }, town: [{ town: 'GANGNAM', townName: '강남구' }] },
-    { city: { cityName: '경기도', city: 'GYEONGGI' }, town: [{ town: 'SUWON', townName: '수원시' }] },
-  ],
+  locations: 'IMPORTANT',
   religion: { religionCategory: 'ETC', religionName: '' },
   requiredOptions: [],
-  smoking: { smokingAmount: '', smokingCategory: 'NON_SMOKER' },
+  smoking: { smokingAmount: '', smokingCategory: 'DOESNT_MATTER' },
   style: '눈이 크신 분',
   toMatchMaker: '잘 부탁드립니다 !',
 };

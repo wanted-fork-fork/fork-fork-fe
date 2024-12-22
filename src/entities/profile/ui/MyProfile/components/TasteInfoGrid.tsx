@@ -4,6 +4,7 @@ import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { getSmokingText } from 'src/entities/profile/lib/getSmokingText';
 import { EditProfileFunction } from 'src/features/EditInfo/ProfileEditContext';
+import { getDrinkingText } from 'src/entities/profile/lib/getDrinkingText';
 
 export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; onClickEdit?: EditProfileFunction }) => {
   const showBlankValue = Boolean(onClickEdit);
@@ -32,7 +33,7 @@ export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; on
           {(showBlankValue || profile.drinking) && (
             <div className={styles.Cell}>
               <ProfileCellHeader title={'음주 빈도'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
-              <span>{profile.drinking}</span>
+              <span>{getDrinkingText(profile.drinking)}</span>
             </div>
           )}
         </div>

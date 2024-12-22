@@ -1,18 +1,14 @@
 import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { DetailedInfoIdealPartner, IdealPartnerRequest, ImageDto } from 'src/types';
-import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
 
 export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: ImageDto[]): IdealPartnerRequest => {
   return {
-    ageRange: idealPartner.ageRange,
-    heightRange: idealPartner.heightRange,
+    ageRange: idealPartner.ageRange || undefined,
+    heightRange: idealPartner.heightRange || undefined,
     style: idealPartner.style,
     images,
-    location: {
-      cities: idealPartner.locations.map((l) => l.city.city),
-      towns: idealPartner.locations.flatMap((l) => l.town.map((t) => t.town)),
-    },
-    hobbies: idealPartner.hobbies.map((h) => h.name),
+    location: idealPartner.locations,
+    hobbies: idealPartner.hobbies,
     drinking: idealPartner.drinking,
     religion: idealPartner.religion,
     smoking: idealPartner.smoking,
@@ -26,10 +22,10 @@ export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPa
     ageRange: dto.ageRange,
     drinking: dto.drinking,
     heightRange: dto.heightRange,
-    hobbies: dto.hobbies?.map((h) => ({ name: h })) ?? [],
+    hobbies: dto.hobbies,
     images: [],
     imageDtoList: dto.images ?? [],
-    locations: dto.location ? convertDtoToLocation(dto.location) : [],
+    locations: dto.location ?? 'NOT_IMPORTANT',
     religion: dto.religion,
     requiredOptions: dto.requiredOptions ?? [],
     smoking: dto.smoking,

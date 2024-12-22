@@ -14,6 +14,8 @@ export class KakaoSdk {
       integrity: 'sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4',
       crossOrigin: 'anonymous',
     });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     KakaoSdk.sdkInstance = window.Kakao;
     KakaoSdk.sdkInstance.init(import.meta.env.VITE_KAKAO_SDK_KEY);
     KakaoSdk.sdkInstance.isInitialized();

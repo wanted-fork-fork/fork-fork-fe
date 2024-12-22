@@ -1,6 +1,7 @@
 import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 
 export const fullProfileMock: MyProfile = {
+  imageDtoList: [],
   name: '김감자',
   gender: 'FEMALE',
   birthDate: {
@@ -24,7 +25,9 @@ export const fullProfileMock: MyProfile = {
     religionName: '',
   },
   hobbies: [{ name: '🧗 클라이밍' }, { name: '🥐 맛집탐방' }, { name: '🎬 영화보기' }],
-  drinking: '아주 가끔',
+  drinking: {
+    drinkingCategory: 'DRINKER',
+  },
   smoking: {
     smokingCategory: 'NON_SMOKER',
   },

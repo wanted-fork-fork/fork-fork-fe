@@ -10,6 +10,7 @@ import { getJobText } from 'src/entities/profile/lib/getJobText';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { getLocationText } from 'src/entities/profile/lib/getLocationText';
 import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
+import { getDrinkingText } from 'src/entities/profile/lib/getDrinkingText';
 
 type Props = {
   profile: ProfileSummary;
@@ -62,7 +63,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             </tr>
             <tr>
               <th scope={'row'}>음주</th>
-              <td>{profile.drinking}</td>
+              <td>{getDrinkingText(profile.drinking)}</td>
               <th scope={'row'}>흡연</th>
               <td>{getSmokingText(profile.smoking, 'INFO')}</td>
             </tr>

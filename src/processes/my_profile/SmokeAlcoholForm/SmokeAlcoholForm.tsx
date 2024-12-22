@@ -1,22 +1,26 @@
-import { Input } from 'src/shared/ui/Input/Input';
 import styles from './SmokeAlcoholForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { SmokingSmokingCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useMyProfileFormProcessStore } from '../_store/myProfileFormProcessStore';
+import { UserInfoDrinkingDrinkingCategory, UserInfoSmokingSmokingCategory } from 'src/types';
 
-const smokingRadioMeta: DistributedOmit<RadioMeta<SmokingSmokingCategory>, 'name'>[] = [
+const smokingRadioMeta: DistributedOmit<RadioMeta<UserInfoSmokingSmokingCategory>, 'name'>[] = [
   { key: 'SMOKER', allowInput: false },
   { key: 'NON_SMOKER', allowInput: false },
   { key: 'ETC', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
+const drinkingRadioMeta: DistributedOmit<RadioMeta<UserInfoDrinkingDrinkingCategory>, 'name'>[] = [
+  { key: 'DRINKER', allowInput: false },
+  { key: 'NON_DRINKER', allowInput: false },
+];
+
 export const SmokeAlcoholForm = () => {
-  const drinking = useMyProfileStore((state) => state.drinking);
-  const setDrinking = useMyProfileStore((state) => state.setDrinking);
+  const drinkingCategory = useMyProfileStore((state) => state.drinking.drinkingCategory);
+  const setDrinkingCategory = useMyProfileStore((state) => state.setDrinkingCategory);
   const smokingCategory = useMyProfileStore((state) => state.smoking.smokingCategory);
   const smokingAmount = useMyProfileStore((state) => state.smoking.smokingAmount);
   const setSmokingCategory = useMyProfileStore((state) => state.setSmokingCategory);
@@ -31,11 +35,24 @@ export const SmokeAlcoholForm = () => {
       })),
     [t],
   );
+  const drinkingMeta = useMemo(
+    () =>
+      drinkingRadioMeta.map((m) => ({
+        ...m,
+        name: t(`INFO_DRINKING_${m.key}`),
+      })),
+    [t],
+  );
 
   const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
   const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
 
-  const onSelect = (category: SmokingSmokingCategory) => {
+  const onSelectDrinking = (category: UserInfoDrinkingDrinkingCategory) => {
+    setDrinkingCategory(category);
+    addTouchedStep('PROFILE_SMOKE_ALCOHOL');
+  };
+
+  const onSelectSmoking = (category: UserInfoSmokingSmokingCategory) => {
     setSmokingCategory(category);
     addTouchedStep('PROFILE_SMOKE_ALCOHOL');
   };
@@ -43,20 +60,20 @@ export const SmokeAlcoholForm = () => {
   return (
     <section className={styles.Container}>
       <fieldset>
-        <legend className={`strong ${styles.Legend}`}>술자리 빈도</legend>
-        <Input
-          placeholder={'ex. 가볍게 주 2회, 친구들과 주 1회, 회식 매 달 1회...'}
-          value={drinking}
-          onChange={(e) => setDrinking(e.target.value)}
+        <legend className={`strong ${styles.Legend}`}>음주 여부</legend>
+        <RadioList
+          radioMetaList={drinkingMeta}
+          selected={touchedSteps.has('PROFILE_SMOKE_ALCOHOL') ? drinkingCategory : null}
+          onSelect={onSelectDrinking}
         />
-      </fieldset>
+      </fieldset>{' '}
       <fieldset>
         <legend className={`strong ${styles.Legend}`}>흡연 여부</legend>
         <RadioList
           radioMetaList={meta}
           selected={touchedSteps.has('PROFILE_SMOKE_ALCOHOL') ? smokingCategory : null}
           inputValue={smokingAmount}
-          onSelect={onSelect}
+          onSelect={onSelectSmoking}
           onChangeInputValue={setSmokingAmount}
         />
       </fieldset>

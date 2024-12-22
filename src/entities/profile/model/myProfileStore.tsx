@@ -5,7 +5,15 @@ import { DateObj } from 'src/shared/vo/date';
 import { Mbti } from 'src/shared/vo/mbti';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { Book, ImageDto, JobJobCategory, Movie, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
+import {
+  Book,
+  ImageDto,
+  JobJobCategory,
+  Movie,
+  ReligionReligionCategory,
+  UserInfoDrinkingDrinkingCategory,
+  UserInfoSmokingSmokingCategory,
+} from 'src/types';
 import { useCallback, useMemo } from 'react';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 
@@ -27,9 +35,12 @@ export type MyProfile = {
     religionName?: string;
   };
   hobbies: Hobby[];
-  drinking: string;
+  drinking: {
+    drinkingCategory: UserInfoDrinkingDrinkingCategory;
+    drinkingAmount?: string;
+  };
   smoking: {
-    smokingCategory: SmokingSmokingCategory;
+    smokingCategory: UserInfoSmokingSmokingCategory;
     smokingAmount?: string;
   };
   introduction: string;
@@ -57,8 +68,8 @@ type Action = {
   setReligionCategory: (job: ReligionReligionCategory) => void;
   setReligionName: (description: string) => void;
   setHobbies: (hobbies: Hobby[]) => void;
-  setDrinking: (value: string) => void;
-  setSmokingCategory: (value: SmokingSmokingCategory) => void;
+  setDrinkingCategory: (value: UserInfoDrinkingDrinkingCategory) => void;
+  setSmokingCategory: (value: UserInfoSmokingSmokingCategory) => void;
   setSmokingAmount: (value: string) => void;
   setIntroduction: (value: string) => void;
   setBookName: (value: string) => void;
@@ -113,8 +124,8 @@ const createStoreHook = (initialState?: MyProfile) =>
     setReligionName: (desc) => set({ religion: { ...get().religion, religionName: desc } }),
     hobbies: [],
     setHobbies: (hobbies) => set({ hobbies: hobbies }),
-    drinking: '',
-    setDrinking: (value) => set({ drinking: value }),
+    drinking: { drinkingCategory: 'DRINKER', drinkingAmount: '' },
+    setDrinkingCategory: (value) => set({ drinking: { drinkingCategory: value } }),
     smoking: {
       smokingCategory: 'ETC',
       smokingAmount: '',

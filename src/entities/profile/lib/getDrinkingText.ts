@@ -1,6 +1,6 @@
-import { Drinking } from '../../../types';
 import { t } from 'i18next';
+import { IdealPartnerDrinking, UserInfoDrinking } from 'src/types';
 
-export const getDrinkingText = (drinking: Drinking) => {
-  return drinking.drinkingCategory === 'ETC' ? drinking.drinkingAmount : t(`DRINKING_${drinking.drinkingCategory}`);
+export const getDrinkingText = (drinking: UserInfoDrinking | IdealPartnerDrinking) => {
+  return t(`DRINKING_${drinking.drinkingCategory}`);
 };
