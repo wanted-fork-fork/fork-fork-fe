@@ -400,17 +400,21 @@ components:
           items:
             $ref: '#/components/schemas/InfoImage'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
+          enum:
+          - IMPORTANT
+          - NOT_IMPORTANT
         hobbies:
-          type: array
-          items:
-            type: string
+          type: string
+          enum:
+          - IMPORTANT
+          - NOT_IMPORTANT
         religion:
           $ref: '#/components/schemas/Religion'
         drinking:
-          $ref: '#/components/schemas/Drinking'
+          $ref: '#/components/schemas/IdealPartnerDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/IdealPartnerSmoking'
         requiredOptions:
           type: array
           items:
@@ -471,7 +475,7 @@ components:
         job:
           $ref: '#/components/schemas/Job'
         location:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/UserInfoLocation'
         religion:
           $ref: '#/components/schemas/Religion'
         hobbies:
@@ -479,9 +483,9 @@ components:
           items:
             type: string
         drinking:
-          type: string
+          $ref: '#/components/schemas/UserInfoDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/UserInfoSmoking'
         introduction:
           type: string
         pets:
@@ -500,7 +504,7 @@ components:
           $ref: '#/components/schemas/Book'
         movie:
           $ref: '#/components/schemas/Movie'
-    Drinking:
+    IdealPartnerDrinking:
       required:
       - drinkingCategory
       type: object
@@ -514,6 +518,20 @@ components:
           - NEVER
           - ETC
         drinkingAmount:
+          type: string
+    IdealPartnerSmoking:
+      required:
+      - smokingCategory
+      type: object
+      properties:
+        smokingCategory:
+          type: string
+          enum:
+          - DOESNT_MATTER
+          - NEVER
+          - GOOD
+          - ETC
+        smokingAmount:
           type: string
     InfoImage:
       required:
@@ -540,7 +558,56 @@ components:
           - ETC
         jobName:
           type: string
-    Location:
+    Movie:
+      required:
+      - cause
+      - movieName
+      type: object
+      properties:
+        movieName:
+          type: string
+        cause:
+          type: string
+    NumberRange:
+      required:
+      - max
+      - min
+      type: object
+      properties:
+        min:
+          type: integer
+          format: int32
+        max:
+          type: integer
+          format: int32
+    Religion:
+      required:
+      - religionCategory
+      type: object
+      properties:
+        religionCategory:
+          type: string
+          enum:
+          - CHRISTIANITY
+          - CATHOLICISM
+          - BUDDHISM
+          - IRRELIGION
+          - ETC
+        religionName:
+          type: string
+    UserInfoDrinking:
+      required:
+      - drinkingCategory
+      type: object
+      properties:
+        drinkingCategory:
+          type: string
+          enum:
+          - NON_DRINKER
+          - DRINKER
+        drinkingAmount:
+          type: string
+    UserInfoLocation:
       required:
       - cities
       - towns
@@ -803,44 +870,7 @@ components:
             - DAEGU_SEO
             - SUSEONG
             - DAEGU_JUNG
-    Movie:
-      required:
-      - cause
-      - movieName
-      type: object
-      properties:
-        movieName:
-          type: string
-        cause:
-          type: string
-    NumberRange:
-      required:
-      - max
-      - min
-      type: object
-      properties:
-        min:
-          type: integer
-          format: int32
-        max:
-          type: integer
-          format: int32
-    Religion:
-      required:
-      - religionCategory
-      type: object
-      properties:
-        religionCategory:
-          type: string
-          enum:
-          - CHRISTIANITY
-          - CATHOLICISM
-          - BUDDHISM
-          - IRRELIGION
-          - ETC
-        religionName:
-          type: string
-    Smoking:
+    UserInfoSmoking:
       required:
       - smokingCategory
       type: object
@@ -881,17 +911,21 @@ components:
           items:
             $ref: '#/components/schemas/InfoImage'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
+          enum:
+          - IMPORTANT
+          - NOT_IMPORTANT
         hobbies:
-          type: array
-          items:
-            type: string
+          type: string
+          enum:
+          - IMPORTANT
+          - NOT_IMPORTANT
         religion:
           $ref: '#/components/schemas/Religion'
         drinking:
-          $ref: '#/components/schemas/Drinking'
+          $ref: '#/components/schemas/IdealPartnerDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/IdealPartnerSmoking'
         requiredOptions:
           type: array
           items:
@@ -961,7 +995,7 @@ components:
         job:
           $ref: '#/components/schemas/Job'
         location:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/UserInfoLocation'
         religion:
           $ref: '#/components/schemas/Religion'
         hobbies:
@@ -969,9 +1003,9 @@ components:
           items:
             type: string
         drinking:
-          type: string
+          $ref: '#/components/schemas/UserInfoDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/UserInfoSmoking'
         introduction:
           type: string
         pets:
@@ -1076,7 +1110,7 @@ components:
         job:
           $ref: '#/components/schemas/Job'
         location:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/UserInfoLocation'
         religion:
           $ref: '#/components/schemas/Religion'
         hobbies:
@@ -1084,9 +1118,9 @@ components:
           items:
             type: string
         drinking:
-          type: string
+          $ref: '#/components/schemas/UserInfoDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/UserInfoSmoking'
         pets:
           type: array
           items:
@@ -1156,7 +1190,7 @@ components:
           - MALE
           - FEMALE
         location:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/UserInfoLocation'
         height:
           type: integer
           format: int32
@@ -1184,9 +1218,9 @@ components:
         job:
           $ref: '#/components/schemas/Job'
         drinking:
-          type: string
+          $ref: '#/components/schemas/UserInfoDrinking'
         smoking:
-          $ref: '#/components/schemas/Smoking'
+          $ref: '#/components/schemas/UserInfoSmoking'
         hobbies:
           type: array
           items:
