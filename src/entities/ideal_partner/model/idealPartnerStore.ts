@@ -11,8 +11,8 @@ export const REQUIRED_OPTION_MAX_COUNT = 3;
 
 export type IdealPartner = {
   ageRange?: {
-    min: number;
-    max: number;
+    min?: number;
+    max?: number;
   };
   heightRange?: {
     min: number;
@@ -40,6 +40,7 @@ export type IdealPartner = {
 };
 
 type Action = {
+  toggleAge: (on: boolean) => void;
   setMinAge: (value: number) => void;
   setMaxAge: (value: number) => void;
   setMinHeight: (value: number) => void;
@@ -61,10 +62,8 @@ type Action = {
 
 const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
-    ageRange: {
-      min: 20,
-      max: 30,
-    },
+    ageRange: undefined,
+    toggleAge: (on: boolean) => set({ ageRange: on ? { max: undefined, min: undefined } : undefined }),
     setMinAge: (min) => set({ ageRange: { max: 30, ...get().ageRange, min } }),
     setMaxAge: (max) => set({ ageRange: { min: 20, ...get().ageRange, max } }),
     heightRange: {

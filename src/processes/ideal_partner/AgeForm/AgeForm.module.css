@@ -1,3 +1,26 @@
 .Container {
   height: 100%;
 }
+
+.AgeDetailWrapper {
+  margin-left: 32px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & small {
+    color: var(--color-neutral-600);
+  }
+}
+
+.AgeInputWrapper {
+  display: flex;
+  gap: 8px;
+  justify-content: stretch;
+  align-items: center;
+
+  & input {
+    width: 100%
+  }
+}
