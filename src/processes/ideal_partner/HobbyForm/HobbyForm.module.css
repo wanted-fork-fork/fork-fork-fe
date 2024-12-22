@@ -8,8 +8,9 @@
 
 .Description {
   color: var(--color-neutral-400);
+  margin-bottom: 12px;
+  display: block;
 }
-
 
 .ChipWrapper {
   display: flex;

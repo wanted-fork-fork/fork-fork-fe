@@ -28,13 +28,15 @@ export const LocationForm = () => {
 
   return (
     <section className={styles.Section}>
-      <small className={styles.Description}>{name}님이 선택하신 지역</small>
-      <div className={styles.ChipWrapper}>
-        {selectedLocations.map((l) => (
-          <Chip key={l.town[0].town} className={styles.Chip}>
-            {l.city.cityName} {l.town[0].townName}
-          </Chip>
-        ))}
+      <div>
+        <small className={styles.Description}>{name}님이 선택하신 지역</small>
+        <div className={styles.ChipWrapper}>
+          {selectedLocations.map((l) => (
+            <Chip key={l.town[0].town} className={styles.Chip}>
+              {l.city.cityName} {l.town[0].townName}
+            </Chip>
+          ))}
+        </div>
       </div>
       <div>
         <RadioList
