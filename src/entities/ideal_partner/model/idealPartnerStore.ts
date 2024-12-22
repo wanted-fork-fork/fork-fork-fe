@@ -2,7 +2,6 @@ import { Location } from 'src/entities/location/types/location';
 import { create } from 'zustand';
 import { Hobby } from 'src/entities/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
-import { MAX_IDEAL_HEIGHT, MIN_IDEAL_HEIGHT } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
 import { DrinkingDrinkingCategory, ImageDto, ReligionReligionCategory, SmokingSmokingCategory } from 'src/types';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 import { useCallback, useMemo } from 'react';
@@ -15,8 +14,8 @@ export type IdealPartner = {
     max?: number;
   };
   heightRange?: {
-    min: number;
-    max: number;
+    min?: number;
+    max?: number;
   };
   style: string;
   images: File[];
@@ -43,6 +42,7 @@ type Action = {
   toggleAge: (on: boolean) => void;
   setMinAge: (value: number) => void;
   setMaxAge: (value: number) => void;
+  toggleHeight: (on: boolean) => void;
   setMinHeight: (value: number) => void;
   setMaxHeight: (value: number) => void;
   setStyle: (value: string) => void;
@@ -64,21 +64,18 @@ const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
     ageRange: undefined,
     toggleAge: (on: boolean) => set({ ageRange: on ? { max: undefined, min: undefined } : undefined }),
-    setMinAge: (min) => set({ ageRange: { max: 30, ...get().ageRange, min } }),
-    setMaxAge: (max) => set({ ageRange: { min: 20, ...get().ageRange, max } }),
-    heightRange: {
-      min: MIN_IDEAL_HEIGHT,
-      max: MAX_IDEAL_HEIGHT,
-    },
+    setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
+    setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),
+    heightRange: undefined,
+    toggleHeight: (on: boolean) => set({ heightRange: on ? { max: undefined, min: undefined } : undefined }),
     setMinHeight: (min) =>
       set({
         heightRange: {
-          max: MAX_IDEAL_HEIGHT,
           ...get().heightRange,
           min,
         },
       }),
-    setMaxHeight: (max) => set({ heightRange: { min: MIN_IDEAL_HEIGHT, ...get().heightRange, max } }),
+    setMaxHeight: (max) => set({ heightRange: { ...get().heightRange, max } }),
     style: '',
     setStyle: (style) => set({ style }),
     images: [],
