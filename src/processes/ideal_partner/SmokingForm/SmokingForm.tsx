@@ -1,15 +1,16 @@
 import styles from './SmokingForm.module.css';
 import { RadioList, RadioMeta } from 'src/shared/ui/RadioList/RadioList';
 import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { SmokingSmokingCategory } from 'src/types';
 import { DistributedOmit } from '../../../shared/types/distributedOmit';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useIdealPartnerFormProcessStore } from '../_store/idealPartnerFormProcessStore';
+import { IdealPartnerSmokingSmokingCategory } from 'src/types';
 
-const smokingRadioMeta: DistributedOmit<RadioMeta<SmokingSmokingCategory>, 'name'>[] = [
-  { key: 'SMOKER', allowInput: false },
-  { key: 'NON_SMOKER', allowInput: false },
+const smokingRadioMeta: DistributedOmit<RadioMeta<IdealPartnerSmokingSmokingCategory>, 'name'>[] = [
+  { key: 'DOESNT_MATTER', allowInput: false },
+  { key: 'NEVER', allowInput: false },
+  { key: 'GOOD', allowInput: false },
   { key: 'ETC', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
@@ -22,7 +23,7 @@ export const SmokingForm = () => {
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
   const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
 
-  const onSelect = (category: SmokingSmokingCategory) => {
+  const onSelect = (category: IdealPartnerSmokingSmokingCategory) => {
     setSmokingCategory(category);
     addTouchedStep('IDEAL_SMOKING');
   };
