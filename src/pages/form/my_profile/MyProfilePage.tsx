@@ -29,7 +29,7 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
     if (currentStepIdx > 0) {
       addTouchedStep(StepKeys[currentStepIdx - 1]);
     }
-    if (currentStepIdx === StepKeys.length) {
+    if (currentStepIdx === StepKeys.length - 1) {
       addTouchedStep(StepKeys[currentStepIdx]);
     }
   }, [addTouchedStep, currentStepIdx]);

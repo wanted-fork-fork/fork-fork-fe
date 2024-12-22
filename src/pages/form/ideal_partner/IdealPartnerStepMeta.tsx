@@ -15,14 +15,14 @@ export const IdealPartnerStepMeta = {
     title: () => <>선호하는 연령대가 있나요?</>,
     description: () => <></>,
     form: () => <AgeForm />,
-    canGoNext: (state) => Boolean(state.ageRange?.max && state.ageRange.min),
+    canGoNext: (state) => (state.ageRange ? Boolean(state.ageRange.max && state.ageRange.min) : true),
     shortcutTitle: '선호하는 연령대',
   },
   IDEAL_HEIGHT_STYLE: {
     title: () => <>이상형을 볼 때 외모가 중요한가요?</>,
     description: () => <></>,
     form: () => <HeightStyleForm />,
-    canGoNext: (state) => Boolean(state.heightRange?.min && state.heightRange.max && state.style),
+    canGoNext: (state) => (state.heightRange ? Boolean(state.heightRange.min && state.heightRange.max) : true),
     shortcutTitle: '선호하는 키, 스타일',
   },
   IDEAL_LOCATION: {
@@ -35,7 +35,7 @@ export const IdealPartnerStepMeta = {
     ),
     description: () => <></>,
     form: () => <LocationForm />,
-    canGoNext: (state) => state.locations.length > 0,
+    canGoNext: (_, checkTouched) => checkTouched?.('IDEAL_LOCATION') ?? true,
     shortcutTitle: '상대방이 주로 머무는 지역',
   },
   IDEAL_HOBBY: {
@@ -48,7 +48,7 @@ export const IdealPartnerStepMeta = {
     ),
     description: () => <></>,
     form: () => <HobbyForm />,
-    canGoNext: (state) => Boolean(state.hobbies.length > 0),
+    canGoNext: (_, checkTouched) => checkTouched?.('IDEAL_HOBBY') ?? true,
     shortcutTitle: '상대방의 취미',
   },
   IDEAL_RELIGION: {

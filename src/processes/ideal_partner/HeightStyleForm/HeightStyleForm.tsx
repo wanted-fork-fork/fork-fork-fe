@@ -58,9 +58,21 @@ export const HeightStyleForm = () => {
             <p className={styles.Description}>그렇다면 선호하는 키와 스타일을 알려주세요</p>
             <p className={'label'}>키</p>
             <div className={styles.HeightInput}>
-              <Input placeholder={'최소 키 입력'} suffixSlot={<span>cm</span>} value={min} onChange={onChangeMin} />
+              <Input
+                placeholder={'최소 키 입력'}
+                suffixSlot={<span>cm</span>}
+                value={min}
+                onChange={onChangeMin}
+                inputMode={'numeric'}
+              />
               <span>-</span>
-              <Input placeholder={'최대 키 입력'} suffixSlot={<span>cm</span>} value={max} onChange={onChangeMax} />
+              <Input
+                placeholder={'최대 키 입력'}
+                suffixSlot={<span>cm</span>}
+                value={max}
+                onChange={onChangeMax}
+                inputMode={'numeric'}
+              />
             </div>
           </div>
           <label className={styles.StyleInputWrapper}>

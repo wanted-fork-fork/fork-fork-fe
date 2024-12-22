@@ -39,9 +39,21 @@ export const AgeForm = () => {
           <div className={styles.AgeDetailWrapper}>
             <small>선호하는 연령대를 입력해주세요</small>
             <div className={styles.AgeInputWrapper}>
-              <Input placeholder={'최소 나이'} suffixSlot={<span>세</span>} value={min} onChange={onChangeMin} />
+              <Input
+                placeholder={'최소 나이'}
+                suffixSlot={<span>세</span>}
+                value={min}
+                onChange={onChangeMin}
+                inputMode={'numeric'}
+              />
               <span>-</span>
-              <Input placeholder={'최대 나이'} suffixSlot={<span>세</span>} value={max} onChange={onChangeMax} />
+              <Input
+                placeholder={'최대 나이'}
+                suffixSlot={<span>세</span>}
+                value={max}
+                onChange={onChangeMax}
+                inputMode={'numeric'}
+              />
             </div>
           </div>
         )}

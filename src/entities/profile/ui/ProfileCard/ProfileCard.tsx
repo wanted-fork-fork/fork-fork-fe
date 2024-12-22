@@ -10,6 +10,7 @@ import { getJobText } from 'src/entities/profile/lib/getJobText';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
 import { getDrinkingText } from 'src/entities/profile/lib/getDrinkingText';
+import { getLocationText } from 'src/entities/profile/lib/getLocationText';
 
 type Props = {
   profile: ProfileSummary;
@@ -39,7 +40,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}</span>
-            {location && <span>getLocationText(location)</span>}
+            {location && <span>{getLocationText(location)}</span>}
           </div>
         </div>
       </div>

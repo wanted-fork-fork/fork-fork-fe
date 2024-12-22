@@ -15,16 +15,19 @@ export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => v
   const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
 
-  const currentStep = Steps[currentStepIdx];
-  const canGoNext = useIdealPartnerStore(currentStep.canGoNext);
-
+  const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+
+  const currentStep = Steps[currentStepIdx];
+  const canGoNext = useIdealPartnerStore((state) =>
+    currentStep.canGoNext(state, (key) => touchedSteps.has(key as keyof typeof IdealPartnerStepMeta)),
+  );
 
   useEffect(() => {
     if (currentStepIdx > 0) {
       addTouchedStep(StepKeys[currentStepIdx - 1]);
     }
-    if (currentStepIdx === StepKeys.length) {
+    if (currentStepIdx === StepKeys.length - 1) {
       addTouchedStep(StepKeys[currentStepIdx]);
     }
   }, [addTouchedStep, currentStepIdx]);
