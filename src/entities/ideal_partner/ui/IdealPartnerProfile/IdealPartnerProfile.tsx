@@ -6,8 +6,11 @@ import { getSmokingText } from '../../../profile/lib/getSmokingText';
 import { getDrinkingText } from '../../../profile/lib/getDrinkingText';
 import { getReligionText } from '../../../profile/lib/getReligionText';
 import { useProfileEditContext } from 'src/features/EditInfo/ProfileEditContext';
+import { useTranslation } from 'react-i18next';
 
 export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
+  const { t } = useTranslation();
+
   const value = useProfileEditContext();
   const onClickEdit = value.canEdit ? value.onEdit : undefined;
 
@@ -17,19 +20,19 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
 
   return (
     <section className={styles.Grid}>
-      {(showBlankValue || profile.ageRange) && (
+      {
         <div className={styles.Cell}>
           <ProfileCellHeader title={'선호하는 연령대'} onClickEdit={() => onClickEdit?.('IDEAL_AGE')} />
           <span>
-            {profile.ageRange?.min}-{profile.ageRange?.max}
+            {profile.ageRange ? `${profile.ageRange?.min}-${profile.ageRange?.max}` : '나이는 딱히 상관 없어요'}
           </span>
         </div>
-      )}
+      }
       {(showBlankValue || profile.heightRange) && (
         <div className={styles.Cell}>
           <ProfileCellHeader title={'선호하는 키'} onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')} />
           <span>
-            {profile.heightRange?.min}cm-{profile.heightRange?.max}cm
+            {profile.heightRange?.min}cm - {profile.heightRange?.max}cm
           </span>
         </div>
       )}
@@ -49,11 +52,11 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       )}
       <div className={styles.Cell}>
         <ProfileCellHeader title={'희망 지역'} onClickEdit={() => onClickEdit?.('IDEAL_LOCATION')} />
-        <span>{profile.locations}</span>
+        <span>{t(`LOCATION_${profile.locations}`)}</span>
       </div>
       <div className={styles.Cell}>
         <ProfileCellHeader title={'취미'} onClickEdit={() => onClickEdit?.('IDEAL_HOBBY')} />
-        <div className={styles.ChipList}>{profile.hobbies}</div>
+        <div className={styles.ChipList}>{t(`HOBBY_${profile.hobbies}`)}</div>
       </div>
       {(showBlankValue || profile.religion) && (
         <div className={styles.Cell}>

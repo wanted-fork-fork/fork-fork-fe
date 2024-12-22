@@ -26,13 +26,13 @@ export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; on
         <div className={styles.GridRow}>
           {(showBlankValue || profile.smoking) && (
             <div className={styles.Cell}>
-              <ProfileCellHeader title={'흡연여부'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
+              <ProfileCellHeader title={'흡연 여부'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
               <span>{getSmokingText(profile.smoking, 'INFO')}</span>
             </div>
           )}
           {(showBlankValue || profile.drinking) && (
             <div className={styles.Cell}>
-              <ProfileCellHeader title={'음주 빈도'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
+              <ProfileCellHeader title={'음주 여부'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
               <span>{getDrinkingText(profile.drinking)}</span>
             </div>
           )}

@@ -8,7 +8,6 @@ import { getReligionText } from 'src/entities/profile/lib/getReligionText';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { getJobText } from 'src/entities/profile/lib/getJobText';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
-import { getLocationText } from 'src/entities/profile/lib/getLocationText';
 import { convertDtoToLocation } from 'src/entities/profile/model/convertProfileToDto';
 import { getDrinkingText } from 'src/entities/profile/lib/getDrinkingText';
 
@@ -40,7 +39,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}</span>
-            <span>{location ? getLocationText(location) : ''}</span>
+            {location && <span>getLocationText(location)</span>}
           </div>
         </div>
       </div>
