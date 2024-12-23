@@ -95,10 +95,12 @@ export const PersonalInfoForm = ({ onClickNextForm }: { onClickNextForm?: () => 
   const currentStep = useMemo(() => PersonalInfoStepMap[step], [step]);
   const canShowNext = useMemo(() => step < PersonalInfoStepEnum.HEIGHT || onClickNextForm, [onClickNextForm, step]);
 
-  const canClickNext = useMemo(
-    () => (step < PersonalInfoStepEnum.HEIGHT || onClickNextForm) && currentStep?.canGoNext(personalInfoData),
-    [currentStep, onClickNextForm, personalInfoData, step],
-  );
+  const canClickNext = useMemo(() => {
+    const isValid = Object.values(PersonalInfoStepMap)
+      .slice(0, step + 1)
+      .every((v) => v.canGoNext(personalInfoData));
+    return (step < PersonalInfoStepEnum.HEIGHT || onClickNextForm) && isValid;
+  }, [onClickNextForm, personalInfoData, step]);
 
   const onClickNext = () => {
     step < PersonalInfoStepEnum.HEIGHT ? setStep((prev) => prev + 1) : onClickNextForm?.();
