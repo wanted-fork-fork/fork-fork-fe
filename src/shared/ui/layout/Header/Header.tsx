@@ -26,7 +26,7 @@ export const Header = ({
         </Button>
       )}
       {prefixSlot && <span className={styles.Prefix}>{prefixSlot}</span>}
-      {children}
+      <span className={styles.Content}>{children}</span>
       {suffixSlot && <span className={styles.Suffix}>{suffixSlot}</span>}
       {onClose && (
         <Button
