@@ -18,6 +18,8 @@ export const AgeForm = () => {
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMin(undefined);
+    } else if (value >= 100) {
+      setMin(100);
     } else {
       setMin(Number(e.target.value));
     }
@@ -27,6 +29,8 @@ export const AgeForm = () => {
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMax(undefined);
+    } else if (value >= 100) {
+      setMax(100);
     } else {
       setMax(Number(e.target.value));
     }
@@ -51,6 +55,7 @@ export const AgeForm = () => {
                 value={min ?? ''}
                 onChange={onChangeMin}
                 inputMode={'numeric'}
+                max={100}
               />
               <span>-</span>
               <Input
@@ -59,6 +64,7 @@ export const AgeForm = () => {
                 value={max ?? ''}
                 onChange={onChangeMax}
                 inputMode={'numeric'}
+                max={100}
               />
             </div>
           </div>

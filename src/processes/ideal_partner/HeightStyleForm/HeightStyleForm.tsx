@@ -29,6 +29,8 @@ export const HeightStyleForm = () => {
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMin(undefined);
+    } else if (value >= 240) {
+      setMin(240);
     } else {
       setMin(value);
     }
@@ -37,6 +39,8 @@ export const HeightStyleForm = () => {
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMax(undefined);
+    } else if (value >= 240) {
+      setMax(240);
     } else {
       setMax(value);
     }
