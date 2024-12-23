@@ -27,11 +27,19 @@ export const HeightStyleForm = () => {
 
   const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    if (!isNaN(value)) setMin(value);
+    if (value <= 0 || isNaN(value)) {
+      setMin(undefined);
+    } else {
+      setMin(value);
+    }
   };
   const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    if (!isNaN(value)) setMax(value);
+    if (value <= 0 || isNaN(value)) {
+      setMax(undefined);
+    } else {
+      setMax(value);
+    }
   };
 
   const onCheckDisable = () => {
@@ -61,7 +69,7 @@ export const HeightStyleForm = () => {
               <Input
                 placeholder={'최소 키 입력'}
                 suffixSlot={<span>cm</span>}
-                value={min}
+                value={min ?? ''}
                 onChange={onChangeMin}
                 inputMode={'numeric'}
               />
@@ -69,7 +77,7 @@ export const HeightStyleForm = () => {
               <Input
                 placeholder={'최대 키 입력'}
                 suffixSlot={<span>cm</span>}
-                value={max}
+                value={max ?? ''}
                 onChange={onChangeMax}
                 inputMode={'numeric'}
               />

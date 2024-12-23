@@ -45,11 +45,11 @@ export type IdealPartner = {
 
 type Action = {
   toggleAge: (on: boolean) => void;
-  setMinAge: (value: number) => void;
-  setMaxAge: (value: number) => void;
+  setMinAge: (value?: number) => void;
+  setMaxAge: (value?: number) => void;
   toggleHeight: (on: boolean) => void;
-  setMinHeight: (value: number) => void;
-  setMaxHeight: (value: number) => void;
+  setMinHeight: (value?: number) => void;
+  setMaxHeight: (value?: number) => void;
   setStyle: (value: string) => void;
   setImages: (getState: (prevFiles: File[]) => File[]) => void;
   setImageDtoList: (getState: (prevFiles: ImageDto[]) => ImageDto[]) => void;

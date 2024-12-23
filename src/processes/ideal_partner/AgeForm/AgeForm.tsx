@@ -15,13 +15,19 @@ export const AgeForm = () => {
   const setMax = useIdealPartnerStore((state) => state.setMaxAge);
 
   const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!isNaN(Number(e.target.value))) {
+    const value = Number(e.target.value);
+    if (value <= 0 || isNaN(value)) {
+      setMin(undefined);
+    } else {
       setMin(Number(e.target.value));
     }
   };
 
   const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!isNaN(Number(e.target.value))) {
+    const value = Number(e.target.value);
+    if (value <= 0 || isNaN(value)) {
+      setMax(undefined);
+    } else {
       setMax(Number(e.target.value));
     }
   };
@@ -42,7 +48,7 @@ export const AgeForm = () => {
               <Input
                 placeholder={'최소 나이'}
                 suffixSlot={<span>세</span>}
-                value={min}
+                value={min ?? ''}
                 onChange={onChangeMin}
                 inputMode={'numeric'}
               />
@@ -50,7 +56,7 @@ export const AgeForm = () => {
               <Input
                 placeholder={'최대 나이'}
                 suffixSlot={<span>세</span>}
-                value={max}
+                value={max ?? ''}
                 onChange={onChangeMax}
                 inputMode={'numeric'}
               />
