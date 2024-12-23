@@ -54,8 +54,8 @@ export const HeightStyleForm = () => {
       </div>
       {enabled && (
         <div className={styles.Container}>
+          <p className={styles.Description}>그렇다면 선호하는 키와 스타일을 알려주세요</p>
           <div className={styles.HeightInputWrapper}>
-            <p className={styles.Description}>그렇다면 선호하는 키와 스타일을 알려주세요</p>
             <p className={'label'}>키</p>
             <div className={styles.HeightInput}>
               <Input
