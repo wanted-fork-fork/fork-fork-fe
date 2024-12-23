@@ -50,8 +50,12 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             <tr>
               <th scope={'row'}>신장</th>
               <td>{profile.height}cm</td>
-              <th scope={'row'}>MBTI</th>
-              <td>{profile.mbti}</td>
+              {profile.mbti && (
+                <>
+                  <th scope={'row'}>MBTI</th>
+                  <td>{profile.mbti}</td>
+                </>
+              )}
             </tr>
             <tr>
               <th scope={'row'}>종교</th>
