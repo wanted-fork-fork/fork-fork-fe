@@ -19,7 +19,7 @@
 
 .ChipWrapper {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: wrap;
     gap: 8px;
 
     flex-shrink: 0;
