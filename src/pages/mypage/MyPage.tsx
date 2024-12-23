@@ -4,7 +4,7 @@ import { Link } from '@remix-run/react';
 import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
-import { PRIVACY_POLICY_URL } from 'src/shared/constants/url';
+import { PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
 
 export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
   return (
@@ -26,7 +26,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
             개인정보처리방침
           </Button>
         </Link>
-        <Link to={'/'}>
+        <Link to={TERM_URL}>
           <Button color={'neutral'} variant={'ghost'} widthType={'fill'} suffixSlot={<ArrowRight />} textAlign={'left'}>
             이용정책
           </Button>
