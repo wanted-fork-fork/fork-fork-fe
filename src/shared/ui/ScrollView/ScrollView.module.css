@@ -10,10 +10,10 @@
 .Scrollbar {
   width: 12px;
   padding: 4px;
+  z-index: 1;
 }
 
 .Thumb {
   background-color: var(--color-neutral-300);
   border-radius: 8px;
-  z-index: 1;
 }
