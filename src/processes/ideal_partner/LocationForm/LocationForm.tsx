@@ -8,7 +8,7 @@ import { Chip } from 'src/shared/ui/Chip/Chip';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 
 const locationRadioMeta: RadioMeta<IdealPartnerRequestLocation>[] = [
-  { key: 'IMPORTANT', allowInput: false, name: '중요해요. 저와 가까운 분을 선호해요' },
+  { key: 'IMPORTANT', allowInput: false, name: '네, 저와 가까운 분을 선호해요' },
   { key: 'NOT_IMPORTANT', allowInput: false, name: '상관없어요' },
 ];
 

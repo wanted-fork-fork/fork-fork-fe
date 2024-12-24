@@ -28,9 +28,9 @@ export const IdealPartnerStepMeta = {
   IDEAL_LOCATION: {
     title: ({ name }) => (
       <>
-        상대방의 주 활동지역과 거리가
+        {name}님의 주 활동 지역과
         <br />
-        {name}님에게 중요하신가요?
+        가까이 계신 분을 선호하시나요?
       </>
     ),
     description: () => <></>,
