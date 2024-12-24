@@ -3,15 +3,16 @@ import { CheckBox } from 'src/shared/ui/CheckBox/CheckBox';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import styles from './ProfileFormIntroPage.module.css';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
-import { PRIVACY_POLICY_URL } from 'src/shared/constants/url';
+import { PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
 
 export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
 
   const { value: checkedPrivacy, toggle: togglePrivacy } = useBoolean(false);
+  const { value: checkedServiceTerm, toggle: toggleServiceTerm } = useBoolean(false);
   const { value: checkedTerm, toggle: toggleTerm } = useBoolean(false);
 
-  const canGoNext = checkedPrivacy && checkedTerm;
+  const canGoNext = checkedPrivacy && checkedServiceTerm && checkedTerm;
 
   return (
     <>
@@ -47,6 +48,12 @@ export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () 
             <div className={styles.CheckListItem}>
               <CheckBox checked={checkedPrivacy} label={'개인정보 처리방침 동의'} onChange={togglePrivacy} />
               <a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">
+                보기
+              </a>
+            </div>
+            <div className={styles.CheckListItem}>
+              <CheckBox checked={checkedServiceTerm} label={'이용약관 확인'} onChange={toggleServiceTerm} />
+              <a href={TERM_URL} target="_blank" rel="noreferrer">
                 보기
               </a>
             </div>
