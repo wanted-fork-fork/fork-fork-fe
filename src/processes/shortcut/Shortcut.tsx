@@ -79,7 +79,6 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
             <div className={styles.MenuWrapper}>
               <div className={styles.TitleSection}>
                 <h2>수정하고 싶은 항목을 선택해주세요.</h2>
-                <p>선택 시 해당 항목으로 이동합니다.</p>
               </div>
               <ScrollView rootClassName={styles.MenuSection} viewportClassName={styles.MenuSectionViewport}>
                 <div>
