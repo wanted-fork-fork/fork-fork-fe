@@ -9,5 +9,10 @@ export default meta;
 type Story = StoryObj<typeof MyPage>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    userInfo: {
+      name: '김구구',
+      userId: '123',
+    },
+  },
 };

@@ -32,6 +32,12 @@
     margin-bottom: 8px;
 }
 
+.MenuList{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
 .ButtonWrapper {
     padding: 0 4px;
 
@@ -45,7 +51,6 @@
     font-size: 14px;
     color: var(--color-neutral-700);
 
-    margin-top: 32px;
     margin-left: 20px;
     display: block;
 }
