@@ -15,4 +15,5 @@
 .Thumb {
   background-color: var(--color-neutral-300);
   border-radius: 8px;
+  z-index: 1;
 }
