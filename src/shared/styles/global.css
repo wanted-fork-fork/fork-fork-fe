@@ -90,6 +90,7 @@ button {
 
 html {
     font-family: "Pretendard Variable", "Arial", sans-serif;
+    overscroll-behavior: contain;
 }
 
 * {
