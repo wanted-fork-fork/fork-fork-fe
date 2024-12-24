@@ -26,6 +26,17 @@
     align-items: center;
 }
 
+.RequiredBadge {
+    background-color: var(--color-primary);
+    padding: 6px 12px;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 12px;
+    margin-left: 3px;
+}
+
 .CellHeaderTitle {
     font-weight: 600;
     font-size: 14px;

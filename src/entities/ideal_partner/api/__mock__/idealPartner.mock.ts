@@ -9,7 +9,7 @@ export const MockIdealPartner: IdealPartner = {
   images: [],
   locations: 'IMPORTANT',
   religion: { religionCategory: 'ETC', religionName: '' },
-  requiredOptions: [],
+  requiredOptions: ['나이', '지역'],
   smoking: { smokingAmount: '', smokingCategory: 'DOESNT_MATTER' },
   style: '눈이 크신 분',
   toMatchMaker: '잘 부탁드립니다 !',
