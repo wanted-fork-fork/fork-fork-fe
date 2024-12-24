@@ -19,7 +19,8 @@ type Props = {
 
 export const SharedProfilePage = ({ expiredDate }: Props) => {
   const { t } = useTranslation();
-  const { ref, inView } = useInView();
+  const { ref: titleRef, inView: isTitleInView } = useInView();
+  const { ref: timerRef, inView: isTimerInView } = useInView();
 
   const profile = useMyProfileStore((state) => state);
   const age = calculateAge(convertDateObjectToDate(profile.birthDate));
@@ -27,17 +28,18 @@ export const SharedProfilePage = ({ expiredDate }: Props) => {
 
   return (
     <div className={styles.Wrapper}>
-      {inView ? (
+      {isTitleInView ? (
         <span />
       ) : (
-        <Header prefixSlot={<></>} suffixSlot={<></>}>
+        <Header className={styles.Header} prefixSlot={<></>} suffixSlot={<div className={styles.HeaderSuffix}>.</div>}>
           {profile.name}({t(profile.gender)}, {age})
         </Header>
       )}
       <ScrollView rootClassName={styles.Body}>
         <ImageLayout urls={urls} />
-        <ExpiredDateTimer expiredDate={expiredDate} type={inView ? 'BOX' : 'NUDGE'} />
-        <h1 className={styles.Name} ref={ref}>
+        <ExpiredDateTimer ref={timerRef} expiredDate={expiredDate} type={'BOX'} />
+        {!isTimerInView && <ExpiredDateTimer expiredDate={expiredDate} type={'NUDGE'} />}
+        <h1 className={styles.Name} ref={titleRef}>
           {profile.name}({t(profile.gender)}, {age})
         </h1>
         <div className={styles.ContentWrapper}>
