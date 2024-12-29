@@ -46,11 +46,17 @@
     }
 }
 
-.Logout {
+.SmallButtonsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 0 20px;
+}
+
+.SmallButton {
     font-weight: 600;
     font-size: 14px;
-    color: var(--color-neutral-700);
+    color: var(--color-neutral-700) !important;
 
-    margin-left: 20px;
     display: block;
 }
