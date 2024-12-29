@@ -1187,6 +1187,15 @@ export const getAddress = (
       options);
     }
   
+export const hasSeenOnboarding = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/onboarding`, method: 'GET'
+    },
+      options);
+    }
+  
 export const loginKakao = (
     params: LoginKakaoParams,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1215,6 +1224,15 @@ export const deleteInfo = (
       options);
     }
   
+export const quit = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/auth/quit`, method: 'DELETE'
+    },
+      options);
+    }
+  
 export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
@@ -1232,9 +1250,11 @@ export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof 
 export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
 export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
 export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
+export type HasSeenOnboardingResult = NonNullable<Awaited<ReturnType<typeof hasSeenOnboarding>>>
 export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
 export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
 export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>
+export type QuitResult = NonNullable<Awaited<ReturnType<typeof quit>>>
 
 
 export const getUpdateLinkOpenResponseMock = (): Unit => ({})
@@ -1271,11 +1291,15 @@ export const getGetAllInfoResponseMock = (): ArchivedInfoResponse[] => (Array.fr
 
 export const getGetAddressResponseMock = (): CityAndTownResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({city: {city: faker.helpers.arrayElement(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), cityName: faker.word.sample()}, town: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({town: faker.helpers.arrayElement(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const), townName: faker.word.sample()}))})))
 
+export const getHasSeenOnboardingResponseMock = (): boolean => (faker.datatype.boolean())
+
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
 export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), userId: faker.word.sample(), ...overrideResponse})
 
 export const getDeleteInfoResponseMock = (): string => (faker.word.sample())
+
+export const getQuitResponseMock = (): Unit => ({})
 
 
 export const getUpdateLinkOpenMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Unit> | Unit)) => {
@@ -1533,6 +1557,21 @@ export const getGetAddressMockHandler = (overrideResponse?: CityAndTownResponse[
   })
 }
 
+export const getHasSeenOnboardingMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.get('*/api/v1/auth/onboarding', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getHasSeenOnboardingResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getLoginKakaoMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
   return http.get('*/api/v1/auth/kakao/login', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1577,6 +1616,21 @@ export const getDeleteInfoMockHandler = (overrideResponse?: string | ((info: Par
     )
   })
 }
+
+export const getQuitMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.delete('*/api/v1/auth/quit', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getQuitResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
 export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
@@ -1595,6 +1649,8 @@ export const getGoogooApiMock = () => [
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),
+  getHasSeenOnboardingMockHandler(),
   getLoginKakaoMockHandler(),
   getInfoMockHandler(),
-  getDeleteInfoMockHandler()]
+  getDeleteInfoMockHandler(),
+  getQuitMockHandler()]
