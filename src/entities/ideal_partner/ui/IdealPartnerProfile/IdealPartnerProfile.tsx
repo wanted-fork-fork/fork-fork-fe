@@ -82,7 +82,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
           onClickEdit={() => onClickEdit?.('IDEAL_HOBBY')}
           suffix={renderBadge('취미')}
         />
-        <div className={styles.ChipList}>{t(`HOBBY_${profile.hobbies}`)}</div>
+        <span>{t(`HOBBY_${profile.hobbies}`)}</span>
       </div>
       {(showBlankValue || profile.religion) && (
         <div className={styles.Cell}>
