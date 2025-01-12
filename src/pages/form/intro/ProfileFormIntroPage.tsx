@@ -62,7 +62,7 @@ export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () 
             </div>
             <ul className={styles.InfoList}>
               <li className={styles.InfoListItem} style={{ '--marker': '"😎"' }}>
-                작성한 내용 그대로 다른 사람에게 보여져요.
+                작성한 내용 그대로 다른 사람에게 보여요.
                 <br />
                 진솔한 자기소개 기대할게요!
               </li>

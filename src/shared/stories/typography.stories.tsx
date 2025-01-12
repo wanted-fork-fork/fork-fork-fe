@@ -36,7 +36,7 @@ export const Default = {
       <small>* 정확한 나이 계산을 위해 생년월일을 입력받고 있습니다.</small>
       <hr />
       <p>
-        여기 작성한 내용은 <strong>소개 받는 분에게만 보여져요.</strong>
+        여기 작성한 내용은 <strong>소개 받는 분에게만 보여요.</strong>
         <br />
         앞에 내용이 부족하다면 글로 더 어필해주세요!
       </p>

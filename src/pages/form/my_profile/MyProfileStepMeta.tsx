@@ -88,7 +88,7 @@ export const MyProfileStepMeta = {
     title: () => <>자기 소개가 더 필요하신가요?</>,
     description: () => (
       <>
-        여기 작성된 내용은 <strong>소개 받는 분에게만 보여져요.</strong>
+        여기 작성된 내용은 <strong>소개 받는 분에게만 보여요.</strong>
         <br />
         앞에 내용이 부족하다면 글로 더 어필해주세요!
       </>
