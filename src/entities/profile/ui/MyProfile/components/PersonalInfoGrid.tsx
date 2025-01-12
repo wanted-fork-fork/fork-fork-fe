@@ -40,7 +40,7 @@ export const PersonalInfoGrid = ({
           )}
         </div>
       )}
-      {(showBlankValue || profile.birthDate || profile.height) && (
+      {(showBlankValue || profile.birthDate || profile.height > 0) && (
         <div className={styles.GridRow}>
           {(showBlankValue || profile.birthDate) && (
             <div className={styles.Cell}>
@@ -50,7 +50,7 @@ export const PersonalInfoGrid = ({
               </span>
             </div>
           )}
-          {(showBlankValue || profile.height) && (
+          {(showBlankValue || profile.height > 0) && (
             <div className={styles.Cell}>
               <ProfileCellHeader title={'키(신장)'} onClickEdit={() => onClickEdit?.('PROFILE_PERSONAL_INFO')} />
               <span>{profile.height}cm</span>
