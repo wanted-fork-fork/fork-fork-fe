@@ -47,7 +47,7 @@ export const AgeForm = () => {
         <Radio label={'네, 있어요!'} checked={Boolean(idealPartnerAge)} onChange={() => onChangeRadio(true)} />
         {idealPartnerAge && (
           <div className={styles.AgeDetailWrapper}>
-            <small>선호하는 연령대를 입력해주세요</small>
+            <small>선호하는 연령대를 입력해주세요. (만나이 기준)</small>
             <div className={styles.AgeInputWrapper}>
               <Input
                 placeholder={'최소 나이'}
