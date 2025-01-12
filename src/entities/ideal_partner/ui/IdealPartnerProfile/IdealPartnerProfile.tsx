@@ -38,18 +38,16 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               </span>
             </div>
           )}
-          {(showBlankValue || profile.heightRange) && (
-            <div className={styles.Cell}>
-              <ProfileCellHeader
-                title={'선호하는 키'}
-                onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
-                suffix={renderBadge('키 + 선호하는 스타일')}
-              />
-              <span>
-                {profile.heightRange?.min}cm - {profile.heightRange?.max}cm
-              </span>
-            </div>
-          )}
+          <div className={styles.Cell}>
+            <ProfileCellHeader
+              title={'선호하는 키'}
+              onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
+              suffix={renderBadge('키 + 선호하는 스타일')}
+            />
+            <span>
+              {profile.heightRange ? `${profile.heightRange?.min}cm - ${profile.heightRange?.max}cm` : '상관 없어요'}
+            </span>
+          </div>
         </div>
       )}
       {(showBlankValue || profile.style) && (
