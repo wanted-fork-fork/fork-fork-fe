@@ -20,6 +20,8 @@
     transform: translateY(-50%);
     width: min(calc(100% - 40px), 440px);
 
+    z-index: 1;
+
     pointer-events: bounding-box;
 
     display: flex;
