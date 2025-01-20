@@ -67,4 +67,5 @@
 .Introduce {
     line-height: 150%;
     white-space: pre-wrap;
+    word-break: break-all;
 }
