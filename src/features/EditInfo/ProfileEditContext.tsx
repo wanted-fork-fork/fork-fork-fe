@@ -1,10 +1,12 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
-import { getStepFromFormMeta, MetaKey } from 'src/features/EditInfo/lib/getStepFromFormMeta';
+import { MetaKey } from 'src/features/EditInfo/lib/getStepFromFormMeta';
 import { ProfileEditBottomSheet } from 'src/features/EditInfo/ProfileEditBottomSheet';
-import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
-import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { MyProfile } from 'src/entities/profile/model/myProfileStore';
-import { IdealPartner } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { MyProfile, MyProfileProvider, useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
+import {
+  IdealPartner,
+  IdealPartnerProvider,
+  useIdealPartnerStore,
+} from 'src/entities/ideal_partner/model/idealPartnerStore';
 
 export type EditProfileFunction = (key: MetaKey) => void;
 
@@ -22,10 +24,12 @@ export const ProfileEditProvider = ({
   children,
   onCompleteEdit,
 }: PropsWithChildren<{ onCompleteEdit: (close: () => void) => void }>) => {
-  const [selectedKey, setSelectedKey] = useState<MetaKey | null>(null);
+  const originProfileState = useMyProfileStore((state) => state);
+  const overrideOriginProfileState = useMyProfileStore((state) => state.override);
+  const originIdealState = useIdealPartnerStore((state) => state);
+  const overrideOriginIdealState = useIdealPartnerStore((state) => state.override);
 
-  const type = selectedKey ?? '' in MyProfileStepMeta ? 'PROFILE' : 'IDEAL_PARTNER';
-  const selectedStep = getStepFromFormMeta(selectedKey) as StepMeta<MyProfile | IdealPartner>;
+  const [selectedKey, setSelectedKey] = useState<MetaKey | null>(null);
 
   const handleClickEdit = useCallback<EditProfileFunction>((key) => {
     setSelectedKey(key);
@@ -33,9 +37,14 @@ export const ProfileEditProvider = ({
 
   const handleClose = useCallback(() => setSelectedKey(null), [setSelectedKey]);
 
-  const handleCompleteEdit = useCallback(() => {
-    onCompleteEdit(handleClose);
-  }, [handleClose, onCompleteEdit]);
+  const handleCompleteEdit = useCallback(
+    (profile: MyProfile, ideal: IdealPartner) => {
+      onCompleteEdit(handleClose);
+      overrideOriginProfileState(profile);
+      overrideOriginIdealState(ideal);
+    },
+    [handleClose, onCompleteEdit, overrideOriginIdealState, overrideOriginProfileState],
+  );
 
   const value = useMemo<ProfileEditContextValue>(
     () => ({
@@ -48,12 +57,11 @@ export const ProfileEditProvider = ({
   return (
     <ProfileEditContext.Provider value={value}>
       {children}
-      <ProfileEditBottomSheet
-        type={type}
-        stepMeta={selectedStep}
-        onClose={handleClose}
-        onCompleteEdit={handleCompleteEdit}
-      />
+      <MyProfileProvider initialState={{ ...originProfileState, name: 'test' }}>
+        <IdealPartnerProvider initialState={originIdealState}>
+          <ProfileEditBottomSheet selectedKey={selectedKey} onClose={handleClose} onCompleteEdit={handleCompleteEdit} />
+        </IdealPartnerProvider>
+      </MyProfileProvider>
     </ProfileEditContext.Provider>
   );
 };

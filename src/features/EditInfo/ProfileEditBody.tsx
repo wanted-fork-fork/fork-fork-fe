@@ -8,7 +8,7 @@ import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstNam
 type Props<T extends 'PROFILE' | 'IDEAL_PARTNER'> = {
   type: T;
   stepMeta: StepMeta<T extends 'PROFILE' ? MyProfile : IdealPartner>;
-  onCompleteEdit: () => void;
+  onCompleteEdit: (profile: MyProfile, ideal: IdealPartner) => void;
 };
 
 export const ProfileEditBody = ({ type, stepMeta, onCompleteEdit }: Props<'PROFILE' | 'IDEAL_PARTNER'>) => {
@@ -17,6 +17,10 @@ export const ProfileEditBody = ({ type, stepMeta, onCompleteEdit }: Props<'PROFI
   const idealState = useIdealPartnerStore((state) => state);
 
   const canGoNext = stepMeta.canGoNext(type === 'PROFILE' ? profileState : idealState);
+
+  const handleClickComplete = () => {
+    onCompleteEdit(profileState, idealState);
+  };
 
   return (
     <>
@@ -28,7 +32,13 @@ export const ProfileEditBody = ({ type, stepMeta, onCompleteEdit }: Props<'PROFI
       </div>
       <div className={styles.FormMain}>{stepMeta.form({})}</div>
       <div className={styles.FormFooter}>
-        <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onCompleteEdit} disabled={!canGoNext}>
+        <Button
+          variant={'filled'}
+          widthType={'fill'}
+          color={'primary'}
+          onClick={handleClickComplete}
+          disabled={!canGoNext}
+        >
           변경사항 저장
         </Button>
       </div>

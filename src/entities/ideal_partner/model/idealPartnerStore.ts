@@ -63,15 +63,36 @@ type Action = {
   setSmokingAmount: (name: string) => void;
   setRequiredOptions: (options: string[]) => void;
   setToMatchMaker: (value: string) => void;
+  override: (value: IdealPartner) => void;
 };
 
 const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
     ageRange: undefined,
+    heightRange: undefined,
+    style: '',
+    images: [],
+    imageDtoList: [],
+    locations: 'NOT_IMPORTANT',
+    hobbies: 'NOT_IMPORTANT',
+    religion: {
+      religionCategory: 'ETC',
+      religionName: '',
+    },
+    drinking: {
+      drinkingCategory: 'ETC',
+      drinkingAmount: '',
+    },
+    smoking: {
+      smokingCategory: 'ETC',
+      smokingAmount: '',
+    },
+    requiredOptions: [],
+    toMatchMaker: '',
+    ...initialState,
     toggleAge: (on: boolean) => set({ ageRange: on ? { max: undefined, min: undefined } : undefined }),
     setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
     setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),
-    heightRange: undefined,
     toggleHeight: (on: boolean) => set({ heightRange: on ? { max: undefined, min: undefined } : undefined }),
     setMinHeight: (min) =>
       set({
@@ -81,40 +102,21 @@ const createStoreHook = (initialState?: IdealPartner) =>
         },
       }),
     setMaxHeight: (max) => set({ heightRange: { ...get().heightRange, max } }),
-    style: '',
     setStyle: (style) => set({ style }),
-    images: [],
-    imageDtoList: [],
     setImages: (getState) => set({ images: getState(get().images) }),
     setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
-    locations: 'NOT_IMPORTANT',
     setLocation: (locations) => set({ locations }),
-    hobbies: 'NOT_IMPORTANT',
     setHobbies: (hobbies) => set({ hobbies }),
-    religion: {
-      religionCategory: 'ETC',
-      religionName: '',
-    },
     setReligionCategory: (religion) => set({ religion: { ...get().religion, religionCategory: religion } }),
     setReligionName: (desc) => set({ religion: { ...get().religion, religionName: desc } }),
-    drinking: {
-      drinkingCategory: 'ETC',
-      drinkingAmount: '',
-    },
     setDrinkingCategory: (drinking) => set({ drinking: { ...get().drinking, drinkingCategory: drinking } }),
     setDrinkingAmount: (amount) => set({ drinking: { ...get().drinking, drinkingAmount: amount } }),
-    smoking: {
-      smokingCategory: 'ETC',
-      smokingAmount: '',
-    },
     setSmokingCategory: (smoking) => set({ smoking: { ...get().smoking, smokingCategory: smoking } }),
     setSmokingAmount: (amount) => set({ smoking: { ...get().smoking, smokingAmount: amount } }),
-    requiredOptions: [],
     setRequiredOptions: (requiredOptions) =>
       requiredOptions.length <= REQUIRED_OPTION_MAX_COUNT && set({ requiredOptions }),
-    toMatchMaker: '',
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),
-    ...initialState,
+    override: (value) => set({ ...value }),
   }));
 
 export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(

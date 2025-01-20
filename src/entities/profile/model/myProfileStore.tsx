@@ -80,6 +80,7 @@ type Action = {
   setDateStyle: (value: string[]) => void;
   setFoods: (value: string[]) => void;
   setPets: (value: string[]) => void;
+  override: (value: MyProfile) => void;
 };
 
 type TouchedStore = {
@@ -90,77 +91,78 @@ type TouchedStore = {
 const createStoreHook = (initialState?: MyProfile) =>
   create<MyProfile & Action & TouchedStore>((set, get) => ({
     name: '',
-    setName: (name) => set({ name }),
     gender: 'MALE',
-    setGender: (gender) => set({ gender }),
     birthDate: {
       year: undefined,
       month: undefined,
       date: undefined,
     },
-    setBirthYear: (year) => set((state) => ({ birthDate: { ...state.birthDate, year } })),
-    setBirthMonth: (month) => set((state) => ({ birthDate: { ...state.birthDate, month } })),
-    setBirthDate: (date) => set((state) => ({ birthDate: { ...state.birthDate, date } })),
     height: 0,
-    setHeight: (height) => set({ height }),
     images: [],
     imageDtoList: [],
-    setSelfImages: (getState) => set({ images: getState(get().images) }),
-    setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
     mbti: null,
-    setMbti: (mbti) => set({ mbti }),
     job: {
       jobCategory: 'ETC',
       jobName: '',
     },
-    setJobCategory: (job) => set({ job: { ...get().job, jobCategory: job } }),
-    setJobName: (desc) => set({ job: { ...get().job, jobName: desc } }),
     location: [],
-    setLocation: (locations) => set({ location: locations }),
     religion: {
       religionCategory: 'ETC',
       religionName: '',
     },
-    setReligionCategory: (religion) => set({ religion: { ...get().religion, religionCategory: religion } }),
-    setReligionName: (desc) => set({ religion: { ...get().religion, religionName: desc } }),
     hobbies: [],
-    setHobbies: (hobbies) => set({ hobbies: hobbies }),
     drinking: { drinkingCategory: 'DRINKER', drinkingAmount: '' },
-    setDrinkingCategory: (value) => set({ drinking: { ...get().drinking, drinkingCategory: value } }),
-    setDrinkingAmount: (value) => set({ drinking: { ...get().drinking, drinkingAmount: value } }),
     smoking: {
       smokingCategory: 'ETC',
       smokingAmount: '',
     },
+    introduction: '',
+    touched: new Set(),
+    book: {
+      bookName: '',
+      cause: '',
+    },
+    movie: {
+      movieName: '',
+      cause: '',
+    },
+    dateStyle: [],
+    foods: [],
+    pets: [],
+    ...initialState,
+    setName: (name) => set({ name }),
+    setGender: (gender) => set({ gender }),
+    setBirthYear: (year) => set((state) => ({ birthDate: { ...state.birthDate, year } })),
+    setBirthMonth: (month) => set((state) => ({ birthDate: { ...state.birthDate, month } })),
+    setBirthDate: (date) => set((state) => ({ birthDate: { ...state.birthDate, date } })),
+    setHeight: (height) => set({ height }),
+    setSelfImages: (getState) => set({ images: getState(get().images) }),
+    setImageDtoList: (getState) => set({ imageDtoList: getState(get().imageDtoList) }),
+    setMbti: (mbti) => set({ mbti }),
+    setJobCategory: (job) => set({ job: { ...get().job, jobCategory: job } }),
+    setJobName: (desc) => set({ job: { ...get().job, jobName: desc } }),
+    setLocation: (locations) => set({ location: locations }),
+    setReligionCategory: (religion) => set({ religion: { ...get().religion, religionCategory: religion } }),
+    setReligionName: (desc) => set({ religion: { ...get().religion, religionName: desc } }),
+    setHobbies: (hobbies) => set({ hobbies: hobbies }),
+    setDrinkingCategory: (value) => set({ drinking: { ...get().drinking, drinkingCategory: value } }),
+    setDrinkingAmount: (value) => set({ drinking: { ...get().drinking, drinkingAmount: value } }),
     setSmokingCategory: (value) => set({ smoking: { ...get().smoking, smokingCategory: value } }),
     setSmokingAmount: (value) => set({ smoking: { ...get().smoking, smokingAmount: value } }),
-    introduction: '',
     setIntroduction: (value) => set({ introduction: value }),
-    touched: new Set(),
     addTouched: (key) => {
       const newSet = new Set(get().touched);
       newSet.add(key);
       return set({ touched: newSet });
     },
-    book: {
-      bookName: '',
-      cause: '',
-    },
     setBookName: (value) => set({ book: { ...get().book, bookName: value } }),
     setBookCause: (value) => set({ book: { ...get().book, cause: value } }),
-    movie: {
-      movieName: '',
-      cause: '',
-    },
     setMovieName: (value) => set({ movie: { ...get().movie, movieName: value } }),
     setMovieCause: (value) => set({ movie: { ...get().movie, cause: value } }),
-    dateStyle: [],
     setDateStyle: (value) => set({ dateStyle: value }),
-    foods: [],
     setFoods: (value) => set({ foods: value }),
-    pets: [],
     setPets: (value) => set({ pets: value }),
-    ...initialState,
+    override: (value) => set({ ...value }),
   }));
 
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(
