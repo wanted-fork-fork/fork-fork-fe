@@ -29,7 +29,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   });
 
   return json(
-    { profile: data },
+    { profile: { ...data, userInfo: { ...data.userInfo, introduction: undefined } } },
     {
       headers: {
         ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),

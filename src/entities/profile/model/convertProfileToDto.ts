@@ -60,7 +60,7 @@ export const convertDtoToProfile = (dto: DetailedInfoUserInfo): MyProfile => {
     hobbies: dto.hobbies.map((h) => ({ name: h })),
     images: [],
     imageDtoList: dto.images,
-    introduction: '',
+    introduction: dto.introduction ?? '',
     job: dto.job,
     location: convertDtoToLocation(dto.location),
     mbti: dto.mbti ?? null,
