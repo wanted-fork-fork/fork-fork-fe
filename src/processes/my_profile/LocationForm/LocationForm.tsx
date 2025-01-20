@@ -6,10 +6,13 @@ import { Chip } from 'src/shared/ui/Chip/Chip';
 import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { LocationSelectTable } from 'src/widgets/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
+import { useTranslation } from 'react-i18next';
 
 const MAX_LOCATION_COUNT = 5;
 
 export const LocationForm = () => {
+  const { t } = useTranslation();
+
   const locations = useMyProfileStore((state) => state.location);
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
     locations,
@@ -36,7 +39,7 @@ export const LocationForm = () => {
             suffixSlot={<Close width={18} />}
             onClick={() => handleSelectLocation(location)}
           >
-            {location.city.cityName} {location.town[0].townName}
+            {t(location.city.cityName)} {t(location.town[0].townName)}
           </Chip>
         ))}
       </div>
