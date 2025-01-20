@@ -16,6 +16,7 @@ import {
 } from 'src/types';
 import { useCallback, useMemo } from 'react';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
+import { pickNonFunctionValues } from 'src/shared/functions/pickNonFunctionValues';
 
 export type MyProfile = {
   name: string;
@@ -162,7 +163,7 @@ const createStoreHook = (initialState?: MyProfile) =>
     setDateStyle: (value) => set({ dateStyle: value }),
     setFoods: (value) => set({ foods: value }),
     setPets: (value) => set({ pets: value }),
-    override: (value) => set({ ...value }),
+    override: (value) => set({ ...pickNonFunctionValues(value) }),
   }));
 
 export const [MyProfileProvider, useMyProfileStore] = createStoreContext<MyProfile, MyProfile & Action>(

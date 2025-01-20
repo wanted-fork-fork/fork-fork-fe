@@ -7,6 +7,8 @@ import {
   IdealPartnerProvider,
   useIdealPartnerStore,
 } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import isEqual from 'lodash/isEqual';
+import { pickNonFunctionValues } from 'src/shared/functions/pickNonFunctionValues';
 
 export type EditProfileFunction = (key: MetaKey) => void;
 
@@ -46,6 +48,13 @@ export const ProfileEditProvider = ({
     [handleClose, onCompleteEdit, overrideOriginIdealState, overrideOriginProfileState],
   );
 
+  const checkEdit = (profile: MyProfile, ideal: IdealPartner) => {
+    return (
+      !isEqual(pickNonFunctionValues(profile), pickNonFunctionValues(originProfileState)) ||
+      !isEqual(pickNonFunctionValues(ideal), pickNonFunctionValues(originIdealState))
+    );
+  };
+
   const value = useMemo<ProfileEditContextValue>(
     () => ({
       canEdit: true,
@@ -57,9 +66,14 @@ export const ProfileEditProvider = ({
   return (
     <ProfileEditContext.Provider value={value}>
       {children}
-      <MyProfileProvider initialState={{ ...originProfileState, name: 'test' }}>
+      <MyProfileProvider initialState={originProfileState}>
         <IdealPartnerProvider initialState={originIdealState}>
-          <ProfileEditBottomSheet selectedKey={selectedKey} onClose={handleClose} onCompleteEdit={handleCompleteEdit} />
+          <ProfileEditBottomSheet
+            selectedKey={selectedKey}
+            onClose={handleClose}
+            onCompleteEdit={handleCompleteEdit}
+            checkEdit={checkEdit}
+          />
         </IdealPartnerProvider>
       </MyProfileProvider>
     </ProfileEditContext.Provider>

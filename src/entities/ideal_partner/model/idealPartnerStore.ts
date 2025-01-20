@@ -10,6 +10,7 @@ import {
 } from 'src/types';
 import { useDataUrlListFromFiles } from 'src/shared/functions/useDataUrlListFromFiles';
 import { useCallback, useMemo } from 'react';
+import { pickNonFunctionValues } from 'src/shared/functions/pickNonFunctionValues';
 
 export const REQUIRED_OPTION_MAX_COUNT = 3;
 
@@ -116,7 +117,7 @@ const createStoreHook = (initialState?: IdealPartner) =>
     setRequiredOptions: (requiredOptions) =>
       requiredOptions.length <= REQUIRED_OPTION_MAX_COUNT && set({ requiredOptions }),
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),
-    override: (value) => set({ ...value }),
+    override: (value) => set({ ...pickNonFunctionValues(value) }),
   }));
 
 export const [IdealPartnerProvider, useIdealPartnerStore] = createStoreContext<IdealPartner, IdealPartner & Action>(
