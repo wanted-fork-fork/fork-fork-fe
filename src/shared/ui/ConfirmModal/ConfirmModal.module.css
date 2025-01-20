@@ -2,6 +2,7 @@
     padding: 0 20px;
 
     position: fixed;
+    z-index: var(--z-index-image-modal);
     top: 0;
     left: 0;
     width: 100%;
@@ -34,6 +35,12 @@
     max-width: 480px;
 
     background-color: var(--color-neutral-0);
+}
+
+.ActionWrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 .TitleWrapper {

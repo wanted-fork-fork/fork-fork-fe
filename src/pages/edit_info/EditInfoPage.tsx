@@ -55,6 +55,8 @@ export const EditInfoPage = ({ infoId }: Props) => {
   const [openConfirm, setConfirm] = useState(false);
   const onClickPrev = () => setConfirm(true);
 
+  const closeConfirm = () => setConfirm(false);
+
   const navigate = useNavigate();
   const onNavigatePrev = useCallback(() => {
     navigate(`/profile/${infoId}`);
@@ -103,6 +105,7 @@ export const EditInfoPage = ({ infoId }: Props) => {
         confirmText={'저장 후 종료'}
         onCancel={onNavigatePrev}
         onConfirm={onSubmit}
+        onClose={closeConfirm}
       />
     </>
   );
