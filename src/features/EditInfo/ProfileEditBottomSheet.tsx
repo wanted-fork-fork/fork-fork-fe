@@ -13,7 +13,7 @@ type Props = {
 
 export const ProfileEditBottomSheet = ({ type, stepMeta, onClose, onCompleteEdit }: Props) => {
   return (
-    <BottomSheet isOpen={Boolean(stepMeta)} onClose={onClose}>
+    <BottomSheet isOpen={Boolean(stepMeta)} onClose={onClose} disableDrag>
       <BottomSheet.Header onPrev={onClose} onClose={onClose} />
       <BottomSheet.Content>
         {stepMeta && <ProfileEditBody type={type} stepMeta={stepMeta} onCompleteEdit={onCompleteEdit} />}

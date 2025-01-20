@@ -72,7 +72,7 @@ export const Shortcut = ({ right, bottom }: { right: `${number}px`; bottom: `${n
       <button className={styles.FloatingButton} onClick={() => setOpen(true)} style={floatingButtonPosition.current}>
         <List />
       </button>
-      <BottomSheet detent={'full-height'} isOpen={open} onClose={onClose}>
+      <BottomSheet detent={'full-height'} disableDrag isOpen={open} onClose={onClose}>
         <BottomSheet.Header onPrev={selectedKey ? () => setSelectedKey(null) : undefined} onClose={onClose} />
         <BottomSheet.Content className={styles.Content}>
           {selectedKey === null && (
