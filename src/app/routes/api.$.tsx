@@ -1,6 +1,6 @@
 import { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { authenticate, authenticateWithoutRedirection } from 'src/app/server/authenticate';
-import { commitSession } from 'src/app/server/sessions';
+import { destroySession } from 'src/app/server/sessions';
 
 const apiURL = new URL(process.env.API_BASE_URL ?? '');
 
@@ -21,7 +21,12 @@ export const loader: LoaderFunction = async (args) => {
       },
     }),
   );
-  if (newSession) response.headers.set('Set-Cookie', await commitSession(newSession));
+
+  if (newSession)
+    return new Response(response.body, {
+      ...response,
+      headers: { ...Object.fromEntries(response.headers.entries()), 'Set-Cookie': await destroySession(newSession) },
+    });
 
   return response;
 };
@@ -45,7 +50,11 @@ export const action: ActionFunction = async (args) => {
     }),
   );
 
-  if (newSession) response.headers.set('Set-Cookie', await commitSession(newSession));
+  if (newSession)
+    return new Response(response.body, {
+      ...response,
+      headers: { ...Object.fromEntries(response.headers.entries()), 'Set-Cookie': await destroySession(newSession) },
+    });
 
   return response;
 };
