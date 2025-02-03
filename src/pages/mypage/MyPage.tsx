@@ -4,7 +4,7 @@ import { Link } from '@remix-run/react';
 import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
-import { INQUIRY_URL, NOTICE_URL, PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
+import { FAQ_URL, INQUIRY_URL, NOTICE_URL, PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
 import { useDeleteAccount } from 'src/features/DeleteAccount/useDeleteAccount';
 import { Theme } from 'src/shared/styles/constants';
 import { redirectToLoginPage } from 'src/shared/functions/redirectToLoginPage';
@@ -38,6 +38,17 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
         <div>
           <p className={`label ${styles.Label}`}>고객지원</p>
           <div className={styles.ButtonWrapper}>
+            <Link to={FAQ_URL}>
+              <Button
+                color={'neutral'}
+                variant={'ghost'}
+                widthType={'fill'}
+                suffixSlot={<ArrowIcon />}
+                textAlign={'left'}
+              >
+                자주 묻는 질문
+              </Button>
+            </Link>{' '}
             <Link to={INQUIRY_URL}>
               <Button
                 color={'neutral'}

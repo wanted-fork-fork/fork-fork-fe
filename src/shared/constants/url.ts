@@ -4,6 +4,9 @@ export const PRIVACY_POLICY_URL = 'https://low-cook-e1a.notion.site/GOOGOO-4ce57
 // 이용약관 / 이용정책
 export const TERM_URL = 'https://low-cook-e1a.notion.site/GOOGOO-15f92f26cef780939f10ee30ab2c33a4?pvs=4';
 
+// 자주 묻는 질문
+export const FAQ_URL = 'https://low-cook-e1a.notion.site/FAQ-17c92f26cef780fcb0caf15df29e145d?pvs=4';
+
 // 문의하기
 export const INQUIRY_URL = 'https://forms.gle/Ekuh6Xcnsi6J9Mt66';
 
