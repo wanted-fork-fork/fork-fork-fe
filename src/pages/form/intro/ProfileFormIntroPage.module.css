@@ -14,11 +14,58 @@
 /** 바텀시트 **/
 .InfoTitle {
   margin-bottom: 24px;
+  padding-top: 20px;
 }
 
 .ContentWrapper {
   display: grid;
-  gap: 4px;
+  gap: 8px;
+}
+
+.Box {
+  display: flex;
+  gap: 8px;
+
+  & .Icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 24px;
+  }
+
+  .Content {
+    & h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    & p {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
+
+.TermWrapper {
+  margin-bottom: 24px;
+
+  & hr {
+    background: var(--color-neutral-300);
+    border: 0;
+    height: 1px;
+  }
+}
+
+.CheckListAllToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & label {
+    font-weight: 600;
+    font-size: 18px;
+  }
 }
 
 .CheckListItem {
@@ -27,15 +74,15 @@
   align-items: center;
 
   & a {
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 14px;
     color: var(--color-neutral-500);
     text-decoration: none;
   }
 
   & label {
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 14px;
   }
 }
 

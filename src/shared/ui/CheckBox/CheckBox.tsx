@@ -6,12 +6,17 @@ type CheckBoxProps = {
   checked: boolean;
   label: string;
   onChange: (value: boolean) => void;
+  /**
+   * @default circle
+   */
+  shape?: 'circle' | 'line';
 };
 
-export const CheckBox = ({ checked, label, onChange }: CheckBoxProps) => {
+export const CheckBox = ({ shape = 'circle', checked, label, onChange }: CheckBoxProps) => {
   const id = useId();
+
   return (
-    <div className={styles.Wrapper}>
+    <div className={styles.Wrapper} data-background={shape === 'circle'} data-checked={checked}>
       <input
         className={styles.CheckBox}
         type={'checkbox'}

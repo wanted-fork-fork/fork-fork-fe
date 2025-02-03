@@ -1,5 +1,41 @@
 .Wrapper {
     padding: 12px 0;
+
+
+    &[data-background='true'] {
+        & .CheckBox {
+            & + label::before {
+                background-color: var(--color-neutral-300);
+            }
+
+            &:checked + label::before {
+                content: '';
+
+                border-color: var(--color-primary);
+                background-color: var(--color-primary);
+            }
+        }
+
+        & .CheckMark {
+            color: var(--color-neutral-0);
+            top: 1px;
+            left: 1px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &[data-background='false'] {
+        & .CheckMark {
+            color: var(--color-neutral-300);
+        }
+
+        &[data-checked='true'] {
+            & .CheckMark {
+                color: var(--color-primary);
+            }
+        }
+    }
 }
 
 .Label {
@@ -18,13 +54,8 @@
 .CheckMark {
     display: flex;
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 16px;
-    height: 16px;
     align-items: center;
     justify-content: center;
-    color: var(--color-neutral-0);
 }
 
 .CheckBox {
@@ -38,14 +69,8 @@
          width: 18px;
          height: 18px;
          border-radius: 50%;
-         background-color: var(--color-neutral-300);
      }
 
-    &:checked + label::before {
-        content: '';
-        border-color: var(--color-primary);
-        background-color: var(--color-primary);
-    }
 }
 
 .CheckBox:checked ~ .CheckMark {

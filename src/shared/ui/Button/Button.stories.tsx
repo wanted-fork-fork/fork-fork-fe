@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowLeft, Check, ChevronRight, Close, List, Plus } from 'src/shared/ui/icons';
+import { ArrowLeft, CheckCircle, ChevronRight, Close, List, Plus } from 'src/shared/ui/icons';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -87,7 +87,7 @@ export const OutlinePrimaryButtonWithIcon: Story = {
     children: '반려동물',
     size: 'M',
     textAlign: 'left',
-    suffixSlot: <Check />,
+    suffixSlot: <CheckCircle />,
   },
 };
 export const OutlineNeutralButtonWithIcon: Story = {
