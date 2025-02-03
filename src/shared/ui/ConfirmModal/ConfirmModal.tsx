@@ -8,9 +8,9 @@ type Props = {
   show: boolean;
   title?: string;
   description?: string;
-  cancelText: string;
+  cancelText?: string;
   confirmText: string;
-  onCancel: () => void;
+  onCancel?: () => void;
   onConfirm: () => void;
   onClose?: () => void;
 };
@@ -43,16 +43,24 @@ export const ConfirmModal = ({
               <p>{description}</p>
             </div>
             <div className={styles.ButtonWrapper}>
+              {onCancel && (
+                <Button
+                  className={styles.CancelButton}
+                  variant={'outline'}
+                  widthType={'fill'}
+                  color={'neutral'}
+                  onClick={onCancel}
+                >
+                  {cancelText}
+                </Button>
+              )}
               <Button
-                className={styles.CancelButton}
-                variant={'outline'}
+                className={styles.ConfirmButton}
+                variant={'filled'}
                 widthType={'fill'}
-                color={'neutral'}
-                onClick={onCancel}
+                color={'primary'}
+                onClick={onConfirm}
               >
-                {cancelText}
-              </Button>
-              <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onConfirm}>
                 {confirmText}
               </Button>
             </div>

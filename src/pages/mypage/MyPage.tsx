@@ -5,23 +5,11 @@ import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
 import { FAQ_URL, INQUIRY_URL, NOTICE_URL, PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
-import { useDeleteAccount } from 'src/features/DeleteAccount/useDeleteAccount';
 import { Theme } from 'src/shared/styles/constants';
-import { redirectToLoginPage } from 'src/shared/functions/redirectToLoginPage';
 
 const ArrowIcon = () => <ArrowRight color={Theme.color.neutral40} />;
 
 export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
-  const deleteAccount = useDeleteAccount();
-
-  const onClickDeleteAccount = async () => {
-    if (confirm('정말로 탈퇴하시겠어요?')) {
-      await deleteAccount({});
-      alert('탈퇴했습니다');
-      redirectToLoginPage();
-    }
-  };
-
   return (
     <>
       <div className={styles.Header}>
@@ -104,17 +92,9 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
           <Link to={'/logout'} className={styles.SmallButton}>
             로그아웃
           </Link>
-          <Button
-            className={`${styles.SmallButton} ${styles.DeleteAccount}`}
-            size={'fit'}
-            color={'neutral'}
-            variant={'ghost'}
-            widthType={'fill'}
-            textAlign={'left'}
-            onClick={onClickDeleteAccount}
-          >
+          <Link to={'/account/delete'} className={styles.SmallButton}>
             회원 탈퇴
-          </Button>
+          </Link>
         </div>
       </div>
     </>

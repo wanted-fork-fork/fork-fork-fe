@@ -15,5 +15,6 @@ export const Default: Story = {
     description: '저장하지 않고 나가면 바뀐 정보가 사라져요.',
     cancelText: '나갈게요',
     confirmText: '저장 후 종료',
+    onCancel: console.log,
   },
 };
