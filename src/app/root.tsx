@@ -55,6 +55,7 @@ export const meta: MetaFunction = () => {
     { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_default.png' },
     { property: 'og:image:width', content: '800' },
     { property: 'og:image:height', content: '400' },
+    { name: 'naver-site-verification', content: 'c284118740fd0197a6923574cd8099d58057adf0' },
   ];
 };
 
