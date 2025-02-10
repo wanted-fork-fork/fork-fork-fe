@@ -3,6 +3,7 @@ import { Close, Edit, Plus, Share } from 'src/shared/ui/icons';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { lazy, Suspense, useState } from 'react';
 import { Theme } from 'src/shared/styles/constants';
+import { Link } from '@remix-run/react';
 
 const GenerateFormLinkBottomSheet = lazy(async () => {
   const module = await import('src/widgets/GenerateFormLink/GenerateFormLinkBottomSheet');
@@ -31,12 +32,14 @@ export const GenerateFormLink = () => {
       {isTriggerOpen && (
         <div className={styles.Dim}>
           <div className={styles.DimButtonWrapper}>
-            <button className={styles.FloatingButtonWithText}>
-              <span>직접 입력하기</span>
-              <div className={styles.Icon}>
-                <Edit color={'white'} />
-              </div>
-            </button>
+            <Link to={'/form/me'}>
+              <button className={styles.FloatingButtonWithText}>
+                <span>직접 입력하기</span>
+                <div className={styles.Icon}>
+                  <Edit color={'white'} />
+                </div>
+              </button>
+            </Link>
             <button className={styles.FloatingButtonWithText} onClick={onClick}>
               <span>입력 요청하기</span>
               <div className={styles.Icon}>
