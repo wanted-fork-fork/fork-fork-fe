@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { SwitchCase } from 'src/shared/ui/SwitchCase';
 import { MyProfilePage } from 'src/pages/form/my_profile/MyProfilePage';
 import { IdealPartnerIntroPage } from 'src/pages/form/intro/IdealPartnerIntroPage';
@@ -11,7 +11,7 @@ import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
 import { getLinkByMatchMakerId, saveInfo } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunction, MetaFunction } from '@remix-run/node';
-import { useBeforeUnload, useLoaderData } from '@remix-run/react';
+import { useBeforeUnload, useLoaderData, useNavigate } from '@remix-run/react';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 
@@ -21,8 +21,18 @@ import { commitSession } from 'src/app/server/sessions';
 
 const MAX_STEP_COUNT = 6;
 
-const createFormPageStep = ({ name, linkKey, increase }: { name: string; linkKey: string; increase: () => void }) => ({
-  0: <MyProfilePage onClickNextStep={increase} />,
+const createFormPageStep = ({
+  name,
+  linkKey,
+  increase,
+  goPrevPage,
+}: {
+  name: string;
+  linkKey: string;
+  increase: () => void;
+  goPrevPage: () => void;
+}) => ({
+  0: <MyProfilePage onClickNextStep={increase} onClickMovePrevPage={goPrevPage} />,
   1: <IdealPartnerIntroPage name={name} onClickNextStep={increase} />,
   2: <IdealPartnerPage onClickNextStep={increase} />,
   3: <FormConfirmPage onClickNextStep={increase} />,
@@ -88,9 +98,17 @@ export default function ProfileFormPage() {
   const name = useProfileFirstName();
 
   const [step, setStep] = useState(0);
-  const increase = () => setStep((prev) => (prev + 1 < MAX_STEP_COUNT ? prev + 1 : prev));
+  const increase = useCallback(() => setStep((prev) => (prev + 1 < MAX_STEP_COUNT ? prev + 1 : prev)), []);
 
-  const formPageStep = useMemo(() => createFormPageStep({ name, linkKey, increase }), [linkKey, name]);
+  const navigate = useNavigate();
+  const goPrevPage = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
+  const formPageStep = useMemo(
+    () => createFormPageStep({ name, linkKey, increase, goPrevPage }),
+    [name, linkKey, increase, goPrevPage],
+  );
 
   const showShortcut = [0, 2, 3].includes(step);
 
