@@ -21,7 +21,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     session.set('refreshToken', data.refreshToken);
     session.set('expiredAt', generateExpiredDate());
 
-    return redirect('/', {
+    let path = '/';
+
+    const authState = searchParams.get('state');
+    if (authState) {
+      path = decodeURIComponent(authState).replace('path:', '');
+    }
+
+    return redirect(path, {
       headers: {
         'Set-Cookie': await commitSession(session),
       },
