@@ -129,7 +129,13 @@
   justify-content: space-between;
   align-items: center;
 
-  & > p {
+  & p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-neutral-500);
+  }
+
+  & strong {
     font-size: 14px;
     font-weight: 600;
     color: var(--color-neutral-900);

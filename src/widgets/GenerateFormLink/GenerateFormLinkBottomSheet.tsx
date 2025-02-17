@@ -67,11 +67,21 @@ const GenerateFormBottomSheetContent = () => {
       <div className={styles.LinkConfigSection}>
         <h3>링크 설정</h3>
         <div className={styles.LinkConfig}>
-          <p>기존 링크 활성화</p>
+          <div>
+            <p>
+              <strong>링크 사용</strong>
+            </p>
+            <p>이전에 공유했던 링크 사용을 막을 때 사용합니다.</p>
+          </div>
           <Toggle onToggle={onToggleLinkOpen} checked={isOpen} />
         </div>
         <div className={styles.LinkConfig}>
-          <p>새로운 링크 생성</p>
+          <div>
+            <p>
+              <strong>새로운 링크 생성</strong>
+            </p>
+            <p>기존 링크와 다른 주소로 새로운 링크가 생성됩니다.</p>
+          </div>
           <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={onClickRegenerate}>
             <Refresh color={Theme.color.primary} />
           </Button>
