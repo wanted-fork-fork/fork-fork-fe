@@ -236,6 +236,24 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/LinkStatusResponse'
+  /api/v1/link/match-maker/{linkKey}:
+    get:
+      tags:
+      - link-controller
+      operationId: getMatchMakerName
+      parameters:
+      - name: linkKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
   /api/v1/info/detail/{id}:
     get:
       tags:

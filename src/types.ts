@@ -1160,6 +1160,15 @@ export const getLinkByMatchMakerId = (
       options);
     }
   
+export const getMatchMakerName = (
+    linkKey: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/api/v1/link/match-maker/${linkKey}`, method: 'GET'
+    },
+      options);
+    }
+  
 export const getInfo = (
     id: string,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1247,6 +1256,7 @@ export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
 export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
 export type ValidateLinkResult = NonNullable<Awaited<ReturnType<typeof validateLink>>>
 export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof getLinkByMatchMakerId>>>
+export type GetMatchMakerNameResult = NonNullable<Awaited<ReturnType<typeof getMatchMakerName>>>
 export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
 export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
 export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
@@ -1284,6 +1294,8 @@ export const getGetInfoBySharingIdResponseMock = (overrideResponse: Partial< Inf
 export const getValidateLinkResponseMock = (overrideResponse: Partial< ValidateLinkResponse > = {}): ValidateLinkResponse => ({isValid: faker.datatype.boolean(), linkId: faker.word.sample(), ...overrideResponse})
 
 export const getGetLinkByMatchMakerIdResponseMock = (overrideResponse: Partial< LinkStatusResponse > = {}): LinkStatusResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
+
+export const getGetMatchMakerNameResponseMock = (): string => (faker.word.sample())
 
 export const getGetInfoResponseMock = (overrideResponse: Partial< DetailedInfoDto > = {}): DetailedInfoDto => ({id: faker.word.sample(), idealPartner: faker.helpers.arrayElement([{ageRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NO_PROBLEM','ONE_TWO_TIMES_A_WEEK','ONE_TWO_TIMES_A_MONTH','NEVER','ETC'] as const)}, heightRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), hobbies: faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), images: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), undefined]), location: faker.helpers.arrayElement([faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER','NEVER','GOOD','ETC'] as const)}, style: faker.helpers.arrayElement([faker.word.sample(), undefined]), toMatchMaker: faker.word.sample()}, undefined]), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), name: faker.word.sample(), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
 
@@ -1512,6 +1524,21 @@ export const getGetLinkByMatchMakerIdMockHandler = (overrideResponse?: LinkStatu
   })
 }
 
+export const getGetMatchMakerNameMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string)) => {
+  return http.get('*/api/v1/link/match-maker/:linkKey', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetMatchMakerNameResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getGetInfoMockHandler = (overrideResponse?: DetailedInfoDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<DetailedInfoDto> | DetailedInfoDto)) => {
   return http.get('*/api/v1/info/detail/:id', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1646,6 +1673,7 @@ export const getGoogooApiMock = () => [
   getGetInfoBySharingIdMockHandler(),
   getValidateLinkMockHandler(),
   getGetLinkByMatchMakerIdMockHandler(),
+  getGetMatchMakerNameMockHandler(),
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),
