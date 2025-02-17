@@ -6,8 +6,8 @@ import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useLoaderData } from '@remix-run/react';
 import { GenerateFormLink } from 'src/widgets/GenerateFormLink/GenerateFormLink';
 import { commitSession } from 'src/app/server/sessions';
-import { OnboardingPage } from 'src/pages/main/onboarding/OnboardingPage';
 import { useState } from 'react';
+import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const { profileList, userInfo, seenOnboarding } = useLoaderData<typeof loader>();
 
-  const [seenOnboardingState, setSeenOnboardingState] = useState(seenOnboarding);
+  const [seenOnboardingState, setSeenOnboardingState] = useState(false); //seenOnboarding);
 
   return seenOnboardingState ? (
     <>
@@ -51,6 +51,6 @@ export default function Index() {
       <GenerateFormLink />
     </>
   ) : (
-    <OnboardingPage onClickNextPage={() => setSeenOnboardingState(true)} />
+    <OnboardingPage userInfo={userInfo} onEndOnboarding={() => setSeenOnboardingState(false)} />
   );
 }
