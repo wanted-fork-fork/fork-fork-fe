@@ -33,7 +33,7 @@
   max-width: 480px;
   margin: auto;
   padding-bottom: 16px;
-  padding-right: 16px;
+  padding-right: 20px;
 
   display: flex;
   flex-direction: column;
@@ -45,6 +45,8 @@
 }
 
 .FloatingButtonWithText {
+  padding: 0;
+
   display: flex;
   align-items: center;
   gap: 12px;
@@ -59,6 +61,7 @@
 }
 
 .FloatingButtonNeutral {
+  padding: 0;
   background-color: transparent;
   border: none;
   color: white;
