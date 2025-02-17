@@ -89,7 +89,10 @@ export default function ProfileFormPage() {
   const [step, setStep] = useState(0);
   const increase = () => setStep((prev) => (prev + 1 < MAX_STEP_COUNT ? prev + 1 : prev));
 
-  const formPageStep = useMemo(() => createFormPageStep({ name, linkKey, increase }), [linkKey, name]);
+  const formPageStep = useMemo(
+    () => createFormPageStep({ name, linkKey, increase, matchMakerName }),
+    [linkKey, matchMakerName, name],
+  );
 
   const showShortcut = [1, 3, 4].includes(step);
 

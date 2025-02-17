@@ -18,7 +18,8 @@ type Props = {
 };
 
 export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
+  console.log(t(profile.gender));
 
   const location = convertDtoToLocation(profile.location)[0];
 
@@ -40,7 +41,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}</span>
-            {location && <span>{getLocationText(location)}</span>}
+            {location && <span>{getLocationText(location, t)}</span>}
           </div>
         </div>
       </div>
@@ -59,17 +60,17 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
             </tr>
             <tr>
               <th scope={'row'}>종교</th>
-              <td colSpan={3}>{getReligionText(profile.religion)}</td>
+              <td colSpan={3}>{getReligionText(profile.religion, t)}</td>
             </tr>
             <tr>
               <th scope={'row'}>신분</th>
-              <td colSpan={3}>{getJobText(profile.job)}</td>
+              <td colSpan={3}>{getJobText(profile.job, t)}</td>
             </tr>
             <tr>
               <th scope={'row'}>음주</th>
-              <td>{getDrinkingText(profile.drinking)}</td>
+              <td>{getDrinkingText(profile.drinking, t)}</td>
               <th scope={'row'}>흡연</th>
-              <td>{getSmokingText(profile.smoking, 'INFO')}</td>
+              <td>{getSmokingText(profile.smoking, 'INFO', t)}</td>
             </tr>
             <tr>
               <th scope={'row'}>취미</th>

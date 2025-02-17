@@ -1,7 +1,11 @@
 import { IdealPartnerSmoking, UserInfoSmoking } from 'src/types';
-import { t } from 'i18next';
+import { TFunction } from 'i18next';
 
-export const getSmokingText = (smoking: UserInfoSmoking | IdealPartnerSmoking, type: 'IDEAL' | 'INFO') => {
+export const getSmokingText = (
+  smoking: UserInfoSmoking | IdealPartnerSmoking,
+  type: 'IDEAL' | 'INFO',
+  t: TFunction,
+) => {
   if (smoking.smokingCategory === 'ETC') {
     return smoking.smokingAmount;
   }
