@@ -9,6 +9,8 @@ import { Theme } from 'src/shared/styles/constants';
 import { IconBoxButton } from '../../shared/ui/IconBoxButton/IconBoxButton';
 import { Toggle } from 'src/shared/ui/Toggle/Toggle';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
+import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
+import { useBoolean } from 'src/shared/functions/useBoolean';
 
 export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -24,11 +26,24 @@ export const GenerateFormLinkBottomSheet = ({ isOpen, onClose }: { isOpen: boole
 };
 
 const GenerateFormBottomSheetContent = () => {
+  const {
+    value: isOpenRegenerateConfirm,
+    setTrue: openRegenerateConfirm,
+    setFalse: closeRegenerateConfirm,
+  } = useBoolean(false);
+  const {
+    value: isOpenDisableLinkConfirm,
+    setTrue: openDisableLinkConfirm,
+    setFalse: closeDisableLinkConfirm,
+  } = useBoolean(false);
+
   const { isOpen, getLink, regenerateLink, updateLinkOpenState } = useFormLink();
 
   const onToggleLinkOpen = async () => {
     await updateLinkOpenState(!isOpen);
     toast.success(`링크를 ${isOpen ? '비' : ''}활성화했습니다`, { icon: null });
+
+    closeDisableLinkConfirm();
   };
 
   const onClickCopyLink = async () => {
@@ -43,6 +58,8 @@ const GenerateFormBottomSheetContent = () => {
   const onClickRegenerate = async () => {
     await regenerateLink();
     toast.success('링크를 재생성했습니다', { icon: null });
+
+    closeRegenerateConfirm();
   };
 
   return (
@@ -87,7 +104,7 @@ const GenerateFormBottomSheetContent = () => {
             </p>
             <p>이전에 공유했던 링크 사용을 막을 때 사용합니다.</p>
           </div>
-          <Toggle onToggle={onToggleLinkOpen} checked={isOpen} />
+          <Toggle onToggle={(value) => (value ? onToggleLinkOpen() : openDisableLinkConfirm())} checked={isOpen} />
         </div>
         <div className={styles.LinkConfig}>
           <div>
@@ -96,11 +113,29 @@ const GenerateFormBottomSheetContent = () => {
             </p>
             <p>기존 링크와 다른 주소로 새로운 링크가 생성됩니다.</p>
           </div>
-          <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={onClickRegenerate}>
+          <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={openRegenerateConfirm}>
             <Refresh color={isOpen ? Theme.color.primary : Theme.color.neutral30} />
           </Button>
         </div>
       </div>
+      <ConfirmModal
+        title={'새로운 링크 주소를 생성합니다.'}
+        description={'새로운 링크를 생성하면\n이전에 공유한 링크는 사용할 수 없어요.'}
+        show={isOpenRegenerateConfirm}
+        confirmText={'확인'}
+        onConfirm={onClickRegenerate}
+        cancelText={'취소'}
+        onCancel={closeRegenerateConfirm}
+      />
+      <ConfirmModal
+        title={'링크 사용을 차단합니다.'}
+        description={'링크 사용을 차단하면 페이지 접속 및\n정보 입력을 할 수 없어요.'}
+        show={isOpenDisableLinkConfirm}
+        confirmText={'확인'}
+        onConfirm={onToggleLinkOpen}
+        cancelText={'취소'}
+        onCancel={closeDisableLinkConfirm}
+      />
     </div>
   );
 };
