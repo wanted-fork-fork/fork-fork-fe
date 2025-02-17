@@ -113,6 +113,11 @@
   gap: 8px;
 }
 
+.LinkIcon {
+  &[data-disabled='true'] path {
+    stroke: var(--color-neutral-300) !important;
+  }
+}
 
 .LinkConfigSection {
   display: grid;
