@@ -9,5 +9,7 @@ export default meta;
 type Story = StoryObj<typeof ProfileFormIntroPage>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    matchMakerName: '조예진',
+  },
 };

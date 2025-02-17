@@ -6,7 +6,13 @@ import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 
-export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
+export const ProfileFormIntroPage = ({
+  matchMakerName,
+  onClickNextStep,
+}: {
+  matchMakerName: string;
+  onClickNextStep: () => void;
+}) => {
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
 
   const {
@@ -39,7 +45,7 @@ export const ProfileFormIntroPage = ({ onClickNextStep }: { onClickNextStep: () 
       <div className={styles.Wrapper}>
         <div />
         <h2>
-          주선자님이
+          {matchMakerName}님이
           <br />
           정보 입력 요청을 보냈어요.
           <br />

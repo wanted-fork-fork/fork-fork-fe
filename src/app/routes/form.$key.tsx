@@ -10,14 +10,24 @@ import { CompletePage } from 'src/pages/form/complete/CompletePage';
 import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
 import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
-import { saveInfo, validateLink } from 'src/types';
+import { getMatchMakerName, saveInfo, validateLink } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
 import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 
 const MAX_STEP_COUNT = 7;
 
-const createFormPageStep = ({ name, linkKey, increase }: { name: string; linkKey: string; increase: () => void }) => ({
-  0: <ProfileFormIntroPage onClickNextStep={increase} />,
+const createFormPageStep = ({
+  matchMakerName,
+  name,
+  linkKey,
+  increase,
+}: {
+  matchMakerName: string;
+  name: string;
+  linkKey: string;
+  increase: () => void;
+}) => ({
+  0: <ProfileFormIntroPage matchMakerName={matchMakerName} onClickNextStep={increase} />,
   1: <MyProfilePage onClickNextStep={increase} />,
   2: <IdealPartnerIntroPage name={name} onClickNextStep={increase} />,
   3: <IdealPartnerPage onClickNextStep={increase} />,
@@ -43,7 +53,9 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { data } = await validateLink(key);
   if (!data.isValid) throw new Response('', { status: 404 });
 
-  return json({ linkKey: key });
+  const { data: matchMakerName } = await getMatchMakerName(key);
+
+  return json({ linkKey: key, matchMakerName });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -71,7 +83,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function ProfileFormPage() {
-  const { linkKey } = useLoaderData<typeof loader>();
+  const { linkKey, matchMakerName } = useLoaderData<typeof loader>();
   const name = useProfileFirstName();
 
   const [step, setStep] = useState(0);
