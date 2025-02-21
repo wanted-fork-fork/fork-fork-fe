@@ -29,12 +29,26 @@ export const GenerateFormBottomSheetContentView = ({
         <small className={styles.Description}>소개를 받고싶어 하는 지인의 정보를 저장하세요.</small>
       </div>
       <div className={`${styles.ButtonWrapper} share-link-wrapper`}>
-        <IconBoxButton icon={<Link />} text={'링크 복사'} onClick={onClickCopyLink} />
         <IconBoxButton
-          icon={<img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />}
-          iconBackgroundColor={Theme.color.kakao}
+          icon={<Link className={styles.LinkIcon} color={'transparent'} data-disabled={!isOpen} />}
+          text={'링크 복사'}
+          onClick={onClickCopyLink}
+          disabled={!isOpen}
+          iconBackgroundColor={isOpen ? Theme.color.neutral90 : Theme.color.neutral10}
+        />
+        <IconBoxButton
+          icon={
+            <img
+              src={isOpen ? '/images/kakao.png' : '/images/kakao_disabled.png'}
+              alt="카카오톡으로 공유하기"
+              width={29}
+              height={29}
+            />
+          }
+          iconBackgroundColor={isOpen ? Theme.color.kakao : Theme.color.neutral10}
           text={'카카오톡 공유'}
           onClick={onClickShareKakao}
+          disabled={!isOpen}
         />
       </div>
       <div className={styles.LinkConfigSection}>
@@ -46,7 +60,7 @@ export const GenerateFormBottomSheetContentView = ({
         <div className={styles.LinkConfig}>
           <p>새로운 링크 생성</p>
           <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={onClickRegenerate}>
-            <Refresh color={Theme.color.primary} />
+            <Refresh color={isOpen ? Theme.color.primary : Theme.color.neutral30} />
           </Button>
         </div>
       </div>
