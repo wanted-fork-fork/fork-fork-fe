@@ -1,9 +1,9 @@
 import styles from './GenerateFormLink.module.css';
-import { Close, Edit, Plus, Share } from 'src/shared/ui/icons';
+import { Close, Edit, Share } from 'src/shared/ui/icons';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { lazy, Suspense, useState } from 'react';
-import { Theme } from 'src/shared/styles/constants';
 import { Link } from '@remix-run/react';
+import { ProfileAddFloatingButton } from 'src/widgets/GenerateFormLink/ProfileAddFloatingButton';
 
 const GenerateFormLinkBottomSheet = lazy(async () => {
   const module = await import('src/widgets/GenerateFormLink/GenerateFormLinkBottomSheet');
@@ -23,12 +23,7 @@ export const GenerateFormLink = () => {
 
   return (
     <>
-      {!isTriggerOpen && (
-        <button className={styles.FloatingButton} onClick={() => setTriggerOpen(true)}>
-          <Plus color={Theme.color.neutral0} width={24} />
-          <span>후보 추가</span>
-        </button>
-      )}
+      {!isTriggerOpen && <ProfileAddFloatingButton onClick={() => setTriggerOpen(true)} />}
       {isTriggerOpen && (
         <div className={styles.Dim}>
           <div className={styles.DimButtonWrapper}>

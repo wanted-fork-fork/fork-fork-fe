@@ -6,11 +6,20 @@ import { UserInfoResponse } from 'src/types';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
 import { FAQ_URL, INQUIRY_URL, NOTICE_URL, PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
 import { Theme } from 'src/shared/styles/constants';
+import { useState } from 'react';
+import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 
 const ArrowIcon = () => <ArrowRight color={Theme.color.neutral40} />;
 
 export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
-  return (
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  return showTutorial ? (
+    <OnboardingPage
+      userInfo={{ userId: '', name: '김구구', profileImage: '/images/default_profile.png' }}
+      onEndOnboarding={() => setShowTutorial(false)}
+    />
+  ) : (
     <>
       <div className={styles.Header}>
         <Link to={'/'}>
@@ -59,6 +68,16 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
                 공지사항
               </Button>
             </Link>
+            <Button
+              color={'neutral'}
+              variant={'ghost'}
+              widthType={'fill'}
+              suffixSlot={<ArrowIcon />}
+              textAlign={'left'}
+              onClick={() => setShowTutorial(true)}
+            >
+              튜토리얼 다시보기
+            </Button>
           </div>
         </div>
         <div>

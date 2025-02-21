@@ -1,0 +1,71 @@
+.coach-mark-popover {
+    background-color: transparent;
+    color: var(--color-neutral-0);
+    box-shadow: none;
+    transform: none !important;
+
+    max-width: 320px !important;
+
+    & .driver-popover-arrow {
+        display: none;
+    }
+
+    & .driver-popover-title {
+        background-color: white;
+        border-radius: 32px;
+        color: var(--color-neutral-900);
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        width: max-content;
+    }
+
+    & .driver-popover-description {
+        width: 320px;
+        color: white;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        white-space: pre-wrap;
+
+        text-align: var(--onboarding-text-align);
+
+        margin-top: 8px;
+
+        &:after {
+            display: var(--onboarding-show-googoo, block);
+            content: ' ';
+
+            background-image: url("/images/googoo_onboarding.png");
+            width: 258px;
+            height: 283px;
+            background-size: cover;
+            margin: auto;
+        }
+    }
+
+    & .driver-popover-footer {
+        & .driver-popover-next-btn {
+            width: 100%;
+            max-width: calc(480px - 24px);
+            text-align: center;
+            border-radius: 48px;
+            padding: 16px 8px;
+            background-color: var(--color-neutral-900);
+            border: 1px solid var(--color-primary);
+
+            color: var(--color-primary);
+
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: 0;
+            text-shadow: none;
+
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}
