@@ -57,30 +57,33 @@ const GenerateFormBottomSheetContent = () => {
     closeRegenerateConfirm();
   };
 
-  return (<>
-    <GenerateFormBottomSheetContentView
-      isOpen={isOpen}
-      onClickShareKakao={onClickShareKakao}
-      onClickCopyLink={onClickCopyLink}
-      onClickRegenerate={openRegenerateConfirm}
-      onToggleLinkOpen={(value) => (value ? onToggleLinkOpen() : openDisableLinkConfirm())}
-    /><ConfirmModal
-          title={'새로운 링크 주소를 생성합니다.'}
-          description={'새로운 링크를 생성하면\n이전에 공유한 링크는 사용할 수 없어요.'}
-          show={isOpenRegenerateConfirm}
-          confirmText={'확인'}
-          onConfirm={onClickRegenerate}
-          cancelText={'취소'}
-          onCancel={closeRegenerateConfirm}
+  return (
+    <>
+      <GenerateFormBottomSheetContentView
+        isOpen={isOpen}
+        onClickShareKakao={onClickShareKakao}
+        onClickCopyLink={onClickCopyLink}
+        onClickRegenerate={openRegenerateConfirm}
+        onToggleLinkOpen={(value) => (value ? onToggleLinkOpen() : openDisableLinkConfirm())}
       />
-          <ConfirmModal
-              title={'링크 사용을 차단합니다.'}
-              description={'링크 사용을 차단하면 페이지 접속 및\n정보 입력을 할 수 없어요.'}
-              show={isOpenDisableLinkConfirm}
-              confirmText={'확인'}
-              onConfirm={onToggleLinkOpen}
-              cancelText={'취소'}
-              onCancel={closeDisableLinkConfirm}
-          /></>
+      <ConfirmModal
+        title={'새로운 링크 주소를 생성합니다.'}
+        description={'새로운 링크를 생성하면\n이전에 공유한 링크는 사용할 수 없어요.'}
+        show={isOpenRegenerateConfirm}
+        confirmText={'확인'}
+        onConfirm={onClickRegenerate}
+        cancelText={'취소'}
+        onCancel={closeRegenerateConfirm}
+      />
+      <ConfirmModal
+        title={'링크 사용을 차단합니다.'}
+        description={'링크 사용을 차단하면 페이지 접속 및\n정보 입력을 할 수 없어요.'}
+        show={isOpenDisableLinkConfirm}
+        confirmText={'확인'}
+        onConfirm={onToggleLinkOpen}
+        cancelText={'취소'}
+        onCancel={closeDisableLinkConfirm}
+      />
+    </>
   );
 };
