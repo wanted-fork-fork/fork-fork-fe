@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowLeft, CheckCircle, ChevronRight, Close, List, Plus } from 'src/shared/ui/icons';
+import { ArrowLeft, ChevronRight, Close, List, Plus } from 'src/shared/ui/icons';
+import CheckCircle from 'src/shared/ui/icons/CheckCircle';
 
 const meta: Meta<typeof Button> = {
   component: Button,

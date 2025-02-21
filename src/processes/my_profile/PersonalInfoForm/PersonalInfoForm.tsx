@@ -28,7 +28,7 @@ const PersonalInfoStepMap = {
   [PersonalInfoStepEnum.NAME]: {
     title: () => (
       <>
-        당신에 대해 알려주세요!
+        간단한 프로필을 작성해주세요!
         <br />
         이름이 어떻게 되시나요?
       </>
@@ -39,7 +39,7 @@ const PersonalInfoStepMap = {
   [PersonalInfoStepEnum.GENDER]: {
     title: () => (
       <>
-        당신에 대해 알려주세요!
+        간단한 프로필을 작성해주세요!
         <br />
         성별은요?
       </>
@@ -50,7 +50,7 @@ const PersonalInfoStepMap = {
   [PersonalInfoStepEnum.BIRTHDATE]: {
     title: () => (
       <>
-        당신에 대해 알려주세요!
+        간단한 프로필을 작성해주세요!
         <br />
         나이는 어떻게 되시나요?
       </>
@@ -61,7 +61,7 @@ const PersonalInfoStepMap = {
   [PersonalInfoStepEnum.HEIGHT]: {
     title: () => (
       <>
-        당신에 대해 알려주세요!
+        간단한 프로필을 작성해주세요!
         <br />
         키는 몇인가요?
       </>
@@ -70,7 +70,7 @@ const PersonalInfoStepMap = {
     canGoNext: (data: PersonalInfoData) => data.height.toString().length > 0,
   },
   [PersonalInfoStepEnum.ALL]: {
-    title: () => <>당신에 대해 알려주세요!</>,
+    title: () => <>간단한 프로필을 작성해주세요!</>,
     description: () => '',
     canGoNext: () => true,
   },

@@ -12,7 +12,13 @@ import { StepMeta } from 'src/shared/types/FormStepMeta';
 const Steps = Object.values(MyProfileStepMeta) as StepMeta<MyProfile>[];
 const StepKeys = Object.keys(MyProfileStepMeta) as (keyof typeof MyProfileStepMeta)[];
 
-export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
+export const MyProfilePage = ({
+  onClickNextStep,
+  onClickMovePrevPage,
+}: {
+  onClickNextStep: () => void;
+  onClickMovePrevPage?: () => void;
+}) => {
   const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
 
@@ -50,7 +56,7 @@ export const MyProfilePage = ({ onClickNextStep }: { onClickNextStep: () => void
     <div className={styles.Container}>
       <Header
         className={styles.InnerHeader}
-        onPrev={currentStepIdx > 0 ? handleClickPrev : undefined}
+        onPrev={currentStepIdx > 0 ? handleClickPrev : onClickMovePrevPage}
         suffixSlot={
           <span className={styles.FormCount}>
             {currentStepIdx + 1}/{Steps.length}

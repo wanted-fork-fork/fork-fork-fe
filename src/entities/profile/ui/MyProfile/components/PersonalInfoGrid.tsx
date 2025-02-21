@@ -69,7 +69,7 @@ export const PersonalInfoGrid = ({
           {(showBlankValue || profile.religion) && (
             <div className={styles.Cell}>
               <ProfileCellHeader title={'종교'} onClickEdit={() => onClickEdit?.('PROFILE_RELIGION')} />
-              <span>{getReligionText(profile.religion)}</span>
+              <span>{getReligionText(profile.religion, t)}</span>
             </div>
           )}
         </div>
@@ -88,7 +88,7 @@ export const PersonalInfoGrid = ({
         <div className={styles.GridRow}>
           <div className={styles.Cell}>
             <ProfileCellHeader title={'신분'} onClickEdit={() => onClickEdit?.('PROFILE_JOB')} />
-            <span>{getJobText(profile.job)}</span>
+            <span>{getJobText(profile.job, t)}</span>
           </div>
         </div>
       )}
@@ -96,7 +96,7 @@ export const PersonalInfoGrid = ({
         <div className={styles.GridRow}>
           <div className={styles.Cell}>
             <ProfileCellHeader title={'주로 머무는 지역'} onClickEdit={() => onClickEdit?.('PROFILE_LOCATION')} />
-            <span>{profile.location.map(getLocationText).join(', ')}</span>
+            <span>{profile.location.map((l) => getLocationText(l, t)).join(', ')}</span>
           </div>
         </div>
       )}

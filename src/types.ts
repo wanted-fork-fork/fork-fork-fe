@@ -5,12 +5,17 @@
  * GOOGOO API Documentation
  * OpenAPI spec version: 0.0.1
  */
-import { faker } from '@faker-js/faker';
-import { delay, http, HttpResponse } from 'msw';
+import {
+  faker
+} from '@faker-js/faker'
+import {
+  HttpResponse,
+  delay,
+  http
+} from 'msw'
 import { customInstance } from './shared/lib/custom_instance';
-
 export type LoginKakaoParams = {
-  code: string;
+code: string;
 };
 
 export type UploadImageBody = {
@@ -18,7 +23,7 @@ export type UploadImageBody = {
 };
 
 export type SaveInfoParams = {
-  linkKey: string;
+linkKey: string;
 };
 
 export interface UserInfoResponse {
@@ -27,7 +32,8 @@ export interface UserInfoResponse {
   userId: string;
 }
 
-export type TownDtoTown = (typeof TownDtoTown)[keyof typeof TownDtoTown];
+export type TownDtoTown = typeof TownDtoTown[keyof typeof TownDtoTown];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TownDtoTown = {
@@ -268,7 +274,8 @@ export interface TownDto {
   townName: string;
 }
 
-export type CityDtoCity = (typeof CityDtoCity)[keyof typeof CityDtoCity];
+export type CityDtoCity = typeof CityDtoCity[keyof typeof CityDtoCity];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CityDtoCity = {
@@ -301,7 +308,8 @@ export interface CityAndTownResponse {
   town: TownDto[];
 }
 
-export type ArchivedInfoResponseMbti = (typeof ArchivedInfoResponseMbti)[keyof typeof ArchivedInfoResponseMbti];
+export type ArchivedInfoResponseMbti = typeof ArchivedInfoResponseMbti[keyof typeof ArchivedInfoResponseMbti];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ArchivedInfoResponseMbti = {
@@ -323,7 +331,8 @@ export const ArchivedInfoResponseMbti = {
   ISTP: 'ISTP',
 } as const;
 
-export type ArchivedInfoResponseGender = (typeof ArchivedInfoResponseGender)[keyof typeof ArchivedInfoResponseGender];
+export type ArchivedInfoResponseGender = typeof ArchivedInfoResponseGender[keyof typeof ArchivedInfoResponseGender];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ArchivedInfoResponseGender = {
@@ -342,7 +351,8 @@ export interface ValidateLinkResponse {
   linkId: string;
 }
 
-export type InfoToShareUserInfoMbti = (typeof InfoToShareUserInfoMbti)[keyof typeof InfoToShareUserInfoMbti];
+export type InfoToShareUserInfoMbti = typeof InfoToShareUserInfoMbti[keyof typeof InfoToShareUserInfoMbti];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const InfoToShareUserInfoMbti = {
@@ -364,7 +374,8 @@ export const InfoToShareUserInfoMbti = {
   ISTP: 'ISTP',
 } as const;
 
-export type InfoToShareUserInfoGender = (typeof InfoToShareUserInfoGender)[keyof typeof InfoToShareUserInfoGender];
+export type InfoToShareUserInfoGender = typeof InfoToShareUserInfoGender[keyof typeof InfoToShareUserInfoGender];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const InfoToShareUserInfoGender = {
@@ -388,7 +399,8 @@ export interface ImageDto {
   url: string;
 }
 
-export type UserInfoRequestMbti = (typeof UserInfoRequestMbti)[keyof typeof UserInfoRequestMbti];
+export type UserInfoRequestMbti = typeof UserInfoRequestMbti[keyof typeof UserInfoRequestMbti];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoRequestMbti = {
@@ -410,7 +422,8 @@ export const UserInfoRequestMbti = {
   ISTP: 'ISTP',
 } as const;
 
-export type UserInfoRequestGender = (typeof UserInfoRequestGender)[keyof typeof UserInfoRequestGender];
+export type UserInfoRequestGender = typeof UserInfoRequestGender[keyof typeof UserInfoRequestGender];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoRequestGender = {
@@ -423,8 +436,8 @@ export interface SaveInfoRequest {
   userInfo: UserInfoRequest;
 }
 
-export type IdealPartnerRequestLocation =
-  (typeof IdealPartnerRequestLocation)[keyof typeof IdealPartnerRequestLocation];
+export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IdealPartnerRequestLocation = {
@@ -432,7 +445,8 @@ export const IdealPartnerRequestLocation = {
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
 
-export type IdealPartnerRequestHobbies = (typeof IdealPartnerRequestHobbies)[keyof typeof IdealPartnerRequestHobbies];
+export type IdealPartnerRequestHobbies = typeof IdealPartnerRequestHobbies[keyof typeof IdealPartnerRequestHobbies];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IdealPartnerRequestHobbies = {
@@ -444,8 +458,8 @@ export interface SaveSharingResponse {
   sharingId: string;
 }
 
-export type UserInfoSmokingSmokingCategory =
-  (typeof UserInfoSmokingSmokingCategory)[keyof typeof UserInfoSmokingSmokingCategory];
+export type UserInfoSmokingSmokingCategory = typeof UserInfoSmokingSmokingCategory[keyof typeof UserInfoSmokingSmokingCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoSmokingSmokingCategory = {
@@ -459,7 +473,8 @@ export interface UserInfoSmoking {
   smokingCategory: UserInfoSmokingSmokingCategory;
 }
 
-export type UserInfoLocationTownsItem = (typeof UserInfoLocationTownsItem)[keyof typeof UserInfoLocationTownsItem];
+export type UserInfoLocationTownsItem = typeof UserInfoLocationTownsItem[keyof typeof UserInfoLocationTownsItem];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoLocationTownsItem = {
@@ -695,7 +710,8 @@ export const UserInfoLocationTownsItem = {
   DAEGU_JUNG: 'DAEGU_JUNG',
 } as const;
 
-export type UserInfoLocationCitiesItem = (typeof UserInfoLocationCitiesItem)[keyof typeof UserInfoLocationCitiesItem];
+export type UserInfoLocationCitiesItem = typeof UserInfoLocationCitiesItem[keyof typeof UserInfoLocationCitiesItem];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoLocationCitiesItem = {
@@ -723,8 +739,8 @@ export interface UserInfoLocation {
   towns: UserInfoLocationTownsItem[];
 }
 
-export type UserInfoDrinkingDrinkingCategory =
-  (typeof UserInfoDrinkingDrinkingCategory)[keyof typeof UserInfoDrinkingDrinkingCategory];
+export type UserInfoDrinkingDrinkingCategory = typeof UserInfoDrinkingDrinkingCategory[keyof typeof UserInfoDrinkingDrinkingCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserInfoDrinkingDrinkingCategory = {
@@ -737,7 +753,8 @@ export interface UserInfoDrinking {
   drinkingCategory: UserInfoDrinkingDrinkingCategory;
 }
 
-export type ReligionReligionCategory = (typeof ReligionReligionCategory)[keyof typeof ReligionReligionCategory];
+export type ReligionReligionCategory = typeof ReligionReligionCategory[keyof typeof ReligionReligionCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ReligionReligionCategory = {
@@ -779,7 +796,8 @@ export interface Movie {
   movieName: string;
 }
 
-export type JobJobCategory = (typeof JobJobCategory)[keyof typeof JobJobCategory];
+export type JobJobCategory = typeof JobJobCategory[keyof typeof JobJobCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const JobJobCategory = {
@@ -840,8 +858,8 @@ export interface UserInfoRequest {
   smoking: UserInfoSmoking;
 }
 
-export type IdealPartnerSmokingSmokingCategory =
-  (typeof IdealPartnerSmokingSmokingCategory)[keyof typeof IdealPartnerSmokingSmokingCategory];
+export type IdealPartnerSmokingSmokingCategory = typeof IdealPartnerSmokingSmokingCategory[keyof typeof IdealPartnerSmokingSmokingCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IdealPartnerSmokingSmokingCategory = {
@@ -856,8 +874,8 @@ export interface IdealPartnerSmoking {
   smokingCategory: IdealPartnerSmokingSmokingCategory;
 }
 
-export type IdealPartnerDrinkingDrinkingCategory =
-  (typeof IdealPartnerDrinkingDrinkingCategory)[keyof typeof IdealPartnerDrinkingDrinkingCategory];
+export type IdealPartnerDrinkingDrinkingCategory = typeof IdealPartnerDrinkingDrinkingCategory[keyof typeof IdealPartnerDrinkingDrinkingCategory];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IdealPartnerDrinkingDrinkingCategory = {
@@ -887,7 +905,8 @@ export interface IdealPartnerRequest {
   toMatchMaker: string;
 }
 
-export type DetailedInfoUserInfoMbti = (typeof DetailedInfoUserInfoMbti)[keyof typeof DetailedInfoUserInfoMbti];
+export type DetailedInfoUserInfoMbti = typeof DetailedInfoUserInfoMbti[keyof typeof DetailedInfoUserInfoMbti];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DetailedInfoUserInfoMbti = {
@@ -909,7 +928,8 @@ export const DetailedInfoUserInfoMbti = {
   ISTP: 'ISTP',
 } as const;
 
-export type DetailedInfoUserInfoGender = (typeof DetailedInfoUserInfoGender)[keyof typeof DetailedInfoUserInfoGender];
+export type DetailedInfoUserInfoGender = typeof DetailedInfoUserInfoGender[keyof typeof DetailedInfoUserInfoGender];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DetailedInfoUserInfoGender = {
@@ -938,8 +958,8 @@ export interface DetailedInfoUserInfo {
   smoking: UserInfoSmoking;
 }
 
-export type DetailedInfoIdealPartnerLocation =
-  (typeof DetailedInfoIdealPartnerLocation)[keyof typeof DetailedInfoIdealPartnerLocation];
+export type DetailedInfoIdealPartnerLocation = typeof DetailedInfoIdealPartnerLocation[keyof typeof DetailedInfoIdealPartnerLocation];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DetailedInfoIdealPartnerLocation = {
@@ -947,8 +967,8 @@ export const DetailedInfoIdealPartnerLocation = {
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
 
-export type DetailedInfoIdealPartnerHobbies =
-  (typeof DetailedInfoIdealPartnerHobbies)[keyof typeof DetailedInfoIdealPartnerHobbies];
+export type DetailedInfoIdealPartnerHobbies = typeof DetailedInfoIdealPartnerHobbies[keyof typeof DetailedInfoIdealPartnerHobbies];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DetailedInfoIdealPartnerHobbies = {
@@ -987,2071 +1007,657 @@ export interface CreateLinkResponse {
   linkKey: string;
 }
 
-export interface Unit {
-  [key: string]: unknown;
-}
+export interface Unit { [key: string]: unknown }
 
 export interface UpdateLinkOpenRequest {
   isOpen: boolean;
   linkId: string;
 }
 
+
+
+
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
-export const updateLinkOpen = (
-  updateLinkOpenRequest: UpdateLinkOpenRequest,
-  options?: SecondParameter<typeof customInstance>,
-) => {
-  return customInstance<Unit>(
-    {
-      url: `/api/v1/link/link-open`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: updateLinkOpenRequest,
+
+  export const updateLinkOpen = (
+    updateLinkOpenRequest: UpdateLinkOpenRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/link/link-open`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateLinkOpenRequest
     },
-    options,
-  );
-};
-
-export const regenerateLinkKey = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<CreateLinkResponse>({ url: `/api/v1/link/key`, method: 'PUT' }, options);
-};
-
-export const updateInfo = (detailedInfoDto: DetailedInfoDto, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<string>(
-    { url: `/api/v1/info`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, data: detailedInfoDto },
-    options,
-  );
-};
-
-export const saveSharing = (infoId: string, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<SaveSharingResponse>({ url: `/api/v1/sharing/${infoId}`, method: 'POST' }, options);
-};
-
-export const createLink = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<CreateLinkResponse>({ url: `/api/v1/link`, method: 'POST' }, options);
-};
-
+      options);
+    }
+  
+export const regenerateLinkKey = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateLinkResponse>(
+      {url: `/api/v1/link/key`, method: 'PUT'
+    },
+      options);
+    }
+  
+export const updateInfo = (
+    detailedInfoDto: DetailedInfoDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/api/v1/info`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: detailedInfoDto
+    },
+      options);
+    }
+  
+export const saveSharing = (
+    infoId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<SaveSharingResponse>(
+      {url: `/api/v1/sharing/${infoId}`, method: 'POST'
+    },
+      options);
+    }
+  
+export const createLink = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateLinkResponse>(
+      {url: `/api/v1/link`, method: 'POST'
+    },
+      options);
+    }
+  
 export const saveInfo = (
-  saveInfoRequest: SaveInfoRequest,
-  params: SaveInfoParams,
-  options?: SecondParameter<typeof customInstance>,
-) => {
-  return customInstance<string>(
-    {
-      url: `/api/v1/info/save`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    saveInfoRequest: SaveInfoRequest,
+    params: SaveInfoParams,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/api/v1/info/save`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
       data: saveInfoRequest,
-      params,
+        params
     },
-    options,
-  );
-};
+      options);
+    }
+  
+export const uploadImage = (
+    uploadImageBody: UploadImageBody,
+ options?: SecondParameter<typeof customInstance>,) => {const formData = new FormData();
+formData.append('image', uploadImageBody.image)
 
-export const uploadImage = (uploadImageBody: UploadImageBody, options?: SecondParameter<typeof customInstance>) => {
-  const formData = new FormData();
-  formData.append('image', uploadImageBody.image);
-
-  return customInstance<ImageDto>(
-    { url: `/api/v1/image/upload`, method: 'POST', headers: { 'Content-Type': 'multipart/form-data' }, data: formData },
-    options,
-  );
-};
-
-export const refreshToken = (userTokenDto: UserTokenDto, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<UserTokenDto>(
-    {
-      url: `/api/v1/auth/refresh-token`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: userTokenDto,
+      return customInstance<ImageDto>(
+      {url: `/api/v1/image/upload`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData
     },
-    options,
-  );
-};
-
-export const logout = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<Unit>({ url: `/api/v1/auth/logout`, method: 'POST' }, options);
-};
-
-export const health = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<string>({ url: `/health`, method: 'GET' }, options);
-};
-
-export const log = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<string>({ url: `/health/log`, method: 'GET' }, options);
-};
-
-export const getInfoBySharingId = (sharingId: string, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<InfoToShareResponse>({ url: `/api/v1/sharing/public/${sharingId}`, method: 'GET' }, options);
-};
-
-export const validateLink = (linkKey: string, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<ValidateLinkResponse>({ url: `/api/v1/link/valid/${linkKey}`, method: 'GET' }, options);
-};
-
-export const getLinkByMatchMakerId = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<LinkStatusResponse>({ url: `/api/v1/link/status`, method: 'GET' }, options);
-};
-
-export const getInfo = (id: string, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<DetailedInfoDto>({ url: `/api/v1/info/detail/${id}`, method: 'GET' }, options);
-};
-
-export const getAllInfo = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<ArchivedInfoResponse[]>({ url: `/api/v1/info/all`, method: 'GET' }, options);
-};
-
-export const getAddress = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<CityAndTownResponse[]>({ url: `/api/v1/info/address`, method: 'GET' }, options);
-};
-
-export const hasSeenOnboarding = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<boolean>({ url: `/api/v1/auth/onboarding`, method: 'GET' }, options);
-};
-
-export const loginKakao = (params: LoginKakaoParams, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<UserTokenDto>({ url: `/api/v1/auth/kakao/login`, method: 'GET', params }, options);
-};
-
-export const info = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<UserInfoResponse>({ url: `/api/v1/auth/info`, method: 'GET' }, options);
-};
-
-export const deleteInfo = (id: string, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<string>({ url: `/api/v1/info/${id}`, method: 'DELETE' }, options);
-};
-
-export const quit = (options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<Unit>({ url: `/api/v1/auth/quit`, method: 'DELETE' }, options);
-};
-
-export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>;
-export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>;
-export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>;
-export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>;
-export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>;
-export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>;
-export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>;
-export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>;
-export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>;
-export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>;
-export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>;
-export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>;
-export type ValidateLinkResult = NonNullable<Awaited<ReturnType<typeof validateLink>>>;
-export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof getLinkByMatchMakerId>>>;
-export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>;
-export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>;
-export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>;
-export type HasSeenOnboardingResult = NonNullable<Awaited<ReturnType<typeof hasSeenOnboarding>>>;
-export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>;
-export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>;
-export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>;
-export type QuitResult = NonNullable<Awaited<ReturnType<typeof quit>>>;
-
-export const getUpdateLinkOpenResponseMock = (): Unit => ({});
-
-export const getRegenerateLinkKeyResponseMock = (
-  overrideResponse: Partial<CreateLinkResponse> = {},
-): CreateLinkResponse => ({
-  isOpen: faker.datatype.boolean(),
-  linkId: faker.word.sample(),
-  linkKey: faker.word.sample(),
-  ...overrideResponse,
-});
-
-export const getUpdateInfoResponseMock = (): string => faker.word.sample();
-
-export const getSaveSharingResponseMock = (
-  overrideResponse: Partial<SaveSharingResponse> = {},
-): SaveSharingResponse => ({ sharingId: faker.word.sample(), ...overrideResponse });
-
-export const getCreateLinkResponseMock = (overrideResponse: Partial<CreateLinkResponse> = {}): CreateLinkResponse => ({
-  isOpen: faker.datatype.boolean(),
-  linkId: faker.word.sample(),
-  linkKey: faker.word.sample(),
-  ...overrideResponse,
-});
-
-export const getSaveInfoResponseMock = (): string => faker.word.sample();
-
-export const getUploadImageResponseMock = (overrideResponse: Partial<ImageDto> = {}): ImageDto => ({
-  imageId: faker.word.sample(),
-  url: faker.word.sample(),
-  ...overrideResponse,
-});
-
-export const getRefreshTokenResponseMock = (overrideResponse: Partial<UserTokenDto> = {}): UserTokenDto => ({
-  accessToken: faker.word.sample(),
-  refreshToken: faker.word.sample(),
-  ...overrideResponse,
-});
-
-export const getLogoutResponseMock = (): Unit => ({});
-
-export const getHealthResponseMock = (): string => faker.word.sample();
-
-export const getLogResponseMock = (): string => faker.word.sample();
-
-export const getGetInfoBySharingIdResponseMock = (
-  overrideResponse: Partial<InfoToShareResponse> = {},
-): InfoToShareResponse => ({
-  expiredDate: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  sharingId: faker.word.sample(),
-  userInfo: {
-    birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`,
-    book: faker.helpers.arrayElement([{ bookName: faker.word.sample(), cause: faker.word.sample() }, undefined]),
-    dateStyle: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    drinking: {
-      drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER', 'DRINKER'] as const),
+      options);
+    }
+  
+export const refreshToken = (
+    userTokenDto: UserTokenDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserTokenDto>(
+      {url: `/api/v1/auth/refresh-token`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userTokenDto
     },
-    foods: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    gender: faker.helpers.arrayElement(['MALE', 'FEMALE'] as const),
-    height: faker.number.int({ min: undefined, max: undefined }),
-    hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() =>
-      faker.word.sample(),
-    ),
-    images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-      imageId: faker.word.sample(),
-      url: faker.word.sample(),
-    })),
-    introduction: faker.word.sample(),
-    job: {
-      jobCategory: faker.helpers.arrayElement(['STUDENT', 'EMPLOYEE', 'FREELANCER', 'ETC'] as const),
-      jobName: faker.word.sample(),
+      options);
+    }
+  
+export const logout = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/auth/logout`, method: 'POST'
     },
-    location: {
-      cities: faker.helpers.arrayElements([
-        'SEOUL',
-        'GYEONGGI',
-        'INCHEON',
-        'DAEJEON',
-        'DAEGU',
-        'BUSAN',
-        'ULSAN',
-        'GWANGJU',
-        'GANGWON',
-        'SEJONG',
-        'CHUNGCHEONGNAM',
-        'CHUNGCHEONGBUK',
-        'GYEONGSANGNAM',
-        'GYEONGSANGBUK',
-        'JEOLANAM',
-        'JEOLABUK',
-        'JEJU',
-      ] as const),
-      towns: faker.helpers.arrayElements([
-        'GANGNAM',
-        'GANGDONG',
-        'GANGBUK',
-        'GANGSEO',
-        'GWANAK',
-        'GWANGJIN',
-        'GURO',
-        'GEUMCHEON',
-        'NOWON',
-        'DOBONG',
-        'DONGDAEMUN',
-        'DONGJAK',
-        'MAPO',
-        'SEODAEMUN',
-        'SEOCHO',
-        'SEONGDONG',
-        'SEONGBUK',
-        'SONGPA',
-        'YANGCHEON',
-        'YEONGDEUNGPO',
-        'YONGSAN',
-        'EUNPYEONG',
-        'JONGNO',
-        'SEOUL_JUNG',
-        'JUNGRANG',
-        'GAPYEONG',
-        'GOYANG',
-        'GWACHEON',
-        'GWANGMYEONG',
-        'GWANGJU',
-        'GURI',
-        'GUNPO',
-        'GIMPO',
-        'NAMYANGJU',
-        'DONGDUCHEON',
-        'BUCHEON',
-        'SEONGNAM',
-        'SUWON',
-        'SIHEUNG',
-        'ANSAN',
-        'ANSEONG',
-        'ANYANG',
-        'YANGJU',
-        'YANGPYEONG',
-        'YEOJU',
-        'YEONCHEON',
-        'OSAN',
-        'YONGIN',
-        'UIWANG',
-        'UIJEONGBU',
-        'ICHEON',
-        'PAJU',
-        'PYEONGTAEK',
-        'POCHEON',
-        'HANAM',
-        'HWASEONG',
-        'GANGHWA',
-        'GYEYANG',
-        'NAMDONG',
-        'INCHEON_DONG',
-        'MICHUHOL',
-        'BUPYEONG',
-        'SEO',
-        'YEONSU',
-        'ONGJIN',
-        'INCHEON_JUNG',
-        'DAEDEOK',
-        'DAEJEON_DONG',
-        'DAEJEON_SEO',
-        'YUSEONG',
-        'DAEJEON_JUNG',
-        'BUSAN_GANGSEO',
-        'GEUMJEONG',
-        'GIJANG',
-        'BUSAN_NAM',
-        'BUSAN_DONG',
-        'DONGNAE',
-        'BUSANJIN',
-        'BUSAN_BUK',
-        'SASANG',
-        'SAHA',
-        'BUSAN_SEO',
-        'SUYEONG',
-        'YEONJE',
-        'YEONGDO',
-        'BUSAN_JUNG',
-        'HAEUNDAE',
-        'ULSAN_NAM',
-        'ULSAN_DONG',
-        'ULSAN_BUK',
-        'ULJU',
-        'ULSAN_JUNG',
-        'GWANGSAN',
-        'GWANGJU_NAM',
-        'GWANGJU_DONG',
-        'GWANGJU_BUK',
-        'GWANGJU_SEO',
-        'GANGNEUNG',
-        'GOSEONG',
-        'DONGHAE',
-        'SAMCHEOK',
-        'SOKCHO',
-        'YANGGU',
-        'YANGYANG',
-        'YEONGWOL',
-        'WONJU',
-        'INJE',
-        'JEONGSEON',
-        'CHEORWON',
-        'CHUNCHEON',
-        'TAEBAEK',
-        'PYEONGCHANG',
-        'HONGCHEON',
-        'HWACHEON',
-        'HOENGSEONG',
-        'SEJONG',
-        'GOESAN',
-        'DANYANG',
-        'BOEUN',
-        'YEONGDONG',
-        'OKCHEON',
-        'EUMSEONG',
-        'JECHEON',
-        'JEUNGPYEONG',
-        'JINCHEON',
-        'CHEONGJU',
-        'CHUNGJU',
-        'GYERYONG',
-        'GONGJU',
-        'GEUMSAN',
-        'NONSAN',
-        'DANGJIN',
-        'BORYEONG',
-        'BUYEO',
-        'SEOSAN',
-        'SEOCHON',
-        'ASAN',
-        'YEONGI',
-        'YESAN',
-        'CHEONAN',
-        'CHEONGYANG',
-        'TAEAN',
-        'HONGSEONG',
-        'GYEONGSAN',
-        'GYEONGJU',
-        'GORYEONG',
-        'GUMI',
-        'GIMCHEON',
-        'MUNGYEONG',
-        'BONGHWA',
-        'SANGJU',
-        'SEONGJU',
-        'ANDONG',
-        'YEONGDEOK',
-        'YEONGYANG',
-        'YEONGJU',
-        'YEONGCHEON',
-        'YECHUN',
-        'ULLUNG',
-        'ULJIN',
-        'UISEONG',
-        'CHEONGDO',
-        'CHEONGSONG',
-        'CHILGOK',
-        'POHANG',
-        'GEOJE',
-        'GEOCHANG',
-        'GOSEONG_GN',
-        'GIMHAE',
-        'NAMHAE',
-        'MIRYANG',
-        'SACHEON',
-        'SANCHEONG',
-        'YANGSAN',
-        'UIRYEONG',
-        'JINJU',
-        'CHANGNYEONG',
-        'CHANGWON',
-        'TONGYEONG',
-        'HADONG',
-        'HAMAN',
-        'HAMYANG',
-        'HAPCHEON',
-        'GOCHANG',
-        'GUNSAN',
-        'GIMJE',
-        'NAMWON',
-        'MUJU',
-        'BUAN',
-        'SUNCHANG',
-        'WANJU',
-        'IKSAN',
-        'IMSIL',
-        'JANGSU',
-        'JEONJU',
-        'JEONGEUP',
-        'JINAN',
-        'GANGJIN',
-        'GOHEUNG',
-        'GOKSEONG',
-        'GWANGYANG',
-        'GURYE',
-        'NAJU',
-        'DAMYANG',
-        'MOKPO',
-        'MUAN',
-        'BOSEONG',
-        'SUNCHEON',
-        'SINAN',
-        'YEOSU',
-        'YEONGGWANG',
-        'YEONGAM',
-        'WANDO',
-        'JANGSEONG',
-        'JANGHEUNG',
-        'JINDO',
-        'HAMPYEONG',
-        'HAENAM',
-        'HWASUN',
-        'JEJU',
-        'SEOGWIPO',
-        'GUNWEE',
-        'DAEGU_NAM',
-        'DALSEO',
-        'DALSEONG',
-        'DAEGU_DONG',
-        'DAEGU_BUK',
-        'DAEGU_SEO',
-        'SUSEONG',
-        'DAEGU_JUNG',
-      ] as const),
+      options);
+    }
+  
+export const health = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/health`, method: 'GET'
     },
-    mbti: faker.helpers.arrayElement([
-      faker.helpers.arrayElement([
-        'ENFP',
-        'ENFJ',
-        'ENTJ',
-        'ENTP',
-        'ESFJ',
-        'ESFP',
-        'ESTJ',
-        'ESTP',
-        'INFJ',
-        'INFP',
-        'INTJ',
-        'INTP',
-        'ISFJ',
-        'ISFP',
-        'ISTJ',
-        'ISTP',
-      ] as const),
-      undefined,
-    ]),
-    movie: faker.helpers.arrayElement([{ cause: faker.word.sample(), movieName: faker.word.sample() }, undefined]),
-    pets: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    religion: {
-      religionCategory: faker.helpers.arrayElement([
-        'CHRISTIANITY',
-        'CATHOLICISM',
-        'BUDDHISM',
-        'IRRELIGION',
-        'ETC',
-      ] as const),
-      religionName: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+      options);
+    }
+  
+export const log = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/health/log`, method: 'GET'
     },
-    smoking: {
-      smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      smokingCategory: faker.helpers.arrayElement(['NON_SMOKER', 'SMOKER', 'ETC'] as const),
+      options);
+    }
+  
+export const getInfoBySharingId = (
+    sharingId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<InfoToShareResponse>(
+      {url: `/api/v1/sharing/public/${sharingId}`, method: 'GET'
     },
-  },
-  ...overrideResponse,
-});
-
-export const getValidateLinkResponseMock = (
-  overrideResponse: Partial<ValidateLinkResponse> = {},
-): ValidateLinkResponse => ({ isValid: faker.datatype.boolean(), linkId: faker.word.sample(), ...overrideResponse });
-
-export const getGetLinkByMatchMakerIdResponseMock = (
-  overrideResponse: Partial<LinkStatusResponse> = {},
-): LinkStatusResponse => ({
-  isOpen: faker.datatype.boolean(),
-  linkId: faker.word.sample(),
-  linkKey: faker.word.sample(),
-  ...overrideResponse,
-});
-
-export const getGetInfoResponseMock = (overrideResponse: Partial<DetailedInfoDto> = {}): DetailedInfoDto => ({
-  id: faker.word.sample(),
-  idealPartner: faker.helpers.arrayElement([
-    {
-      ageRange: faker.helpers.arrayElement([
-        {
-          max: faker.number.int({ min: undefined, max: undefined }),
-          min: faker.number.int({ min: undefined, max: undefined }),
-        },
-        undefined,
-      ]),
-      drinking: {
-        drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-        drinkingCategory: faker.helpers.arrayElement([
-          'NO_PROBLEM',
-          'ONE_TWO_TIMES_A_WEEK',
-          'ONE_TWO_TIMES_A_MONTH',
-          'NEVER',
-          'ETC',
-        ] as const),
-      },
-      heightRange: faker.helpers.arrayElement([
-        {
-          max: faker.number.int({ min: undefined, max: undefined }),
-          min: faker.number.int({ min: undefined, max: undefined }),
-        },
-        undefined,
-      ]),
-      hobbies: faker.helpers.arrayElement(['IMPORTANT', 'NOT_IMPORTANT'] as const),
-      images: faker.helpers.arrayElement([
-        Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-          imageId: faker.word.sample(),
-          url: faker.word.sample(),
-        })),
-        undefined,
-      ]),
-      location: faker.helpers.arrayElement([
-        faker.helpers.arrayElement(['IMPORTANT', 'NOT_IMPORTANT'] as const),
-        undefined,
-      ]),
-      religion: {
-        religionCategory: faker.helpers.arrayElement([
-          'CHRISTIANITY',
-          'CATHOLICISM',
-          'BUDDHISM',
-          'IRRELIGION',
-          'ETC',
-        ] as const),
-        religionName: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      },
-      requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() =>
-        faker.word.sample(),
-      ),
-      smoking: {
-        smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-        smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER', 'NEVER', 'GOOD', 'ETC'] as const),
-      },
-      style: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      toMatchMaker: faker.word.sample(),
+      options);
+    }
+  
+export const validateLink = (
+    linkKey: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ValidateLinkResponse>(
+      {url: `/api/v1/link/valid/${linkKey}`, method: 'GET'
     },
-    undefined,
-  ]),
-  userInfo: {
-    birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`,
-    book: faker.helpers.arrayElement([{ bookName: faker.word.sample(), cause: faker.word.sample() }, undefined]),
-    dateStyle: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    drinking: {
-      drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER', 'DRINKER'] as const),
+      options);
+    }
+  
+export const getLinkByMatchMakerId = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<LinkStatusResponse>(
+      {url: `/api/v1/link/status`, method: 'GET'
     },
-    foods: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    gender: faker.helpers.arrayElement(['MALE', 'FEMALE'] as const),
-    height: faker.number.int({ min: undefined, max: undefined }),
-    hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() =>
-      faker.word.sample(),
-    ),
-    images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-      imageId: faker.word.sample(),
-      url: faker.word.sample(),
-    })),
-    introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-    job: {
-      jobCategory: faker.helpers.arrayElement(['STUDENT', 'EMPLOYEE', 'FREELANCER', 'ETC'] as const),
-      jobName: faker.word.sample(),
+      options);
+    }
+  
+export const getMatchMakerName = (
+    linkKey: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/api/v1/link/match-maker/${linkKey}`, method: 'GET'
     },
-    location: {
-      cities: faker.helpers.arrayElements([
-        'SEOUL',
-        'GYEONGGI',
-        'INCHEON',
-        'DAEJEON',
-        'DAEGU',
-        'BUSAN',
-        'ULSAN',
-        'GWANGJU',
-        'GANGWON',
-        'SEJONG',
-        'CHUNGCHEONGNAM',
-        'CHUNGCHEONGBUK',
-        'GYEONGSANGNAM',
-        'GYEONGSANGBUK',
-        'JEOLANAM',
-        'JEOLABUK',
-        'JEJU',
-      ] as const),
-      towns: faker.helpers.arrayElements([
-        'GANGNAM',
-        'GANGDONG',
-        'GANGBUK',
-        'GANGSEO',
-        'GWANAK',
-        'GWANGJIN',
-        'GURO',
-        'GEUMCHEON',
-        'NOWON',
-        'DOBONG',
-        'DONGDAEMUN',
-        'DONGJAK',
-        'MAPO',
-        'SEODAEMUN',
-        'SEOCHO',
-        'SEONGDONG',
-        'SEONGBUK',
-        'SONGPA',
-        'YANGCHEON',
-        'YEONGDEUNGPO',
-        'YONGSAN',
-        'EUNPYEONG',
-        'JONGNO',
-        'SEOUL_JUNG',
-        'JUNGRANG',
-        'GAPYEONG',
-        'GOYANG',
-        'GWACHEON',
-        'GWANGMYEONG',
-        'GWANGJU',
-        'GURI',
-        'GUNPO',
-        'GIMPO',
-        'NAMYANGJU',
-        'DONGDUCHEON',
-        'BUCHEON',
-        'SEONGNAM',
-        'SUWON',
-        'SIHEUNG',
-        'ANSAN',
-        'ANSEONG',
-        'ANYANG',
-        'YANGJU',
-        'YANGPYEONG',
-        'YEOJU',
-        'YEONCHEON',
-        'OSAN',
-        'YONGIN',
-        'UIWANG',
-        'UIJEONGBU',
-        'ICHEON',
-        'PAJU',
-        'PYEONGTAEK',
-        'POCHEON',
-        'HANAM',
-        'HWASEONG',
-        'GANGHWA',
-        'GYEYANG',
-        'NAMDONG',
-        'INCHEON_DONG',
-        'MICHUHOL',
-        'BUPYEONG',
-        'SEO',
-        'YEONSU',
-        'ONGJIN',
-        'INCHEON_JUNG',
-        'DAEDEOK',
-        'DAEJEON_DONG',
-        'DAEJEON_SEO',
-        'YUSEONG',
-        'DAEJEON_JUNG',
-        'BUSAN_GANGSEO',
-        'GEUMJEONG',
-        'GIJANG',
-        'BUSAN_NAM',
-        'BUSAN_DONG',
-        'DONGNAE',
-        'BUSANJIN',
-        'BUSAN_BUK',
-        'SASANG',
-        'SAHA',
-        'BUSAN_SEO',
-        'SUYEONG',
-        'YEONJE',
-        'YEONGDO',
-        'BUSAN_JUNG',
-        'HAEUNDAE',
-        'ULSAN_NAM',
-        'ULSAN_DONG',
-        'ULSAN_BUK',
-        'ULJU',
-        'ULSAN_JUNG',
-        'GWANGSAN',
-        'GWANGJU_NAM',
-        'GWANGJU_DONG',
-        'GWANGJU_BUK',
-        'GWANGJU_SEO',
-        'GANGNEUNG',
-        'GOSEONG',
-        'DONGHAE',
-        'SAMCHEOK',
-        'SOKCHO',
-        'YANGGU',
-        'YANGYANG',
-        'YEONGWOL',
-        'WONJU',
-        'INJE',
-        'JEONGSEON',
-        'CHEORWON',
-        'CHUNCHEON',
-        'TAEBAEK',
-        'PYEONGCHANG',
-        'HONGCHEON',
-        'HWACHEON',
-        'HOENGSEONG',
-        'SEJONG',
-        'GOESAN',
-        'DANYANG',
-        'BOEUN',
-        'YEONGDONG',
-        'OKCHEON',
-        'EUMSEONG',
-        'JECHEON',
-        'JEUNGPYEONG',
-        'JINCHEON',
-        'CHEONGJU',
-        'CHUNGJU',
-        'GYERYONG',
-        'GONGJU',
-        'GEUMSAN',
-        'NONSAN',
-        'DANGJIN',
-        'BORYEONG',
-        'BUYEO',
-        'SEOSAN',
-        'SEOCHON',
-        'ASAN',
-        'YEONGI',
-        'YESAN',
-        'CHEONAN',
-        'CHEONGYANG',
-        'TAEAN',
-        'HONGSEONG',
-        'GYEONGSAN',
-        'GYEONGJU',
-        'GORYEONG',
-        'GUMI',
-        'GIMCHEON',
-        'MUNGYEONG',
-        'BONGHWA',
-        'SANGJU',
-        'SEONGJU',
-        'ANDONG',
-        'YEONGDEOK',
-        'YEONGYANG',
-        'YEONGJU',
-        'YEONGCHEON',
-        'YECHUN',
-        'ULLUNG',
-        'ULJIN',
-        'UISEONG',
-        'CHEONGDO',
-        'CHEONGSONG',
-        'CHILGOK',
-        'POHANG',
-        'GEOJE',
-        'GEOCHANG',
-        'GOSEONG_GN',
-        'GIMHAE',
-        'NAMHAE',
-        'MIRYANG',
-        'SACHEON',
-        'SANCHEONG',
-        'YANGSAN',
-        'UIRYEONG',
-        'JINJU',
-        'CHANGNYEONG',
-        'CHANGWON',
-        'TONGYEONG',
-        'HADONG',
-        'HAMAN',
-        'HAMYANG',
-        'HAPCHEON',
-        'GOCHANG',
-        'GUNSAN',
-        'GIMJE',
-        'NAMWON',
-        'MUJU',
-        'BUAN',
-        'SUNCHANG',
-        'WANJU',
-        'IKSAN',
-        'IMSIL',
-        'JANGSU',
-        'JEONJU',
-        'JEONGEUP',
-        'JINAN',
-        'GANGJIN',
-        'GOHEUNG',
-        'GOKSEONG',
-        'GWANGYANG',
-        'GURYE',
-        'NAJU',
-        'DAMYANG',
-        'MOKPO',
-        'MUAN',
-        'BOSEONG',
-        'SUNCHEON',
-        'SINAN',
-        'YEOSU',
-        'YEONGGWANG',
-        'YEONGAM',
-        'WANDO',
-        'JANGSEONG',
-        'JANGHEUNG',
-        'JINDO',
-        'HAMPYEONG',
-        'HAENAM',
-        'HWASUN',
-        'JEJU',
-        'SEOGWIPO',
-        'GUNWEE',
-        'DAEGU_NAM',
-        'DALSEO',
-        'DALSEONG',
-        'DAEGU_DONG',
-        'DAEGU_BUK',
-        'DAEGU_SEO',
-        'SUSEONG',
-        'DAEGU_JUNG',
-      ] as const),
+      options);
+    }
+  
+export const getInfo = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<DetailedInfoDto>(
+      {url: `/api/v1/info/detail/${id}`, method: 'GET'
     },
-    mbti: faker.helpers.arrayElement([
-      faker.helpers.arrayElement([
-        'ENFP',
-        'ENFJ',
-        'ENTJ',
-        'ENTP',
-        'ESFJ',
-        'ESFP',
-        'ESTJ',
-        'ESTP',
-        'INFJ',
-        'INFP',
-        'INTJ',
-        'INTP',
-        'ISFJ',
-        'ISFP',
-        'ISTJ',
-        'ISTP',
-      ] as const),
-      undefined,
-    ]),
-    movie: faker.helpers.arrayElement([{ cause: faker.word.sample(), movieName: faker.word.sample() }, undefined]),
-    name: faker.word.sample(),
-    pets: faker.helpers.arrayElement([
-      Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => faker.word.sample()),
-      undefined,
-    ]),
-    religion: {
-      religionCategory: faker.helpers.arrayElement([
-        'CHRISTIANITY',
-        'CATHOLICISM',
-        'BUDDHISM',
-        'IRRELIGION',
-        'ETC',
-      ] as const),
-      religionName: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+      options);
+    }
+  
+export const getAllInfo = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ArchivedInfoResponse[]>(
+      {url: `/api/v1/info/all`, method: 'GET'
     },
-    smoking: {
-      smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      smokingCategory: faker.helpers.arrayElement(['NON_SMOKER', 'SMOKER', 'ETC'] as const),
+      options);
+    }
+  
+export const getAddress = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CityAndTownResponse[]>(
+      {url: `/api/v1/info/address`, method: 'GET'
     },
-  },
-  ...overrideResponse,
-});
-
-export const getGetAllInfoResponseMock = (): ArchivedInfoResponse[] =>
-  Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-    birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`,
-    drinking: {
-      drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER', 'DRINKER'] as const),
+      options);
+    }
+  
+export const hasSeenOnboarding = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/onboarding`, method: 'GET'
     },
-    gender: faker.helpers.arrayElement(['MALE', 'FEMALE'] as const),
-    height: faker.number.int({ min: undefined, max: undefined }),
-    hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() =>
-      faker.word.sample(),
-    ),
-    id: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-    images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-      imageId: faker.word.sample(),
-      url: faker.word.sample(),
-    })),
-    job: {
-      jobCategory: faker.helpers.arrayElement(['STUDENT', 'EMPLOYEE', 'FREELANCER', 'ETC'] as const),
-      jobName: faker.word.sample(),
+      options);
+    }
+  
+export const loginKakao = (
+    params: LoginKakaoParams,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserTokenDto>(
+      {url: `/api/v1/auth/kakao/login`, method: 'GET',
+        params
     },
-    location: {
-      cities: faker.helpers.arrayElements([
-        'SEOUL',
-        'GYEONGGI',
-        'INCHEON',
-        'DAEJEON',
-        'DAEGU',
-        'BUSAN',
-        'ULSAN',
-        'GWANGJU',
-        'GANGWON',
-        'SEJONG',
-        'CHUNGCHEONGNAM',
-        'CHUNGCHEONGBUK',
-        'GYEONGSANGNAM',
-        'GYEONGSANGBUK',
-        'JEOLANAM',
-        'JEOLABUK',
-        'JEJU',
-      ] as const),
-      towns: faker.helpers.arrayElements([
-        'GANGNAM',
-        'GANGDONG',
-        'GANGBUK',
-        'GANGSEO',
-        'GWANAK',
-        'GWANGJIN',
-        'GURO',
-        'GEUMCHEON',
-        'NOWON',
-        'DOBONG',
-        'DONGDAEMUN',
-        'DONGJAK',
-        'MAPO',
-        'SEODAEMUN',
-        'SEOCHO',
-        'SEONGDONG',
-        'SEONGBUK',
-        'SONGPA',
-        'YANGCHEON',
-        'YEONGDEUNGPO',
-        'YONGSAN',
-        'EUNPYEONG',
-        'JONGNO',
-        'SEOUL_JUNG',
-        'JUNGRANG',
-        'GAPYEONG',
-        'GOYANG',
-        'GWACHEON',
-        'GWANGMYEONG',
-        'GWANGJU',
-        'GURI',
-        'GUNPO',
-        'GIMPO',
-        'NAMYANGJU',
-        'DONGDUCHEON',
-        'BUCHEON',
-        'SEONGNAM',
-        'SUWON',
-        'SIHEUNG',
-        'ANSAN',
-        'ANSEONG',
-        'ANYANG',
-        'YANGJU',
-        'YANGPYEONG',
-        'YEOJU',
-        'YEONCHEON',
-        'OSAN',
-        'YONGIN',
-        'UIWANG',
-        'UIJEONGBU',
-        'ICHEON',
-        'PAJU',
-        'PYEONGTAEK',
-        'POCHEON',
-        'HANAM',
-        'HWASEONG',
-        'GANGHWA',
-        'GYEYANG',
-        'NAMDONG',
-        'INCHEON_DONG',
-        'MICHUHOL',
-        'BUPYEONG',
-        'SEO',
-        'YEONSU',
-        'ONGJIN',
-        'INCHEON_JUNG',
-        'DAEDEOK',
-        'DAEJEON_DONG',
-        'DAEJEON_SEO',
-        'YUSEONG',
-        'DAEJEON_JUNG',
-        'BUSAN_GANGSEO',
-        'GEUMJEONG',
-        'GIJANG',
-        'BUSAN_NAM',
-        'BUSAN_DONG',
-        'DONGNAE',
-        'BUSANJIN',
-        'BUSAN_BUK',
-        'SASANG',
-        'SAHA',
-        'BUSAN_SEO',
-        'SUYEONG',
-        'YEONJE',
-        'YEONGDO',
-        'BUSAN_JUNG',
-        'HAEUNDAE',
-        'ULSAN_NAM',
-        'ULSAN_DONG',
-        'ULSAN_BUK',
-        'ULJU',
-        'ULSAN_JUNG',
-        'GWANGSAN',
-        'GWANGJU_NAM',
-        'GWANGJU_DONG',
-        'GWANGJU_BUK',
-        'GWANGJU_SEO',
-        'GANGNEUNG',
-        'GOSEONG',
-        'DONGHAE',
-        'SAMCHEOK',
-        'SOKCHO',
-        'YANGGU',
-        'YANGYANG',
-        'YEONGWOL',
-        'WONJU',
-        'INJE',
-        'JEONGSEON',
-        'CHEORWON',
-        'CHUNCHEON',
-        'TAEBAEK',
-        'PYEONGCHANG',
-        'HONGCHEON',
-        'HWACHEON',
-        'HOENGSEONG',
-        'SEJONG',
-        'GOESAN',
-        'DANYANG',
-        'BOEUN',
-        'YEONGDONG',
-        'OKCHEON',
-        'EUMSEONG',
-        'JECHEON',
-        'JEUNGPYEONG',
-        'JINCHEON',
-        'CHEONGJU',
-        'CHUNGJU',
-        'GYERYONG',
-        'GONGJU',
-        'GEUMSAN',
-        'NONSAN',
-        'DANGJIN',
-        'BORYEONG',
-        'BUYEO',
-        'SEOSAN',
-        'SEOCHON',
-        'ASAN',
-        'YEONGI',
-        'YESAN',
-        'CHEONAN',
-        'CHEONGYANG',
-        'TAEAN',
-        'HONGSEONG',
-        'GYEONGSAN',
-        'GYEONGJU',
-        'GORYEONG',
-        'GUMI',
-        'GIMCHEON',
-        'MUNGYEONG',
-        'BONGHWA',
-        'SANGJU',
-        'SEONGJU',
-        'ANDONG',
-        'YEONGDEOK',
-        'YEONGYANG',
-        'YEONGJU',
-        'YEONGCHEON',
-        'YECHUN',
-        'ULLUNG',
-        'ULJIN',
-        'UISEONG',
-        'CHEONGDO',
-        'CHEONGSONG',
-        'CHILGOK',
-        'POHANG',
-        'GEOJE',
-        'GEOCHANG',
-        'GOSEONG_GN',
-        'GIMHAE',
-        'NAMHAE',
-        'MIRYANG',
-        'SACHEON',
-        'SANCHEONG',
-        'YANGSAN',
-        'UIRYEONG',
-        'JINJU',
-        'CHANGNYEONG',
-        'CHANGWON',
-        'TONGYEONG',
-        'HADONG',
-        'HAMAN',
-        'HAMYANG',
-        'HAPCHEON',
-        'GOCHANG',
-        'GUNSAN',
-        'GIMJE',
-        'NAMWON',
-        'MUJU',
-        'BUAN',
-        'SUNCHANG',
-        'WANJU',
-        'IKSAN',
-        'IMSIL',
-        'JANGSU',
-        'JEONJU',
-        'JEONGEUP',
-        'JINAN',
-        'GANGJIN',
-        'GOHEUNG',
-        'GOKSEONG',
-        'GWANGYANG',
-        'GURYE',
-        'NAJU',
-        'DAMYANG',
-        'MOKPO',
-        'MUAN',
-        'BOSEONG',
-        'SUNCHEON',
-        'SINAN',
-        'YEOSU',
-        'YEONGGWANG',
-        'YEONGAM',
-        'WANDO',
-        'JANGSEONG',
-        'JANGHEUNG',
-        'JINDO',
-        'HAMPYEONG',
-        'HAENAM',
-        'HWASUN',
-        'JEJU',
-        'SEOGWIPO',
-        'GUNWEE',
-        'DAEGU_NAM',
-        'DALSEO',
-        'DALSEONG',
-        'DAEGU_DONG',
-        'DAEGU_BUK',
-        'DAEGU_SEO',
-        'SUSEONG',
-        'DAEGU_JUNG',
-      ] as const),
+      options);
+    }
+  
+export const info = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserInfoResponse>(
+      {url: `/api/v1/auth/info`, method: 'GET'
     },
-    mbti: faker.helpers.arrayElement([
-      faker.helpers.arrayElement([
-        'ENFP',
-        'ENFJ',
-        'ENTJ',
-        'ENTP',
-        'ESFJ',
-        'ESFP',
-        'ESTJ',
-        'ESTP',
-        'INFJ',
-        'INFP',
-        'INTJ',
-        'INTP',
-        'ISFJ',
-        'ISFP',
-        'ISTJ',
-        'ISTP',
-      ] as const),
-      undefined,
-    ]),
-    name: faker.word.sample(),
-    religion: {
-      religionCategory: faker.helpers.arrayElement([
-        'CHRISTIANITY',
-        'CATHOLICISM',
-        'BUDDHISM',
-        'IRRELIGION',
-        'ETC',
-      ] as const),
-      religionName: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+      options);
+    }
+  
+export const deleteInfo = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string>(
+      {url: `/api/v1/info/${id}`, method: 'DELETE'
     },
-    smoking: {
-      smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-      smokingCategory: faker.helpers.arrayElement(['NON_SMOKER', 'SMOKER', 'ETC'] as const),
+      options);
+    }
+  
+export const quit = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/auth/quit`, method: 'DELETE'
     },
-  }));
+      options);
+    }
+  
+export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
+export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
+export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
+export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>
+export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>
+export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
+export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>
+export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>
+export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
+export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>
+export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
+export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
+export type ValidateLinkResult = NonNullable<Awaited<ReturnType<typeof validateLink>>>
+export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof getLinkByMatchMakerId>>>
+export type GetMatchMakerNameResult = NonNullable<Awaited<ReturnType<typeof getMatchMakerName>>>
+export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
+export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
+export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
+export type HasSeenOnboardingResult = NonNullable<Awaited<ReturnType<typeof hasSeenOnboarding>>>
+export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
+export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
+export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>
+export type QuitResult = NonNullable<Awaited<ReturnType<typeof quit>>>
 
-export const getGetAddressResponseMock = (): CityAndTownResponse[] =>
-  Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-    city: {
-      city: faker.helpers.arrayElement([
-        'SEOUL',
-        'GYEONGGI',
-        'INCHEON',
-        'DAEJEON',
-        'DAEGU',
-        'BUSAN',
-        'ULSAN',
-        'GWANGJU',
-        'GANGWON',
-        'SEJONG',
-        'CHUNGCHEONGNAM',
-        'CHUNGCHEONGBUK',
-        'GYEONGSANGNAM',
-        'GYEONGSANGBUK',
-        'JEOLANAM',
-        'JEOLABUK',
-        'JEJU',
-      ] as const),
-      cityName: faker.word.sample(),
-    },
-    town: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
-      town: faker.helpers.arrayElement([
-        'GANGNAM',
-        'GANGDONG',
-        'GANGBUK',
-        'GANGSEO',
-        'GWANAK',
-        'GWANGJIN',
-        'GURO',
-        'GEUMCHEON',
-        'NOWON',
-        'DOBONG',
-        'DONGDAEMUN',
-        'DONGJAK',
-        'MAPO',
-        'SEODAEMUN',
-        'SEOCHO',
-        'SEONGDONG',
-        'SEONGBUK',
-        'SONGPA',
-        'YANGCHEON',
-        'YEONGDEUNGPO',
-        'YONGSAN',
-        'EUNPYEONG',
-        'JONGNO',
-        'SEOUL_JUNG',
-        'JUNGRANG',
-        'GAPYEONG',
-        'GOYANG',
-        'GWACHEON',
-        'GWANGMYEONG',
-        'GWANGJU',
-        'GURI',
-        'GUNPO',
-        'GIMPO',
-        'NAMYANGJU',
-        'DONGDUCHEON',
-        'BUCHEON',
-        'SEONGNAM',
-        'SUWON',
-        'SIHEUNG',
-        'ANSAN',
-        'ANSEONG',
-        'ANYANG',
-        'YANGJU',
-        'YANGPYEONG',
-        'YEOJU',
-        'YEONCHEON',
-        'OSAN',
-        'YONGIN',
-        'UIWANG',
-        'UIJEONGBU',
-        'ICHEON',
-        'PAJU',
-        'PYEONGTAEK',
-        'POCHEON',
-        'HANAM',
-        'HWASEONG',
-        'GANGHWA',
-        'GYEYANG',
-        'NAMDONG',
-        'INCHEON_DONG',
-        'MICHUHOL',
-        'BUPYEONG',
-        'SEO',
-        'YEONSU',
-        'ONGJIN',
-        'INCHEON_JUNG',
-        'DAEDEOK',
-        'DAEJEON_DONG',
-        'DAEJEON_SEO',
-        'YUSEONG',
-        'DAEJEON_JUNG',
-        'BUSAN_GANGSEO',
-        'GEUMJEONG',
-        'GIJANG',
-        'BUSAN_NAM',
-        'BUSAN_DONG',
-        'DONGNAE',
-        'BUSANJIN',
-        'BUSAN_BUK',
-        'SASANG',
-        'SAHA',
-        'BUSAN_SEO',
-        'SUYEONG',
-        'YEONJE',
-        'YEONGDO',
-        'BUSAN_JUNG',
-        'HAEUNDAE',
-        'ULSAN_NAM',
-        'ULSAN_DONG',
-        'ULSAN_BUK',
-        'ULJU',
-        'ULSAN_JUNG',
-        'GWANGSAN',
-        'GWANGJU_NAM',
-        'GWANGJU_DONG',
-        'GWANGJU_BUK',
-        'GWANGJU_SEO',
-        'GANGNEUNG',
-        'GOSEONG',
-        'DONGHAE',
-        'SAMCHEOK',
-        'SOKCHO',
-        'YANGGU',
-        'YANGYANG',
-        'YEONGWOL',
-        'WONJU',
-        'INJE',
-        'JEONGSEON',
-        'CHEORWON',
-        'CHUNCHEON',
-        'TAEBAEK',
-        'PYEONGCHANG',
-        'HONGCHEON',
-        'HWACHEON',
-        'HOENGSEONG',
-        'SEJONG',
-        'GOESAN',
-        'DANYANG',
-        'BOEUN',
-        'YEONGDONG',
-        'OKCHEON',
-        'EUMSEONG',
-        'JECHEON',
-        'JEUNGPYEONG',
-        'JINCHEON',
-        'CHEONGJU',
-        'CHUNGJU',
-        'GYERYONG',
-        'GONGJU',
-        'GEUMSAN',
-        'NONSAN',
-        'DANGJIN',
-        'BORYEONG',
-        'BUYEO',
-        'SEOSAN',
-        'SEOCHON',
-        'ASAN',
-        'YEONGI',
-        'YESAN',
-        'CHEONAN',
-        'CHEONGYANG',
-        'TAEAN',
-        'HONGSEONG',
-        'GYEONGSAN',
-        'GYEONGJU',
-        'GORYEONG',
-        'GUMI',
-        'GIMCHEON',
-        'MUNGYEONG',
-        'BONGHWA',
-        'SANGJU',
-        'SEONGJU',
-        'ANDONG',
-        'YEONGDEOK',
-        'YEONGYANG',
-        'YEONGJU',
-        'YEONGCHEON',
-        'YECHUN',
-        'ULLUNG',
-        'ULJIN',
-        'UISEONG',
-        'CHEONGDO',
-        'CHEONGSONG',
-        'CHILGOK',
-        'POHANG',
-        'GEOJE',
-        'GEOCHANG',
-        'GOSEONG_GN',
-        'GIMHAE',
-        'NAMHAE',
-        'MIRYANG',
-        'SACHEON',
-        'SANCHEONG',
-        'YANGSAN',
-        'UIRYEONG',
-        'JINJU',
-        'CHANGNYEONG',
-        'CHANGWON',
-        'TONGYEONG',
-        'HADONG',
-        'HAMAN',
-        'HAMYANG',
-        'HAPCHEON',
-        'GOCHANG',
-        'GUNSAN',
-        'GIMJE',
-        'NAMWON',
-        'MUJU',
-        'BUAN',
-        'SUNCHANG',
-        'WANJU',
-        'IKSAN',
-        'IMSIL',
-        'JANGSU',
-        'JEONJU',
-        'JEONGEUP',
-        'JINAN',
-        'GANGJIN',
-        'GOHEUNG',
-        'GOKSEONG',
-        'GWANGYANG',
-        'GURYE',
-        'NAJU',
-        'DAMYANG',
-        'MOKPO',
-        'MUAN',
-        'BOSEONG',
-        'SUNCHEON',
-        'SINAN',
-        'YEOSU',
-        'YEONGGWANG',
-        'YEONGAM',
-        'WANDO',
-        'JANGSEONG',
-        'JANGHEUNG',
-        'JINDO',
-        'HAMPYEONG',
-        'HAENAM',
-        'HWASUN',
-        'JEJU',
-        'SEOGWIPO',
-        'GUNWEE',
-        'DAEGU_NAM',
-        'DALSEO',
-        'DALSEONG',
-        'DAEGU_DONG',
-        'DAEGU_BUK',
-        'DAEGU_SEO',
-        'SUSEONG',
-        'DAEGU_JUNG',
-      ] as const),
-      townName: faker.word.sample(),
-    })),
-  }));
 
-export const getHasSeenOnboardingResponseMock = (): boolean => faker.datatype.boolean();
+export const getUpdateLinkOpenResponseMock = (): Unit => ({})
 
-export const getLoginKakaoResponseMock = (overrideResponse: Partial<UserTokenDto> = {}): UserTokenDto => ({
-  accessToken: faker.word.sample(),
-  refreshToken: faker.word.sample(),
-  ...overrideResponse,
-});
+export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< CreateLinkResponse > = {}): CreateLinkResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
-export const getInfoResponseMock = (overrideResponse: Partial<UserInfoResponse> = {}): UserInfoResponse => ({
-  name: faker.word.sample(),
-  profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]),
-  userId: faker.word.sample(),
-  ...overrideResponse,
-});
+export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
 
-export const getDeleteInfoResponseMock = (): string => faker.word.sample();
+export const getSaveSharingResponseMock = (overrideResponse: Partial< SaveSharingResponse > = {}): SaveSharingResponse => ({sharingId: faker.word.sample(), ...overrideResponse})
 
-export const getQuitResponseMock = (): Unit => ({});
+export const getCreateLinkResponseMock = (overrideResponse: Partial< CreateLinkResponse > = {}): CreateLinkResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
-export const getUpdateLinkOpenMockHandler = (
-  overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Unit> | Unit),
-) => {
-  return http.put('*/api/v1/link/link-open', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getUpdateLinkOpenResponseMock(),
-      ),
+export const getSaveInfoResponseMock = (): string => (faker.word.sample())
+
+export const getUploadImageResponseMock = (overrideResponse: Partial< ImageDto > = {}): ImageDto => ({imageId: faker.word.sample(), url: faker.word.sample(), ...overrideResponse})
+
+export const getRefreshTokenResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
+
+export const getLogoutResponseMock = (): Unit => ({})
+
+export const getHealthResponseMock = (): string => (faker.word.sample())
+
+export const getLogResponseMock = (): string => (faker.word.sample())
+
+export const getGetInfoBySharingIdResponseMock = (overrideResponse: Partial< InfoToShareResponse > = {}): InfoToShareResponse => ({expiredDate: `${faker.date.past().toISOString().split('.')[0]}Z`, sharingId: faker.word.sample(), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.word.sample(), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
+
+export const getValidateLinkResponseMock = (overrideResponse: Partial< ValidateLinkResponse > = {}): ValidateLinkResponse => ({isValid: faker.datatype.boolean(), linkId: faker.word.sample(), ...overrideResponse})
+
+export const getGetLinkByMatchMakerIdResponseMock = (overrideResponse: Partial< LinkStatusResponse > = {}): LinkStatusResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
+
+export const getGetMatchMakerNameResponseMock = (): string => (faker.word.sample())
+
+export const getGetInfoResponseMock = (overrideResponse: Partial< DetailedInfoDto > = {}): DetailedInfoDto => ({id: faker.word.sample(), idealPartner: faker.helpers.arrayElement([{ageRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NO_PROBLEM','ONE_TWO_TIMES_A_WEEK','ONE_TWO_TIMES_A_MONTH','NEVER','ETC'] as const)}, heightRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), hobbies: faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), images: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), undefined]), location: faker.helpers.arrayElement([faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER','NEVER','GOOD','ETC'] as const)}, style: faker.helpers.arrayElement([faker.word.sample(), undefined]), toMatchMaker: faker.word.sample()}, undefined]), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), name: faker.word.sample(), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
+
+export const getGetAllInfoResponseMock = (): ArchivedInfoResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), id: faker.helpers.arrayElement([faker.word.sample(), undefined]), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), name: faker.word.sample(), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}})))
+
+export const getGetAddressResponseMock = (): CityAndTownResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({city: {city: faker.helpers.arrayElement(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), cityName: faker.word.sample()}, town: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({town: faker.helpers.arrayElement(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const), townName: faker.word.sample()}))})))
+
+export const getHasSeenOnboardingResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
+
+export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), userId: faker.word.sample(), ...overrideResponse})
+
+export const getDeleteInfoResponseMock = (): string => (faker.word.sample())
+
+export const getQuitResponseMock = (): Unit => ({})
+
+
+export const getUpdateLinkOpenMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.put('*/api/v1/link/link-open', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateLinkOpenResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getRegenerateLinkKeyMockHandler = (
-  overrideResponse?:
-    | CreateLinkResponse
-    | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<CreateLinkResponse> | CreateLinkResponse),
-) => {
-  return http.put('*/api/v1/link/key', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getRegenerateLinkKeyResponseMock(),
-      ),
+export const getRegenerateLinkKeyMockHandler = (overrideResponse?: CreateLinkResponse | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<CreateLinkResponse> | CreateLinkResponse)) => {
+  return http.put('*/api/v1/link/key', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getRegenerateLinkKeyResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getUpdateInfoMockHandler = (
-  overrideResponse?: string | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<string> | string),
-) => {
-  return http.put('*/api/v1/info', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getUpdateInfoResponseMock(),
-      ),
+export const getUpdateInfoMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<string> | string)) => {
+  return http.put('*/api/v1/info', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getSaveSharingMockHandler = (
-  overrideResponse?:
-    | SaveSharingResponse
-    | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<SaveSharingResponse> | SaveSharingResponse),
-) => {
-  return http.post('*/api/v1/sharing/:infoId', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getSaveSharingResponseMock(),
-      ),
+export const getSaveSharingMockHandler = (overrideResponse?: SaveSharingResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<SaveSharingResponse> | SaveSharingResponse)) => {
+  return http.post('*/api/v1/sharing/:infoId', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSaveSharingResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getCreateLinkMockHandler = (
-  overrideResponse?:
-    | CreateLinkResponse
-    | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateLinkResponse> | CreateLinkResponse),
-) => {
-  return http.post('*/api/v1/link', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateLinkResponseMock(),
-      ),
+export const getCreateLinkMockHandler = (overrideResponse?: CreateLinkResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateLinkResponse> | CreateLinkResponse)) => {
+  return http.post('*/api/v1/link', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateLinkResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getSaveInfoMockHandler = (
-  overrideResponse?: string | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<string> | string),
-) => {
-  return http.post('*/api/v1/info/save', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getSaveInfoResponseMock(),
-      ),
+export const getSaveInfoMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<string> | string)) => {
+  return http.post('*/api/v1/info/save', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSaveInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getUploadImageMockHandler = (
-  overrideResponse?:
-    | ImageDto
-    | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<ImageDto> | ImageDto),
-) => {
-  return http.post('*/api/v1/image/upload', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getUploadImageResponseMock(),
-      ),
+export const getUploadImageMockHandler = (overrideResponse?: ImageDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<ImageDto> | ImageDto)) => {
+  return http.post('*/api/v1/image/upload', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUploadImageResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getRefreshTokenMockHandler = (
-  overrideResponse?:
-    | UserTokenDto
-    | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto),
-) => {
-  return http.post('*/api/v1/auth/refresh-token', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getRefreshTokenResponseMock(),
-      ),
+export const getRefreshTokenMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
+  return http.post('*/api/v1/auth/refresh-token', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getRefreshTokenResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getLogoutMockHandler = (
-  overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Unit> | Unit),
-) => {
-  return http.post('*/api/v1/auth/logout', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getLogoutResponseMock(),
-      ),
+export const getLogoutMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.post('*/api/v1/auth/logout', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getLogoutResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getHealthMockHandler = (
-  overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string),
-) => {
-  return http.get('*/health', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getHealthResponseMock(),
-      ),
+export const getHealthMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string)) => {
+  return http.get('*/health', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getHealthResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getLogMockHandler = (
-  overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string),
-) => {
-  return http.get('*/health/log', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getLogResponseMock(),
-      ),
+export const getLogMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string)) => {
+  return http.get('*/health/log', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getLogResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getGetInfoBySharingIdMockHandler = (
-  overrideResponse?:
-    | InfoToShareResponse
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<InfoToShareResponse> | InfoToShareResponse),
-) => {
-  return http.get('*/api/v1/sharing/public/:sharingId', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetInfoBySharingIdResponseMock(),
-      ),
+export const getGetInfoBySharingIdMockHandler = (overrideResponse?: InfoToShareResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<InfoToShareResponse> | InfoToShareResponse)) => {
+  return http.get('*/api/v1/sharing/public/:sharingId', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetInfoBySharingIdResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getValidateLinkMockHandler = (
-  overrideResponse?:
-    | ValidateLinkResponse
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<ValidateLinkResponse> | ValidateLinkResponse),
-) => {
-  return http.get('*/api/v1/link/valid/:linkKey', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getValidateLinkResponseMock(),
-      ),
+export const getValidateLinkMockHandler = (overrideResponse?: ValidateLinkResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<ValidateLinkResponse> | ValidateLinkResponse)) => {
+  return http.get('*/api/v1/link/valid/:linkKey', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getValidateLinkResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getGetLinkByMatchMakerIdMockHandler = (
-  overrideResponse?:
-    | LinkStatusResponse
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<LinkStatusResponse> | LinkStatusResponse),
-) => {
-  return http.get('*/api/v1/link/status', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetLinkByMatchMakerIdResponseMock(),
-      ),
+export const getGetLinkByMatchMakerIdMockHandler = (overrideResponse?: LinkStatusResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<LinkStatusResponse> | LinkStatusResponse)) => {
+  return http.get('*/api/v1/link/status', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetLinkByMatchMakerIdResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getGetInfoMockHandler = (
-  overrideResponse?:
-    | DetailedInfoDto
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<DetailedInfoDto> | DetailedInfoDto),
-) => {
-  return http.get('*/api/v1/info/detail/:id', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetInfoResponseMock(),
-      ),
+export const getGetMatchMakerNameMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string)) => {
+  return http.get('*/api/v1/link/match-maker/:linkKey', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetMatchMakerNameResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getGetAllInfoMockHandler = (
-  overrideResponse?:
-    | ArchivedInfoResponse[]
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<ArchivedInfoResponse[]> | ArchivedInfoResponse[]),
-) => {
-  return http.get('*/api/v1/info/all', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetAllInfoResponseMock(),
-      ),
+export const getGetInfoMockHandler = (overrideResponse?: DetailedInfoDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<DetailedInfoDto> | DetailedInfoDto)) => {
+  return http.get('*/api/v1/info/detail/:id', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getGetAddressMockHandler = (
-  overrideResponse?:
-    | CityAndTownResponse[]
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<CityAndTownResponse[]> | CityAndTownResponse[]),
-) => {
-  return http.get('*/api/v1/info/address', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetAddressResponseMock(),
-      ),
+export const getGetAllInfoMockHandler = (overrideResponse?: ArchivedInfoResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<ArchivedInfoResponse[]> | ArchivedInfoResponse[])) => {
+  return http.get('*/api/v1/info/all', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetAllInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getHasSeenOnboardingMockHandler = (
-  overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<boolean> | boolean),
-) => {
-  return http.get('*/api/v1/auth/onboarding', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getHasSeenOnboardingResponseMock(),
-      ),
+export const getGetAddressMockHandler = (overrideResponse?: CityAndTownResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<CityAndTownResponse[]> | CityAndTownResponse[])) => {
+  return http.get('*/api/v1/info/address', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetAddressResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getLoginKakaoMockHandler = (
-  overrideResponse?:
-    | UserTokenDto
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto),
-) => {
-  return http.get('*/api/v1/auth/kakao/login', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getLoginKakaoResponseMock(),
-      ),
+export const getHasSeenOnboardingMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.get('*/api/v1/auth/onboarding', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getHasSeenOnboardingResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getInfoMockHandler = (
-  overrideResponse?:
-    | UserInfoResponse
-    | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserInfoResponse> | UserInfoResponse),
-) => {
-  return http.get('*/api/v1/auth/info', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getInfoResponseMock(),
-      ),
+export const getLoginKakaoMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
+  return http.get('*/api/v1/auth/kakao/login', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getLoginKakaoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getDeleteInfoMockHandler = (
-  overrideResponse?: string | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<string> | string),
-) => {
-  return http.delete('*/api/v1/info/:id', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getDeleteInfoResponseMock(),
-      ),
+export const getInfoMockHandler = (overrideResponse?: UserInfoResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserInfoResponse> | UserInfoResponse)) => {
+  return http.get('*/api/v1/auth/info', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
 
-export const getQuitMockHandler = (
-  overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<Unit> | Unit),
-) => {
-  return http.delete('*/api/v1/auth/quit', async (info) => {
-    await delay(1000);
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getQuitResponseMock(),
-      ),
+export const getDeleteInfoMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<string> | string)) => {
+  return http.delete('*/api/v1/info/:id', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getDeleteInfoResponseMock()),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
-      },
-    );
-  });
-};
+        }
+      }
+    )
+  })
+}
+
+export const getQuitMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.delete('*/api/v1/auth/quit', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getQuitResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
 export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
@@ -3067,6 +1673,7 @@ export const getGoogooApiMock = () => [
   getGetInfoBySharingIdMockHandler(),
   getValidateLinkMockHandler(),
   getGetLinkByMatchMakerIdMockHandler(),
+  getGetMatchMakerNameMockHandler(),
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),
@@ -3074,5 +1681,4 @@ export const getGoogooApiMock = () => [
   getLoginKakaoMockHandler(),
   getInfoMockHandler(),
   getDeleteInfoMockHandler(),
-  getQuitMockHandler(),
-];
+  getQuitMockHandler()]

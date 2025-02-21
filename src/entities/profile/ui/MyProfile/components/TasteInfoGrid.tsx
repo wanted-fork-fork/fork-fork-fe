@@ -5,8 +5,10 @@ import { Chip } from 'src/shared/ui/Chip/Chip';
 import { getSmokingText } from 'src/entities/profile/lib/getSmokingText';
 import { EditProfileFunction } from 'src/features/EditInfo/ProfileEditContext';
 import { getDrinkingText } from 'src/entities/profile/lib/getDrinkingText';
+import { useTranslation } from 'react-i18next';
 
 export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; onClickEdit?: EditProfileFunction }) => {
+  const { t } = useTranslation();
   const showBlankValue = Boolean(onClickEdit);
   return (
     <div className={styles.Grid}>
@@ -27,13 +29,13 @@ export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; on
           {(showBlankValue || profile.smoking) && (
             <div className={styles.Cell}>
               <ProfileCellHeader title={'흡연 여부'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
-              <span>{getSmokingText(profile.smoking, 'INFO')}</span>
+              <span>{getSmokingText(profile.smoking, 'INFO', t)}</span>
             </div>
           )}
           {(showBlankValue || profile.drinking) && (
             <div className={styles.Cell}>
               <ProfileCellHeader title={'음주 여부'} onClickEdit={() => onClickEdit?.('PROFILE_SMOKE_ALCOHOL')} />
-              <span>{getDrinkingText(profile.drinking)}</span>
+              <span>{getDrinkingText(profile.drinking, t)}</span>
             </div>
           )}
         </div>

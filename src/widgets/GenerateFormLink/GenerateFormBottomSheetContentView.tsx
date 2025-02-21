@@ -16,7 +16,7 @@ export const GenerateFormBottomSheetContentView = ({
   onClickCopyLink: () => void;
   onClickRegenerate: () => void;
   onClickShareKakao: () => void;
-  onToggleLinkOpen: () => void;
+  onToggleLinkOpen: (value: boolean) => void;
 }) => {
   return (
     <div className={styles.Container}>

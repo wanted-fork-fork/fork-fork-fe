@@ -91,7 +91,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
             onClickEdit={() => onClickEdit?.('IDEAL_RELIGION')}
             suffix={renderBadge('종교')}
           />
-          <span>{getReligionText(profile.religion)}</span>
+          <span>{getReligionText(profile.religion, t)}</span>
         </div>
       )}
       {(showBlankValue || profile.drinking) && (
@@ -101,7 +101,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
             onClickEdit={() => onClickEdit?.('IDEAL_DRINKING')}
             suffix={renderBadge('음주 습관')}
           />
-          <span>{getDrinkingText(profile.drinking)}</span>
+          <span>{getDrinkingText(profile.drinking, t)}</span>
         </div>
       )}
       {(showBlankValue || profile.smoking) && (
@@ -111,7 +111,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
             onClickEdit={() => onClickEdit?.('IDEAL_SMOKING')}
             suffix={renderBadge('흡연 여부')}
           />
-          <span>{getSmokingText(profile.smoking, 'IDEAL')}</span>
+          <span>{getSmokingText(profile.smoking, 'IDEAL', t)}</span>
         </div>
       )}
       {(showBlankValue || profile.toMatchMaker) && (

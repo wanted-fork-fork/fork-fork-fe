@@ -15,6 +15,11 @@
   font-size: 16px;
 
   cursor: pointer;
+
+  &:disabled {
+    background: var(--color-neutral-200);
+    color: var(--color-neutral-300);
+  }
 }
 
 .ButtonIconWrapper {

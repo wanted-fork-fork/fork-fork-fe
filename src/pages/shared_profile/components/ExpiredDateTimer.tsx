@@ -29,7 +29,7 @@ export const ExpiredDateTimer = forwardRef<HTMLDivElement, { expiredDate: Date; 
         <div className={styles.Box} ref={ref}>
           <span className={styles.Description}>이 시간동안 정보를 확인할 수 있어요!</span>
           <div className={styles.Timer}>
-            <Timer color={Theme.color.primary} />
+            <Timer color={'transparent'} />
             <span className={styles.TimerText}>{timerText}</span>
           </div>
         </div>

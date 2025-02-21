@@ -11,7 +11,8 @@ import { refreshToken } from 'src/types';
 export const authenticate = async (request: Request) => {
   const result = await authenticateWithoutRedirection(request);
   if (!result) {
-    throw redirect('/login');
+    const pathname = new URL(request.url).pathname;
+    throw redirect(`/login?path=${encodeURIComponent(pathname)}`);
   }
   return result;
 };
