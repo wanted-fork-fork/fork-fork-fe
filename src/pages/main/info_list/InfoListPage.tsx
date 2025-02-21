@@ -56,7 +56,7 @@ export const InfoListPage = ({
   );
 };
 
-const ProfileShareTrigger = ({ onClick }: { onClick: () => void }) => {
+export const ProfileShareTrigger = ({ onClick }: { onClick: () => void }) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     onClick();
@@ -64,7 +64,14 @@ const ProfileShareTrigger = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <>
-      <Button variant={'ghost'} widthType={'hug'} color={'neutral'} size={'fit'} onClick={handleClick}>
+      <Button
+        className={'profile-share-button'}
+        variant={'ghost'}
+        widthType={'hug'}
+        color={'neutral'}
+        size={'fit'}
+        onClick={handleClick}
+      >
         <Share color={Theme.color.neutral50} />
       </Button>
     </>

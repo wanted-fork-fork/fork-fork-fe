@@ -23,7 +23,7 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
   const location = convertDtoToLocation(profile.location)[0];
 
   return (
-    <article className={styles.Container}>
+    <article className={`${styles.Container} profile-card`}>
       {headerRightSlot && <div className={styles.HeaderRightSlot}>{headerRightSlot}</div>}
       <div className={styles.Header}>
         <div className={styles.ProfileImageContainer}>

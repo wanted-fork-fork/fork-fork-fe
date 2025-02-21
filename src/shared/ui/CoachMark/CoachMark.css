@@ -2,6 +2,7 @@
     background-color: transparent;
     color: var(--color-neutral-0);
     box-shadow: none;
+    transform: none !important;
 
     & .driver-popover-arrow {
         display: none;
@@ -18,13 +19,26 @@
     }
 
     & .driver-popover-description {
+        width: 320px;
         color: white;
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
         white-space: pre-wrap;
 
+        text-align: var(--onboarding-text-align);
+
         margin-top: 8px;
+
+        &:after {
+            display: var(--onboarding-show-googoo, block);
+            content: ' ';
+
+            background-image: url("/images/googoo_onboarding.png");
+            width: 258px;
+            height: 283px;
+            background-size: cover;
+        }
     }
 
     & .driver-popover-footer {
