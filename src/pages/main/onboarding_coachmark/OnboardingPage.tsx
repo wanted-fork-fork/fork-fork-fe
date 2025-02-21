@@ -12,10 +12,20 @@ import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
 import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
 
-const createDriverOjb = ({ onChangeState }: { onChangeState: (state: { activeIndex: number }) => void }) =>
+const createDriverOjb = ({
+  onChangeState,
+  onClickNext,
+}: {
+  onChangeState: (state: { activeIndex: number }) => void;
+  onClickNext: (activeIndex: number) => void;
+}) =>
   driver({
     onPopoverRender: (_, { state }) => {
       if (state.activeIndex) onChangeState({ activeIndex: state.activeIndex });
+    },
+    onNextClick: (_, __, { state }) => {
+      if (state.activeIndex === undefined) return;
+      onClickNext(state.activeIndex);
     },
     showProgress: false,
     allowClose: false,
@@ -136,6 +146,12 @@ export const OnboardingPage = ({
           '--onboarding-text-align',
           [0, 5].includes(activeIndex) ? 'center' : 'left',
         );
+      },
+      onClickNext: (activeIndex) => {
+        obj.moveNext();
+        if (activeIndex === 5) {
+          onEndOnboarding();
+        }
       },
     });
 

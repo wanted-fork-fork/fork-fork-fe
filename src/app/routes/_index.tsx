@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const { profileList, userInfo, seenOnboarding } = useLoaderData<typeof loader>();
 
-  const [seenOnboardingState, setSeenOnboardingState] = useState(false); //seenOnboarding);
+  const [seenOnboardingState, setSeenOnboardingState] = useState(seenOnboarding);
 
   return seenOnboardingState ? (
     <>
@@ -51,6 +51,6 @@ export default function Index() {
       <GenerateFormLink />
     </>
   ) : (
-    <OnboardingPage userInfo={userInfo} onEndOnboarding={() => setSeenOnboardingState(false)} />
+    <OnboardingPage userInfo={userInfo} onEndOnboarding={() => setSeenOnboardingState(true)} />
   );
 }
