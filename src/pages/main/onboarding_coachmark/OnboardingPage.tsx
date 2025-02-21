@@ -176,10 +176,12 @@ export const OnboardingPage = ({
             </p>
           </div>
         ) : (
-          <ProfileCardList
-            profileList={[profileMock]}
-            profileActionSlot={() => <ProfileShareTrigger onClick={noop} />}
-          />
+          <div className={styles.ListWrapper}>
+            <ProfileCardList
+              profileList={[profileMock]}
+              profileActionSlot={() => <ProfileShareTrigger onClick={noop} />}
+            />
+          </div>
         )}
         <ProfileAddFloatingButton
           className={'profile-add-button'}

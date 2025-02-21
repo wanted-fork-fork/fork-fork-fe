@@ -4,6 +4,8 @@
     box-shadow: none;
     transform: none !important;
 
+    max-width: 320px !important;
+
     & .driver-popover-arrow {
         display: none;
     }
@@ -38,6 +40,7 @@
             width: 258px;
             height: 283px;
             background-size: cover;
+            margin: auto;
         }
     }
 
