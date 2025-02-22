@@ -51,7 +51,11 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   return [
     { title: '구구(GooGoo)' },
-    { name: 'description', content: '내 사랑을 구해줄래? 구해줄게!' },
+    {
+      name: 'description',
+      content:
+        '소개팅을 주선하는 모든 과정을 간편하게! 후보자 정보 관리부터 소개팅 질문 리스트 제공까지 구구가 주선자의 고민을 덜어드려요.',
+    },
     { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_default.png' },
     { property: 'og:image:width', content: '800' },
     { property: 'og:image:height', content: '400' },

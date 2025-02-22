@@ -54,11 +54,21 @@ export const GenerateFormBottomSheetContentView = ({
       <div className={styles.LinkConfigSection}>
         <h3>링크 설정</h3>
         <div className={styles.LinkConfig}>
-          <p>기존 링크 활성화</p>
+          <div>
+            <p>
+              <strong>링크 사용</strong>
+            </p>
+            <p>링크를 비활성화하면 더 이상 접근할 수 없습니다. </p>
+          </div>
           <Toggle onToggle={onToggleLinkOpen} checked={isOpen} />
         </div>
         <div className={styles.LinkConfig}>
-          <p>새로운 링크 생성</p>
+          <div>
+            <p>
+              <strong>새로운 링크 생성</strong>
+            </p>
+            <p>새 링크 발급 시 기존 링크는 사용할 수 없습니다.</p>
+          </div>
           <Button variant={'ghost'} widthType={'hug'} color={'primary'} size={'fit'} onClick={onClickRegenerate}>
             <Refresh color={isOpen ? Theme.color.primary : Theme.color.neutral30} />
           </Button>
