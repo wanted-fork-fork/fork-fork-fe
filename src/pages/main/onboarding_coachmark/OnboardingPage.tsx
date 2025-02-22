@@ -205,18 +205,20 @@ export const OnboardingPage = ({
             setOpenModal(true);
           }}
         />
-        <BottomSheet isOpen={openModal} onClose={noop} detent={'content-height'}>
-          <BottomSheet.Header onClose={noop} />
-          <BottomSheet.Content>
-            <GenerateFormBottomSheetContentView
-              isOpen={true}
-              onClickShareKakao={noop}
-              onClickCopyLink={noop}
-              onClickRegenerate={noop}
-              onToggleLinkOpen={noop}
-            />
-          </BottomSheet.Content>
-        </BottomSheet>
+        {openModal && (
+          <BottomSheet isOpen={true} onClose={noop} detent={'content-height'} animate={false}>
+            <BottomSheet.Header onClose={noop} />
+            <BottomSheet.Content>
+              <GenerateFormBottomSheetContentView
+                isOpen={true}
+                onClickShareKakao={noop}
+                onClickCopyLink={noop}
+                onClickRegenerate={noop}
+                onToggleLinkOpen={noop}
+              />
+            </BottomSheet.Content>
+          </BottomSheet>
+        )}
       </div>
     </>
   );
