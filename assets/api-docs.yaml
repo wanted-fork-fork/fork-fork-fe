@@ -57,6 +57,24 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/auth/email:
+    put:
+      tags:
+      - auth-controller
+      operationId: updateEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmailRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /api/v1/sharing/{infoId}:
     post:
       tags:
@@ -164,6 +182,54 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Unit'
+  /api/v1/auth/email/verify-code/verify:
+    post:
+      tags:
+      - auth-controller
+      operationId: verifyEmailVerifyCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCodeRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /api/v1/auth/email/verify-code/send:
+    post:
+      tags:
+      - auth-controller
+      operationId: sendEmailVerifyCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendVerifyEmailRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /api/v1/auth/email/opt-out:
+    post:
+      tags:
+      - auth-controller
+      operationId: optOutEmail
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /health:
     get:
       tags:
@@ -342,6 +408,18 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserInfoResponse'
+  /api/v1/auth/enrollment-status:
+    get:
+      tags:
+      - auth-controller
+      operationId: getUserEnrollmentStatus
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserEnrollmentStatusResponse'
   /api/v1/info/{id}:
     delete:
       tags:
@@ -925,6 +1003,13 @@ components:
           - ETC
         smokingAmount:
           type: string
+    UpdateEmailRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
     SaveSharingResponse:
       required:
       - sharingId
@@ -1085,6 +1170,20 @@ components:
         accessToken:
           type: string
         refreshToken:
+          type: string
+    VerifyCodeRequest:
+      required:
+      - verifyCode
+      type: object
+      properties:
+        verifyCode:
+          type: string
+    SendVerifyEmailRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
           type: string
     InfoToShareResponse:
       required:
@@ -1564,6 +1663,21 @@ components:
           type: string
         profileImage:
           type: string
+        email:
+          type: string
+    UserEnrollmentStatusResponse:
+      required:
+      - hasEmail
+      - hasSeenOnboarding
+      - inEmailOptOut
+      type: object
+      properties:
+        hasSeenOnboarding:
+          type: boolean
+        hasEmail:
+          type: boolean
+        inEmailOptOut:
+          type: boolean
   securitySchemes:
     Bearer Token:
       type: http

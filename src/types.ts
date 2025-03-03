@@ -26,7 +26,14 @@ export type SaveInfoParams = {
 linkKey: string;
 };
 
+export interface UserEnrollmentStatusResponse {
+  hasEmail: boolean;
+  hasSeenOnboarding: boolean;
+  inEmailOptOut: boolean;
+}
+
 export interface UserInfoResponse {
+  email?: string;
   name: string;
   profileImage?: string;
   userId: string;
@@ -340,6 +347,22 @@ export const ArchivedInfoResponseGender = {
   FEMALE: 'FEMALE',
 } as const;
 
+export interface ArchivedInfoResponse {
+  birthDate: string;
+  drinking: UserInfoDrinking;
+  gender: ArchivedInfoResponseGender;
+  height: number;
+  hobbies: string[];
+  id?: string;
+  images: InfoImage[];
+  job: Job;
+  location: UserInfoLocation;
+  mbti?: ArchivedInfoResponseMbti;
+  name: string;
+  religion: Religion;
+  smoking: UserInfoSmoking;
+}
+
 export interface LinkStatusResponse {
   isOpen: boolean;
   linkId: string;
@@ -383,10 +406,38 @@ export const InfoToShareUserInfoGender = {
   FEMALE: 'FEMALE',
 } as const;
 
+export interface InfoToShareUserInfo {
+  birthDate: string;
+  book?: Book;
+  dateStyle?: string[];
+  drinking: UserInfoDrinking;
+  foods?: string[];
+  gender: InfoToShareUserInfoGender;
+  height: number;
+  hobbies: string[];
+  images: InfoImage[];
+  introduction: string;
+  job: Job;
+  location: UserInfoLocation;
+  mbti?: InfoToShareUserInfoMbti;
+  movie?: Movie;
+  pets?: string[];
+  religion: Religion;
+  smoking: UserInfoSmoking;
+}
+
 export interface InfoToShareResponse {
   expiredDate: string;
   sharingId: string;
   userInfo: InfoToShareUserInfo;
+}
+
+export interface SendVerifyEmailRequest {
+  email: string;
+}
+
+export interface VerifyCodeRequest {
+  verifyCode: string;
 }
 
 export interface UserTokenDto {
@@ -431,11 +482,6 @@ export const UserInfoRequestGender = {
   FEMALE: 'FEMALE',
 } as const;
 
-export interface SaveInfoRequest {
-  idealPartner?: IdealPartnerRequest;
-  userInfo: UserInfoRequest;
-}
-
 export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
 
 
@@ -454,8 +500,31 @@ export const IdealPartnerRequestHobbies = {
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
 
+export interface IdealPartnerRequest {
+  ageRange?: NumberRange;
+  drinking: IdealPartnerDrinking;
+  heightRange?: NumberRange;
+  hobbies: IdealPartnerRequestHobbies;
+  images?: InfoImage[];
+  location?: IdealPartnerRequestLocation;
+  religion: Religion;
+  requiredOptions: string[];
+  smoking: IdealPartnerSmoking;
+  style?: string;
+  toMatchMaker: string;
+}
+
+export interface SaveInfoRequest {
+  idealPartner?: IdealPartnerRequest;
+  userInfo: UserInfoRequest;
+}
+
 export interface SaveSharingResponse {
   sharingId: string;
+}
+
+export interface UpdateEmailRequest {
+  email: string;
 }
 
 export type UserInfoSmokingSmokingCategory = typeof UserInfoSmokingSmokingCategory[keyof typeof UserInfoSmokingSmokingCategory];
@@ -770,22 +839,6 @@ export interface Religion {
   religionName?: string;
 }
 
-export interface ArchivedInfoResponse {
-  birthDate: string;
-  drinking: UserInfoDrinking;
-  gender: ArchivedInfoResponseGender;
-  height: number;
-  hobbies: string[];
-  id?: string;
-  images: InfoImage[];
-  job: Job;
-  location: UserInfoLocation;
-  mbti?: ArchivedInfoResponseMbti;
-  name: string;
-  religion: Religion;
-  smoking: UserInfoSmoking;
-}
-
 export interface NumberRange {
   max: number;
   min: number;
@@ -815,26 +868,6 @@ export interface Job {
 export interface InfoImage {
   imageId: string;
   url: string;
-}
-
-export interface InfoToShareUserInfo {
-  birthDate: string;
-  book?: Book;
-  dateStyle?: string[];
-  drinking: UserInfoDrinking;
-  foods?: string[];
-  gender: InfoToShareUserInfoGender;
-  height: number;
-  hobbies: string[];
-  images: InfoImage[];
-  introduction: string;
-  job: Job;
-  location: UserInfoLocation;
-  mbti?: InfoToShareUserInfoMbti;
-  movie?: Movie;
-  pets?: string[];
-  religion: Religion;
-  smoking: UserInfoSmoking;
 }
 
 export interface UserInfoRequest {
@@ -889,20 +922,6 @@ export const IdealPartnerDrinkingDrinkingCategory = {
 export interface IdealPartnerDrinking {
   drinkingAmount?: string;
   drinkingCategory: IdealPartnerDrinkingDrinkingCategory;
-}
-
-export interface IdealPartnerRequest {
-  ageRange?: NumberRange;
-  drinking: IdealPartnerDrinking;
-  heightRange?: NumberRange;
-  hobbies: IdealPartnerRequestHobbies;
-  images?: InfoImage[];
-  location?: IdealPartnerRequestLocation;
-  religion: Religion;
-  requiredOptions: string[];
-  smoking: IdealPartnerSmoking;
-  style?: string;
-  toMatchMaker: string;
 }
 
 export type DetailedInfoUserInfoMbti = typeof DetailedInfoUserInfoMbti[keyof typeof DetailedInfoUserInfoMbti];
@@ -1051,6 +1070,17 @@ export const updateInfo = (
       options);
     }
   
+export const updateEmail = (
+    updateEmailRequest: UpdateEmailRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateEmailRequest
+    },
+      options);
+    }
+  
 export const saveSharing = (
     infoId: string,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1111,6 +1141,37 @@ export const logout = (
  options?: SecondParameter<typeof customInstance>,) => {
       return customInstance<Unit>(
       {url: `/api/v1/auth/logout`, method: 'POST'
+    },
+      options);
+    }
+  
+export const verifyEmailVerifyCode = (
+    verifyCodeRequest: VerifyCodeRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/verify-code/verify`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: verifyCodeRequest
+    },
+      options);
+    }
+  
+export const sendEmailVerifyCode = (
+    sendVerifyEmailRequest: SendVerifyEmailRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/verify-code/send`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: sendVerifyEmailRequest
+    },
+      options);
+    }
+  
+export const optOutEmail = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/opt-out`, method: 'POST'
     },
       options);
     }
@@ -1224,6 +1285,15 @@ export const info = (
       options);
     }
   
+export const getUserEnrollmentStatus = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserEnrollmentStatusResponse>(
+      {url: `/api/v1/auth/enrollment-status`, method: 'GET'
+    },
+      options);
+    }
+  
 export const deleteInfo = (
     id: string,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1245,12 +1315,16 @@ export const quit = (
 export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
+export type UpdateEmailResult = NonNullable<Awaited<ReturnType<typeof updateEmail>>>
 export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>
 export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>
 export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
 export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>
 export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>
 export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
+export type VerifyEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof verifyEmailVerifyCode>>>
+export type SendEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof sendEmailVerifyCode>>>
+export type OptOutEmailResult = NonNullable<Awaited<ReturnType<typeof optOutEmail>>>
 export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>
 export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
 export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
@@ -1263,6 +1337,7 @@ export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>
 export type HasSeenOnboardingResult = NonNullable<Awaited<ReturnType<typeof hasSeenOnboarding>>>
 export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
 export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
+export type GetUserEnrollmentStatusResult = NonNullable<Awaited<ReturnType<typeof getUserEnrollmentStatus>>>
 export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>
 export type QuitResult = NonNullable<Awaited<ReturnType<typeof quit>>>
 
@@ -1272,6 +1347,8 @@ export const getUpdateLinkOpenResponseMock = (): Unit => ({})
 export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< CreateLinkResponse > = {}): CreateLinkResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
 export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
+
+export const getUpdateEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getSaveSharingResponseMock = (overrideResponse: Partial< SaveSharingResponse > = {}): SaveSharingResponse => ({sharingId: faker.word.sample(), ...overrideResponse})
 
@@ -1284,6 +1361,12 @@ export const getUploadImageResponseMock = (overrideResponse: Partial< ImageDto >
 export const getRefreshTokenResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
 export const getLogoutResponseMock = (): Unit => ({})
+
+export const getVerifyEmailVerifyCodeResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getSendEmailVerifyCodeResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getOptOutEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getHealthResponseMock = (): string => (faker.word.sample())
 
@@ -1307,7 +1390,9 @@ export const getHasSeenOnboardingResponseMock = (): boolean => (faker.datatype.b
 
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
-export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), userId: faker.word.sample(), ...overrideResponse})
+export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), userId: faker.word.sample(), ...overrideResponse})
+
+export const getGetUserEnrollmentStatusResponseMock = (overrideResponse: Partial< UserEnrollmentStatusResponse > = {}): UserEnrollmentStatusResponse => ({hasEmail: faker.datatype.boolean(), hasSeenOnboarding: faker.datatype.boolean(), inEmailOptOut: faker.datatype.boolean(), ...overrideResponse})
 
 export const getDeleteInfoResponseMock = (): string => (faker.word.sample())
 
@@ -1349,6 +1434,21 @@ export const getUpdateInfoMockHandler = (overrideResponse?: string | ((info: Par
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUpdateInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getUpdateEmailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.put('*/api/v1/auth/email', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateEmailResponseMock()),
       {
         status: 200,
         headers: {
@@ -1439,6 +1539,51 @@ export const getLogoutMockHandler = (overrideResponse?: Unit | ((info: Parameter
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getLogoutResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getVerifyEmailVerifyCodeMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/verify-code/verify', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getVerifyEmailVerifyCodeResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getSendEmailVerifyCodeMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/verify-code/send', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSendEmailVerifyCodeResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getOptOutEmailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/opt-out', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getOptOutEmailResponseMock()),
       {
         status: 200,
         headers: {
@@ -1629,6 +1774,21 @@ export const getInfoMockHandler = (overrideResponse?: UserInfoResponse | ((info:
   })
 }
 
+export const getGetUserEnrollmentStatusMockHandler = (overrideResponse?: UserEnrollmentStatusResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserEnrollmentStatusResponse> | UserEnrollmentStatusResponse)) => {
+  return http.get('*/api/v1/auth/enrollment-status', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetUserEnrollmentStatusResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getDeleteInfoMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<string> | string)) => {
   return http.delete('*/api/v1/info/:id', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1662,12 +1822,16 @@ export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
   getUpdateInfoMockHandler(),
+  getUpdateEmailMockHandler(),
   getSaveSharingMockHandler(),
   getCreateLinkMockHandler(),
   getSaveInfoMockHandler(),
   getUploadImageMockHandler(),
   getRefreshTokenMockHandler(),
   getLogoutMockHandler(),
+  getVerifyEmailVerifyCodeMockHandler(),
+  getSendEmailVerifyCodeMockHandler(),
+  getOptOutEmailMockHandler(),
   getHealthMockHandler(),
   getLogMockHandler(),
   getGetInfoBySharingIdMockHandler(),
@@ -1680,5 +1844,6 @@ export const getGoogooApiMock = () => [
   getHasSeenOnboardingMockHandler(),
   getLoginKakaoMockHandler(),
   getInfoMockHandler(),
+  getGetUserEnrollmentStatusMockHandler(),
   getDeleteInfoMockHandler(),
   getQuitMockHandler()]
