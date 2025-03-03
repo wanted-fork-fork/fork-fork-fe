@@ -36,6 +36,12 @@
     }
 }
 
+.Error {
+    color: #ff4245;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .Timer {
     color: var(--color-primary);
     width: 48px;
