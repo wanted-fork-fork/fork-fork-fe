@@ -33,7 +33,23 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
       </div>
       <div className={styles.MenuList}>
         <div>
-          <p className={`label ${styles.Label}`}>고객지원</p>
+          <p className={`label ${styles.Label}`}>구구 소식</p>
+          <div className={styles.ButtonWrapper}>
+            <Link to={NOTICE_URL}>
+              <Button
+                color={'neutral'}
+                variant={'ghost'}
+                widthType={'fill'}
+                suffixSlot={<ArrowIcon />}
+                textAlign={'left'}
+              >
+                공지사항
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div>
+          <p className={`label ${styles.Label}`}>고객 지원</p>
           <div className={styles.ButtonWrapper}>
             <Link to={FAQ_URL}>
               <Button
@@ -57,17 +73,6 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
                 문의하기
               </Button>
             </Link>
-            <Link to={NOTICE_URL}>
-              <Button
-                color={'neutral'}
-                variant={'ghost'}
-                widthType={'fill'}
-                suffixSlot={<ArrowIcon />}
-                textAlign={'left'}
-              >
-                공지사항
-              </Button>
-            </Link>
             <Button
               color={'neutral'}
               variant={'ghost'}
@@ -78,11 +83,6 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
             >
               튜토리얼 다시보기
             </Button>
-          </div>
-        </div>
-        <div>
-          <p className={`label ${styles.Label}`}>약관 및 정책</p>
-          <div className={styles.ButtonWrapper}>
             <Link to={PRIVACY_POLICY_URL}>
               <Button
                 color={'neutral'}
