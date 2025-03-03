@@ -38,4 +38,5 @@
 
 .Timer {
     color: var(--color-primary);
+    width: 48px;
 }

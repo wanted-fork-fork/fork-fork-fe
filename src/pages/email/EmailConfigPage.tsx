@@ -3,9 +3,29 @@ import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
 import { useNavigate } from '@remix-run/react';
 import styles from './EmailConfigPage.module.css';
+import { useEffect, useRef, useState } from 'react';
+
+const timeLimit = 5 * 60;
+
+const refineNumber = (n: number) => Math.floor(n).toString().padStart(2, '0');
+const getTimerText = (sec: number) => {
+  return `${refineNumber((sec % (60 * 60)) / 60)}:${refineNumber(sec % 60)}`;
+};
 
 export const EmailConfigPage = () => {
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [leftTime, setLeftTime] = useState(timeLimit);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setLeftTime((prev) => prev - 1);
+    }, 1000);
+    return () => {
+      timerRef.current && clearInterval(timerRef.current);
+    };
+  }, []);
 
   const handleClickPrev = () => {
     navigate('/');
@@ -31,7 +51,7 @@ export const EmailConfigPage = () => {
         </div>
         <Input
           placeholder={'인증코드 6자리를 입력해주세요.'}
-          suffixSlot={<span className={styles.Timer}>05:00</span>}
+          suffixSlot={<span className={styles.Timer}>{getTimerText(leftTime)}</span>}
         />
       </div>
       <div className={styles.Footer}>
