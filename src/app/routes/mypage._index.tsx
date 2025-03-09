@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
 };
 
-export default function MyPage() {
+export default function Mypage_index() {
   const { userInfo } = useLoaderData<typeof loader>();
   return <_MyPage userInfo={userInfo} />;
 }

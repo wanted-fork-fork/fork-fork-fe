@@ -1,0 +1,14 @@
+.Body {
+  padding: 24px 20px;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .Label {
+    font-weight: 600;
+    font-size: 16px;
+  }
+}

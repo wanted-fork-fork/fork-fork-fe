@@ -49,6 +49,22 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
           </div>
         </div>
         <div>
+          <p className={`label ${styles.Label}`}>설정</p>
+          <div className={styles.ButtonWrapper}>
+            <Link to={'/mypage/notification'}>
+              <Button
+                color={'neutral'}
+                variant={'ghost'}
+                widthType={'fill'}
+                suffixSlot={<ArrowIcon />}
+                textAlign={'left'}
+              >
+                후보자 추가 알림 받기
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div>
           <p className={`label ${styles.Label}`}>고객 지원</p>
           <div className={styles.ButtonWrapper}>
             <Link to={FAQ_URL}>
@@ -61,7 +77,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
               >
                 자주 묻는 질문
               </Button>
-            </Link>{' '}
+            </Link>
             <Link to={INQUIRY_URL}>
               <Button
                 color={'neutral'}
