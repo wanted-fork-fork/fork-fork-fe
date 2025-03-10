@@ -15,13 +15,14 @@ export const BottomSheet = ({ children, className = '', ...props }: BottomSheetP
 };
 
 type BottomSheetHeaderProps = PropsWithChildren<{
+  className?: string;
   onClose?: () => void;
   onPrev?: () => void;
 }>;
 
-const BottomSheetHeader = (props: BottomSheetHeaderProps) => {
+const BottomSheetHeader = ({ className = '', ...props }: BottomSheetHeaderProps) => {
   return (
-    <Sheet.Header className={styles.Header}>
+    <Sheet.Header className={`${className} ${styles.Header}`}>
       <Header {...props} className={styles.InnerHeader} />
     </Sheet.Header>
   );

@@ -1,0 +1,42 @@
+.Header {
+    & > div {
+        padding-bottom: 0 !important;
+    }
+}
+
+.Subtitle {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+
+.Title {
+    line-height: 150%;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.ButtonWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 42px;
+
+    & img {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        transform: translateY(-100%);
+        z-index: 10;
+    }
+
+    .Dismiss {
+        background: transparent;
+        border: none;
+        color: var(--color-neutral-600);
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+}
