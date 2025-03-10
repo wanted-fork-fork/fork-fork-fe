@@ -52,6 +52,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
     "@faker-js/faker": "^8.4.1",
+    "@netlify/remix-adapter": "^2.6.0",
     "@remix-run/dev": "^2.9.2",
     "@storybook/addon-essentials": "^8.1.5",
     "@storybook/addon-interactions": "^8.1.5",
