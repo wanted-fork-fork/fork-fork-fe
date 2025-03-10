@@ -2,10 +2,21 @@ import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Link } from '@remix-run/react';
 import styles from './EmailBannerBottomSheet.module.css';
+import { useMutation } from '@tanstack/react-query';
+import { optOutEmail } from 'src/types';
 
-export const EmailBannerBottomSheet = ({ onClose }: { onClose: () => void }) => {
+export const EmailBannerBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { mutateAsync } = useMutation({
+    mutationFn: optOutEmail,
+  });
+
+  const handleClickOptOut = async () => {
+    await mutateAsync({});
+    onClose();
+  };
+
   return (
-    <BottomSheet isOpen={true} onClose={onClose} detent={'content-height'}>
+    <BottomSheet isOpen={isOpen} onClose={onClose} detent={'content-height'}>
       <BottomSheet.Header className={styles.Header} onClose={onClose} />
       <BottomSheet.Content>
         <p className={styles.Subtitle}>구구 알림 서비스 OPEN!</p>
@@ -19,7 +30,9 @@ export const EmailBannerBottomSheet = ({ onClose }: { onClose: () => void }) => 
           <Link to={'/account/email/edit'}>
             <Button widthType={'fill'}>이메일로 알림 받기</Button>
           </Link>
-          <button className={styles.Dismiss}>14일동안 보지 않기</button>
+          <button className={styles.Dismiss} onClick={handleClickOptOut}>
+            14일동안 보지 않기
+          </button>
         </div>
       </BottomSheet.Content>
     </BottomSheet>
