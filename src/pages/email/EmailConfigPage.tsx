@@ -33,6 +33,7 @@ export const EmailConfigPage = () => {
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [leftTime, setLeftTime] = useState(timeLimit);
+  const [isSent, setSent] = useState(false);
 
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
@@ -43,19 +44,15 @@ export const EmailConfigPage = () => {
   const isConfirmDisabled = code.length < 6 || isPending;
 
   useEffect(() => {
-    if (data) {
-      timerRef.current = setInterval(() => {
-        setLeftTime((prev) => prev - 1);
-      }, 1000);
-    }
     return () => {
       timerRef.current && clearInterval(timerRef.current);
     };
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     if (verifyResult?.data) {
-      // redirect
+      navigate('/');
+      toast.success('메일이 설정되었습니다.', { icon: null });
     }
     if (verifyResult?.data === false || verifyError) {
       toast.error('인증번호를 다시 확인해주세요.');
@@ -68,6 +65,14 @@ export const EmailConfigPage = () => {
 
   const handleClickSend = () => {
     mutateSendCode({ email });
+
+    setSent(true);
+
+    timerRef.current && clearInterval(timerRef.current);
+    setLeftTime(timeLimit);
+    timerRef.current = setInterval(() => {
+      setLeftTime((prev) => prev - 1);
+    }, 1000);
   };
 
   const handleVerifyCode = () => {
@@ -112,7 +117,7 @@ export const EmailConfigPage = () => {
           </Button>
         </div>
         {(error || data?.data === false) && <p className={styles.Error}>이메일 전송에 실패했습니다.</p>}
-        {data?.data && (
+        {isSent && (
           <Input
             inputMode={'numeric'}
             placeholder={'인증코드 6자리를 입력해주세요.'}
