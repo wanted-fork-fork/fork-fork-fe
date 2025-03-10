@@ -6,9 +6,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
 
-  .Label {
-    font-weight: 600;
-    font-size: 16px;
+.NotiConfigRow {
+  padding: 20px 0;
+}
+
+.EmailConfigRow {
+  padding: 16px 0;
+
+  & > p {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-primary);
+    margin-top: 12px;
   }
+}
+
+.Label {
+  font-weight: 600;
+  font-size: 16px;
 }
