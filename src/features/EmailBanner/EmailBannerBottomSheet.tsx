@@ -11,7 +11,7 @@ export const EmailBannerBottomSheet = ({ isOpen, onClose }: { isOpen: boolean; o
   });
 
   const handleClickOptOut = async () => {
-    await mutateAsync({});
+    mutateAsync({});
     onClose();
   };
 
