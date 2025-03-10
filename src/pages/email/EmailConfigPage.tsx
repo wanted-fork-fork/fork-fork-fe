@@ -1,7 +1,7 @@
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
-import { useNavigate } from '@remix-run/react';
+import { useLocation, useNavigate } from '@remix-run/react';
 import styles from './EmailConfigPage.module.css';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -18,6 +18,8 @@ const getTimerText = (sec: number) => {
 const emailRegex = /^\S+@\S+\.\S+$/;
 
 export const EmailConfigPage = () => {
+  const location = useLocation();
+
   const {
     mutate: mutateSendCode,
     data,
@@ -51,7 +53,8 @@ export const EmailConfigPage = () => {
 
   useEffect(() => {
     if (verifyResult?.data) {
-      navigate('/');
+      const redirectTo = new URLSearchParams(location.search).get('redirect');
+      navigate(redirectTo ?? '/');
       toast.success('메일이 설정되었습니다.', { icon: null });
     }
     if (verifyResult?.data === false || verifyError) {
