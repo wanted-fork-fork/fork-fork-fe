@@ -70,6 +70,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  const { accessToken } = await authenticate(request);
+
   const body = await request.formData();
   const linkKey = body.get('linkKey');
   if (typeof linkKey !== 'string') return { status: 400 };
@@ -81,6 +83,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       // @ts-ignore
       { userInfo: JSON.parse(body.get('userInfo')), idealPartner: JSON.parse(body.get('idealPartner')) },
       { linkKey },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
 
     return { status, data };
