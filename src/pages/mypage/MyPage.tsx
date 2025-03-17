@@ -4,7 +4,7 @@ import { Link } from '@remix-run/react';
 import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
-import { FAQ_URL, INQUIRY_URL, NOTICE_URL, PRIVACY_POLICY_URL, TERM_URL } from 'src/shared/constants/url';
+import { FAQ_URL, INQUIRY_URL, NOTICE_URL } from 'src/shared/constants/url';
 import { Theme } from 'src/shared/styles/constants';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
@@ -99,7 +99,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
             >
               튜토리얼 다시보기
             </Button>
-            <Link to={PRIVACY_POLICY_URL}>
+            <Link to={'/mypage/term'}>
               <Button
                 color={'neutral'}
                 variant={'ghost'}
@@ -107,18 +107,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
                 suffixSlot={<ArrowIcon />}
                 textAlign={'left'}
               >
-                개인정보처리방침
-              </Button>
-            </Link>
-            <Link to={TERM_URL}>
-              <Button
-                color={'neutral'}
-                variant={'ghost'}
-                widthType={'fill'}
-                suffixSlot={<ArrowIcon />}
-                textAlign={'left'}
-              >
-                이용정책
+                약관 및 정책
               </Button>
             </Link>
           </div>
