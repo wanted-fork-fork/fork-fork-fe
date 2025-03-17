@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    flex: 1;
 }
 
 .Body {
@@ -17,6 +18,9 @@
 
 .Footer {
     padding: 0 20px 54px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .EmailInput {
@@ -45,4 +49,11 @@
 .Timer {
     color: var(--color-primary);
     width: 48px;
+}
+
+.ShowLaterButton {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--color-neutral-600);
 }

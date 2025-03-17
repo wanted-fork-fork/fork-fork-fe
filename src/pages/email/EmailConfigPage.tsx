@@ -7,6 +7,7 @@ import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmailVerifyCode, verifyEmailVerifyCode } from 'src/types';
 import toast from 'react-hot-toast';
+import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
 const timeLimit = 5 * 60;
 
@@ -17,7 +18,17 @@ const getTimerText = (sec: number) => {
 
 const emailRegex = /^\S+@\S+\.\S+$/;
 
-export const EmailConfigPage = () => {
+export const EmailConfigPage = ({
+  showHeader = true,
+  confirmButtonText = '완료',
+  onConfirm,
+  onClickShowLater,
+}: {
+  showHeader?: boolean;
+  confirmButtonText?: string;
+  onConfirm?: () => void;
+  onClickShowLater?: () => void;
+}) => {
   const location = useLocation();
 
   const {
@@ -53,6 +64,11 @@ export const EmailConfigPage = () => {
 
   useEffect(() => {
     if (verifyResult?.data) {
+      if (onConfirm) {
+        onConfirm();
+        return;
+      }
+
       const redirectTo = new URLSearchParams(location.search).get('redirect');
       navigate(redirectTo ?? '/');
       toast.success('메일이 설정되었습니다.', { icon: null });
@@ -92,9 +108,13 @@ export const EmailConfigPage = () => {
 
   return (
     <div className={styles.Container}>
-      <Header onPrev={handleClickPrev} suffixSlot={<></>}>
-        메일 설정
-      </Header>
+      {showHeader ? (
+        <Header onPrev={handleClickPrev} suffixSlot={<></>}>
+          메일 설정
+        </Header>
+      ) : (
+        <Spacing size={60} />
+      )}
       <div className={styles.Body}>
         <h2>
           새로 추가 되는 소개 후보,
@@ -133,8 +153,13 @@ export const EmailConfigPage = () => {
       </div>
       <div className={styles.Footer}>
         <Button widthType="fill" disabled={isConfirmDisabled} onClick={handleVerifyCode}>
-          완료
+          {confirmButtonText}
         </Button>
+        {onClickShowLater && (
+          <Button widthType={'fill'} size={'fit'} variant={'ghost'} onClick={onClickShowLater}>
+            <span className={styles.ShowLaterButton}>괜찮아요. 다음에 입력할게요.</span>
+          </Button>
+        )}
       </div>
     </div>
   );

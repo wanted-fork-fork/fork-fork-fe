@@ -9,6 +9,7 @@ import { commitSession } from 'src/app/server/sessions';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/features/EmailBanner/EmailBannerBottomSheet';
+import { EmailConfigPage } from 'src/pages/email/EmailConfigPage';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -50,6 +51,8 @@ export default function Index() {
   const { profileList, userInfo, seenOnboarding, showEmailBanner } = useLoaderData<typeof loader>();
 
   const [seenOnboardingState, setSeenOnboardingState] = useState(seenOnboarding);
+  const [showEmailForm, setShowEmailForm] = useState(!seenOnboarding && !userInfo.email);
+
   const [showEmailBannerState, setShowEmailBannerState] = useState(showEmailBanner);
 
   return seenOnboardingState ? (
@@ -61,6 +64,17 @@ export default function Index() {
       )}
     </>
   ) : (
-    <OnboardingPage userInfo={userInfo} onEndOnboarding={() => setSeenOnboardingState(true)} />
+    <>
+      {showEmailForm ? (
+        <EmailConfigPage
+          showHeader={false}
+          confirmButtonText={'다음'}
+          onConfirm={() => setShowEmailForm(false)}
+          onClickShowLater={() => setShowEmailForm(false)}
+        />
+      ) : (
+        <OnboardingPage userInfo={userInfo} onEndOnboarding={() => setSeenOnboardingState(true)} />
+      )}
+    </>
   );
 }
