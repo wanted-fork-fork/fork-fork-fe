@@ -75,6 +75,24 @@ paths:
             '*/*':
               schema:
                 type: boolean
+  /api/v1/auth/email/receive:
+    put:
+      tags:
+      - auth-controller
+      operationId: updateReceiveEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReceiveEmailRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /api/v1/sharing/{infoId}:
     post:
       tags:
@@ -366,18 +384,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CityAndTownResponse'
-  /api/v1/auth/onboarding:
-    get:
-      tags:
-      - auth-controller
-      operationId: hasSeenOnboarding
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: boolean
   /api/v1/auth/kakao/login:
     get:
       tags:
@@ -1010,6 +1016,13 @@ components:
       properties:
         email:
           type: string
+    UpdateReceiveEmailRequest:
+      required:
+      - receiveEmail
+      type: object
+      properties:
+        receiveEmail:
+          type: boolean
     SaveSharingResponse:
       required:
       - sharingId
@@ -1654,6 +1667,7 @@ components:
     UserInfoResponse:
       required:
       - name
+      - receiveEmail
       - userId
       type: object
       properties:
@@ -1665,6 +1679,8 @@ components:
           type: string
         email:
           type: string
+        receiveEmail:
+          type: boolean
     UserEnrollmentStatusResponse:
       required:
       - hasEmail
