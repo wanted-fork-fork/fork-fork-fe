@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from '@remix-run/react';
 import styles from './EmailConfigPage.module.css';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { sendEmailVerifyCode, verifyEmailVerifyCode } from 'src/types';
+import { sendEmailVerifyCode, updateEmail, verifyEmailVerifyCode } from 'src/types';
 import toast from 'react-hot-toast';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 
@@ -43,6 +43,19 @@ export const EmailConfigPage = ({
     error: verifyError,
     isPending,
   } = useMutation({ mutationFn: verifyEmailVerifyCode });
+  const { mutate: mutateUpdateEmail } = useMutation({
+    mutationFn: updateEmail,
+    onSuccess: () => {
+      if (onConfirm) {
+        onConfirm();
+        return;
+      }
+
+      const redirectTo = new URLSearchParams(location.search).get('redirect');
+      navigate(redirectTo ?? '/');
+      toast.success('메일이 설정되었습니다.', { icon: null });
+    },
+  });
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [leftTime, setLeftTime] = useState(timeLimit);
@@ -64,19 +77,12 @@ export const EmailConfigPage = ({
 
   useEffect(() => {
     if (verifyResult?.data) {
-      if (onConfirm) {
-        onConfirm();
-        return;
-      }
-
-      const redirectTo = new URLSearchParams(location.search).get('redirect');
-      navigate(redirectTo ?? '/');
-      toast.success('메일이 설정되었습니다.', { icon: null });
+      mutateUpdateEmail({ email });
     }
     if (verifyResult?.data === false || verifyError) {
       toast.error('인증번호를 다시 확인해주세요.');
     }
-  }, [verifyError, verifyResult?.data]);
+  }, [email, mutateUpdateEmail, verifyError, verifyResult?.data]);
 
   const handleClickPrev = () => {
     navigate('/');
