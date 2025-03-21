@@ -1,0 +1,44 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.InputRow {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    & input {
+        margin-top: 8px;
+    }
+
+    .Input {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .Error {
+        color: var(--color-negative);
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+.FindPasswordButton {
+    margin-left: auto;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-neutral-700);
+}
+
+.Footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .SignUpButton {
+        border-color: var(--color-neutral-900);
+    }
+}
