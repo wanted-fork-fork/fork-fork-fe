@@ -236,6 +236,60 @@ paths:
             '*/*':
               schema:
                 type: boolean
+  /api/v1/auth/email/signup:
+    post:
+      tags:
+      - auth-controller
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
+  /api/v1/auth/email/signup/verify-code/verify:
+    post:
+      tags:
+      - auth-controller
+      operationId: verifyEmailSignup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailSignupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /api/v1/auth/email/signup/verify-code/send:
+    post:
+      tags:
+      - auth-controller
+      operationId: sendEmailSignup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailSignupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /api/v1/auth/email/opt-out:
     post:
       tags:
@@ -248,6 +302,24 @@ paths:
             '*/*':
               schema:
                 type: boolean
+  /api/v1/auth/email/login:
+    post:
+      tags:
+      - auth-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailLoginRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
   /health:
     get:
       tags:
@@ -1197,6 +1269,49 @@ components:
       type: object
       properties:
         email:
+          type: string
+    SignupRequest:
+      required:
+      - email
+      - name
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    VerifyEmailSignupRequest:
+      required:
+      - key
+      - verifyCode
+      type: object
+      properties:
+        key:
+          type: string
+        verifyCode:
+          type: string
+    SendEmailSignupRequest:
+      required:
+      - email
+      - key
+      type: object
+      properties:
+        key:
+          type: string
+        email:
+          type: string
+    EmailLoginRequest:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
           type: string
     InfoToShareResponse:
       required:

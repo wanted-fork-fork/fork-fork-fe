@@ -36,6 +36,7 @@ export interface UserInfoResponse {
   email?: string;
   name: string;
   profileImage?: string;
+  receiveEmail: boolean;
   userId: string;
 }
 
@@ -432,6 +433,27 @@ export interface InfoToShareResponse {
   userInfo: InfoToShareUserInfo;
 }
 
+export interface EmailLoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface SendEmailSignupRequest {
+  email: string;
+  key: string;
+}
+
+export interface VerifyEmailSignupRequest {
+  key: string;
+  verifyCode: string;
+}
+
+export interface SignupRequest {
+  email: string;
+  name: string;
+  password: string;
+}
+
 export interface SendVerifyEmailRequest {
   email: string;
 }
@@ -482,6 +504,27 @@ export const UserInfoRequestGender = {
   FEMALE: 'FEMALE',
 } as const;
 
+export interface UserInfoRequest {
+  birthDate: string;
+  book?: Book;
+  dateStyle?: string[];
+  drinking: UserInfoDrinking;
+  foods?: string[];
+  gender: UserInfoRequestGender;
+  height: number;
+  hobbies: string[];
+  images: InfoImage[];
+  introduction?: string;
+  job: Job;
+  location: UserInfoLocation;
+  mbti?: UserInfoRequestMbti;
+  movie?: Movie;
+  name: string;
+  pets?: string[];
+  religion: Religion;
+  smoking: UserInfoSmoking;
+}
+
 export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
 
 
@@ -521,6 +564,10 @@ export interface SaveInfoRequest {
 
 export interface SaveSharingResponse {
   sharingId: string;
+}
+
+export interface UpdateReceiveEmailRequest {
+  receiveEmail: boolean;
 }
 
 export interface UpdateEmailRequest {
@@ -870,27 +917,6 @@ export interface InfoImage {
   url: string;
 }
 
-export interface UserInfoRequest {
-  birthDate: string;
-  book?: Book;
-  dateStyle?: string[];
-  drinking: UserInfoDrinking;
-  foods?: string[];
-  gender: UserInfoRequestGender;
-  height: number;
-  hobbies: string[];
-  images: InfoImage[];
-  introduction?: string;
-  job: Job;
-  location: UserInfoLocation;
-  mbti?: UserInfoRequestMbti;
-  movie?: Movie;
-  name: string;
-  pets?: string[];
-  religion: Religion;
-  smoking: UserInfoSmoking;
-}
-
 export type IdealPartnerSmokingSmokingCategory = typeof IdealPartnerSmokingSmokingCategory[keyof typeof IdealPartnerSmokingSmokingCategory];
 
 
@@ -1081,6 +1107,17 @@ export const updateEmail = (
       options);
     }
   
+export const updateReceiveEmail = (
+    updateReceiveEmailRequest: UpdateReceiveEmailRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/receive`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateReceiveEmailRequest
+    },
+      options);
+    }
+  
 export const saveSharing = (
     infoId: string,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1167,11 +1204,55 @@ export const sendEmailVerifyCode = (
       options);
     }
   
+export const signup = (
+    signupRequest: SignupRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserTokenDto>(
+      {url: `/api/v1/auth/email/signup`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: signupRequest
+    },
+      options);
+    }
+  
+export const verifyEmailSignup = (
+    verifyEmailSignupRequest: VerifyEmailSignupRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/signup/verify-code/verify`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: verifyEmailSignupRequest
+    },
+      options);
+    }
+  
+export const sendEmailSignup = (
+    sendEmailSignupRequest: SendEmailSignupRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/signup/verify-code/send`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: sendEmailSignupRequest
+    },
+      options);
+    }
+  
 export const optOutEmail = (
     
  options?: SecondParameter<typeof customInstance>,) => {
       return customInstance<boolean>(
       {url: `/api/v1/auth/email/opt-out`, method: 'POST'
+    },
+      options);
+    }
+  
+export const login = (
+    emailLoginRequest: EmailLoginRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<UserTokenDto>(
+      {url: `/api/v1/auth/email/login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: emailLoginRequest
     },
       options);
     }
@@ -1257,15 +1338,6 @@ export const getAddress = (
       options);
     }
   
-export const hasSeenOnboarding = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<boolean>(
-      {url: `/api/v1/auth/onboarding`, method: 'GET'
-    },
-      options);
-    }
-  
 export const loginKakao = (
     params: LoginKakaoParams,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1316,6 +1388,7 @@ export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateL
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
 export type UpdateEmailResult = NonNullable<Awaited<ReturnType<typeof updateEmail>>>
+export type UpdateReceiveEmailResult = NonNullable<Awaited<ReturnType<typeof updateReceiveEmail>>>
 export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>
 export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>
 export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
@@ -1324,7 +1397,11 @@ export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshTo
 export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
 export type VerifyEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof verifyEmailVerifyCode>>>
 export type SendEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof sendEmailVerifyCode>>>
+export type SignupResult = NonNullable<Awaited<ReturnType<typeof signup>>>
+export type VerifyEmailSignupResult = NonNullable<Awaited<ReturnType<typeof verifyEmailSignup>>>
+export type SendEmailSignupResult = NonNullable<Awaited<ReturnType<typeof sendEmailSignup>>>
 export type OptOutEmailResult = NonNullable<Awaited<ReturnType<typeof optOutEmail>>>
+export type LoginResult = NonNullable<Awaited<ReturnType<typeof login>>>
 export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>
 export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
 export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
@@ -1334,7 +1411,6 @@ export type GetMatchMakerNameResult = NonNullable<Awaited<ReturnType<typeof getM
 export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
 export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
 export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
-export type HasSeenOnboardingResult = NonNullable<Awaited<ReturnType<typeof hasSeenOnboarding>>>
 export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
 export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
 export type GetUserEnrollmentStatusResult = NonNullable<Awaited<ReturnType<typeof getUserEnrollmentStatus>>>
@@ -1349,6 +1425,8 @@ export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< Crea
 export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
 
 export const getUpdateEmailResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getUpdateReceiveEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getSaveSharingResponseMock = (overrideResponse: Partial< SaveSharingResponse > = {}): SaveSharingResponse => ({sharingId: faker.word.sample(), ...overrideResponse})
 
@@ -1366,7 +1444,15 @@ export const getVerifyEmailVerifyCodeResponseMock = (): boolean => (faker.dataty
 
 export const getSendEmailVerifyCodeResponseMock = (): boolean => (faker.datatype.boolean())
 
+export const getSignupResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
+
+export const getVerifyEmailSignupResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getSendEmailSignupResponseMock = (): boolean => (faker.datatype.boolean())
+
 export const getOptOutEmailResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getLoginResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
 export const getHealthResponseMock = (): string => (faker.word.sample())
 
@@ -1386,11 +1472,9 @@ export const getGetAllInfoResponseMock = (): ArchivedInfoResponse[] => (Array.fr
 
 export const getGetAddressResponseMock = (): CityAndTownResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({city: {city: faker.helpers.arrayElement(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), cityName: faker.word.sample()}, town: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({town: faker.helpers.arrayElement(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const), townName: faker.word.sample()}))})))
 
-export const getHasSeenOnboardingResponseMock = (): boolean => (faker.datatype.boolean())
-
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
-export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), userId: faker.word.sample(), ...overrideResponse})
+export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), receiveEmail: faker.datatype.boolean(), userId: faker.word.sample(), ...overrideResponse})
 
 export const getGetUserEnrollmentStatusResponseMock = (overrideResponse: Partial< UserEnrollmentStatusResponse > = {}): UserEnrollmentStatusResponse => ({hasEmail: faker.datatype.boolean(), hasSeenOnboarding: faker.datatype.boolean(), inEmailOptOut: faker.datatype.boolean(), ...overrideResponse})
 
@@ -1449,6 +1533,21 @@ export const getUpdateEmailMockHandler = (overrideResponse?: boolean | ((info: P
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUpdateEmailResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getUpdateReceiveEmailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.put('*/api/v1/auth/email/receive', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateReceiveEmailResponseMock()),
       {
         status: 200,
         headers: {
@@ -1579,11 +1678,71 @@ export const getSendEmailVerifyCodeMockHandler = (overrideResponse?: boolean | (
   })
 }
 
+export const getSignupMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
+  return http.post('*/api/v1/auth/email/signup', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSignupResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getVerifyEmailSignupMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/signup/verify-code/verify', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getVerifyEmailSignupResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getSendEmailSignupMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/signup/verify-code/send', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSendEmailSignupResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getOptOutEmailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
   return http.post('*/api/v1/auth/email/opt-out', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getOptOutEmailResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getLoginMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
+  return http.post('*/api/v1/auth/email/login', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getLoginResponseMock()),
       {
         status: 200,
         headers: {
@@ -1729,21 +1888,6 @@ export const getGetAddressMockHandler = (overrideResponse?: CityAndTownResponse[
   })
 }
 
-export const getHasSeenOnboardingMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<boolean> | boolean)) => {
-  return http.get('*/api/v1/auth/onboarding', async (info) => {await delay(1000);
-    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
-            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
-            : getHasSeenOnboardingResponseMock()),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      }
-    )
-  })
-}
-
 export const getLoginKakaoMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
   return http.get('*/api/v1/auth/kakao/login', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1823,6 +1967,7 @@ export const getGoogooApiMock = () => [
   getRegenerateLinkKeyMockHandler(),
   getUpdateInfoMockHandler(),
   getUpdateEmailMockHandler(),
+  getUpdateReceiveEmailMockHandler(),
   getSaveSharingMockHandler(),
   getCreateLinkMockHandler(),
   getSaveInfoMockHandler(),
@@ -1831,7 +1976,11 @@ export const getGoogooApiMock = () => [
   getLogoutMockHandler(),
   getVerifyEmailVerifyCodeMockHandler(),
   getSendEmailVerifyCodeMockHandler(),
+  getSignupMockHandler(),
+  getVerifyEmailSignupMockHandler(),
+  getSendEmailSignupMockHandler(),
   getOptOutEmailMockHandler(),
+  getLoginMockHandler(),
   getHealthMockHandler(),
   getLogMockHandler(),
   getGetInfoBySharingIdMockHandler(),
@@ -1841,7 +1990,6 @@ export const getGoogooApiMock = () => [
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),
-  getHasSeenOnboardingMockHandler(),
   getLoginKakaoMockHandler(),
   getInfoMockHandler(),
   getGetUserEnrollmentStatusMockHandler(),
