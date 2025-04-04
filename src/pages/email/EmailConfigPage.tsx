@@ -5,6 +5,7 @@ import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { VerifyEmail } from 'src/features/VerifyEmail/VerifyEmail';
 import { useMutation } from '@tanstack/react-query';
 import { updateEmail } from 'src/types';
+import { useCallback } from 'react';
 
 export const EmailConfigPage = ({
   showHeader = true,
@@ -28,9 +29,12 @@ export const EmailConfigPage = ({
     navigate('/');
   };
 
-  const handleConfirm = (email: string) => {
-    mutateUpdateEmail({ email });
-  };
+  const handleConfirm = useCallback(
+    (email: string) => {
+      mutateUpdateEmail({ email });
+    },
+    [mutateUpdateEmail],
+  );
 
   return (
     <div className={styles.Container}>
