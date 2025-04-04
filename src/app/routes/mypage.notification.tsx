@@ -27,5 +27,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function MyPage() {
   const { userInfo } = useLoaderData<typeof loader>();
 
-  return <NotificationConfigPage allowEmailNotification={Boolean(userInfo.email)} />;
+  return <NotificationConfigPage email={userInfo.email} allowEmailNotification={userInfo.receiveEmail} />;
 }

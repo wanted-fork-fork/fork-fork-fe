@@ -5,6 +5,8 @@ import { Toggle } from 'src/shared/ui/Toggle/Toggle';
 import { useState } from 'react';
 import styles from './NotificationConfigPage.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
+import { updateReceiveEmail } from 'src/types';
+import { useMutation } from '@tanstack/react-query';
 
 export const NotificationConfigPage = ({
   email,
@@ -15,14 +17,20 @@ export const NotificationConfigPage = ({
 }) => {
   const [emailNoti, setEmailNoti] = useState(allowEmailNotification);
   const navigate = useNavigate();
+  const { mutate } = useMutation({
+    mutationFn: updateReceiveEmail,
+    onSuccess: () => {
+      setEmailNoti((prev) => !prev);
+    },
+  });
+
   const handleToggle = (value: boolean) => {
-    if (value) {
+    if (!email) {
       navigate('/account/email/edit');
       return;
     }
 
-    // TODO: toggle off 시 동작
-    setEmailNoti(false);
+    mutate({ receiveEmail: value });
   };
 
   return (
