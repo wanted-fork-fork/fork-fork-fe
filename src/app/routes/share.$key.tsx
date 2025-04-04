@@ -1,16 +1,19 @@
 import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
-import { getInfoBySharingId } from '../../types';
+import { getInfoBySharingId } from 'src/types';
 import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
-import { convertDtoToProfile } from '../../entities/profile/model/convertProfileToDto';
-import { MyProfileProvider } from '../../entities/profile/model/myProfileStore';
+import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
+import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
 import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
 import { getNickname } from 'src/entities/profile/lib/getNickname';
 import { ErrorPage } from 'src/pages/error/ErrorPage';
+import { calculateAge } from 'src/shared/vo/date';
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({ data }) => {
   return [
-    { title: '[구구] 이 분 어떠신가요?' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { title: `[구구] ${data.profile.name}(${calculateAge(data.profile.birthDate)}세)님 어떠신가요?` },
     { name: 'description', content: '좋은 분인 것 같아서 소개드려요.' },
     { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_share.png' },
     { property: 'og:image:width', content: '800' },
@@ -36,7 +39,12 @@ export const loader: LoaderFunction = async ({ params }) => {
     return json({ expired: true });
   }
 
-  return json({ profile: data, key, expiredDate: data.expiredDate });
+  const profile = {
+    ...data.userInfo,
+    name: getNickname(key),
+  };
+
+  return json({ profile, key, expiredDate: data.expiredDate });
 };
 
 export default function Page() {
@@ -54,10 +62,7 @@ export default function Page() {
 const _Page = () => {
   const { profile, key, expiredDate: rawExpiredDate } = useLoaderData<typeof loader>();
 
-  const profileInitialState = useMemo(
-    () => convertDtoToProfile({ ...profile.userInfo, name: getNickname(key) }),
-    [key, profile.userInfo],
-  );
+  const profileInitialState = useMemo(() => convertDtoToProfile(profile), [key, profile]);
 
   const expiredDate = useMemo(() => new Date(rawExpiredDate), [rawExpiredDate]);
 
