@@ -25,7 +25,7 @@ export const GenerateFormLink = () => {
     <>
       {!isTriggerOpen && <ProfileAddFloatingButton onClick={() => setTriggerOpen(true)} />}
       {isTriggerOpen && (
-        <div className={styles.Dim}>
+        <div className={styles.Dim} onClick={() => setTriggerOpen(false)}>
           <div className={styles.DimButtonWrapper}>
             <Link to={'/form/me'}>
               <button className={styles.FloatingButtonWithText}>
