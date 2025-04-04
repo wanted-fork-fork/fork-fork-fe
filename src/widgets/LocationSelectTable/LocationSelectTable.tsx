@@ -33,7 +33,7 @@ export const LocationSelectTable = ({ selectedLocations, selectLocation }: Props
           ))}
         </ul>
       </ScrollView>
-      <ScrollView rootClassName={styles.SubCategoryScrollRoot}>
+      <ScrollView rootClassName={styles.SubCategoryScrollRoot} key={selectedMainLocation.city.cityName}>
         <ul className={styles.SubCategoryColumn}>
           {selectedMainLocation.town.map((town) => (
             <li
