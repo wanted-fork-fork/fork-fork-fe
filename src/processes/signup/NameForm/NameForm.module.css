@@ -1,0 +1,18 @@
+.Body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.TitleSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    & small {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-neutral-500);
+        line-height: 150%;
+    }
+}
