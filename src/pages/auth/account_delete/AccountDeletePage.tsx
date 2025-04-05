@@ -4,7 +4,7 @@ import { Alert, ArrowLeft } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import { Button } from 'src/shared/ui/Button/Button';
-import styles from './AccountDeletePage.module.css';
+import styles from 'src/pages/auth/account_delete/AccountDeletePage.module.css';
 import { useDeleteAccount } from 'src/features/DeleteAccount/useDeleteAccount';
 import { useState } from 'react';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { AccountDeletePage } from 'src/pages/account_delete/AccountDeletePage';
+import { AccountDeletePage } from 'src/pages/auth/account_delete/AccountDeletePage';
 
 const meta: Meta<typeof AccountDeletePage> = {
   component: AccountDeletePage,
