@@ -1,6 +1,6 @@
 .Container {
     border-bottom: 1px solid var(--color-neutral-300);
-    padding: 12px 8px;
+    padding: 12px 0;
     display: flex;
 }
 
