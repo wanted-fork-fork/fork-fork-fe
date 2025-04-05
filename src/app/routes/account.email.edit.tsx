@@ -1,4 +1,4 @@
-import { EmailConfigPage } from 'src/pages/email/EmailConfigPage';
+import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
 import toast from 'react-hot-toast';
 import { useNavigate } from '@remix-run/react';
 

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { EmailConfigPage } from 'src/pages/email/EmailConfigPage';
+import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
 
 const meta: Meta<typeof EmailConfigPage> = {
   component: EmailConfigPage,

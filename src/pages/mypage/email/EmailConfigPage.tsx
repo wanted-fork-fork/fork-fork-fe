@@ -1,6 +1,6 @@
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { useNavigate } from '@remix-run/react';
-import styles from './EmailConfigPage.module.css';
+import styles from 'src/pages/mypage/email/EmailConfigPage.module.css';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { VerifyEmail } from 'src/features/VerifyEmail/VerifyEmail';
 import { useMutation } from '@tanstack/react-query';

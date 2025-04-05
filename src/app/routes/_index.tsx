@@ -9,7 +9,7 @@ import { commitSession } from 'src/app/server/sessions';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/features/EmailBanner/EmailBannerBottomSheet';
-import { EmailConfigPage } from 'src/pages/email/EmailConfigPage';
+import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
