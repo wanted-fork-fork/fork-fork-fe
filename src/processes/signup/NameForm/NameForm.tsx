@@ -4,7 +4,15 @@ import { Button } from 'src/shared/ui/Button/Button';
 import styles from './NameForm.module.css';
 import { useState } from 'react';
 
-export const NameForm = ({ name: initialName, onSubmit }: { name: string; onSubmit: (name: string) => void }) => {
+export const NameForm = ({
+  name: initialName,
+  isLoading,
+  onSubmit,
+}: {
+  name: string;
+  isLoading: boolean;
+  onSubmit: (name: string) => void;
+}) => {
   const [name, setName] = useState(initialName);
 
   return (
@@ -21,7 +29,7 @@ export const NameForm = ({ name: initialName, onSubmit }: { name: string; onSubm
         <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={'이름을 입력하세요.'} />
       </FormLayout.Body>
       <FormLayout.Footer>
-        <Button widthType={'fill'} onClick={() => onSubmit(name)}>
+        <Button widthType={'fill'} onClick={() => onSubmit(name)} disabled={isLoading}>
           완료
         </Button>
       </FormLayout.Footer>
