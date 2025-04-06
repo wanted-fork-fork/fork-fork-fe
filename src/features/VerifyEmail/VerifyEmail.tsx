@@ -60,7 +60,13 @@ export const VerifyEmail = ({
     timerRef.current && clearInterval(timerRef.current);
     setLeftTime(timeLimit);
     timerRef.current = setInterval(() => {
-      setLeftTime((prev) => prev - 1);
+      setLeftTime((prev) => {
+        if (timerRef.current && prev === 0) {
+          clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
   };
 

@@ -45,7 +45,7 @@ export const action: ActionFunction = async (args) => {
       redirect: 'manual',
       headers: {
         'Content-Type': args.request.headers.get('Content-Type') ?? '',
-        Authorization: `Bearer ${accessToken}`,
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       },
     }),
   );
