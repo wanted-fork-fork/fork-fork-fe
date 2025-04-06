@@ -3,28 +3,48 @@ import { Link, useNavigate } from '@remix-run/react';
 import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from './EmailLoginPage.module.css';
+import { useRemixForm } from 'remix-hook-form';
+import { LoginFormData, loginResolver } from 'src/app/routes/login.email';
 
 export const EmailLoginPage = () => {
   const navigate = useNavigate();
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useRemixForm<LoginFormData>({
+    resolver: loginResolver,
+  });
 
   return (
     <FormLayout.Container>
       <FormLayout.Header onPrev={() => navigate('/login')}>로그인</FormLayout.Header>
       <FormLayout.Body>
-        <form className={styles.Form}>
+        <form className={styles.Form} onSubmit={handleSubmit}>
           <div className={styles.InputRow}>
             <label>
               아이디(E-mail)
-              <Input className={styles.Input} placeholder={'아이디로 사용하는 이메일을 입력하세요.'} />
+              <Input
+                className={styles.Input}
+                placeholder={'아이디로 사용하는 이메일을 입력하세요.'}
+                {...register('email')}
+              />
             </label>
-            <p className={styles.Error}>가입되지 않은 이메일입니다.</p>
+            {errors.email && <p className={styles.Error}>가입되지 않은 이메일입니다.</p>}
           </div>
           <div className={styles.InputRow}>
             <label>
               비밀번호
-              <Input className={styles.Input} placeholder={'비밀번호를 입력하세요.'} type={'password'} />
+              <Input
+                className={styles.Input}
+                placeholder={'비밀번호를 입력하세요.'}
+                type={'password'}
+                {...register('password')}
+              />
             </label>
-            <p className={styles.Error}>비밀번호를 확인해주세요.</p>
+            {errors.password && <p className={styles.Error}>비밀번호를 확인해주세요.</p>}
+            {errors.root && <p className={styles.Error}>로그인에 실패했습니다.</p>}
           </div>
         </form>
         <Link to={'/auth/reset-password'}>
@@ -34,7 +54,9 @@ export const EmailLoginPage = () => {
         </Link>
       </FormLayout.Body>
       <FormLayout.Footer className={styles.Footer}>
-        <Button widthType={'fill'}>로그인</Button>
+        <Button widthType={'fill'} onClick={() => handleSubmit()}>
+          로그인
+        </Button>
         <Link to={'/signup'}>
           <Button className={styles.SignUpButton} widthType={'fill'} color={'neutral'} variant={'outline'}>
             회원가입
