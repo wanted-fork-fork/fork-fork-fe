@@ -49,6 +49,7 @@
     "remix-hook-form": "^5.1.1",
     "remix-i18next": "6.3.0",
     "slick-carousel": "^1.8.1",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2",
     "zustand": "^4.5.2",
     "zustand-persist": "^0.4.0"

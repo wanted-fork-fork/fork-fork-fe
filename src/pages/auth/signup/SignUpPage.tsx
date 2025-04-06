@@ -36,7 +36,7 @@ const reducer = (state: SignUpState, action: Reducer[number]) => {
   return { ...state, ...action.payload };
 };
 
-export const SignUpPage = () => {
+export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, { email: '', password: '', name: '' });
   const { step, increase, decrease } = useStep({ max: 3, initialValue: 0 });
@@ -54,6 +54,7 @@ export const SignUpPage = () => {
           caseBy={{
             0: (
               <EmailForm
+                signUpKey={signUpKey}
                 onSubmitEmail={(email) => {
                   dispatch({ type: 'SET_EMAIL', payload: { email } });
                   increase();
