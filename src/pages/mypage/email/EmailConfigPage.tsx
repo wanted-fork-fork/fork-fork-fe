@@ -4,7 +4,7 @@ import styles from 'src/pages/mypage/email/EmailConfigPage.module.css';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { VerifyEmail } from 'src/features/VerifyEmail/VerifyEmail';
 import { useMutation } from '@tanstack/react-query';
-import { updateEmail } from 'src/types';
+import { sendEmailVerifyCode, updateEmail, verifyEmailVerifyCode } from 'src/types';
 import { useCallback } from 'react';
 
 export const EmailConfigPage = ({
@@ -55,6 +55,8 @@ export const EmailConfigPage = ({
           confirmButtonText={confirmButtonText}
           onConfirm={handleConfirm}
           onClickShowLater={onClickShowLater}
+          sendEmailVerifyCode={sendEmailVerifyCode}
+          verifyEmailCode={verifyEmailVerifyCode}
         />
       </div>
     </div>

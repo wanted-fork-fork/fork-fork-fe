@@ -10,6 +10,7 @@ export { default as Close } from './Close';
 export { default as ClosedEye } from './ClosedEye';
 export { default as Delete } from './Delete';
 export { default as Edit } from './Edit';
+export { default as Email } from './Email';
 export { default as Eye } from './Eye';
 export { default as Link } from './Link';
 export { default as List } from './List';

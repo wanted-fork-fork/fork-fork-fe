@@ -2,8 +2,11 @@ import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from './NameForm.module.css';
+import { useState } from 'react';
 
-export const NameForm = () => {
+export const NameForm = ({ name: initialName, onSubmit }: { name: string; onSubmit: (name: string) => void }) => {
+  const [name, setName] = useState(initialName);
+
   return (
     <>
       <FormLayout.Body className={styles.Body}>
@@ -15,10 +18,12 @@ export const NameForm = () => {
             별명보다는 실명으로 입력해주세요!
           </small>
         </div>
-        <Input placeholder={'이름을 입력하세요.'} />
+        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={'이름을 입력하세요.'} />
       </FormLayout.Body>
       <FormLayout.Footer>
-        <Button widthType={'fill'}>완료</Button>
+        <Button widthType={'fill'} onClick={() => onSubmit(name)}>
+          완료
+        </Button>
       </FormLayout.Footer>
     </>
   );

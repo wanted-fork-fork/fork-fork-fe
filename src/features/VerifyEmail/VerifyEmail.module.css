@@ -9,7 +9,6 @@
 }
 
 .Footer {
-    padding-bottom: 54px;
     display: flex;
     flex-direction: column;
     gap: 16px;

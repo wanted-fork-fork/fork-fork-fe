@@ -7,8 +7,16 @@ import { ClosedEye, Eye } from 'src/shared/ui/icons';
 import { useState } from 'react';
 import { Theme } from 'src/shared/styles/constants';
 
-export const PasswordForm = () => {
+export const PasswordForm = ({
+  password: initialPassword,
+  onSubmit,
+}: {
+  password: string;
+  onSubmit: (password: string) => void;
+}) => {
   const [show, setShow] = useState(false);
+  const [password, setPassword] = useState(initialPassword);
+
   return (
     <>
       <FormLayout.Body className={styles.Body}>
@@ -21,6 +29,8 @@ export const PasswordForm = () => {
         </div>
         <Input
           className={styles.Input}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type={show ? '' : 'password'}
           placeholder={'비밀번호를 입력하세요.'}
           suffixSlot={
@@ -31,7 +41,9 @@ export const PasswordForm = () => {
         />
       </FormLayout.Body>
       <FormLayout.Footer>
-        <Button widthType={'fill'}>완료</Button>
+        <Button widthType={'fill'} onClick={() => onSubmit(password)}>
+          완료
+        </Button>
       </FormLayout.Footer>
     </>
   );

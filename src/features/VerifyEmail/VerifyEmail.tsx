@@ -3,7 +3,6 @@ import { Input } from 'src/shared/ui/Input/Input';
 import { Button } from 'src/shared/ui/Button/Button';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { sendEmailVerifyCode, verifyEmailVerifyCode } from 'src/types';
 import toast from 'react-hot-toast';
 
 const timeLimit = 5 * 60;
@@ -19,10 +18,14 @@ export const VerifyEmail = ({
   confirmButtonText = '완료',
   onConfirm,
   onClickShowLater,
+  sendEmailVerifyCode,
+  verifyEmailCode,
 }: {
   confirmButtonText?: string;
   onConfirm: (email: string) => void;
   onClickShowLater?: () => void;
+  sendEmailVerifyCode: (request: { email: string }) => Promise<{ data: boolean }>;
+  verifyEmailCode: (request: { verifyCode: string }) => Promise<{ data: boolean }>;
 }) => {
   const {
     mutate: mutateSendCode,
@@ -36,7 +39,7 @@ export const VerifyEmail = ({
     data: verifyResult,
     error: verifyError,
     isPending,
-  } = useMutation({ mutationFn: verifyEmailVerifyCode });
+  } = useMutation({ mutationFn: verifyEmailCode });
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
