@@ -76,7 +76,7 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
                 isLoading={isPending}
                 onSubmit={(name) => {
                   dispatch({ type: 'SET_NAME', payload: { name } });
-                  mutate({ ...state });
+                  mutate({ ...state, name });
                 }}
               />
             ),
