@@ -4,11 +4,12 @@ import { EmailForm } from 'src/processes/signup/EmailForm/EmailForm';
 import { PasswordForm } from 'src/processes/signup/PasswordForm/PasswordForm';
 import { NameForm } from 'src/processes/signup/NameForm/NameForm';
 import { useStep } from 'src/shared/functions/useStep';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useMutation } from '@tanstack/react-query';
 import { signup } from 'src/types';
 import { SignUpCompletePage } from 'src/processes/signup/SignUpCompletePage/SignUpCompletePage';
+import { EmailExistErrorPage } from 'src/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
 
 type SignUpState = {
   email: string;
@@ -41,6 +42,8 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
   const [state, dispatch] = useReducer(reducer, { email: '', password: '', name: '' });
   const { step, increase, decrease } = useStep({ max: 3, initialValue: 0 });
 
+  const [isDuplicated, setDuplicated] = useState(false);
+
   const { mutate, isPending, data, error } = useMutation({
     mutationFn: signup,
   });
@@ -48,7 +51,7 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
   return (
     <FormLayout.Container>
       <FormLayout.Header onPrev={step === 0 ? () => navigate('/login/email') : decrease} />
-      {!(data || error) && (
+      {!(data || error || isDuplicated) && (
         <SwitchCase
           value={step}
           caseBy={{
@@ -59,6 +62,7 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
                   dispatch({ type: 'SET_EMAIL', payload: { email } });
                   increase();
                 }}
+                onDuplicated={() => setDuplicated(true)}
               />
             ),
             1: (
@@ -83,6 +87,7 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
           }}
         />
       )}
+      {isDuplicated && <EmailExistErrorPage />}
       {data && <SignUpCompletePage name={state.name} />}
       {error && '에러'}
     </FormLayout.Container>

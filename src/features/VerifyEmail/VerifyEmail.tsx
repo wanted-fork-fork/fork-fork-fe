@@ -17,15 +17,17 @@ const emailRegex = /^\S+@\S+\.\S+$/;
 export const VerifyEmail = ({
   confirmButtonText = '완료',
   onConfirm,
+  onDuplicated,
   onClickShowLater,
   sendEmailVerifyCode,
   verifyEmailCode,
 }: {
   confirmButtonText?: string;
   onConfirm: (email: string) => void;
+  onDuplicated?: () => void;
   onClickShowLater?: () => void;
   sendEmailVerifyCode: (request: { email: string }) => Promise<{ data: boolean }>;
-  verifyEmailCode: (request: { verifyCode: string }) => Promise<{ data: boolean }>;
+  verifyEmailCode: (request: { verifyCode: string }) => Promise<{ data: boolean; isDuplicated?: boolean }>;
 }) => {
   const {
     mutate: mutateSendCode,
@@ -34,12 +36,27 @@ export const VerifyEmail = ({
     isPending: isPendingSend,
   } = useMutation({ mutationFn: sendEmailVerifyCode });
 
-  const {
-    mutate: mutateVerifyCode,
-    data: verifyResult,
-    error: verifyError,
-    isPending,
-  } = useMutation({ mutationFn: verifyEmailCode });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { mutate: mutateVerifyCode, isPending } = useMutation({
+    mutationFn: verifyEmailCode,
+    onSuccess: (data) => {
+      if (onDuplicated && data.isDuplicated) {
+        onDuplicated();
+        return;
+      }
+
+      if (data.data) {
+        onConfirm(email);
+      }
+
+      if (data.data === false) {
+        setErrorMessage('인증번호가 일치하지 않습니다. 다시 확인해주세요.');
+      }
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 잠시 뒤 다시 시도해주세요.');
+    },
+  });
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -75,6 +92,7 @@ export const VerifyEmail = ({
     if (value.length > 0 && (Number.isNaN(Number(value)) || value.length > 6)) {
       return;
     }
+    setErrorMessage(null);
     setCode(value);
   };
 
@@ -87,15 +105,6 @@ export const VerifyEmail = ({
       timerRef.current && clearInterval(timerRef.current);
     };
   }, []);
-
-  useEffect(() => {
-    if (verifyResult?.data) {
-      onConfirm(email);
-    }
-    if (verifyResult?.data === false || verifyError) {
-      toast.error('인증번호를 다시 확인해주세요.');
-    }
-  }, [email, onConfirm, verifyError, verifyResult?.data]);
 
   return (
     <div className={styles.Container}>
@@ -120,14 +129,17 @@ export const VerifyEmail = ({
         </div>
         {(error || data?.data === false) && <p className={styles.Error}>이메일 전송에 실패했습니다.</p>}
         {isSent && (
-          <Input
-            inputMode={'numeric'}
-            placeholder={'인증코드 6자리를 입력해주세요.'}
-            suffixSlot={<span className={styles.Timer}>{getTimerText(leftTime)}</span>}
-            value={code}
-            maxLength={6}
-            onChange={handleChangeCode}
-          />
+          <div className={styles.InputWrapper}>
+            <Input
+              inputMode={'numeric'}
+              placeholder={'인증코드 6자리를 입력해주세요.'}
+              suffixSlot={<span className={styles.Timer}>{getTimerText(leftTime)}</span>}
+              value={code}
+              maxLength={6}
+              onChange={handleChangeCode}
+            />
+            {errorMessage && <p className={styles.Error}>{errorMessage}</p>}
+          </div>
         )}
       </div>
       <div className={styles.Footer}>

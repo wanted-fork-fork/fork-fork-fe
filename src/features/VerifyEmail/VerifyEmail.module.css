@@ -31,6 +31,12 @@
     }
 }
 
+.InputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .Error {
     color: #ff4245;
     font-size: 14px;
