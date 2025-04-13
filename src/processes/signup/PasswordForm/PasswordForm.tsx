@@ -7,7 +7,7 @@ import { ClosedEye, Eye } from 'src/shared/ui/icons';
 import { ChangeEvent, useState } from 'react';
 import { Theme } from 'src/shared/styles/constants';
 
-const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!_~.])[A-Za-z0-9!_~.]{8,16}$/;
+const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*()-_=+|[]{};:'",.<>\/?])[A-Za-z0-9!_~.]{8,16}$/;
 
 export const PasswordForm = ({
   password: initialPassword,
