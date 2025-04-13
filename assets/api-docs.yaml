@@ -57,6 +57,24 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/auth/password:
+    put:
+      tags:
+      - auth-controller
+      operationId: updatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /api/v1/auth/email:
     put:
       tags:
@@ -320,6 +338,24 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserTokenDto'
+  /api/v1/auth/email/login/verify-code/verify:
+    post:
+      tags:
+      - auth-controller
+      operationId: verifyEmailLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailSignupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerificationResultDto'
   /health:
     get:
       tags:
@@ -1081,6 +1117,18 @@ components:
           - ETC
         smokingAmount:
           type: string
+    UpdatePasswordRequest:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        token:
+          type: string
     UpdateEmailRequest:
       required:
       - email
@@ -1313,6 +1361,23 @@ components:
           type: string
         password:
           type: string
+    VerificationResultDto:
+      required:
+      - email
+      - isVerified
+      type: object
+      properties:
+        email:
+          type: string
+        isVerified:
+          type: boolean
+        isDuplicated:
+          type: boolean
+        token:
+          type: string
+        duplicated:
+          type: boolean
+          writeOnly: true
     InfoToShareResponse:
       required:
       - expiredDate

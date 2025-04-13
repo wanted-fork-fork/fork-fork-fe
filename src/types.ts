@@ -433,6 +433,14 @@ export interface InfoToShareResponse {
   userInfo: InfoToShareUserInfo;
 }
 
+export interface VerificationResultDto {
+  duplicated?: boolean;
+  email: string;
+  isDuplicated?: boolean;
+  isVerified: boolean;
+  token?: string;
+}
+
 export interface EmailLoginRequest {
   email: string;
   password: string;
@@ -572,6 +580,12 @@ export interface UpdateReceiveEmailRequest {
 
 export interface UpdateEmailRequest {
   email: string;
+}
+
+export interface UpdatePasswordRequest {
+  email: string;
+  password: string;
+  token?: string;
 }
 
 export type UserInfoSmokingSmokingCategory = typeof UserInfoSmokingSmokingCategory[keyof typeof UserInfoSmokingSmokingCategory];
@@ -1096,6 +1110,17 @@ export const updateInfo = (
       options);
     }
   
+export const updatePassword = (
+    updatePasswordRequest: UpdatePasswordRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/password`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updatePasswordRequest
+    },
+      options);
+    }
+  
 export const updateEmail = (
     updateEmailRequest: UpdateEmailRequest,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1257,6 +1282,17 @@ export const login = (
       options);
     }
   
+export const verifyEmailLogin = (
+    verifyEmailSignupRequest: VerifyEmailSignupRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<VerificationResultDto>(
+      {url: `/api/v1/auth/email/login/verify-code/verify`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: verifyEmailSignupRequest
+    },
+      options);
+    }
+  
 export const health = (
     
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1387,6 +1423,7 @@ export const quit = (
 export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
+export type UpdatePasswordResult = NonNullable<Awaited<ReturnType<typeof updatePassword>>>
 export type UpdateEmailResult = NonNullable<Awaited<ReturnType<typeof updateEmail>>>
 export type UpdateReceiveEmailResult = NonNullable<Awaited<ReturnType<typeof updateReceiveEmail>>>
 export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>
@@ -1402,6 +1439,7 @@ export type VerifyEmailSignupResult = NonNullable<Awaited<ReturnType<typeof veri
 export type SendEmailSignupResult = NonNullable<Awaited<ReturnType<typeof sendEmailSignup>>>
 export type OptOutEmailResult = NonNullable<Awaited<ReturnType<typeof optOutEmail>>>
 export type LoginResult = NonNullable<Awaited<ReturnType<typeof login>>>
+export type VerifyEmailLoginResult = NonNullable<Awaited<ReturnType<typeof verifyEmailLogin>>>
 export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>
 export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
 export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
@@ -1423,6 +1461,8 @@ export const getUpdateLinkOpenResponseMock = (): Unit => ({})
 export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< CreateLinkResponse > = {}): CreateLinkResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
 export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
+
+export const getUpdatePasswordResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getUpdateEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
@@ -1453,6 +1493,8 @@ export const getSendEmailSignupResponseMock = (): boolean => (faker.datatype.boo
 export const getOptOutEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getLoginResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
+
+export const getVerifyEmailLoginResponseMock = (overrideResponse: Partial< VerificationResultDto > = {}): VerificationResultDto => ({duplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), email: faker.word.sample(), isDuplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), isVerified: faker.datatype.boolean(), token: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
 
 export const getHealthResponseMock = (): string => (faker.word.sample())
 
@@ -1518,6 +1560,21 @@ export const getUpdateInfoMockHandler = (overrideResponse?: string | ((info: Par
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUpdateInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getUpdatePasswordMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.put('*/api/v1/auth/password', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdatePasswordResponseMock()),
       {
         status: 200,
         headers: {
@@ -1753,6 +1810,21 @@ export const getLoginMockHandler = (overrideResponse?: UserTokenDto | ((info: Pa
   })
 }
 
+export const getVerifyEmailLoginMockHandler = (overrideResponse?: VerificationResultDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<VerificationResultDto> | VerificationResultDto)) => {
+  return http.post('*/api/v1/auth/email/login/verify-code/verify', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getVerifyEmailLoginResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getHealthMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<string> | string)) => {
   return http.get('*/health', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1966,6 +2038,7 @@ export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
   getUpdateInfoMockHandler(),
+  getUpdatePasswordMockHandler(),
   getUpdateEmailMockHandler(),
   getUpdateReceiveEmailMockHandler(),
   getSaveSharingMockHandler(),
@@ -1981,6 +2054,7 @@ export const getGoogooApiMock = () => [
   getSendEmailSignupMockHandler(),
   getOptOutEmailMockHandler(),
   getLoginMockHandler(),
+  getVerifyEmailLoginMockHandler(),
   getHealthMockHandler(),
   getLogMockHandler(),
   getGetInfoBySharingIdMockHandler(),
