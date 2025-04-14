@@ -1,0 +1,13 @@
+.Body {
+    position: relative;
+
+    & h2 {
+        margin-top: 96px;
+    }
+
+    & img {
+        position: absolute;
+        right: 20px;
+        bottom: -24px;
+    }
+}

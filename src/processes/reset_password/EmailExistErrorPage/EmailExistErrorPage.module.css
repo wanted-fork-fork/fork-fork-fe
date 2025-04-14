@@ -1,0 +1,21 @@
+.Body {
+    position: relative;
+
+    & h2 {
+        margin-top: 96px;
+    }
+
+    & img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        top: 50%;
+    }
+}
+
+.Footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

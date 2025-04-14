@@ -9,15 +9,15 @@ export const EmailForm = ({
   onDuplicated,
 }: {
   signUpKey: string;
-  onSubmitEmail: (email: string, token?: string) => void;
-  onDuplicated: (email: string, token?: string) => void;
+  onSubmitEmail: (email: string) => void;
+  onDuplicated: () => void;
 }) => {
   return (
     <FormLayout.Body className={styles.Body}>
       <h2>
-        먼저 서비스 가입 여부를 확인할게요.
+        구구에 오신 것을 환영합니다!
         <br />
-        아이디로 사용한 이메일을 입력해주세요.
+        아이디로 사용할 이메일을 입력해주세요.
       </h2>
       <VerifyEmail
         confirmButtonText={'다음'}
@@ -25,7 +25,7 @@ export const EmailForm = ({
         sendEmailVerifyCode={(data) => sendEmailSignup({ ...data, key: signUpKey })}
         verifyEmailCode={async (data) => {
           const result = await verifyEmailLogin({ ...data, key: signUpKey });
-          return { data: result.data.isVerified, isDuplicated: result.data.isDuplicated, token: result.data.token };
+          return { data: result.data.isVerified, isDuplicated: result.data.isDuplicated };
         }}
         onDuplicated={onDuplicated}
       />

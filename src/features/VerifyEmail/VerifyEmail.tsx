@@ -23,11 +23,13 @@ export const VerifyEmail = ({
   verifyEmailCode,
 }: {
   confirmButtonText?: string;
-  onConfirm: (email: string) => void;
-  onDuplicated?: () => void;
+  onConfirm: (email: string, token?: string) => void;
+  onDuplicated?: (email: string, token?: string) => void;
   onClickShowLater?: () => void;
   sendEmailVerifyCode: (request: { email: string }) => Promise<{ data: boolean }>;
-  verifyEmailCode: (request: { verifyCode: string }) => Promise<{ data: boolean; isDuplicated?: boolean }>;
+  verifyEmailCode: (request: {
+    verifyCode: string;
+  }) => Promise<{ data: boolean; isDuplicated?: boolean; token?: string }>;
 }) => {
   const {
     mutate: mutateSendCode,
@@ -41,12 +43,12 @@ export const VerifyEmail = ({
     mutationFn: verifyEmailCode,
     onSuccess: (data) => {
       if (onDuplicated && data.isDuplicated) {
-        onDuplicated();
+        onDuplicated(email, data.token);
         return;
       }
 
       if (data.data) {
-        onConfirm(email);
+        onConfirm(email, data.token);
       }
 
       if (data.data === false) {
