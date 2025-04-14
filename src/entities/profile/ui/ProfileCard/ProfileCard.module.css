@@ -89,9 +89,14 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    align-items: center;
 
-    & button {
+    & > div {
         padding: 4px 10px !important;
-        height: 20px !important;
+    }
+
+    & > span {
+        font-size: 14px;
+        font-weight: 500;
     }
 }

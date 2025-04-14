@@ -76,9 +76,10 @@ export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
               <th scope={'row'}>취미</th>
               <td colSpan={3}>
                 <div className={styles.HobbyList}>
-                  {profile.hobbies.map((hobby) => (
+                  {profile.hobbies.slice(0, 2).map((hobby) => (
                     <Chip key={hobby}>{hobby}</Chip>
                   ))}
+                  {profile.hobbies.length > 2 && <span>+{profile.hobbies.length - 2}</span>}
                 </div>
               </td>
             </tr>
