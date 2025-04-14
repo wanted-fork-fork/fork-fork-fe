@@ -31,7 +31,7 @@ export const EmailLoginPage = () => {
                 {...register('email')}
               />
             </label>
-            {errors.email && <p className={styles.Error}>가입되지 않은 이메일입니다.</p>}
+            {errors.email && <p className={styles.Error}>이메일 형식으로 입력해주세요.</p>}
           </div>
           <div className={styles.InputRow}>
             <label>
@@ -43,8 +43,14 @@ export const EmailLoginPage = () => {
                 {...register('password')}
               />
             </label>
-            {errors.password && <p className={styles.Error}>비밀번호를 확인해주세요.</p>}
-            {errors.root && <p className={styles.Error}>로그인에 실패했습니다.</p>}
+            {errors.password && (
+              <p className={styles.Error}>
+                등록되지 않은 계정이거나
+                <br />
+                아이디 또는 비밀번호를 다시 확인해주세요.
+              </p>
+            )}
+            {errors.root && <p className={styles.Error}>{errors.root.message}</p>}
           </div>
         </form>
         <Link to={'/auth/reset-password'}>

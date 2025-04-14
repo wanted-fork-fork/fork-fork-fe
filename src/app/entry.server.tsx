@@ -28,7 +28,7 @@ axios.interceptors.response.use(
   async (e) => {
     console.error(e);
 
-    if (e.response.status !== 401 || e.config.url.includes('refresh') || e.config.sent) return;
+    if (e.response.status !== 401 || e.config.url.includes('refresh') || e.config.sent) return e;
 
     const accessToken = await requestRefreshToken(e.config.headers);
     e.config.headers.Authorization = `Bearer ${accessToken}`;
