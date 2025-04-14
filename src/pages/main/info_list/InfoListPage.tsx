@@ -11,6 +11,7 @@ import { ProfileShareBottomSheet } from '../../../features/ProfileShare/ProfileS
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
 import { ProfileCardGrid } from 'src/widgets/ProfileCardGrid/ProfileCardGrid';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
+import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
 
 export const InfoListPage = ({
   userInfo,
@@ -19,7 +20,7 @@ export const InfoListPage = ({
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
 }) => {
-  const [viewType, setViewType] = useState<'GRID' | 'LIST'>('LIST');
+  const [viewType, setViewType] = useLocalStorageState<'GRID' | 'LIST'>('info-list-type', 'LIST');
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
   return (
