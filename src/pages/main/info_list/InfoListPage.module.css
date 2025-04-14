@@ -13,10 +13,17 @@
     height: 44px;
 }
 
-.ListInfo {
+.ListHeader {
     margin-top: 24px;
     margin-bottom: 16px;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ListInfo {
+
 }
 
 .Viewport {

@@ -13,8 +13,8 @@ export const profileMock: ProfileSummary = {
     jobName: '',
   },
   location: {
-    cities: [],
-    towns: [],
+    cities: ['JEOLANAM', 'SEOUL'],
+    towns: ['IKSAN', 'SEOCHO'],
   },
   mbti: 'ISFJ',
   religion: {

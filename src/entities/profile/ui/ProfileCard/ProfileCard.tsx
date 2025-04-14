@@ -19,7 +19,6 @@ type Props = {
 
 export const ProfileCard = ({ profile, headerRightSlot }: Props) => {
   const { t } = useTranslation('common');
-  console.log(t(profile.gender));
 
   const location = convertDtoToLocation(profile.location)[0];
 

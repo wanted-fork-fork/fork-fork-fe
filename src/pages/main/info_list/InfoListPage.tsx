@@ -4,11 +4,13 @@ import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
 import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Button } from '../../../shared/ui/Button/Button';
-import { Share } from '../../../shared/ui/icons';
+import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
 import { MouseEvent, useState } from 'react';
 import { ProfileShareBottomSheet } from '../../../features/ProfileShare/ProfileShareBottomSheet';
 import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
+import { ProfileCardGrid } from 'src/widgets/ProfileCardGrid/ProfileCardGrid';
+import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 
 export const InfoListPage = ({
   userInfo,
@@ -17,6 +19,7 @@ export const InfoListPage = ({
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
 }) => {
+  const [viewType, setViewType] = useState<'GRID' | 'LIST'>('LIST');
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
   return (
@@ -27,15 +30,33 @@ export const InfoListPage = ({
           <UserAvatar size={32} imageSrc={userInfo.profileImage} />
         </Link>
       </div>
-      <p className={styles.ListInfo}>총 {profileList?.length}명</p>
+      <div className={styles.ListHeader}>
+        <p className={styles.ListInfo}>총 {profileList?.length}명</p>
+        <IconButton onClick={() => setViewType((prev) => (prev === 'GRID' ? 'LIST' : 'GRID'))}>
+          {viewType === 'GRID' ? (
+            <GridView color={Theme.color.neutral50} />
+          ) : (
+            <ListView color={Theme.color.neutral50} />
+          )}
+        </IconButton>
+      </div>
       {profileList?.length ? (
         <ScrollView viewportClassName={styles.Viewport}>
-          <ProfileCardList
-            profileList={profileList}
-            profileActionSlot={(profile) => (
-              <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
-            )}
-          />
+          {viewType === 'GRID' ? (
+            <ProfileCardGrid
+              profileList={profileList}
+              profileActionSlot={(profile) => (
+                <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
+              )}
+            />
+          ) : (
+            <ProfileCardList
+              profileList={profileList}
+              profileActionSlot={(profile) => (
+                <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
+              )}
+            />
+          )}
         </ScrollView>
       ) : (
         <div className={styles.EmptyView}>
