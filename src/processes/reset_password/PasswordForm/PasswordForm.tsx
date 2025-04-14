@@ -6,8 +6,7 @@ import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { ClosedEye, Eye } from 'src/shared/ui/icons';
 import { ChangeEvent, useState } from 'react';
 import { Theme } from 'src/shared/styles/constants';
-
-const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!_~.])[A-Za-z0-9!_~.]{8,16}$/;
+import { PASSWORD_REGEX } from 'src/shared/constants/regex';
 
 export const PasswordForm = ({
   password: initialPassword,
@@ -23,7 +22,7 @@ export const PasswordForm = ({
   const [error, setError] = useState(false);
 
   const handleSubmit = () => {
-    if (regex.test(password)) {
+    if (PASSWORD_REGEX.test(password)) {
       onSubmit(password);
       return;
     }

@@ -5,17 +5,23 @@ import { Button } from 'src/shared/ui/Button/Button';
 import styles from './EmailLoginPage.module.css';
 import { useRemixForm } from 'remix-hook-form';
 import { LoginFormData, loginResolver } from 'src/app/routes/login.email';
+import { useMemo } from 'react';
+import { EMAIL_REGEX } from 'src/shared/constants/regex';
 
 export const EmailLoginPage = () => {
   const navigate = useNavigate();
 
   const {
     handleSubmit,
+    watch,
     formState: { errors },
     register,
   } = useRemixForm<LoginFormData>({
     resolver: loginResolver,
   });
+
+  const email = watch('email');
+  const isLoginEnabled = useMemo(() => EMAIL_REGEX.test(email), [email]);
 
   return (
     <FormLayout.Container>
@@ -60,7 +66,7 @@ export const EmailLoginPage = () => {
         </Link>
       </FormLayout.Body>
       <FormLayout.Footer className={styles.Footer}>
-        <Button widthType={'fill'} onClick={() => handleSubmit()}>
+        <Button widthType={'fill'} onClick={() => handleSubmit()} disabled={!isLoginEnabled}>
           로그인
         </Button>
         <Link to={'/signup'}>

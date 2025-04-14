@@ -4,6 +4,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { EMAIL_REGEX } from 'src/shared/constants/regex';
 
 const timeLimit = 5 * 60;
 
@@ -11,8 +12,6 @@ const refineNumber = (n: number) => Math.floor(n).toString().padStart(2, '0');
 const getTimerText = (sec: number) => {
   return `${refineNumber((sec % (60 * 60)) / 60)}:${refineNumber(sec % 60)}`;
 };
-
-const emailRegex = /^\S+@\S+\.\S+$/;
 
 export const VerifyEmail = ({
   confirmButtonText = '완료',
@@ -68,7 +67,7 @@ export const VerifyEmail = ({
   const [isSent, setSent] = useState(false);
   const [email, setEmail] = useState('');
 
-  const isValidEmail = useMemo(() => emailRegex.test(email), [email]);
+  const isValidEmail = useMemo(() => EMAIL_REGEX.test(email), [email]);
   const isConfirmDisabled = code.length < 6 || isPending;
 
   const handleClickSend = () => {
