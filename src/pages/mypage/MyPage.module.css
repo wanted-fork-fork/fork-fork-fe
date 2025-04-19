@@ -17,19 +17,68 @@
     gap: 14px;
     align-items: center;
     padding: 0 20px;
-    margin-top: 24px;
-    margin-bottom: 50px;
+    margin: 24px 0;
     user-select: none;
+
+    & > div {
+        position: relative;
+
+        & .LoginMethod {
+            box-sizing: content-box;
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px var(--color-neutral-0) solid;
+
+            & img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    & .UserInfoNameWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        & .Email {
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: 400;
+            color: var(--color-neutral-600);
+        }
+    }
 
     & h3 {
         font-size: 18px;
         font-weight: 600;
+        margin-bottom: 0;
     }
+}
+
+.UserInfoMoreButton {
+    margin-left: auto;
+    color: var(--color-neutral-500);
 }
 
 .Label {
     padding: 0 20px;
     margin-bottom: 8px;
+}
+
+.Divider {
+    background-color: var(--color-neutral-100);
+    height: 10px;
+    border: none;
+    padding: 0;
+    margin: 0 0 24px;
 }
 
 .MenuList{

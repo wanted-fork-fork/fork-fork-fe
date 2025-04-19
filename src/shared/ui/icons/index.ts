@@ -11,6 +11,7 @@ export { default as ClosedEye } from './ClosedEye';
 export { default as Delete } from './Delete';
 export { default as Edit } from './Edit';
 export { default as Email } from './Email';
+export { default as EmailFilled } from './EmailFilled';
 export { default as Eye } from './Eye';
 export { default as GridView } from './GridView';
 export { default as Link } from './Link';

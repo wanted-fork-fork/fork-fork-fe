@@ -13,6 +13,8 @@ export const Default: Story = {
     userInfo: {
       name: '김구구',
       userId: '123',
+      email: 'orobos654@gmail.com',
+      receiveEmail: false,
     },
   },
 };

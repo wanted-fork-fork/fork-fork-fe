@@ -1,5 +1,5 @@
 import { Button } from 'src/shared/ui/Button/Button';
-import { ArrowRight, Close } from 'src/shared/ui/icons';
+import { ArrowRight, Close, EmailFilled } from 'src/shared/ui/icons';
 import { Link } from '@remix-run/react';
 import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
@@ -8,6 +8,8 @@ import { FAQ_URL, INQUIRY_URL, NOTICE_URL } from 'src/shared/constants/url';
 import { Theme } from 'src/shared/styles/constants';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
+import { IconButton } from 'src/shared/ui/IconButton/IconButton';
+import { SwitchCase } from 'src/shared/ui/SwitchCase';
 
 const ArrowIcon = () => <ArrowRight color={Theme.color.neutral40} />;
 
@@ -16,7 +18,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
 
   return showTutorial ? (
     <OnboardingPage
-      userInfo={{ userId: '', name: '김구구', profileImage: '/images/default_profile.png' }}
+      userInfo={{ userId: '', name: '김구구', profileImage: '/images/default_profile.png', receiveEmail: true }}
       onEndOnboarding={() => setShowTutorial(false)}
     />
   ) : (
@@ -27,10 +29,36 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
         </Link>
         <h2>마이페이지</h2>
       </div>
-      <div className={styles.UserInfoWrapper}>
-        <UserAvatar size={72} imageSrc={userInfo.profileImage} />
-        <h3>{userInfo.name}</h3>
-      </div>
+      <Link to={'/mypage/edit'}>
+        <div className={styles.UserInfoWrapper}>
+          <div>
+            <UserAvatar size={72} imageSrc={userInfo.profileImage} />
+            <SwitchCase
+              value={userInfo.email ? 'EMAIL' : 'KAKAO'}
+              caseBy={{
+                KAKAO: (
+                  <div className={styles.LoginMethod} style={{ backgroundColor: '#ffe812' }}>
+                    <img src={'/images/kakao.png'} alt={'카카오 계정으로 로그인한 계정입니다'} />
+                  </div>
+                ),
+                EMAIL: (
+                  <div className={styles.LoginMethod} style={{ backgroundColor: 'var(--color-neutral-900)' }}>
+                    <EmailFilled color={'var(--color-primary)'} />
+                  </div>
+                ),
+              }}
+            />
+          </div>
+          <div className={styles.UserInfoNameWrapper}>
+            <h3>{userInfo.name}</h3>
+            {userInfo.email && <p className={styles.Email}>{userInfo.email}</p>}
+          </div>
+          <IconButton className={styles.UserInfoMoreButton}>
+            <ArrowRight width={24} height={24} />
+          </IconButton>
+        </div>
+      </Link>
+      <hr className={styles.Divider} />
       <div className={styles.MenuList}>
         <div>
           <p className={`label ${styles.Label}`}>구구 소식</p>
