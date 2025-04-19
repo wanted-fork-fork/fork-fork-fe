@@ -1,12 +1,12 @@
 import { Button } from 'src/shared/ui/Button/Button';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import styles from './FormConfirmPage.module.css';
-import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
+import { ProfileTab } from 'src/domains/candidates/components/ProfileTab/ProfileTab';
 import { Header } from 'src/shared/ui/layout/Header/Header';
-import { ProfileEditProvider } from 'src/features/EditInfo/ProfileEditContext';
+import { ProfileEditProvider } from 'src/domains/candidates/components/EditInfo/ProfileEditContext';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
 
 export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const profile = useMyProfileStore((state) => state);

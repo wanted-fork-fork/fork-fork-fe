@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { IdealPartnerPage } from 'src/pages/form/ideal_partner/IdealPartnerPage';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
 
 const meta: Meta<typeof IdealPartnerPage> = {
   component: IdealPartnerPage,

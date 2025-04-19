@@ -2,13 +2,13 @@ import { ProfilePage } from 'src/pages/profile/ProfilePage';
 import { getInfo } from 'src/types';
 import { authenticate } from 'src/app/server/authenticate';
 import { useLoaderData } from '@remix-run/react';
-import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
-import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { useMemo } from 'react';
-import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
-import { convertDtoToIdealPartner } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
 import { json, LoaderFunction } from '@remix-run/node';
 import { commitSession } from 'src/app/server/sessions';
+import { MyProfileProvider } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useMemo } from 'react';
+import { convertDtoToProfile } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
+import { convertDtoToIdealPartner } from 'src/domains/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
+import { IdealPartnerProvider } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);

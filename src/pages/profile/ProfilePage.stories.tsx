@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProfilePage } from 'src/pages/profile/ProfilePage';
-import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
-import { fullProfileMock } from 'src/entities/profile/api/__mock__/fullProfile.mock';
-import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { MockIdealPartner } from 'src/entities/ideal_partner/api/__mock__/idealPartner.mock';
+import { MyProfileProvider } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { fullProfileMock } from 'src/domains/candidates/info/entities/mocks/fullProfile.mock';
+import { IdealPartnerProvider } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { MockIdealPartner } from 'src/domains/candidates/ideal_partner/entities/mocks/idealPartner.mock';
 
 const meta: Meta<typeof ProfilePage> = {
   component: ProfilePage,

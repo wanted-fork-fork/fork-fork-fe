@@ -2,7 +2,7 @@ import styles from './Profile.module.css';
 import { Edit } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { Button } from 'src/shared/ui/Button/Button';
-import { useProfileEditContext } from 'src/features/EditInfo/ProfileEditContext';
+import { useProfileEditContext } from 'src/domains/candidates/components/EditInfo/ProfileEditContext';
 import { ReactElement } from 'react';
 
 export const ProfileCellHeader = ({

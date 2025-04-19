@@ -2,16 +2,16 @@ import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
 import styles from './SharedProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
 import { Header } from '../../shared/ui/layout/Header/Header';
 import { useTranslation } from 'react-i18next';
 import { ImageLayout } from '../../shared/ui/ImageLayout/ImageLayout';
-import { PersonalInfoGrid } from 'src/entities/profile/ui/MyProfile/components/PersonalInfoGrid';
-import { TasteInfoGrid } from 'src/entities/profile/ui/MyProfile/components/TasteInfoGrid';
-import { QuestionInfoGrid } from 'src/entities/profile/ui/MyProfile/components/QuestionInfoGrid';
+import { PersonalInfoGrid } from 'src/domains/candidates/info/components/MyProfile/components/PersonalInfoGrid';
+import { TasteInfoGrid } from 'src/domains/candidates/info/components/MyProfile/components/TasteInfoGrid';
+import { QuestionInfoGrid } from 'src/domains/candidates/info/components/MyProfile/components/QuestionInfoGrid';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMemo } from 'react';
 import { ExpiredDateTimer } from 'src/pages/shared_profile/components/ExpiredDateTimer';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
 
 type Props = {
   expiredDate: Date;

@@ -1,16 +1,16 @@
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { PersonalInfoForm } from 'src/processes/my_profile/PersonalInfoForm/PersonalInfoForm';
+import { PersonalInfoForm } from 'src/domains/candidates/info/processes/my_profile/PersonalInfoForm/PersonalInfoForm';
 import { isValidDate } from 'src/shared/vo/date';
-import { MyImageForm } from 'src/processes/my_profile/MyImageForm/MyImageForm';
-import { MbtiForm } from 'src/processes/my_profile/MbtiForm/MbtiForm';
-import { JobForm } from 'src/processes/my_profile/JobForm/JobForm';
-import { LocationForm } from 'src/processes/my_profile/LocationForm/LocationForm';
-import { ReligionForm } from 'src/processes/my_profile/ReligionForm/ReligionForm';
-import { HobbyForm } from 'src/processes/my_profile/HobbyForm/HobbyForm';
-import { SmokeAlcoholForm } from 'src/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
-import { IntroduceForm } from 'src/processes/my_profile/IntroduceForm/IntroduceForm';
-import { MyProfile } from 'src/entities/profile/model/myProfileStore';
-import { QuestionForm } from 'src/processes/my_profile/QuestionForm/QuestionForm';
+import { MyImageForm } from 'src/domains/candidates/info/processes/my_profile/MyImageForm/MyImageForm';
+import { MbtiForm } from 'src/domains/candidates/info/processes/my_profile/MbtiForm/MbtiForm';
+import { JobForm } from 'src/domains/candidates/info/processes/my_profile/JobForm/JobForm';
+import { LocationForm } from 'src/domains/candidates/info/processes/my_profile/LocationForm/LocationForm';
+import { ReligionForm } from 'src/domains/candidates/info/processes/my_profile/ReligionForm/ReligionForm';
+import { HobbyForm } from 'src/domains/candidates/info/processes/my_profile/HobbyForm/HobbyForm';
+import { SmokeAlcoholForm } from 'src/domains/candidates/info/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
+import { IntroduceForm } from 'src/domains/candidates/info/processes/my_profile/IntroduceForm/IntroduceForm';
+import { QuestionForm } from 'src/domains/candidates/info/processes/my_profile/QuestionForm/QuestionForm';
+import { MyProfile } from 'src/domains/candidates/info/entities/models/myProfileStore';
 
 export const MyProfileStepMeta = {
   PROFILE_PERSONAL_INFO: {

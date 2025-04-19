@@ -2,12 +2,12 @@ import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { getInfoBySharingId } from 'src/types';
 import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
-import { convertDtoToProfile } from 'src/entities/profile/model/convertProfileToDto';
-import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
-import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
-import { getNickname } from 'src/entities/profile/lib/getNickname';
 import { ErrorPage } from 'src/pages/error/ErrorPage';
 import { calculateAge } from 'src/shared/vo/date';
+import { getNickname } from 'src/domains/candidates/info/entities/libs/getNickname';
+import { convertDtoToProfile } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
+import { MyProfileProvider } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { SharedProfilePage } from 'src/pages/shared_profile/SharedProfilePage';
 
 export const meta: MetaFunction = ({ data }) => {
   return [

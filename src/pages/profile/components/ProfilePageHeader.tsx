@@ -1,8 +1,8 @@
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { ReactNode } from 'react';
-import { MyProfile } from 'src/entities/profile/model/myProfileStore';
 import { useTranslation } from 'react-i18next';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
+import { MyProfile } from 'src/domains/candidates/info/entities/models/myProfileStore';
 
 export const ProfilePageHeader = ({
   profile,

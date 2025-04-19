@@ -6,14 +6,14 @@ import { IdealPartnerPage } from 'src/pages/form/ideal_partner/IdealPartnerPage'
 import { FormConfirmPage } from 'src/pages/form/confirm/FormConfirmPage';
 import { UploadLoadingPage } from 'src/pages/form/complete/UploadLoadingPage';
 import { CompletePage } from 'src/pages/form/complete/CompletePage';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
-import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
 import { getLinkByMatchMakerId, saveInfo } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { useBeforeUnload, useLoaderData, useNavigate } from '@remix-run/react';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
+import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
+import { Shortcut } from 'src/domains/candidates/components/Shortcut/Shortcut';
 
 /**
  * TODO: form.$key.tsx 페이지 복붙이니, 중복되는 부분 어느정도 공통화 필요

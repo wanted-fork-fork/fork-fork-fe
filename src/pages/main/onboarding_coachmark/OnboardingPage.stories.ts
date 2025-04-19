@@ -15,6 +15,7 @@ export const Default: Story = {
       userId: '1',
       name: '김구구',
       profileImage: '',
+      receiveEmail: false,
     },
     onEndOnboarding: () => alert('온보딩 끝'),
   },

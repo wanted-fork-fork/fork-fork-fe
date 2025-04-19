@@ -1,10 +1,8 @@
 import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
-import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
+import { ProfileTab } from 'src/domains/candidates/components/ProfileTab/ProfileTab';
 import styles from './ProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { ImageLayout } from 'src/shared/ui/ImageLayout/ImageLayout';
 import { useTranslation } from 'react-i18next';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
@@ -14,6 +12,8 @@ import { ArrowLeft } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { Link } from '@remix-run/react';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();

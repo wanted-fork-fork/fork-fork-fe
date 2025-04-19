@@ -7,12 +7,12 @@ import { IdealPartnerPage } from 'src/pages/form/ideal_partner/IdealPartnerPage'
 import { FormConfirmPage } from 'src/pages/form/confirm/FormConfirmPage';
 import { UploadLoadingPage } from 'src/pages/form/complete/UploadLoadingPage';
 import { CompletePage } from 'src/pages/form/complete/CompletePage';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
-import { Shortcut } from 'src/processes/shortcut/Shortcut';
 import styles from 'src/app/styles/form.module.css';
 import { getMatchMakerName, saveInfo, validateLink } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
 import { useBeforeUnload, useLoaderData } from '@remix-run/react';
+import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
+import { Shortcut } from 'src/domains/candidates/components/Shortcut/Shortcut';
 
 const MAX_STEP_COUNT = 7;
 

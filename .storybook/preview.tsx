@@ -3,7 +3,7 @@ import type { Preview, StoryFn } from '@storybook/react';
 import 'src/shared/styles/global.css';
 import 'src/shared/styles/variables.css';
 import 'src/shared/styles/typography.css';
-import { MyProfileProvider } from 'src/entities/profile/model/myProfileStore';
+import { MyProfileProvider } from 'src/domains/candidates/info/entities/model/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { MemoryRouter } from 'react-router';
 import { Suspense } from 'react';
@@ -14,7 +14,7 @@ import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
 import i18n from '../src/app/i18n';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fullProfileMock } from 'src/entities/profile/api/__mock__/fullProfile.mock';
+import { fullProfileMock } from 'src/domains/candidates/info/entities/api/__mock__/fullProfile.mock';
 
 const withI18next = (Story: StoryFn) => {
   i18next

@@ -1,15 +1,15 @@
 import styles from 'src/pages/main/info_list/InfoListPage.module.css';
 import { Link } from '@remix-run/react';
-import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
+import { UserAvatar } from 'src/domains/user/components/UserAvatar';
 import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Driver, driver } from 'driver.js';
 import { useEffect, useRef, useState } from 'react';
 import 'driver.js/dist/driver.css';
 import 'src/shared/ui/CoachMark/CoachMark.css';
-import { ProfileAddFloatingButton } from 'src/widgets/GenerateFormLink/ProfileAddFloatingButton';
-import { GenerateFormBottomSheetContentView } from 'src/widgets/GenerateFormLink/GenerateFormBottomSheetContentView';
+import { ProfileAddFloatingButton } from 'src/domains/candidates/components/GenerateFormLink/ProfileAddFloatingButton';
+import { GenerateFormBottomSheetContentView } from 'src/domains/candidates/components/GenerateFormLink/GenerateFormBottomSheetContentView';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
-import { ProfileCardList } from 'src/widgets/ProfileCardList/ProfileCardList';
+import { ProfileCardList } from 'src/domains/candidates/components/ProfileCardList/ProfileCardList';
 import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
 
 const createDriverOjb = ({

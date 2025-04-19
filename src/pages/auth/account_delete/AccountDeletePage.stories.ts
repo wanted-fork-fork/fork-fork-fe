@@ -13,6 +13,8 @@ export const Default: Story = {
     userInfo: {
       userId: '1',
       name: '김유저',
+      profileImage: '',
+      receiveEmail: false,
     },
   },
 };

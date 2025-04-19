@@ -1,14 +1,17 @@
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { AgeForm } from 'src/processes/ideal_partner/AgeForm/AgeForm';
-import { IdealPartner, REQUIRED_OPTION_MAX_COUNT } from 'src/entities/ideal_partner/model/idealPartnerStore';
-import { HeightStyleForm } from 'src/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
-import { LocationForm } from 'src/processes/ideal_partner/LocationForm/LocationForm';
-import { HobbyForm } from 'src/processes/ideal_partner/HobbyForm/HobbyForm';
-import { ReligionForm } from 'src/processes/ideal_partner/ReligionForm/ReligionForm';
-import { DrinkingForm } from 'src/processes/ideal_partner/DrinkingForm/DrinkingForm';
-import { SmokingForm } from 'src/processes/ideal_partner/SmokingForm/SmokingForm';
-import { RequiredOptionForm } from 'src/processes/ideal_partner/RequiredOptionForm/RequiredOptionForm';
-import { ToMatcherForm } from 'src/processes/ideal_partner/ToMatcherForm/ToMatcherForm';
+import { AgeForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/AgeForm/AgeForm';
+import { HeightStyleForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/HeightStyleForm/HeightStyleForm';
+import { LocationForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/LocationForm/LocationForm';
+import { HobbyForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/HobbyForm/HobbyForm';
+import { ReligionForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/ReligionForm/ReligionForm';
+import { DrinkingForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/DrinkingForm/DrinkingForm';
+import { SmokingForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/SmokingForm/SmokingForm';
+import { RequiredOptionForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/RequiredOptionForm/RequiredOptionForm';
+import { ToMatcherForm } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/ToMatcherForm/ToMatcherForm';
+import {
+  IdealPartner,
+  REQUIRED_OPTION_MAX_COUNT,
+} from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
 
 export const IdealPartnerStepMeta = {
   IDEAL_AGE: {

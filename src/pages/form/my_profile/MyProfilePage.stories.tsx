@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { MyProfilePage } from 'src/pages/form/my_profile/MyProfilePage';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useProfileFirstName } from 'src/entities/profile/lib/useProfileFirstName';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
 
 const meta: Meta<typeof MyProfilePage> = {
   component: MyProfilePage,

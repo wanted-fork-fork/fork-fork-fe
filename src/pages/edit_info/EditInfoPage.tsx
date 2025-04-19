@@ -1,22 +1,22 @@
 import styles from '../profile/ProfilePage.module.css';
 import pageStyles from './EditInfoPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { ProfileTab } from 'src/widgets/ProfileTab/ProfileTab';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
+import { ProfileTab } from 'src/domains/candidates/components/ProfileTab/ProfileTab';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
 import { Button } from 'src/shared/ui/Button/Button';
-import { ProfileEditProvider } from 'src/features/EditInfo/ProfileEditContext';
+import { ProfileEditProvider } from 'src/domains/candidates/components/EditInfo/ProfileEditContext';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useBeforeUnload, useNavigate, useSubmit } from '@remix-run/react';
-import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
-import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
-import { useUploadProfileImage } from 'src/features/upload_image/useUploadProfileImage';
+import { useUploadProfileImage } from 'src/features/useUploadProfileImage';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { Theme } from 'src/shared/styles/constants';
 import { ArrowLeft } from 'src/shared/ui/icons';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { convertProfileToDto } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
+import { convertIdealPartnerToDto } from 'src/domains/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
 
 type Props = {
   infoId: string;

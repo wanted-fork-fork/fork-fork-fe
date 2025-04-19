@@ -2,13 +2,13 @@ import styles from './UploadLoadingPage.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useActionData, useSubmit } from '@remix-run/react';
 import { action } from 'src/app/routes/form.$key';
-import { convertProfileToDto } from 'src/entities/profile/model/convertProfileToDto';
-import { convertIdealPartnerToDto } from 'src/entities/ideal_partner/model/convertIdealPartnerToDto';
-import { useMyProfileStore } from 'src/entities/profile/model/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/ideal_partner/model/idealPartnerStore';
 import { Button } from 'src/shared/ui/Button/Button';
 import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
-import { useUploadProfileImage } from 'src/features/upload_image/useUploadProfileImage';
+import { useUploadProfileImage } from 'src/features/useUploadProfileImage';
+import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { convertProfileToDto } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
+import { convertIdealPartnerToDto } from 'src/domains/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
 
 export const UploadLoadingPage = ({
   name,

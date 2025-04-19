@@ -3,7 +3,7 @@ import { ArrowRight, Close, EmailFilled } from 'src/shared/ui/icons';
 import { Link } from '@remix-run/react';
 import styles from './MyPage.module.css';
 import { UserInfoResponse } from 'src/types';
-import { UserAvatar } from 'src/entities/user/ui/UserAvatar';
+import { UserAvatar } from 'src/domains/user/components/UserAvatar';
 import { FAQ_URL, INQUIRY_URL, NOTICE_URL } from 'src/shared/constants/url';
 import { Theme } from 'src/shared/styles/constants';
 import { useState } from 'react';
