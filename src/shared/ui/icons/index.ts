@@ -2,6 +2,7 @@ export { default as Alert } from './Alert';
 export { default as ArrowDown } from './ArrowDown';
 export { default as ArrowLeft } from './ArrowLeft';
 export { default as ArrowRight } from './ArrowRight';
+export { default as Camera } from './Camera';
 export { default as Check } from './Check';
 export { default as CheckLine } from './CheckLine';
 export { default as CheckedRadio } from './CheckedRadio';

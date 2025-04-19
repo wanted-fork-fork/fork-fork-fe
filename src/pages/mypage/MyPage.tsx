@@ -37,13 +37,13 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
               value={userInfo.email ? 'EMAIL' : 'KAKAO'}
               caseBy={{
                 KAKAO: (
-                  <div className={styles.LoginMethod} style={{ backgroundColor: '#ffe812' }}>
+                  <div className={styles.LoginMethod} style={{ backgroundColor: Theme.color.kakao }}>
                     <img src={'/images/kakao.png'} alt={'카카오 계정으로 로그인한 계정입니다'} />
                   </div>
                 ),
                 EMAIL: (
-                  <div className={styles.LoginMethod} style={{ backgroundColor: 'var(--color-neutral-900)' }}>
-                    <EmailFilled color={'var(--color-primary)'} />
+                  <div className={styles.LoginMethod} style={{ backgroundColor: Theme.color.neutral90 }}>
+                    <EmailFilled color={Theme.color.primary} />
                   </div>
                 ),
               }}
