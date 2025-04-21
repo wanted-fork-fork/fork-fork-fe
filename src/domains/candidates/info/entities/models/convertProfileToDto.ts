@@ -5,7 +5,7 @@ import {
   UserInfoRequest,
   UserInfoRequestMbti,
 } from 'src/types';
-import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/vo/date';
+import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/functions/date';
 import { Location } from 'src/domains/candidates/vo/location/types/location';
 import { MyProfile } from 'src/domains/candidates/info/entities/models/myProfileStore';
 

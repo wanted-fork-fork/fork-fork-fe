@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { ProfileSummary } from 'src/domains/candidates/info/entities/types/profileSummary';
 import styles from 'src/domains/candidates/info/components/ProfileCard/ProfileCard.module.css';
-import { calculateAge } from 'src/shared/vo/date';
+import { calculateAge } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';

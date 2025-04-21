@@ -1,6 +1,6 @@
 import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { PersonalInfoForm } from 'src/domains/candidates/info/processes/my_profile/PersonalInfoForm/PersonalInfoForm';
-import { isValidDate } from 'src/shared/vo/date';
+import { isValidDate } from 'src/shared/functions/date';
 import { MyImageForm } from 'src/domains/candidates/info/processes/my_profile/MyImageForm/MyImageForm';
 import { MbtiForm } from 'src/domains/candidates/info/processes/my_profile/MbtiForm/MbtiForm';
 import { JobForm } from 'src/domains/candidates/info/processes/my_profile/JobForm/JobForm';

@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { Gender } from 'src/domains/candidates/info/entities/types/profileSummary';
 import { Location } from 'src/domains/candidates/vo/location/types/location';
-import { DateObj } from 'src/shared/vo/date';
-import { Mbti } from 'src/shared/vo/mbti';
+import { DateObj } from 'src/shared/functions/date';
+import { Mbti } from 'src/domains/candidates/vo/mbti/mbti';
 import { Hobby } from 'src/domains/candidates/vo/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import {

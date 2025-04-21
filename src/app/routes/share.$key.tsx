@@ -3,7 +3,7 @@ import { getInfoBySharingId } from 'src/types';
 import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
 import { ErrorPage } from 'src/pages/error/ErrorPage';
-import { calculateAge } from 'src/shared/vo/date';
+import { calculateAge } from 'src/shared/functions/date';
 import { getNickname } from 'src/domains/candidates/info/entities/libs/getNickname';
 import { convertDtoToProfile } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
 import { MyProfileProvider } from 'src/domains/candidates/info/entities/models/myProfileStore';

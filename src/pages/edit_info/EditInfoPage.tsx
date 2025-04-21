@@ -8,7 +8,7 @@ import { ProfileEditProvider } from 'src/domains/candidates/components/EditInfo/
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useBeforeUnload, useNavigate, useSubmit } from '@remix-run/react';
-import { useUploadProfileImage } from 'src/features/useUploadProfileImage';
+import { useUploadProfileImage } from 'src/shared/functions/useUploadProfileImage';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { Theme } from 'src/shared/styles/constants';

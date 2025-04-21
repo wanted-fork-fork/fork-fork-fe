@@ -1,4 +1,4 @@
-import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
+import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import { ProfileTab } from 'src/domains/candidates/components/ProfileTab/ProfileTab';
 import styles from './ProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';

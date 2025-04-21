@@ -1,7 +1,7 @@
 import styles from 'src/shared/ui/Profile/Profile.module.css';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
-import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
+import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
 import { EditProfileFunction } from 'src/domains/candidates/components/EditInfo/ProfileEditContext';
 import { MyProfile, useMyProfileImages } from 'src/domains/candidates/info/entities/models/myProfileStore';

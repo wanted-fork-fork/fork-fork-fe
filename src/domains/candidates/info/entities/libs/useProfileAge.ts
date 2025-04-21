@@ -1,4 +1,4 @@
-import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
+import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
 
 export const useProfileAge = () => {

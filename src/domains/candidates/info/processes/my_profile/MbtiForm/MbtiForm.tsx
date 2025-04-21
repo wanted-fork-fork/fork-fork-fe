@@ -1,7 +1,14 @@
 import { Radio } from 'src/shared/ui/Radio/Radio';
 import { useEffect, useState } from 'react';
 import styles from 'src/domains/candidates/info/processes/my_profile/MbtiForm/MbtiForm.module.css';
-import { isValidMbti, MbtiFirstWord, MbtiFourthWord, MbtiKey, MbtiSecondWord, MbtiThirdWord } from 'src/shared/vo/mbti';
+import {
+  isValidMbti,
+  MbtiFirstWord,
+  MbtiFourthWord,
+  MbtiKey,
+  MbtiSecondWord,
+  MbtiThirdWord,
+} from 'src/domains/candidates/vo/mbti/mbti';
 import { useMyProfileFormProcessStore } from 'src/domains/candidates/info/processes/my_profile/_store/myProfileFormProcessStore';
 import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
 

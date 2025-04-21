@@ -4,7 +4,7 @@ import { useActionData, useSubmit } from '@remix-run/react';
 import { action } from 'src/app/routes/form.$key';
 import { Button } from 'src/shared/ui/Button/Button';
 import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
-import { useUploadProfileImage } from 'src/features/useUploadProfileImage';
+import { useUploadProfileImage } from 'src/shared/functions/useUploadProfileImage';
 import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
 import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
 import { convertProfileToDto } from 'src/domains/candidates/info/entities/models/convertProfileToDto';

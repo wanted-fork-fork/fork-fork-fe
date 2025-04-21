@@ -1,4 +1,4 @@
-import { calculateAge, convertDateObjectToDate } from 'src/shared/vo/date';
+import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import styles from './SharedProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';

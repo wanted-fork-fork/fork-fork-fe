@@ -5,7 +5,7 @@ import { GenderForm } from 'src/domains/candidates/info/processes/my_profile/Per
 import { NameForm } from 'src/domains/candidates/info/processes/my_profile/PersonalInfoForm/components/NameForm';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Gender } from 'src/domains/candidates/info/entities/types/profileSummary';
-import { DateObj } from 'src/shared/vo/date';
+import { DateObj } from 'src/shared/functions/date';
 import { useMemo, useState } from 'react';
 import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
 

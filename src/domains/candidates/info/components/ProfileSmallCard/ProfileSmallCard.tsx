@@ -3,7 +3,7 @@ import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { ProfileSummary } from 'src/domains/candidates/info/entities/types/profileSummary';
 import { ReactElement } from 'react';
 import { Location, Person } from 'src/shared/ui/icons';
-import { calculateAge } from 'src/shared/vo/date';
+import { calculateAge } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
 import { convertDtoToLocation } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
 import { getLocationText } from 'src/domains/candidates/info/entities/libs/getLocationText';
