@@ -433,6 +433,11 @@ export interface InfoToShareResponse {
   userInfo: InfoToShareUserInfo;
 }
 
+export interface SendCommonVerificationMailRequest {
+  email: string;
+  key: string;
+}
+
 export interface VerificationResultDto {
   duplicated?: boolean;
   email: string;
@@ -446,12 +451,7 @@ export interface EmailLoginRequest {
   password: string;
 }
 
-export interface SendEmailSignupRequest {
-  email: string;
-  key: string;
-}
-
-export interface VerifyEmailSignupRequest {
+export interface VerifyCommonVerificationMailRequest {
   key: string;
   verifyCode: string;
 }
@@ -533,6 +533,11 @@ export interface UserInfoRequest {
   smoking: UserInfoSmoking;
 }
 
+export interface SaveInfoRequest {
+  idealPartner?: IdealPartnerRequest;
+  userInfo: UserInfoRequest;
+}
+
 export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
 
 
@@ -565,11 +570,6 @@ export interface IdealPartnerRequest {
   toMatchMaker: string;
 }
 
-export interface SaveInfoRequest {
-  idealPartner?: IdealPartnerRequest;
-  userInfo: UserInfoRequest;
-}
-
 export interface SaveSharingResponse {
   sharingId: string;
 }
@@ -582,10 +582,18 @@ export interface UpdateEmailRequest {
   email: string;
 }
 
+export interface UpdateNameRequest {
+  name: string;
+}
+
 export interface UpdatePasswordRequest {
   email: string;
   password: string;
   token?: string;
+}
+
+export interface UpdateProfileImageRequest {
+  profileImage: string;
 }
 
 export type UserInfoSmokingSmokingCategory = typeof UserInfoSmokingSmokingCategory[keyof typeof UserInfoSmokingSmokingCategory];
@@ -1110,6 +1118,17 @@ export const updateInfo = (
       options);
     }
   
+export const updateProfileImage = (
+    updateProfileImageRequest: UpdateProfileImageRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/profile-image`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateProfileImageRequest
+    },
+      options);
+    }
+  
 export const updatePassword = (
     updatePasswordRequest: UpdatePasswordRequest,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1117,6 +1136,17 @@ export const updatePassword = (
       {url: `/api/v1/auth/password`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: updatePasswordRequest
+    },
+      options);
+    }
+  
+export const updateName = (
+    updateNameRequest: UpdateNameRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/name`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateNameRequest
     },
       options);
     }
@@ -1240,24 +1270,16 @@ export const signup = (
       options);
     }
   
+/**
+ * @deprecated
+ */
 export const verifyEmailSignup = (
-    verifyEmailSignupRequest: VerifyEmailSignupRequest,
+    verifyCommonVerificationMailRequest: VerifyCommonVerificationMailRequest,
  options?: SecondParameter<typeof customInstance>,) => {
       return customInstance<boolean>(
       {url: `/api/v1/auth/email/signup/verify-code/verify`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: verifyEmailSignupRequest
-    },
-      options);
-    }
-  
-export const sendEmailSignup = (
-    sendEmailSignupRequest: SendEmailSignupRequest,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<boolean>(
-      {url: `/api/v1/auth/email/signup/verify-code/send`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: sendEmailSignupRequest
+      data: verifyCommonVerificationMailRequest
     },
       options);
     }
@@ -1282,13 +1304,24 @@ export const login = (
       options);
     }
   
-export const verifyEmailLogin = (
-    verifyEmailSignupRequest: VerifyEmailSignupRequest,
+export const verifyCommonVerificationMail = (
+    verifyCommonVerificationMailRequest: VerifyCommonVerificationMailRequest,
  options?: SecondParameter<typeof customInstance>,) => {
       return customInstance<VerificationResultDto>(
-      {url: `/api/v1/auth/email/login/verify-code/verify`, method: 'POST',
+      {url: `/api/v1/auth/email/common/verify-code/verify`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: verifyEmailSignupRequest
+      data: verifyCommonVerificationMailRequest
+    },
+      options);
+    }
+  
+export const sendCommonVerificationMail = (
+    sendCommonVerificationMailRequest: SendCommonVerificationMailRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/email/common/verify-code/send`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: sendCommonVerificationMailRequest
     },
       options);
     }
@@ -1423,7 +1456,9 @@ export const quit = (
 export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
+export type UpdateProfileImageResult = NonNullable<Awaited<ReturnType<typeof updateProfileImage>>>
 export type UpdatePasswordResult = NonNullable<Awaited<ReturnType<typeof updatePassword>>>
+export type UpdateNameResult = NonNullable<Awaited<ReturnType<typeof updateName>>>
 export type UpdateEmailResult = NonNullable<Awaited<ReturnType<typeof updateEmail>>>
 export type UpdateReceiveEmailResult = NonNullable<Awaited<ReturnType<typeof updateReceiveEmail>>>
 export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharing>>>
@@ -1436,10 +1471,10 @@ export type VerifyEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof 
 export type SendEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof sendEmailVerifyCode>>>
 export type SignupResult = NonNullable<Awaited<ReturnType<typeof signup>>>
 export type VerifyEmailSignupResult = NonNullable<Awaited<ReturnType<typeof verifyEmailSignup>>>
-export type SendEmailSignupResult = NonNullable<Awaited<ReturnType<typeof sendEmailSignup>>>
 export type OptOutEmailResult = NonNullable<Awaited<ReturnType<typeof optOutEmail>>>
 export type LoginResult = NonNullable<Awaited<ReturnType<typeof login>>>
-export type VerifyEmailLoginResult = NonNullable<Awaited<ReturnType<typeof verifyEmailLogin>>>
+export type VerifyCommonVerificationMailResult = NonNullable<Awaited<ReturnType<typeof verifyCommonVerificationMail>>>
+export type SendCommonVerificationMailResult = NonNullable<Awaited<ReturnType<typeof sendCommonVerificationMail>>>
 export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>
 export type LogResult = NonNullable<Awaited<ReturnType<typeof log>>>
 export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof getInfoBySharingId>>>
@@ -1462,7 +1497,11 @@ export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< Crea
 
 export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
 
+export const getUpdateProfileImageResponseMock = (): boolean => (faker.datatype.boolean())
+
 export const getUpdatePasswordResponseMock = (): boolean => (faker.datatype.boolean())
+
+export const getUpdateNameResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getUpdateEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
@@ -1488,13 +1527,13 @@ export const getSignupResponseMock = (overrideResponse: Partial< UserTokenDto > 
 
 export const getVerifyEmailSignupResponseMock = (): boolean => (faker.datatype.boolean())
 
-export const getSendEmailSignupResponseMock = (): boolean => (faker.datatype.boolean())
-
 export const getOptOutEmailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getLoginResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
-export const getVerifyEmailLoginResponseMock = (overrideResponse: Partial< VerificationResultDto > = {}): VerificationResultDto => ({duplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), email: faker.word.sample(), isDuplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), isVerified: faker.datatype.boolean(), token: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
+export const getVerifyCommonVerificationMailResponseMock = (overrideResponse: Partial< VerificationResultDto > = {}): VerificationResultDto => ({duplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), email: faker.word.sample(), isDuplicated: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), isVerified: faker.datatype.boolean(), token: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
+
+export const getSendCommonVerificationMailResponseMock = (): boolean => (faker.datatype.boolean())
 
 export const getHealthResponseMock = (): string => (faker.word.sample())
 
@@ -1570,11 +1609,41 @@ export const getUpdateInfoMockHandler = (overrideResponse?: string | ((info: Par
   })
 }
 
+export const getUpdateProfileImageMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.put('*/api/v1/auth/profile-image', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateProfileImageResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getUpdatePasswordMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
   return http.put('*/api/v1/auth/password', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUpdatePasswordResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getUpdateNameMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.put('*/api/v1/auth/name', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateNameResponseMock()),
       {
         status: 200,
         headers: {
@@ -1765,21 +1834,6 @@ export const getVerifyEmailSignupMockHandler = (overrideResponse?: boolean | ((i
   })
 }
 
-export const getSendEmailSignupMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
-  return http.post('*/api/v1/auth/email/signup/verify-code/send', async (info) => {await delay(1000);
-    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
-            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
-            : getSendEmailSignupResponseMock()),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      }
-    )
-  })
-}
-
 export const getOptOutEmailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
   return http.post('*/api/v1/auth/email/opt-out', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -1810,11 +1864,26 @@ export const getLoginMockHandler = (overrideResponse?: UserTokenDto | ((info: Pa
   })
 }
 
-export const getVerifyEmailLoginMockHandler = (overrideResponse?: VerificationResultDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<VerificationResultDto> | VerificationResultDto)) => {
-  return http.post('*/api/v1/auth/email/login/verify-code/verify', async (info) => {await delay(1000);
+export const getVerifyCommonVerificationMailMockHandler = (overrideResponse?: VerificationResultDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<VerificationResultDto> | VerificationResultDto)) => {
+  return http.post('*/api/v1/auth/email/common/verify-code/verify', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
-            : getVerifyEmailLoginResponseMock()),
+            : getVerifyCommonVerificationMailResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getSendCommonVerificationMailMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/email/common/verify-code/send', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSendCommonVerificationMailResponseMock()),
       {
         status: 200,
         headers: {
@@ -2038,7 +2107,9 @@ export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
   getUpdateInfoMockHandler(),
+  getUpdateProfileImageMockHandler(),
   getUpdatePasswordMockHandler(),
+  getUpdateNameMockHandler(),
   getUpdateEmailMockHandler(),
   getUpdateReceiveEmailMockHandler(),
   getSaveSharingMockHandler(),
@@ -2051,10 +2122,10 @@ export const getGoogooApiMock = () => [
   getSendEmailVerifyCodeMockHandler(),
   getSignupMockHandler(),
   getVerifyEmailSignupMockHandler(),
-  getSendEmailSignupMockHandler(),
   getOptOutEmailMockHandler(),
   getLoginMockHandler(),
-  getVerifyEmailLoginMockHandler(),
+  getVerifyCommonVerificationMailMockHandler(),
+  getSendCommonVerificationMailMockHandler(),
   getHealthMockHandler(),
   getLogMockHandler(),
   getGetInfoBySharingIdMockHandler(),
