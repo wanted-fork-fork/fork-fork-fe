@@ -1,5 +1,4 @@
 import { ArrowRight, List } from 'src/shared/ui/icons';
-import styles from 'src/domains/candidates/components/shortcut/Shortcut.module.css';
 import { useRef, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
@@ -14,6 +13,7 @@ import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { ProfileEditBody } from 'src/domains/candidates/components/EditInfo/ProfileEditBody';
 import { MyProfile } from 'src/domains/candidates/info/entities/models/myProfileStore';
 import { IdealPartner } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
+import styles from './Shortcut.module.css';
 
 const ProfileMetaList = Array.from(Object.entries(MyProfileStepMeta)) as [
   keyof typeof MyProfileStepMeta,
