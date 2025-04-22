@@ -1,7 +1,7 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { VerifyEmail } from 'src/domains/auth/components/VerifyEmail/VerifyEmail';
 import styles from 'src/domains/auth/processes/signup/EmailForm/EmailForm.module.css';
-import { sendEmailSignup, verifyEmailLogin } from 'src/types';
+import { sendCommonVerificationMail, verifyCommonVerificationMail } from 'src/types';
 
 export const EmailForm = ({
   signUpKey,
@@ -22,9 +22,9 @@ export const EmailForm = ({
       <VerifyEmail
         confirmButtonText={'다음'}
         onConfirm={onSubmitEmail}
-        sendEmailVerifyCode={(data) => sendEmailSignup({ ...data, key: signUpKey })}
+        sendEmailVerifyCode={(data) => sendCommonVerificationMail({ ...data, key: signUpKey })}
         verifyEmailCode={async (data) => {
-          const result = await verifyEmailLogin({ ...data, key: signUpKey });
+          const result = await verifyCommonVerificationMail({ ...data, key: signUpKey });
           return { data: result.data.isVerified, isDuplicated: result.data.isDuplicated, token: result.data.token };
         }}
         onDuplicated={onDuplicated}
