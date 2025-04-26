@@ -44,7 +44,7 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
         <div className={styles.UserInfo}>
           <div className={styles.InfoRow}>
             <p className={styles.Label}>이름</p>
-            <Link to={'/profile/edit/name'}>
+            <Link to={'/mypage/edit/name'}>
               <div className={styles.Value}>
                 <span>{userInfo.name}</span>
                 <ArrowRight width={16} color={Theme.color.neutral50} />

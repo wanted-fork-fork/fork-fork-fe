@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export const NameForm = ({
   title,
-  name: initialName,
+  name: initialName = '',
   isLoading,
   onSubmit,
 }: {
@@ -31,7 +31,7 @@ export const NameForm = ({
         <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={'이름을 입력하세요.'} />
       </FormLayout.Body>
       <FormLayout.Footer>
-        <Button widthType={'fill'} onClick={() => onSubmit(name)} disabled={isLoading}>
+        <Button widthType={'fill'} onClick={() => onSubmit(name)} disabled={isLoading || name.length < 2}>
           완료
         </Button>
       </FormLayout.Footer>
