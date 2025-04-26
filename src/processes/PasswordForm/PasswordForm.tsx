@@ -1,7 +1,7 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Input } from 'src/shared/ui/Input/Input';
-import styles from 'src/domains/auth/processes/reset_password/PasswordForm/PasswordForm.module.css';
+import styles from './PasswordForm.module.css';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { ClosedEye, Eye } from 'src/shared/ui/icons';
 import { ChangeEvent, useState } from 'react';
@@ -9,12 +9,16 @@ import { Theme } from 'src/shared/styles/constants';
 import { PASSWORD_REGEX } from 'src/shared/constants/regex';
 
 export const PasswordForm = ({
-  password: initialPassword,
+  title,
+  placeholder,
   isLoading,
+  password: initialPassword,
   onSubmit,
 }: {
-  password: string;
+  title: string;
+  placeholder: string;
   isLoading?: boolean;
+  password: string;
   onSubmit: (password: string) => void;
 }) => {
   const [show, setShow] = useState(false);
@@ -39,7 +43,7 @@ export const PasswordForm = ({
     <>
       <FormLayout.Body className={styles.Body}>
         <div className={styles.TitleSection}>
-          <h2>비밀번호를 입력해주세요.</h2>
+          <h2>{title}</h2>
           <small>
             영문 대·소문자, 특수문자(!,_,~..)를 포함하여 <br />
             8자 ~ 16자로 입력해주세요.
@@ -51,7 +55,7 @@ export const PasswordForm = ({
             value={password}
             onChange={handleChange}
             type={show ? '' : 'password'}
-            placeholder={'비밀번호를 입력하세요.'}
+            placeholder={placeholder}
             suffixSlot={
               <IconButton onClick={() => setShow((prev) => !prev)}>
                 {show ? <Eye color={Theme.color.neutral60} /> : <ClosedEye color={Theme.color.neutral60} />}

@@ -1,8 +1,6 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { SwitchCase } from 'src/shared/ui/SwitchCase';
 import { EmailForm } from 'src/domains/auth/processes/signup/EmailForm/EmailForm';
-import { PasswordForm } from 'src/domains/auth/processes/signup/PasswordForm/PasswordForm';
-import { NameForm } from 'src/domains/auth/processes/signup/NameForm/NameForm';
 import { useStep } from 'src/shared/functions/useStep';
 import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
@@ -10,6 +8,8 @@ import { useMutation } from '@tanstack/react-query';
 import { signup } from 'src/types';
 import { SignUpCompletePage } from 'src/domains/auth/processes/signup/SignUpCompletePage/SignUpCompletePage';
 import { EmailExistErrorPage } from 'src/domains/auth/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
+import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
+import { NameForm } from 'src/processes/NameForm/NameForm';
 
 type SignUpState = {
   email: string;
@@ -67,6 +67,8 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
             ),
             1: (
               <PasswordForm
+                title={'비밀번호를 입력해주세요.'}
+                placeholder={'비밀번호를 입력하세요.'}
                 password={state.password}
                 onSubmit={(password) => {
                   dispatch({ type: 'SET_PASSWORD', payload: { password } });
@@ -76,6 +78,7 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
             ),
             2: (
               <NameForm
+                title={'이름을 입력해주세요.'}
                 name={state.name}
                 isLoading={isPending}
                 onSubmit={(name) => {

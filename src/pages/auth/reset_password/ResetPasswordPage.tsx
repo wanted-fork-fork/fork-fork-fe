@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { updatePassword } from 'src/types';
 import { SignUpNeededPage } from 'src/domains/auth/processes/reset_password/EmailExistErrorPage/SignUpNeededPage';
 import { PasswordResetCompletePage } from 'src/domains/auth/processes/reset_password/SignUpCompletePage/PasswordResetCompletePage';
-import { PasswordForm } from 'src/domains/auth/processes/reset_password/PasswordForm/PasswordForm';
+import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
 
 type FormState = {
   email: string;
@@ -62,6 +62,8 @@ export const ResetPasswordPage = ({ verifyKey }: { verifyKey: string }) => {
             ),
             1: (
               <PasswordForm
+                title={'비밀번호를 입력해주세요.'}
+                placeholder={'비밀번호를 입력하세요.'}
                 password={state.password}
                 isLoading={isPending}
                 onSubmit={(password) => {

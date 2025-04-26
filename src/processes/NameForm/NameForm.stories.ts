@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { NameForm } from 'src/domains/auth/processes/signup/NameForm/NameForm';
+import { NameForm } from 'src/processes/NameForm/NameForm';
 
 const meta: Meta<typeof NameForm> = {
   component: NameForm,

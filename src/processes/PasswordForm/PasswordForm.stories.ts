@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { PasswordForm } from 'src/domains/auth/processes/signup/PasswordForm/PasswordForm';
+import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
 
 const meta: Meta<typeof PasswordForm> = {
   component: PasswordForm,
