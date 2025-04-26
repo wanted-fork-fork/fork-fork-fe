@@ -41,7 +41,7 @@ export default function NameChangePage() {
 
   return (
     <FormLayout.Container>
-      <FormLayout.Header onPrev={() => navigate('/mypage')} />
+      <FormLayout.Header onPrev={() => navigate('/mypage/edit')} />
       <NameForm
         title={'이름을 변경합니다.'}
         name={userInfo.name}

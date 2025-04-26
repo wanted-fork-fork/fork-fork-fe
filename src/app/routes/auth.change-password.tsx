@@ -44,7 +44,7 @@ export default function ChangePasswordPage() {
 
   return (
     <FormLayout.Container>
-      <FormLayout.Header onPrev={() => (step > 0 ? decrease : navigate('/mypage'))} />
+      <FormLayout.Header onPrev={() => (step > 0 ? decrease : navigate('/mypage/edit'))} />
       <SwitchCase
         caseBy={{
           0: (
