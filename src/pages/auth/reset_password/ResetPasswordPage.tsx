@@ -1,6 +1,6 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { SwitchCase } from 'src/shared/ui/SwitchCase';
-import { EmailForm } from 'src/domains/auth/processes/signup/EmailForm/EmailForm';
+import { EmailForm } from 'src/processes/EmailForm/EmailForm';
 import { useStep } from 'src/shared/functions/useStep';
 import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
@@ -50,6 +50,13 @@ export const ResetPasswordPage = ({ verifyKey }: { verifyKey: string }) => {
           caseBy={{
             0: (
               <EmailForm
+                title={
+                  <>
+                    먼저 서비스 가입 여부를 확인할게요.
+                    <br />
+                    아이디로 사용한 이메일을 입력해주세요.
+                  </>
+                }
                 signUpKey={verifyKey}
                 onSubmitEmail={() => {
                   setNeedSignUp(true);

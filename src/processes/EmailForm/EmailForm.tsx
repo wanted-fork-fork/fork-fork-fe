@@ -1,24 +1,23 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { VerifyEmail } from 'src/domains/auth/components/VerifyEmail/VerifyEmail';
-import styles from 'src/domains/auth/processes/signup/EmailForm/EmailForm.module.css';
+import styles from 'src/processes/EmailForm/EmailForm.module.css';
 import { sendCommonVerificationMail, verifyCommonVerificationMail } from 'src/types';
+import { ReactNode } from 'react';
 
 export const EmailForm = ({
+  title,
   signUpKey,
   onSubmitEmail,
   onDuplicated,
 }: {
+  title: ReactNode;
   signUpKey: string;
   onSubmitEmail: (email: string, token?: string) => void;
   onDuplicated: (email: string, token?: string) => void;
 }) => {
   return (
     <FormLayout.Body className={styles.Body}>
-      <h2>
-        먼저 서비스 가입 여부를 확인할게요.
-        <br />
-        아이디로 사용한 이메일을 입력해주세요.
-      </h2>
+      <h2>{title}</h2>
       <VerifyEmail
         confirmButtonText={'다음'}
         onConfirm={onSubmitEmail}

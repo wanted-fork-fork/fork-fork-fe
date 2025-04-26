@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { EmailForm } from 'src/domains/auth/processes/signup/EmailForm/EmailForm';
+import { EmailForm } from 'src/processes/EmailForm/EmailForm';
 
 const meta: Meta<typeof EmailForm> = {
   component: EmailForm,
