@@ -1,30 +1,45 @@
-import { UserInfoResponse } from 'src/types';
+import { updateProfileImage, uploadImage, UserInfoResponse } from 'src/types';
 import { Header } from 'src/shared/ui/layout/Header/Header';
-import { Link, useNavigate } from '@remix-run/react';
-import { Avatar } from 'src/shared/ui/Avatar/Avatar';
+import { Link, useNavigate, useRevalidator } from '@remix-run/react';
 import { ArrowRight, Camera } from 'src/shared/ui/icons';
 import styles from './MyInfoEditPage.module.css';
 import { Theme } from 'src/shared/styles/constants';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
+import { UserAvatar } from 'src/domains/user/components/UserAvatar';
 
 export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
   const navigate = useNavigate();
+  const { revalidate } = useRevalidator();
 
   const isChangePasswordDisabled = Boolean(userInfo.email);
+
+  const { mutateAsync: mutateUploadImage } = useMutation({ mutationFn: uploadImage });
+  const { mutateAsync: mutateUpdateProfileImage } = useMutation({ mutationFn: updateProfileImage });
+
+  const handleUploadProfile = async (file: File[]) => {
+    const { data } = await mutateUploadImage({ image: file[0] });
+    const { data: isSuccess } = await mutateUpdateProfileImage({ profileImage: data.url });
+    if (isSuccess) {
+      revalidate();
+      toast.success('프로필 이미지를 변경했습니다.');
+    }
+  };
 
   return (
     <>
       <Header onPrev={() => navigate('/mypage')}>회원 정보</Header>
       <div className={styles.Container}>
         <div className={styles.UserAvatar}>
-          <Avatar
-            src={userInfo.profileImage ?? '/images/default_profile.png'}
-            fallback={''}
-            shape={'circle'}
-            size={88}
-          />
-          <div className={styles.ImageUploadTrigger}>
-            <Camera color={Theme.color.neutral30} />
-          </div>
+          <UserAvatar imageSrc={userInfo.profileImage} size={88} />
+          <UploadTrigger onUploadFiles={handleUploadProfile} multiple={false} accept={'image/*'}>
+            {(onTriggerUpload) => (
+              <button className={styles.ImageUploadTrigger} onClick={onTriggerUpload}>
+                <Camera color={Theme.color.neutral30} />
+              </button>
+            )}
+          </UploadTrigger>
         </div>
         <div className={styles.UserInfo}>
           <div className={styles.InfoRow}>
