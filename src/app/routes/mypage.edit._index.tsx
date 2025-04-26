@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
 };
 
-export default function MyPageEdit() {
+export default function MypageEdit_index() {
   const { userInfo } = useLoaderData<typeof loader>();
   return <MyInfoEditPage userInfo={userInfo} />;
 }
