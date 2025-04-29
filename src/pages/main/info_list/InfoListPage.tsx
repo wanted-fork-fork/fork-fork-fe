@@ -94,7 +94,7 @@ export const ProfileShareTrigger = ({ onClick }: { onClick: () => void }) => {
         size={'fit'}
         onClick={handleClick}
       >
-        <Share color={Theme.color.neutral50} />
+        <Share color={Theme.color.neutral50} width={20} height={21} />
       </Button>
     </>
   );
