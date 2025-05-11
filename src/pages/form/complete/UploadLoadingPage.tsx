@@ -5,10 +5,10 @@ import { action } from 'src/app/routes/form.$key';
 import { Button } from 'src/shared/ui/Button/Button';
 import { UploadLoadingPageView } from 'src/pages/form/complete/UploadLoadingPageView';
 import { useUploadProfileImage } from 'src/shared/functions/useUploadProfileImage';
-import { useMyProfileStore } from 'src/domains/candidates/info/entities/models/myProfileStore';
-import { useIdealPartnerStore } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { convertProfileToDto } from 'src/domains/candidates/info/entities/models/convertProfileToDto';
-import { convertIdealPartnerToDto } from 'src/domains/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
+import { useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { convertProfileToDto } from 'src/entities/candidates/info/entities/models/convertProfileToDto';
+import { convertIdealPartnerToDto } from 'src/entities/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
 
 export const UploadLoadingPage = ({
   name,

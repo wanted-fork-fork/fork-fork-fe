@@ -12,9 +12,9 @@ import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
 import i18n from '../src/app/i18n';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IdealPartnerProvider } from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { MyProfileProvider } from 'src/domains/candidates/info/entities/models/myProfileStore';
-import { fullProfileMock } from 'src/domains/candidates/info/entities/mocks/fullProfile.mock';
+import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { MyProfileProvider } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { fullProfileMock } from 'src/entities/candidates/info/entities/mocks/fullProfile.mock';
 
 const withI18next = (Story: StoryFn) => {
   i18next

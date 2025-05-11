@@ -6,8 +6,8 @@ import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useMutation } from '@tanstack/react-query';
 import { signup } from 'src/types';
-import { SignUpCompletePage } from 'src/domains/auth/processes/signup/SignUpCompletePage/SignUpCompletePage';
-import { EmailExistErrorPage } from 'src/domains/auth/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
+import { SignUpCompletePage } from 'src/entities/auth/processes/signup/SignUpCompletePage/SignUpCompletePage';
+import { EmailExistErrorPage } from 'src/entities/auth/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
 import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
 import { NameForm } from 'src/processes/NameForm/NameForm';
 

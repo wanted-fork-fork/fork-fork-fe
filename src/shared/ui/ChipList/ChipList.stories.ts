@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ChipList } from 'src/shared/ui/ChipList/ChipList';
-import { ExampleHobbyList } from 'src/domains/candidates/vo/hobby/constants/hobbies';
+import { ExampleHobbyList } from 'src/entities/candidates/vo/hobby/constants/hobbies';
 
 const meta: Meta<typeof ChipList> = {
   component: ChipList,

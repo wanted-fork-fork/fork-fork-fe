@@ -1,5 +1,5 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
-import { VerifyEmail } from 'src/domains/auth/components/VerifyEmail/VerifyEmail';
+import { VerifyEmail } from 'src/entities/auth/components/VerifyEmail/VerifyEmail';
 import styles from 'src/processes/EmailForm/EmailForm.module.css';
 import { sendCommonVerificationMail, verifyCommonVerificationMail } from 'src/types';
 import { ReactNode } from 'react';

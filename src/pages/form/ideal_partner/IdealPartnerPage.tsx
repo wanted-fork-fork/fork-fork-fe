@@ -2,15 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import styles from './IdealPartnerPage.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
-import { useIdealPartnerFormProcessStore } from 'src/domains/candidates/ideal_partner/processes/ideal_partner/_store/idealPartnerFormProcessStore';
+import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_partner/processes/ideal_partner/_store/idealPartnerFormProcessStore';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
 import {
   IdealPartner,
   useIdealPartnerStore,
-} from 'src/domains/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
+} from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { useProfileFirstName } from 'src/entities/candidates/info/entities/libs/useProfileFirstName';
 
 const Steps = Object.values(IdealPartnerStepMeta) as StepMeta<IdealPartner>[];
 const StepKeys = Object.keys(IdealPartnerStepMeta) as (keyof typeof IdealPartnerStepMeta)[];

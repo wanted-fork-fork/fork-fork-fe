@@ -6,8 +6,8 @@ import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useMutation } from '@tanstack/react-query';
 import { updatePassword } from 'src/types';
-import { SignUpNeededPage } from 'src/domains/auth/processes/reset_password/EmailExistErrorPage/SignUpNeededPage';
-import { PasswordResetCompletePage } from 'src/domains/auth/processes/reset_password/SignUpCompletePage/PasswordResetCompletePage';
+import { SignUpNeededPage } from 'src/entities/auth/processes/reset_password/EmailExistErrorPage/SignUpNeededPage';
+import { PasswordResetCompletePage } from 'src/entities/auth/processes/reset_password/SignUpCompletePage/PasswordResetCompletePage';
 import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
 
 type FormState = {

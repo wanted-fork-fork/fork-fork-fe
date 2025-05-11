@@ -12,8 +12,8 @@ import { ActionFunctionArgs, json, LoaderFunction, MetaFunction } from '@remix-r
 import { useBeforeUnload, useLoaderData, useNavigate } from '@remix-run/react';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
-import { useProfileFirstName } from 'src/domains/candidates/info/entities/libs/useProfileFirstName';
-import { Shortcut } from 'src/domains/candidates/components/Shortcut/Shortcut';
+import { useProfileFirstName } from 'src/entities/candidates/info/entities/libs/useProfileFirstName';
+import { Shortcut } from 'src/entities/candidates/components/Shortcut/Shortcut';
 
 /**
  * TODO: form.$key.tsx 페이지 복붙이니, 중복되는 부분 어느정도 공통화 필요

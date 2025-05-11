@@ -5,7 +5,7 @@ import { Theme } from 'src/shared/styles/constants';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from 'src/pages/auth/account_delete/AccountDeletePage.module.css';
-import { useDeleteAccount } from 'src/domains/auth/features/useDeleteAccount';
+import { useDeleteAccount } from 'src/entities/auth/features/useDeleteAccount';
 import { useState } from 'react';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { redirectToLoginPage } from 'src/shared/functions/redirectToLoginPage';

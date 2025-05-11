@@ -7,7 +7,7 @@ import { Theme } from 'src/shared/styles/constants';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
-import { UserAvatar } from 'src/domains/user/components/UserAvatar';
+import { UserAvatar } from 'src/entities/user/components/UserAvatar';
 
 export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
   const navigate = useNavigate();
