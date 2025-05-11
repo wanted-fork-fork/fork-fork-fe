@@ -60,7 +60,7 @@ paths:
   /api/v1/auth/profile-image:
     put:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: updateProfileImage
       requestBody:
         content:
@@ -78,7 +78,7 @@ paths:
   /api/v1/auth/password:
     put:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: updatePassword
       requestBody:
         content:
@@ -96,7 +96,7 @@ paths:
   /api/v1/auth/name:
     put:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: updateName
       requestBody:
         content:
@@ -114,7 +114,7 @@ paths:
   /api/v1/auth/email:
     put:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: updateEmail
       requestBody:
         content:
@@ -132,7 +132,7 @@ paths:
   /api/v1/auth/email/receive:
     put:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: updateReceiveEmail
       requestBody:
         content:
@@ -227,7 +227,7 @@ paths:
   /api/v1/auth/refresh-token:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: refreshToken
       requestBody:
         content:
@@ -245,7 +245,7 @@ paths:
   /api/v1/auth/logout:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: logout
       responses:
         "200":
@@ -257,7 +257,7 @@ paths:
   /api/v1/auth/email/verify-code/verify:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: verifyEmailVerifyCode
       requestBody:
         content:
@@ -275,7 +275,7 @@ paths:
   /api/v1/auth/email/verify-code/send:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: sendEmailVerifyCode
       requestBody:
         content:
@@ -293,7 +293,7 @@ paths:
   /api/v1/auth/email/signup:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: signup
       requestBody:
         content:
@@ -311,7 +311,7 @@ paths:
   /api/v1/auth/email/signup/verify-code/verify:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: verifyEmailSignup
       requestBody:
         content:
@@ -330,7 +330,7 @@ paths:
   /api/v1/auth/email/opt-out:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: optOutEmail
       responses:
         "200":
@@ -342,7 +342,7 @@ paths:
   /api/v1/auth/email/login:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: login
       requestBody:
         content:
@@ -360,7 +360,7 @@ paths:
   /api/v1/auth/email/common/verify-code/verify:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: verifyCommonVerificationMail
       requestBody:
         content:
@@ -378,7 +378,7 @@ paths:
   /api/v1/auth/email/common/verify-code/send:
     post:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: sendCommonVerificationMail
       requestBody:
         content:
@@ -532,7 +532,7 @@ paths:
   /api/v1/auth/kakao/login:
     get:
       tags:
-      - kakao-auth-controller
+      - kakao-auths-controller
       operationId: loginKakao
       parameters:
       - name: code
@@ -550,7 +550,7 @@ paths:
   /api/v1/auth/info:
     get:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: info
       responses:
         "200":
@@ -562,7 +562,7 @@ paths:
   /api/v1/auth/enrollment-status:
     get:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: getUserEnrollmentStatus
       responses:
         "200":
@@ -592,7 +592,7 @@ paths:
   /api/v1/auth/quit:
     delete:
       tags:
-      - auth-controller
+      - auths-controller
       operationId: quit
       responses:
         "200":

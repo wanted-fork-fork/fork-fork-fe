@@ -2,10 +2,10 @@ import styles from 'src/shared/ui/Profile/Profile.module.css';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { useTranslation } from 'react-i18next';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 import { EditProfileFunction } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
-import { getSmokingText } from 'src/entities/candidates/info/entities/libs/getSmokingText';
-import { getDrinkingText } from 'src/entities/candidates/info/entities/libs/getDrinkingText';
+import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';
+import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
 
 export const TasteInfoGrid = ({ profile, onClickEdit }: { profile: MyProfile; onClickEdit?: EditProfileFunction }) => {
   const { t } = useTranslation();

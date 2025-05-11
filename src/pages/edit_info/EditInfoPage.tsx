@@ -13,10 +13,10 @@ import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { Theme } from 'src/shared/styles/constants';
 import { ArrowLeft } from 'src/shared/ui/icons';
-import { useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { convertProfileToDto } from 'src/entities/candidates/info/entities/models/convertProfileToDto';
-import { convertIdealPartnerToDto } from 'src/entities/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
+import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { convertProfileToDto } from 'src/entities/candidates/info/models/convertProfileToDto';
+import { convertIdealPartnerToDto } from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
 
 type Props = {
   infoId: string;

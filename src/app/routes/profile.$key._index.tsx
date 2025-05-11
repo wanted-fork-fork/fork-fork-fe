@@ -4,11 +4,11 @@ import { authenticate } from 'src/app/server/authenticate';
 import { useLoaderData } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
 import { commitSession } from 'src/app/server/sessions';
-import { MyProfileProvider } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfileProvider } from 'src/entities/candidates/info/models/myProfileStore';
 import { useMemo } from 'react';
-import { convertDtoToProfile } from 'src/entities/candidates/info/entities/models/convertProfileToDto';
-import { convertDtoToIdealPartner } from 'src/entities/candidates/ideal_partner/entities/models/convertIdealPartnerToDto';
-import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { convertDtoToProfile } from 'src/entities/candidates/info/models/convertProfileToDto';
+import { convertDtoToIdealPartner } from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
+import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);

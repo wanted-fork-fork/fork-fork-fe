@@ -11,7 +11,7 @@ import { QuestionInfoGrid } from 'src/entities/candidates/info/components/MyProf
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { useMemo } from 'react';
 import { ExpiredDateTimer } from 'src/pages/shared_profile/components/ExpiredDateTimer';
-import { useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 
 type Props = {
   expiredDate: Date;

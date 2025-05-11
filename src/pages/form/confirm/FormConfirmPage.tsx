@@ -5,8 +5,8 @@ import { Header } from 'src/shared/ui/layout/Header/Header';
 import { ProfileEditProvider } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
   const profile = useMyProfileStore((state) => state);

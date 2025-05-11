@@ -4,10 +4,10 @@ import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
 import { EditProfileFunction } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
-import { MyProfile, useMyProfileImages } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { getReligionText } from 'src/entities/candidates/info/entities/libs/getReligionText';
-import { getJobText } from 'src/entities/candidates/info/entities/libs/getJobText';
-import { getLocationText } from 'src/entities/candidates/info/entities/libs/getLocationText';
+import { MyProfile, useMyProfileImages } from 'src/entities/candidates/info/models/myProfileStore';
+import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
+import { getJobText } from 'src/entities/candidates/info/utils/getJobText';
+import { getLocationText } from 'src/entities/candidates/info/utils/getLocationText';
 
 export const PersonalInfoGrid = ({
   profile,

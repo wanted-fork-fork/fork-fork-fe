@@ -12,8 +12,8 @@ import { ArrowLeft } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { Link } from '@remix-run/react';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
-import { useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const ProfilePage = ({ infoId }: { infoId: string }) => {
   const { ref, inView } = useInView();

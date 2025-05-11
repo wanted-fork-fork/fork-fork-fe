@@ -8,7 +8,7 @@ import { GenerateFormLink } from 'src/entities/candidates/components/GenerateFor
 import { commitSession } from 'src/app/server/sessions';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
-import { EmailBannerBottomSheet } from 'src/entities/user/components/EmailBanner/EmailBannerBottomSheet';
+import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
 
 export const loader: LoaderFunction = async ({ request }) => {

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProfileCardGrid } from 'src/entities/candidates/components/ProfileCardGrid/ProfileCardGrid';
-import { profileMock } from 'src/entities/candidates/info/entities/mocks/profile.mock';
+import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
 
 const meta: Meta<typeof ProfileCardGrid> = {
   component: ProfileCardGrid,

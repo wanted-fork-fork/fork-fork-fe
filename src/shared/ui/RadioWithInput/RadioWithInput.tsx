@@ -1,6 +1,6 @@
 import { Radio, RadioProps } from 'src/shared/ui/Radio/Radio';
 import { Input } from 'src/shared/ui/Input/Input';
-import styles from 'src/entities/candidates/info/processes/my_profile/JobForm/JobForm.module.css';
+import styles from 'src/entities/candidates/info/processes/JobForm/JobForm.module.css';
 import { useRef } from 'react';
 
 type RadioWithInputProps = RadioProps & {

@@ -59,7 +59,7 @@ export const EmailLoginPage = () => {
             {errors.root && <p className={styles.Error}>{errors.root.message}</p>}
           </div>
         </form>
-        <Link to={'/auth/reset-password'}>
+        <Link to={'/auths/reset-password'}>
           <Button className={styles.FindPasswordButton} variant={'ghost'} color={'neutral'} size={'fit'}>
             비밀번호 찾기
           </Button>

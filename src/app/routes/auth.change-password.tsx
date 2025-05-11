@@ -4,7 +4,7 @@ import { useNavigate } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
 import { commitSession } from 'src/app/server/sessions';
 import { FormLayout } from 'src/pages/layout/FormLayout';
-import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
+import { PasswordForm } from 'src/entities/users/processes/PasswordForm/PasswordForm';
 import { useMutation } from '@tanstack/react-query';
 import { useStep } from 'src/shared/functions/useStep';
 import { SwitchCase } from 'src/shared/ui/SwitchCase';

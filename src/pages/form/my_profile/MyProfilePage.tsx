@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from 'src/pages/form/my_profile/MyProfilePage.module.css';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
-import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/my_profile/_store/myProfileFormProcessStore';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { useProfileFirstName } from 'src/entities/candidates/info/entities/libs/useProfileFirstName';
+import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 
 const Steps = Object.values(MyProfileStepMeta) as StepMeta<MyProfile>[];
 const StepKeys = Object.keys(MyProfileStepMeta) as (keyof typeof MyProfileStepMeta)[];

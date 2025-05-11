@@ -1,16 +1,16 @@
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { PersonalInfoForm } from 'src/entities/candidates/info/processes/my_profile/PersonalInfoForm/PersonalInfoForm';
+import { PersonalInfoForm } from 'src/entities/candidates/info/processes/PersonalInfoForm/PersonalInfoForm';
 import { isValidDate } from 'src/shared/functions/date';
-import { MyImageForm } from 'src/entities/candidates/info/processes/my_profile/MyImageForm/MyImageForm';
-import { MbtiForm } from 'src/entities/candidates/info/processes/my_profile/MbtiForm/MbtiForm';
-import { JobForm } from 'src/entities/candidates/info/processes/my_profile/JobForm/JobForm';
-import { LocationForm } from 'src/entities/candidates/info/processes/my_profile/LocationForm/LocationForm';
-import { ReligionForm } from 'src/entities/candidates/info/processes/my_profile/ReligionForm/ReligionForm';
-import { HobbyForm } from 'src/entities/candidates/info/processes/my_profile/HobbyForm/HobbyForm';
-import { SmokeAlcoholForm } from 'src/entities/candidates/info/processes/my_profile/SmokeAlcoholForm/SmokeAlcoholForm';
-import { IntroduceForm } from 'src/entities/candidates/info/processes/my_profile/IntroduceForm/IntroduceForm';
-import { QuestionForm } from 'src/entities/candidates/info/processes/my_profile/QuestionForm/QuestionForm';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyImageForm } from 'src/entities/candidates/info/processes/MyImageForm/MyImageForm';
+import { MbtiForm } from 'src/entities/candidates/info/processes/MbtiForm/MbtiForm';
+import { JobForm } from 'src/entities/candidates/info/processes/JobForm/JobForm';
+import { LocationForm } from 'src/entities/candidates/info/processes/LocationForm/LocationForm';
+import { ReligionForm } from 'src/entities/candidates/info/processes/ReligionForm/ReligionForm';
+import { HobbyForm } from 'src/entities/candidates/info/processes/HobbyForm/HobbyForm';
+import { SmokeAlcoholForm } from 'src/entities/candidates/info/processes/SmokeAlcoholForm/SmokeAlcoholForm';
+import { IntroduceForm } from 'src/entities/candidates/info/processes/IntroduceForm/IntroduceForm';
+import { QuestionForm } from 'src/entities/candidates/info/processes/QuestionForm/QuestionForm';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const MyProfileStepMeta = {
   PROFILE_PERSONAL_INFO: {

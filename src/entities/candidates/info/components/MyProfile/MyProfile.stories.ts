@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { MyProfileView } from 'src/entities/candidates/info/components/MyProfile/MyProfile';
-import { fullProfileMock } from 'src/entities/candidates/info/entities/mocks/fullProfile.mock';
+import { fullProfileMock } from 'src/entities/candidates/info/mocks/fullProfile.mock';
 
 const meta: Meta<typeof MyProfileView> = {
   component: MyProfileView,

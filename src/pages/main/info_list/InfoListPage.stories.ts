@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
-import { profileMock } from 'src/entities/candidates/info/entities/mocks/profile.mock';
+import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
 
 const meta: Meta<typeof InfoListPage> = {
   component: InfoListPage,

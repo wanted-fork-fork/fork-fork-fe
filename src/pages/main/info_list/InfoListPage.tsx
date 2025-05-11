@@ -8,7 +8,7 @@ import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
 import { MouseEvent, useState } from 'react';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/components/ProfileShare/ProfileShareBottomSheet';
-import { UserAvatar } from 'src/entities/user/components/UserAvatar';
+import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ProfileCardGrid } from 'src/entities/candidates/components/ProfileCardGrid/ProfileCardGrid';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';

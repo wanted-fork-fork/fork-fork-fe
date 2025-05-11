@@ -1,6 +1,6 @@
 import styles from 'src/pages/main/info_list/InfoListPage.module.css';
 import { Link } from '@remix-run/react';
-import { UserAvatar } from 'src/entities/user/components/UserAvatar';
+import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Driver, driver } from 'driver.js';
 import { useEffect, useRef, useState } from 'react';

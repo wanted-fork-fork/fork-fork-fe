@@ -43,7 +43,7 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  const callbackName = isbot(request.headers.get('user-agent')) ? 'onAllReady' : 'onShellReady';
+  const callbackName = isbot(request.headers.get('users-agent')) ? 'onAllReady' : 'onShellReady';
 
   const instance = createInstance();
   const lng = await i18next.getLocale(request);

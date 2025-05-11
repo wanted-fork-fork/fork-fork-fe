@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import {
   IdealPartner,
   useIdealPartnerImages,
-} from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { getReligionText } from 'src/entities/candidates/info/entities/libs/getReligionText';
-import { getDrinkingText } from 'src/entities/candidates/info/entities/libs/getDrinkingText';
-import { getSmokingText } from 'src/entities/candidates/info/entities/libs/getSmokingText';
+} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
+import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
+import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';
 
 const ImportantBadge = () => <span className={styles.RequiredBadge}>중요</span>;
 

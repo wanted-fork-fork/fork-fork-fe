@@ -32,7 +32,7 @@ declare module 'react-range-slider-input' {
     max?: number;
 
     /* @default 1
-     * Number that specifies the amount by which the slider value(s) will change upon user interaction.
+     * Number that specifies the amount by which the slider value(s) will change upon users interaction.
      * Other than numbers, the value of step can be a string value of any.
      * */
     step?: number | 'any';
@@ -50,7 +50,7 @@ declare module 'react-range-slider-input' {
     value?: [number, number];
 
     /*
-     * Function to be called when there is a change in the value(s) of range sliders upon user interaction.
+     * Function to be called when there is a change in the value(s) of range sliders upon users interaction.
      * */
     onInput?: InputEventHandler;
 
@@ -91,8 +91,8 @@ declare module 'react-range-slider-input' {
     thumbsDisabled?: [boolean, boolean];
 
     /* @default 'horizontal'
-     * String that specifies the axis along which the user interaction is to be registered.
-     * By default, the range slider element registers the user interaction along the X-axis.
+     * String that specifies the axis along which the users interaction is to be registered.
+     * By default, the range slider element registers the users interaction along the X-axis.
      * It takes two different values: horizontal and vertical.
      * */
     orientation?: Orientation;

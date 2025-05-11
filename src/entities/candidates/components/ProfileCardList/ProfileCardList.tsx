@@ -1,4 +1,4 @@
-import { ProfileSummary } from 'src/entities/candidates/info/entities/types/profileSummary';
+import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
 import { ProfileCard } from 'src/entities/candidates/info/components/ProfileCard/ProfileCard';
 import styles from 'src/entities/candidates/components/ProfileCardList/ProfileCardList.module.css';
 import { Link } from '@remix-run/react';

@@ -7,7 +7,7 @@ import { Theme } from 'src/shared/styles/constants';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { UploadTrigger } from 'src/shared/ui/UploadTrigger/UploadTrigger';
-import { UserAvatar } from 'src/entities/user/components/UserAvatar';
+import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 
 export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
           </div>
           <div className={styles.InfoRow}>
             <p className={styles.Label}>비밀번호</p>
-            <Link to={'/auth/change-password'}>
+            <Link to={'/auths/change-password'}>
               <div className={styles.Value}>
                 <span className={isChangePasswordDisabled ? styles.Gray : undefined}>
                   {isChangePasswordDisabled ? '비밀번호 재설정 불가능' : '비밀번호 재설정 가능'}

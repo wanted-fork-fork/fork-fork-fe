@@ -4,8 +4,8 @@ import { MyProfileView } from 'src/entities/candidates/info/components/MyProfile
 import { IdealPartnerProfile } from 'src/entities/candidates/ideal_partner/components/IdealPartnerProfile/IdealPartnerProfile';
 import styles from 'src/entities/candidates/components/ProfileTab/ProfileTab.module.css';
 import { PropsWithChildren } from 'react';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { IdealPartner } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
+import { IdealPartner } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 const TAB_TYPE_LIST = ['PROFILE', 'IDEAL_PARTNER'] as const;
 type TabType = (typeof TAB_TYPE_LIST)[number];

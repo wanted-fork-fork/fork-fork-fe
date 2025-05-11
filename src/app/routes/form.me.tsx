@@ -12,7 +12,7 @@ import { ActionFunctionArgs, json, LoaderFunction, MetaFunction } from '@remix-r
 import { useBeforeUnload, useLoaderData, useNavigate } from '@remix-run/react';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
-import { useProfileFirstName } from 'src/entities/candidates/info/entities/libs/useProfileFirstName';
+import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 import { Shortcut } from 'src/entities/candidates/components/Shortcut/Shortcut';
 
 /**

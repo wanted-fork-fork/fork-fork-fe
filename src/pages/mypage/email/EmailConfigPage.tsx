@@ -2,7 +2,7 @@ import { Header } from 'src/shared/ui/layout/Header/Header';
 import { useNavigate } from '@remix-run/react';
 import styles from 'src/pages/mypage/email/EmailConfigPage.module.css';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
-import { VerifyEmail } from 'src/entities/auth/components/VerifyEmail/VerifyEmail';
+import { VerifyEmail } from 'src/entities/users/auths/components/VerifyEmail/VerifyEmail';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmailVerifyCode, updateEmail, verifyEmailVerifyCode } from 'src/types';
 import { useCallback } from 'react';

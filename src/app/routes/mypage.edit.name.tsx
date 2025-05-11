@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
 import { commitSession } from 'src/app/server/sessions';
 import { FormLayout } from 'src/pages/layout/FormLayout';
-import { NameForm } from 'src/processes/NameForm/NameForm';
+import { NameForm } from 'src/entities/users/processes/NameForm/NameForm';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 

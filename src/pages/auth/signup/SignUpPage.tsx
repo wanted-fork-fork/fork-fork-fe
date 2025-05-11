@@ -1,15 +1,15 @@
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { SwitchCase } from 'src/shared/ui/SwitchCase';
-import { EmailForm } from 'src/processes/EmailForm/EmailForm';
+import { EmailForm } from 'src/entities/users/processes/EmailForm/EmailForm';
 import { useStep } from 'src/shared/functions/useStep';
 import { useReducer, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useMutation } from '@tanstack/react-query';
 import { signup } from 'src/types';
-import { SignUpCompletePage } from 'src/entities/auth/processes/signup/SignUpCompletePage/SignUpCompletePage';
-import { EmailExistErrorPage } from 'src/entities/auth/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
-import { PasswordForm } from 'src/processes/PasswordForm/PasswordForm';
-import { NameForm } from 'src/processes/NameForm/NameForm';
+import { SignUpCompletePage } from 'src/entities/users/auths/processes/signup/SignUpCompletePage/SignUpCompletePage';
+import { EmailExistErrorPage } from 'src/entities/users/auths/processes/signup/EmailExistErrorPage/EmailExistErrorPage';
+import { PasswordForm } from 'src/entities/users/processes/PasswordForm/PasswordForm';
+import { NameForm } from 'src/entities/users/processes/NameForm/NameForm';
 
 type SignUpState = {
   email: string;

@@ -1,16 +1,16 @@
 import { ReactElement } from 'react';
-import { ProfileSummary } from 'src/entities/candidates/info/entities/types/profileSummary';
+import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
 import styles from 'src/entities/candidates/info/components/ProfileCard/ProfileCard.module.css';
 import { calculateAge } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
-import { convertDtoToLocation } from 'src/entities/candidates/info/entities/models/convertProfileToDto';
-import { getLocationText } from 'src/entities/candidates/info/entities/libs/getLocationText';
-import { getReligionText } from 'src/entities/candidates/info/entities/libs/getReligionText';
-import { getJobText } from 'src/entities/candidates/info/entities/libs/getJobText';
-import { getDrinkingText } from 'src/entities/candidates/info/entities/libs/getDrinkingText';
-import { getSmokingText } from 'src/entities/candidates/info/entities/libs/getSmokingText';
+import { convertDtoToLocation } from 'src/entities/candidates/info/models/convertProfileToDto';
+import { getLocationText } from 'src/entities/candidates/info/utils/getLocationText';
+import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
+import { getJobText } from 'src/entities/candidates/info/utils/getJobText';
+import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
+import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';
 
 type Props = {
   profile: ProfileSummary;

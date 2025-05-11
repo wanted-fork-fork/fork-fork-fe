@@ -5,14 +5,14 @@ import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
-import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/my_profile/_store/myProfileFormProcessStore';
-import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_partner/processes/ideal_partner/_store/idealPartnerFormProcessStore';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
+import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_partner/processes/_store/idealPartnerFormProcessStore';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import toast from 'react-hot-toast';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
 import { ProfileEditBody } from 'src/entities/candidates/components/EditInfo/ProfileEditBody';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
-import { IdealPartner } from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
+import { IdealPartner } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import styles from './Shortcut.module.css';
 
 const ProfileMetaList = Array.from(Object.entries(MyProfileStepMeta)) as [

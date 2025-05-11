@@ -1,12 +1,12 @@
 import styles from '../Shortcut/Shortcut.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import {
   IdealPartner,
   useIdealPartnerStore,
-} from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
-import { useProfileFirstName } from 'src/entities/candidates/info/entities/libs/useProfileFirstName';
+} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 
 type Props<T extends 'PROFILE' | 'IDEAL_PARTNER'> = {
   type: T;

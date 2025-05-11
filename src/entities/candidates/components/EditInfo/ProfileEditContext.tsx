@@ -7,12 +7,12 @@ import {
   MyProfile,
   MyProfileProvider,
   useMyProfileStore,
-} from 'src/entities/candidates/info/entities/models/myProfileStore';
+} from 'src/entities/candidates/info/models/myProfileStore';
 import {
   IdealPartner,
   IdealPartnerProvider,
   useIdealPartnerStore,
-} from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export type EditProfileFunction = (key: MetaKey) => void;
 

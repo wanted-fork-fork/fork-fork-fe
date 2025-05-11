@@ -5,11 +5,11 @@ import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { getStepFromFormMeta, MetaKey } from 'src/entities/candidates/components/EditInfo/libs/getStepFromFormMeta';
-import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import {
   IdealPartner,
   useIdealPartnerStore,
-} from 'src/entities/candidates/ideal_partner/entities/models/idealPartnerStore';
+} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 type Props = {
   selectedKey: MetaKey | null;

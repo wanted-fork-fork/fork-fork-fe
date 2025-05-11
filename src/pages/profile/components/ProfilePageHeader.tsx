@@ -2,7 +2,7 @@ import { Header } from 'src/shared/ui/layout/Header/Header';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const ProfilePageHeader = ({
   profile,

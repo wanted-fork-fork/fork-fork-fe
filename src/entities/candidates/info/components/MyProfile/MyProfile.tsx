@@ -4,7 +4,7 @@ import { PersonalInfoGrid } from 'src/entities/candidates/info/components/MyProf
 import { TasteInfoGrid } from 'src/entities/candidates/info/components/MyProfile/components/TasteInfoGrid';
 import { QuestionInfoGrid } from 'src/entities/candidates/info/components/MyProfile/components/QuestionInfoGrid';
 import { useProfileEditContext } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
-import { MyProfile } from 'src/entities/candidates/info/entities/models/myProfileStore';
+import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const MyProfileView = ({ profile, initialOpen = false }: { profile: MyProfile; initialOpen?: boolean }) => {
   const value = useProfileEditContext();

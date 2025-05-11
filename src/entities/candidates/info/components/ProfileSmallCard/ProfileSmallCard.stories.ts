@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProfileSmallCard } from 'src/entities/candidates/info/components/ProfileSmallCard/ProfileSmallCard';
-import { profileMock } from 'src/entities/candidates/info/entities/mocks/profile.mock';
+import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
 
 const meta: Meta<typeof ProfileSmallCard> = {
   component: ProfileSmallCard,
