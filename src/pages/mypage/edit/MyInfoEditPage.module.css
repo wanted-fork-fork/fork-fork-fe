@@ -35,6 +35,10 @@
     width: 100%;
 
     .InfoRow {
+        &[aria-disabled="true"] > a {
+            cursor: default;
+        }
+
         display: flex;
         flex-direction: column;
         gap: 8px;

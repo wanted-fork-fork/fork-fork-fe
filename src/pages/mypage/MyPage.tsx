@@ -18,7 +18,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
 
   return showTutorial ? (
     <OnboardingPage
-      userInfo={{ userId: '', name: '김구구', profileImage: '/images/default_profile.png', receiveEmail: true }}
+      userInfo={{ ...userInfo, name: '김구구', profileImage: '/images/default_profile.png', receiveEmail: true }}
       onEndOnboarding={() => setShowTutorial(false)}
     />
   ) : (
@@ -34,7 +34,7 @@ export const MyPage = ({ userInfo }: { userInfo: UserInfoResponse }) => {
           <div>
             <UserAvatar size={72} imageSrc={userInfo.profileImage} />
             <SwitchCase
-              value={userInfo.email ? 'EMAIL' : 'KAKAO'}
+              value={userInfo.joinType}
               caseBy={{
                 KAKAO: (
                   <div className={styles.LoginMethod} style={{ backgroundColor: Theme.color.kakao }}>

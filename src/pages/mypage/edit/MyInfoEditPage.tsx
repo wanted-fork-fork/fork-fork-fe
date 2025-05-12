@@ -13,7 +13,7 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
   const navigate = useNavigate();
   const { revalidate } = useRevalidator();
 
-  const isChangePasswordDisabled = Boolean(userInfo.email);
+  const isChangePasswordDisabled = userInfo.joinType === 'KAKAO';
 
   const { mutateAsync: mutateUploadImage } = useMutation({ mutationFn: uploadImage });
   const { mutateAsync: mutateUpdateProfileImage } = useMutation({ mutationFn: updateProfileImage });
@@ -58,9 +58,9 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
               <span className={styles.Primary}>인증 완료</span>
             </div>
           </div>
-          <div className={styles.InfoRow}>
+          <div className={styles.InfoRow} aria-disabled={isChangePasswordDisabled}>
             <p className={styles.Label}>비밀번호</p>
-            <Link to={'/auths/change-password'}>
+            <Link to={'/auths/change-password'} onClick={(e) => isChangePasswordDisabled && e.preventDefault()}>
               <div className={styles.Value}>
                 <span className={isChangePasswordDisabled ? styles.Gray : undefined}>
                   {isChangePasswordDisabled ? '비밀번호 재설정 불가능' : '비밀번호 재설정 가능'}
