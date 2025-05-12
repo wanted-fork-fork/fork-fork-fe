@@ -3,7 +3,7 @@ import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
-import { EditProfileFunction } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
+import { EditProfileFunction } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { MyProfile, useMyProfileImages } from 'src/entities/candidates/info/models/myProfileStore';
 import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
 import { getJobText } from 'src/entities/candidates/info/utils/getJobText';

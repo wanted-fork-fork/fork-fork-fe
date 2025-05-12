@@ -1,10 +1,10 @@
 import styles from '../profile/ProfilePage.module.css';
 import pageStyles from './EditInfoPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { ProfileTab } from 'src/entities/candidates/components/ProfileTab/ProfileTab';
+import { ProfileTab } from 'src/entities/candidates/_common/components/ProfileTab/ProfileTab';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
 import { Button } from 'src/shared/ui/Button/Button';
-import { ProfileEditProvider } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
+import { ProfileEditProvider } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useBeforeUnload, useNavigate, useSubmit } from '@remix-run/react';

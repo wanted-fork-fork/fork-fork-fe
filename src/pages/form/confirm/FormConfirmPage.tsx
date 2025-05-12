@@ -1,8 +1,8 @@
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from './FormConfirmPage.module.css';
-import { ProfileTab } from 'src/entities/candidates/components/ProfileTab/ProfileTab';
+import { ProfileTab } from 'src/entities/candidates/_common/components/ProfileTab/ProfileTab';
 import { Header } from 'src/shared/ui/layout/Header/Header';
-import { ProfileEditProvider } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
+import { ProfileEditProvider } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';

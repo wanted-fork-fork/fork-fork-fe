@@ -60,7 +60,7 @@ paths:
   /api/v1/auth/profile-image:
     put:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: updateProfileImage
       requestBody:
         content:
@@ -78,7 +78,7 @@ paths:
   /api/v1/auth/password:
     put:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: updatePassword
       requestBody:
         content:
@@ -96,7 +96,7 @@ paths:
   /api/v1/auth/name:
     put:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: updateName
       requestBody:
         content:
@@ -114,7 +114,7 @@ paths:
   /api/v1/auth/email:
     put:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: updateEmail
       requestBody:
         content:
@@ -132,7 +132,7 @@ paths:
   /api/v1/auth/email/receive:
     put:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: updateReceiveEmail
       requestBody:
         content:
@@ -227,7 +227,7 @@ paths:
   /api/v1/auth/refresh-token:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: refreshToken
       requestBody:
         content:
@@ -242,10 +242,28 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserTokenDto'
+  /api/v1/auth/password/verify:
+    post:
+      tags:
+      - auth-controller
+      operationId: verifyExistedPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyExistedPasswordRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
   /api/v1/auth/logout:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: logout
       responses:
         "200":
@@ -257,7 +275,7 @@ paths:
   /api/v1/auth/email/verify-code/verify:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: verifyEmailVerifyCode
       requestBody:
         content:
@@ -275,7 +293,7 @@ paths:
   /api/v1/auth/email/verify-code/send:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: sendEmailVerifyCode
       requestBody:
         content:
@@ -293,7 +311,7 @@ paths:
   /api/v1/auth/email/signup:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: signup
       requestBody:
         content:
@@ -311,7 +329,7 @@ paths:
   /api/v1/auth/email/signup/verify-code/verify:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: verifyEmailSignup
       requestBody:
         content:
@@ -330,7 +348,7 @@ paths:
   /api/v1/auth/email/opt-out:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: optOutEmail
       responses:
         "200":
@@ -342,7 +360,7 @@ paths:
   /api/v1/auth/email/login:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: login
       requestBody:
         content:
@@ -360,7 +378,7 @@ paths:
   /api/v1/auth/email/common/verify-code/verify:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: verifyCommonVerificationMail
       requestBody:
         content:
@@ -378,7 +396,7 @@ paths:
   /api/v1/auth/email/common/verify-code/send:
     post:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: sendCommonVerificationMail
       requestBody:
         content:
@@ -532,7 +550,7 @@ paths:
   /api/v1/auth/kakao/login:
     get:
       tags:
-      - kakao-auths-controller
+      - kakao-auth-controller
       operationId: loginKakao
       parameters:
       - name: code
@@ -550,7 +568,7 @@ paths:
   /api/v1/auth/info:
     get:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: info
       responses:
         "200":
@@ -562,7 +580,7 @@ paths:
   /api/v1/auth/enrollment-status:
     get:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: getUserEnrollmentStatus
       responses:
         "200":
@@ -592,7 +610,7 @@ paths:
   /api/v1/auth/quit:
     delete:
       tags:
-      - auths-controller
+      - auth-controller
       operationId: quit
       responses:
         "200":
@@ -1355,6 +1373,13 @@ components:
           type: string
         refreshToken:
           type: string
+    VerifyExistedPasswordRequest:
+      required:
+      - password
+      type: object
+      properties:
+        password:
+          type: string
     VerifyCodeRequest:
       required:
       - verifyCode
@@ -1897,6 +1922,7 @@ components:
           type: string
     UserInfoResponse:
       required:
+      - joinType
       - name
       - receiveEmail
       - userId
@@ -1912,6 +1938,11 @@ components:
           type: string
         receiveEmail:
           type: boolean
+        joinType:
+          type: string
+          enum:
+          - KAKAO
+          - EMAIL
     UserEnrollmentStatusResponse:
       required:
       - hasEmail

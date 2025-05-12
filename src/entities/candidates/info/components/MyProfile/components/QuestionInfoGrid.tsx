@@ -1,7 +1,7 @@
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import styles from 'src/shared/ui/Profile/Profile.module.css';
 import { Chip } from 'src/shared/ui/Chip/Chip';
-import { EditProfileFunction } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
+import { EditProfileFunction } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const QuestionInfoGrid = ({

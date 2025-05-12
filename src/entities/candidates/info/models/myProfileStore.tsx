@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { Gender } from 'src/entities/candidates/info/types/profileSummary';
-import { Location } from 'src/entities/candidates/vo/location/types/location';
+import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
 import { DateObj } from 'src/shared/functions/date';
-import { Mbti } from 'src/entities/candidates/vo/mbti/mbti';
-import { Hobby } from 'src/entities/candidates/vo/hobby/types/hobby';
+import { Mbti } from 'src/entities/candidates/_common/vo/mbti/mbti';
+import { Hobby } from 'src/entities/candidates/_common/vo/hobby/types/hobby';
 import { createStoreContext } from 'src/shared/functions/createStoreContext';
 import {
   Book,

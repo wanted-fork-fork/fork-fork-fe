@@ -13,7 +13,7 @@ import { useBeforeUnload, useLoaderData, useNavigate } from '@remix-run/react';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
-import { Shortcut } from 'src/entities/candidates/components/Shortcut/Shortcut';
+import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
 
 /**
  * TODO: form.$key.tsx 페이지 복붙이니, 중복되는 부분 어느정도 공통화 필요

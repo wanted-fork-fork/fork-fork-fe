@@ -6,7 +6,7 @@ import {
   UserInfoRequestMbti,
 } from 'src/types';
 import { convertDateObjectToDate, convertDateToDateObject } from 'src/shared/functions/date';
-import { Location } from 'src/entities/candidates/vo/location/types/location';
+import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
 import { MyProfile } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const convertProfileToDto = (profile: MyProfile, images: ImageDto[]): UserInfoRequest => {

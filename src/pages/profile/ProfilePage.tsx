@@ -1,5 +1,5 @@
 import { calculateAge, convertDateObjectToDate } from 'src/shared/functions/date';
-import { ProfileTab } from 'src/entities/candidates/components/ProfileTab/ProfileTab';
+import { ProfileTab } from 'src/entities/candidates/_common/components/ProfileTab/ProfileTab';
 import styles from './ProfilePage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { useInView } from 'react-intersection-observer';

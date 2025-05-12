@@ -32,8 +32,18 @@ export interface UserEnrollmentStatusResponse {
   inEmailOptOut: boolean;
 }
 
+export type UserInfoResponseJoinType = typeof UserInfoResponseJoinType[keyof typeof UserInfoResponseJoinType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UserInfoResponseJoinType = {
+  KAKAO: 'KAKAO',
+  EMAIL: 'EMAIL',
+} as const;
+
 export interface UserInfoResponse {
   email?: string;
+  joinType: UserInfoResponseJoinType;
   name: string;
   profileImage?: string;
   receiveEmail: boolean;
@@ -470,6 +480,10 @@ export interface VerifyCodeRequest {
   verifyCode: string;
 }
 
+export interface VerifyExistedPasswordRequest {
+  password: string;
+}
+
 export interface UserTokenDto {
   accessToken: string;
   refreshToken: string;
@@ -533,25 +547,11 @@ export interface UserInfoRequest {
   smoking: UserInfoSmoking;
 }
 
-export interface SaveInfoRequest {
-  idealPartner?: IdealPartnerRequest;
-  userInfo: UserInfoRequest;
-}
-
 export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IdealPartnerRequestLocation = {
-  IMPORTANT: 'IMPORTANT',
-  NOT_IMPORTANT: 'NOT_IMPORTANT',
-} as const;
-
-export type IdealPartnerRequestHobbies = typeof IdealPartnerRequestHobbies[keyof typeof IdealPartnerRequestHobbies];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const IdealPartnerRequestHobbies = {
   IMPORTANT: 'IMPORTANT',
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
@@ -569,6 +569,20 @@ export interface IdealPartnerRequest {
   style?: string;
   toMatchMaker: string;
 }
+
+export interface SaveInfoRequest {
+  idealPartner?: IdealPartnerRequest;
+  userInfo: UserInfoRequest;
+}
+
+export type IdealPartnerRequestHobbies = typeof IdealPartnerRequestHobbies[keyof typeof IdealPartnerRequestHobbies];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const IdealPartnerRequestHobbies = {
+  IMPORTANT: 'IMPORTANT',
+  NOT_IMPORTANT: 'NOT_IMPORTANT',
+} as const;
 
 export interface SaveSharingResponse {
   sharingId: string;
@@ -1228,6 +1242,17 @@ export const refreshToken = (
       options);
     }
   
+export const verifyExistedPassword = (
+    verifyExistedPasswordRequest: VerifyExistedPasswordRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<boolean>(
+      {url: `/api/v1/auth/password/verify`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: verifyExistedPasswordRequest
+    },
+      options);
+    }
+  
 export const logout = (
     
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1466,6 +1491,7 @@ export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>
 export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
 export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>
 export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>
+export type VerifyExistedPasswordResult = NonNullable<Awaited<ReturnType<typeof verifyExistedPassword>>>
 export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
 export type VerifyEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof verifyEmailVerifyCode>>>
 export type SendEmailVerifyCodeResult = NonNullable<Awaited<ReturnType<typeof sendEmailVerifyCode>>>
@@ -1517,6 +1543,8 @@ export const getUploadImageResponseMock = (overrideResponse: Partial< ImageDto >
 
 export const getRefreshTokenResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
+export const getVerifyExistedPasswordResponseMock = (): boolean => (faker.datatype.boolean())
+
 export const getLogoutResponseMock = (): Unit => ({})
 
 export const getVerifyEmailVerifyCodeResponseMock = (): boolean => (faker.datatype.boolean())
@@ -1555,7 +1583,7 @@ export const getGetAddressResponseMock = (): CityAndTownResponse[] => (Array.fro
 
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
-export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), receiveEmail: faker.datatype.boolean(), userId: faker.word.sample(), ...overrideResponse})
+export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), joinType: faker.helpers.arrayElement(['KAKAO','EMAIL'] as const), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), receiveEmail: faker.datatype.boolean(), userId: faker.word.sample(), ...overrideResponse})
 
 export const getGetUserEnrollmentStatusResponseMock = (overrideResponse: Partial< UserEnrollmentStatusResponse > = {}): UserEnrollmentStatusResponse => ({hasEmail: faker.datatype.boolean(), hasSeenOnboarding: faker.datatype.boolean(), inEmailOptOut: faker.datatype.boolean(), ...overrideResponse})
 
@@ -1749,6 +1777,21 @@ export const getRefreshTokenMockHandler = (overrideResponse?: UserTokenDto | ((i
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getRefreshTokenResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getVerifyExistedPasswordMockHandler = (overrideResponse?: boolean | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<boolean> | boolean)) => {
+  return http.post('*/api/v1/auth/password/verify', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getVerifyExistedPasswordResponseMock()),
       {
         status: 200,
         headers: {
@@ -2117,6 +2160,7 @@ export const getGoogooApiMock = () => [
   getSaveInfoMockHandler(),
   getUploadImageMockHandler(),
   getRefreshTokenMockHandler(),
+  getVerifyExistedPasswordMockHandler(),
   getLogoutMockHandler(),
   getVerifyEmailVerifyCodeMockHandler(),
   getSendEmailVerifyCodeMockHandler(),

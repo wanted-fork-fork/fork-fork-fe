@@ -4,7 +4,7 @@ import { authenticate } from 'src/app/server/authenticate';
 import { getAllInfo, getUserEnrollmentStatus, info } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useLoaderData } from '@remix-run/react';
-import { GenerateFormLink } from 'src/entities/candidates/components/GenerateFormLink/GenerateFormLink';
+import { GenerateFormLink } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLink';
 import { commitSession } from 'src/app/server/sessions';
 import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';

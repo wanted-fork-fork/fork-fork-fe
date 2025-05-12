@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { deleteInfo } from 'src/types';
-import { ProfileShareBottomSheet } from 'src/entities/candidates/components/ProfileShare/ProfileShareBottomSheet';
+import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 
 type Props = {

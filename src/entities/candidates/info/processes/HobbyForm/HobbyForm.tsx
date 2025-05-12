@@ -1,6 +1,6 @@
 import styles from 'src/entities/candidates/info/processes/HobbyForm/HobbyForm.module.css';
 import { ChipList } from 'src/shared/ui/ChipList/ChipList';
-import { ExampleHobbyList } from 'src/entities/candidates/vo/hobby/constants/hobbies';
+import { ExampleHobbyList } from 'src/entities/candidates/_common/vo/hobby/constants/hobbies';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 
 export const HobbyForm = () => {

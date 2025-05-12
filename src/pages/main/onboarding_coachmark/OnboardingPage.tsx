@@ -6,10 +6,10 @@ import { Driver, driver } from 'driver.js';
 import { useEffect, useRef, useState } from 'react';
 import 'driver.js/dist/driver.css';
 import 'src/shared/ui/CoachMark/CoachMark.css';
-import { ProfileAddFloatingButton } from 'src/entities/candidates/components/GenerateFormLink/ProfileAddFloatingButton';
-import { GenerateFormBottomSheetContentView } from 'src/entities/candidates/components/GenerateFormLink/GenerateFormBottomSheetContentView';
+import { ProfileAddFloatingButton } from 'src/entities/candidates/_common/components/GenerateFormLink/ProfileAddFloatingButton';
+import { GenerateFormBottomSheetContentView } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormBottomSheetContentView';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
-import { ProfileCardList } from 'src/entities/candidates/components/ProfileCardList/ProfileCardList';
+import { ProfileCardList } from 'src/entities/candidates/_common/components/ProfileCardList/ProfileCardList';
 import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
 
 const createDriverOjb = ({

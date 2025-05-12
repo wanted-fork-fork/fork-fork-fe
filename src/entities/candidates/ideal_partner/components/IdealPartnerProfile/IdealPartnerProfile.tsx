@@ -1,12 +1,9 @@
 import { AvatarList } from 'src/shared/ui/AvatarList/AvatarList';
 import { ProfileCellHeader } from 'src/shared/ui/Profile/ProfileCellHeader';
 import styles from 'src/shared/ui/Profile/Profile.module.css';
-import { useProfileEditContext } from 'src/entities/candidates/components/EditInfo/ProfileEditContext';
+import { useProfileEditContext } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { useTranslation } from 'react-i18next';
-import {
-  IdealPartner,
-  useIdealPartnerImages,
-} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { IdealPartner, useIdealPartnerImages } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
 import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
 import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';

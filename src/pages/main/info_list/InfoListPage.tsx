@@ -1,4 +1,4 @@
-import { ProfileCardList } from 'src/entities/candidates/components/ProfileCardList/ProfileCardList';
+import { ProfileCardList } from 'src/entities/candidates/_common/components/ProfileCardList/ProfileCardList';
 import styles from './InfoListPage.module.css';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
@@ -7,9 +7,9 @@ import { Button } from '../../../shared/ui/Button/Button';
 import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
 import { MouseEvent, useState } from 'react';
-import { ProfileShareBottomSheet } from 'src/entities/candidates/components/ProfileShare/ProfileShareBottomSheet';
+import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
-import { ProfileCardGrid } from 'src/entities/candidates/components/ProfileCardGrid/ProfileCardGrid';
+import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
 

@@ -12,7 +12,7 @@ import { getMatchMakerName, saveInfo, validateLink } from 'src/types';
 import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
 import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
-import { Shortcut } from 'src/entities/candidates/components/Shortcut/Shortcut';
+import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
 
 const MAX_STEP_COUNT = 7;
 

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import styles from 'src/entities/candidates/info/processes/LocationForm/LocationForm.module.css';
 import { Close } from 'src/shared/ui/icons';
-import { Location } from 'src/entities/candidates/vo/location/types/location';
+import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
 import { Chip } from 'src/shared/ui/Chip/Chip';
-import { LocationSelectTable } from 'src/entities/candidates/components/LocationSelectTable/LocationSelectTable';
+import { LocationSelectTable } from 'src/entities/candidates/_common/components/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { useTranslation } from 'react-i18next';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';

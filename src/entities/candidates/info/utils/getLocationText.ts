@@ -1,4 +1,4 @@
-import { Location } from 'src/entities/candidates/vo/location/types/location';
+import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
 import { TFunction } from 'i18next';
 
 export const getLocationText = (location: Location, t: TFunction) => {

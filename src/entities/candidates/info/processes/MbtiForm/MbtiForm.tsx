@@ -8,7 +8,7 @@ import {
   MbtiKey,
   MbtiSecondWord,
   MbtiThirdWord,
-} from 'src/entities/candidates/vo/mbti/mbti';
+} from 'src/entities/candidates/_common/vo/mbti/mbti';
 import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 
