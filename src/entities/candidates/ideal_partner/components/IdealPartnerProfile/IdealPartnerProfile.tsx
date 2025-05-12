@@ -44,9 +44,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
               suffix={renderBadge('키 + 선호하는 스타일')}
             />
-            <span>
-              {profile.heightRange ? `${profile.heightRange?.min}cm - ${profile.heightRange?.max}cm` : '상관 없어요'}
-            </span>
+            <span>{getHeightText(profile.heightRange)}</span>
           </div>
         </div>
       )}
@@ -125,4 +123,11 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       )}
     </section>
   );
+};
+
+const getHeightText = (heightRange?: { min?: number; max?: number }) => {
+  if (!heightRange || (!heightRange.min && !heightRange.max)) return '상관 없어요';
+  if (!heightRange.min) return `최대 ${heightRange.max}cm`;
+  if (!heightRange.max) return `최소 ${heightRange.min}cm`;
+  return `${heightRange.min}cm - ${heightRange.max}cm`;
 };
