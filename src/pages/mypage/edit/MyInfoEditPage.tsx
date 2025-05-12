@@ -60,7 +60,7 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
           </div>
           <div className={styles.InfoRow} aria-disabled={isChangePasswordDisabled}>
             <p className={styles.Label}>비밀번호</p>
-            <Link to={'/auths/change-password'} onClick={(e) => isChangePasswordDisabled && e.preventDefault()}>
+            <Link to={'/auth/change-password'} onClick={(e) => isChangePasswordDisabled && e.preventDefault()}>
               <div className={styles.Value}>
                 <span className={isChangePasswordDisabled ? styles.Gray : undefined}>
                   {isChangePasswordDisabled ? '비밀번호 재설정 불가능' : '비밀번호 재설정 가능'}

@@ -18,7 +18,7 @@ export const EmailExistErrorPage = () => {
         <Link to={'/login/email'}>
           <Button widthType={'fill'}>로그인</Button>
         </Link>
-        <Link to={'/auths/reset-password'}>
+        <Link to={'/auth/reset-password'}>
           <Button widthType={'fill'} variant={'outline'} color={'neutral'}>
             비밀번호 찾기
           </Button>
