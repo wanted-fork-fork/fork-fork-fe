@@ -7,11 +7,12 @@ import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfi
 
 type Props<T extends 'PROFILE' | 'IDEAL_PARTNER'> = {
   type: T;
+  extra?: object | null;
   stepMeta: StepMeta<T extends 'PROFILE' ? MyProfile : IdealPartner>;
   onCompleteEdit: (profile: MyProfile, ideal: IdealPartner) => void;
 };
 
-export const ProfileEditBody = ({ type, stepMeta, onCompleteEdit }: Props<'PROFILE' | 'IDEAL_PARTNER'>) => {
+export const ProfileEditBody = ({ type, extra, stepMeta, onCompleteEdit }: Props<'PROFILE' | 'IDEAL_PARTNER'>) => {
   const name = useProfileFirstName();
   const profileState = useMyProfileStore((state) => state);
   const idealState = useIdealPartnerStore((state) => state);
@@ -30,7 +31,7 @@ export const ProfileEditBody = ({ type, stepMeta, onCompleteEdit }: Props<'PROFI
           <small className={styles.Description}>{stepMeta.description()}</small>
         )}
       </div>
-      <div className={styles.FormMain}>{stepMeta.form({})}</div>
+      <div className={styles.FormMain}>{stepMeta.form({ extra })}</div>
       <div className={styles.FormFooter}>
         <Button
           variant={'filled'}

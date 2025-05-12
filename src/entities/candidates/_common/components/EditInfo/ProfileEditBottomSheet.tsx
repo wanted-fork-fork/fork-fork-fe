@@ -13,12 +13,13 @@ import { IdealPartner, useIdealPartnerStore } from 'src/entities/candidates/idea
 
 type Props = {
   selectedKey: MetaKey | null;
+  extra?: object | null;
   onClose: () => void;
   onCompleteEdit: (profile: MyProfile, ideal: IdealPartner) => void;
   checkEdit: (profile: MyProfile, ideal: IdealPartner) => boolean;
 };
 
-export const ProfileEditBottomSheet = ({ selectedKey, onClose, onCompleteEdit, checkEdit }: Props) => {
+export const ProfileEditBottomSheet = ({ selectedKey, extra, onClose, onCompleteEdit, checkEdit }: Props) => {
   const { value: showConfirm, setTrue: openConfirm, setFalse: closeConfirm } = useBoolean(false);
 
   const profileState = useMyProfileStore((state) => state);
@@ -50,7 +51,9 @@ export const ProfileEditBottomSheet = ({ selectedKey, onClose, onCompleteEdit, c
       <BottomSheet isOpen={Boolean(stepMeta)} onClose={handleClose} disableDrag>
         <BottomSheet.Header onPrev={handleClose} onClose={handleClose} />
         <BottomSheet.Content>
-          {stepMeta && <ProfileEditBody type={type} stepMeta={stepMeta} onCompleteEdit={onCompleteEdit} />}
+          {stepMeta && (
+            <ProfileEditBody type={type} stepMeta={stepMeta} extra={extra} onCompleteEdit={onCompleteEdit} />
+          )}
         </BottomSheet.Content>
       </BottomSheet>
       <ConfirmModal

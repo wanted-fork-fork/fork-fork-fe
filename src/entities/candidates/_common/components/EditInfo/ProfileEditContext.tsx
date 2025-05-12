@@ -10,7 +10,7 @@ import {
   useIdealPartnerStore,
 } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
-export type EditProfileFunction = (key: MetaKey) => void;
+export type EditProfileFunction = (key: MetaKey, extra?: object) => void;
 
 type ProfileEditContextValue =
   | {
@@ -32,9 +32,11 @@ export const ProfileEditProvider = ({
   const overrideOriginIdealState = useIdealPartnerStore((state) => state.override);
 
   const [selectedKey, setSelectedKey] = useState<MetaKey | null>(null);
+  const [extra, setExtra] = useState<object | null>(null);
 
-  const handleClickEdit = useCallback<EditProfileFunction>((key) => {
+  const handleClickEdit = useCallback<EditProfileFunction>((key, extra) => {
     setSelectedKey(key);
+    setExtra(extra ?? null);
   }, []);
 
   const handleClose = useCallback(() => setSelectedKey(null), [setSelectedKey]);
@@ -70,6 +72,7 @@ export const ProfileEditProvider = ({
         <IdealPartnerProvider initialState={originIdealState}>
           <ProfileEditBottomSheet
             selectedKey={selectedKey}
+            extra={extra}
             onClose={handleClose}
             onCompleteEdit={handleCompleteEdit}
             checkEdit={checkEdit}

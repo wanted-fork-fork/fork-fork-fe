@@ -106,7 +106,7 @@ export const MyProfileStepMeta = {
         본인을 좀 더 자세히 알려주세요.
       </>
     ),
-    form: () => <QuestionForm />,
+    form: ({ extra }) => <QuestionForm {...extra} />,
     canGoNext: () => true,
     shortcutTitle: '선택 질문',
   },

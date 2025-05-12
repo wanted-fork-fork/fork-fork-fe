@@ -36,7 +36,7 @@ const validate = (key: QuestionType, data: Pick<MyProfile, 'pets' | 'movie' | 'b
   }
   return false;
 };
-export const QuestionForm = () => {
+export const QuestionForm = ({ questionKey }: { questionKey?: QuestionType | null }) => {
   const data = useMyProfileStore(({ pets, movie, book, dateStyle, foods }) => ({
     pets,
     movie,
@@ -45,7 +45,7 @@ export const QuestionForm = () => {
     foods,
   }));
   const { pets, movie, book, dateStyle, foods } = data;
-  const [inputType, setInputType] = useState<QuestionType | null>(null);
+  const [inputType, setInputType] = useState<QuestionType | null>(questionKey || null);
 
   const canSubmit = inputType && validate(inputType, data);
 
