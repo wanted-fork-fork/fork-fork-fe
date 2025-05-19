@@ -33,9 +33,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
                 onClickEdit={() => onClickEdit?.('IDEAL_AGE')}
                 suffix={renderBadge('나이')}
               />
-              <span>
-                {profile.ageRange ? `${profile.ageRange?.min}-${profile.ageRange?.max}` : '나이는 딱히 상관 없어요'}
-              </span>
+              <span>{profile.ageRange ? getRangeText(profile.ageRange, '세') : '나이는 딱히 상관 없어요'}</span>
             </div>
           )}
           <div className={styles.Cell}>
@@ -44,7 +42,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
               suffix={renderBadge('키 + 선호하는 스타일')}
             />
-            <span>{getHeightText(profile.heightRange)}</span>
+            <span>{getRangeText(profile.heightRange, 'cm')}</span>
           </div>
         </div>
       )}
@@ -125,9 +123,9 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
   );
 };
 
-const getHeightText = (heightRange?: { min?: number; max?: number }) => {
-  if (!heightRange || (!heightRange.min && !heightRange.max)) return '상관 없어요';
-  if (!heightRange.min) return `최대 ${heightRange.max}cm`;
-  if (!heightRange.max) return `최소 ${heightRange.min}cm`;
-  return `${heightRange.min}cm - ${heightRange.max}cm`;
+const getRangeText = (range?: { min?: number; max?: number }, util?: string) => {
+  if (!range || (!range.min && !range.max)) return '상관 없어요';
+  if (!range.min) return `최대 ${range.max}${util}`;
+  if (!range.max) return `최소 ${range.min}${util}`;
+  return `${range.min}${util} - ${range.max}${util}`;
 };
