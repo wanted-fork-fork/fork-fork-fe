@@ -66,7 +66,7 @@ export const AccountDeletePage = ({ userInfo }: { userInfo: UserInfoResponse }) 
         description={'지금까지 구구를 이용해주셔서 감사합니다.\n구구가 필요할 때 또 찾아주세요!'}
         show={showConfirm}
         confirmText={'닫기'}
-        onConfirm={redirectToLoginPage}
+        onConfirm={() => redirectToLoginPage(false)}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import styles from 'src/pages/mypage/email/EmailConfigPage.module.css';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { VerifyEmail } from 'src/entities/users/auths/components/VerifyEmail/VerifyEmail';
 import { useMutation } from '@tanstack/react-query';
-import { sendEmailVerifyCode, updateEmail, verifyEmailVerifyCode } from 'src/types';
+import { sendEmailVerifyCode, updateEmail, updateReceiveEmail, verifyEmailVerifyCode } from 'src/types';
 import { useCallback } from 'react';
 
 export const EmailConfigPage = ({
@@ -20,9 +20,16 @@ export const EmailConfigPage = ({
 }) => {
   const navigate = useNavigate();
 
+  const { mutate: mutateUpdateReceiveEmail } = useMutation({
+    mutationFn: updateReceiveEmail,
+    onSuccess: onConfirm,
+  });
+
   const { mutate: mutateUpdateEmail } = useMutation({
     mutationFn: updateEmail,
-    onSuccess: onConfirm,
+    onSuccess: () => {
+      mutateUpdateReceiveEmail({ receiveEmail: true });
+    },
   });
 
   const handleClickPrev = () => {
@@ -49,7 +56,7 @@ export const EmailConfigPage = ({
         <h2>
           새로 추가 되는 소개 후보,
           <br />
-          놓치지 않도록 메일로 알려드릴게요.
+          놓치지 않도록 이메일로 알려드릴게요.
         </h2>
         <VerifyEmail
           confirmButtonText={confirmButtonText}
