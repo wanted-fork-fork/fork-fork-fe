@@ -18,7 +18,13 @@ export const IdealPartnerStepMeta = {
     title: () => <>선호하는 연령대가 있나요?</>,
     description: () => <></>,
     form: () => <AgeForm />,
-    canGoNext: (state) => (state.ageRange ? Boolean(state.ageRange.max && state.ageRange.min) : true),
+    canGoNext: (state) => {
+      if (!state.ageRange) return true;
+
+      if (state.ageRange.max == null || state.ageRange.min == null) return true;
+
+      return state.ageRange.max >= state.ageRange.min;
+    },
     shortcutTitle: '선호하는 연령대',
   },
   IDEAL_HEIGHT_STYLE: {
