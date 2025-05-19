@@ -54,8 +54,8 @@ export const MyInfoEditPage = ({ userInfo }: { userInfo: UserInfoResponse }) => 
           <div className={styles.InfoRow}>
             <p className={styles.Label}>아이디(E-Mail)</p>
             <div className={styles.Value}>
-              <span className={styles.Gray}>{userInfo.email}</span>
-              <span className={styles.Primary}>인증 완료</span>
+              <span className={styles.Gray}>{userInfo.email ?? '등록된 이메일이 없습니다.'}</span>
+              {userInfo.email && <span className={styles.Primary}>인증 완료</span>}
             </div>
           </div>
           <div className={styles.InfoRow} aria-disabled={isChangePasswordDisabled}>
