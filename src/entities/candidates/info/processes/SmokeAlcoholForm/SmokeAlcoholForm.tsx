@@ -8,8 +8,8 @@ import { UserInfoDrinkingDrinkingCategory, UserInfoSmokingSmokingCategory } from
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 
 const smokingRadioMeta: DistributedOmit<RadioMeta<UserInfoSmokingSmokingCategory>, 'name'>[] = [
-  { key: 'SMOKER', allowInput: false },
   { key: 'NON_SMOKER', allowInput: false },
+  { key: 'SMOKER', allowInput: false },
   { key: 'ETC', allowInput: true, placeholder: '기타 의견을 입력해주세요.' },
 ];
 
