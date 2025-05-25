@@ -7,7 +7,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { ProfileEditProvider } from 'src/entities/candidates/_common/components/EditInfo/ProfileEditContext';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useBeforeUnload, useNavigate, useSubmit } from '@remix-run/react';
+import { useBeforeUnload, useNavigate, useNavigation, useSubmit } from '@remix-run/react';
 import { useUploadProfileImage } from 'src/shared/functions/useUploadProfileImage';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
@@ -29,15 +29,21 @@ export const EditInfoPage = ({ infoId }: Props) => {
   const idealPartner = useIdealPartnerStore((state) => state);
 
   const submit = useSubmit();
+  const { state } = useNavigation();
 
   const { upload } = useUploadProfileImage();
+  const [isUploading, setUploading] = useState(false);
+
   const onCompleteEdit = useCallback((close: () => void) => {
     toast.success('변경사항이 저장되었습니다.');
     close();
   }, []);
 
   const onSubmit = useCallback(async () => {
+    setUploading(true);
     const { profileImageResults, idealImageResults } = await upload(profile.images, idealPartner.images);
+
+    setUploading(false);
 
     const profileImageDtos = [...profile.imageDtoList, ...profileImageResults];
     const idealImageDtos = [...idealPartner.imageDtoList, ...idealImageResults];
@@ -81,6 +87,7 @@ export const EditInfoPage = ({ infoId }: Props) => {
               widthType={'hug'}
               color={'primary'}
               onClick={onSubmit}
+              disabled={isUploading || state === 'submitting'}
             >
               완료
             </Button>
