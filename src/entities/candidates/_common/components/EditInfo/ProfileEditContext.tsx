@@ -68,17 +68,19 @@ export const ProfileEditProvider = ({
   return (
     <ProfileEditContext.Provider value={value}>
       {children}
-      <MyProfileProvider initialState={originProfileState}>
-        <IdealPartnerProvider initialState={originIdealState}>
-          <ProfileEditBottomSheet
-            selectedKey={selectedKey}
-            extra={extra}
-            onClose={handleClose}
-            onCompleteEdit={handleCompleteEdit}
-            checkEdit={checkEdit}
-          />
-        </IdealPartnerProvider>
-      </MyProfileProvider>
+      {selectedKey && (
+        <MyProfileProvider initialState={originProfileState}>
+          <IdealPartnerProvider initialState={originIdealState}>
+            <ProfileEditBottomSheet
+              selectedKey={selectedKey}
+              extra={extra}
+              onClose={handleClose}
+              onCompleteEdit={handleCompleteEdit}
+              checkEdit={checkEdit}
+            />
+          </IdealPartnerProvider>
+        </MyProfileProvider>
+      )}
     </ProfileEditContext.Provider>
   );
 };

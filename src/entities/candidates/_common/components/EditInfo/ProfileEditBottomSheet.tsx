@@ -52,7 +52,13 @@ export const ProfileEditBottomSheet = ({ selectedKey, extra, onClose, onComplete
         <BottomSheet.Header onPrev={handleClose} onClose={handleClose} />
         <BottomSheet.Content>
           {stepMeta && (
-            <ProfileEditBody type={type} stepMeta={stepMeta} extra={extra} onCompleteEdit={onCompleteEdit} />
+            <ProfileEditBody
+              type={type}
+              selectedKey={selectedKey}
+              stepMeta={stepMeta}
+              extra={extra}
+              onCompleteEdit={onCompleteEdit}
+            />
           )}
         </BottomSheet.Content>
       </BottomSheet>

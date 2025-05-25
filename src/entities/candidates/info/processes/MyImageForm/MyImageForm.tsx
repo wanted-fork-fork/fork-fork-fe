@@ -6,16 +6,24 @@ import {
   useMyProfileStore,
   useRemoveProfileImageDto,
 } from 'src/entities/candidates/info/models/myProfileStore';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
 
 export const MyImageForm = () => {
   const setFiles = useMyProfileStore((state) => state.setSelfImages);
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+
   const removeImageDto = useRemoveProfileImageDto();
 
   const dtoList = useMyProfileImages();
 
+  const handleClickRemove = (url: string, fileIdx?: number | undefined) => {
+    removeImageDto(url, fileIdx);
+    addTouchedStep('PROFILE_MY_IMAGE');
+  };
+
   return (
     <section className={styles.Container}>
-      <AvatarList imageDtoList={dtoList} setFiles={setFiles} maxFileCount={10} onClickRemove={removeImageDto} />
+      <AvatarList imageDtoList={dtoList} setFiles={setFiles} maxFileCount={10} onClickRemove={handleClickRemove} />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>
