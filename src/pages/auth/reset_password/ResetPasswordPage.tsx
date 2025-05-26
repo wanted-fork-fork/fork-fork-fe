@@ -41,9 +41,11 @@ export const ResetPasswordPage = ({ verifyKey }: { verifyKey: string }) => {
     mutationFn: updatePassword,
   });
 
+  const showPrev = !needSignUp && !data;
+
   return (
     <FormLayout.Container>
-      <FormLayout.Header onPrev={step === 0 ? () => navigate('/login/email') : decrease} />
+      <FormLayout.Header onPrev={showPrev ? (step === 0 ? () => navigate('/login/email') : decrease) : undefined} />
       {!(data || error || needSignUp) && (
         <SwitchCase
           value={step}
