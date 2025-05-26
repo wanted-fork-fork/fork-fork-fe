@@ -48,9 +48,11 @@ export const SignUpPage = ({ signUpKey }: { signUpKey: string }) => {
     mutationFn: signup,
   });
 
+  const showPrev = !isDuplicated && !data;
+
   return (
     <FormLayout.Container>
-      <FormLayout.Header onPrev={step === 0 ? () => navigate('/login/email') : decrease} />
+      <FormLayout.Header onPrev={showPrev ? (step === 0 ? () => navigate('/login/email') : decrease) : undefined} />
       {!(data || error || isDuplicated) && (
         <SwitchCase
           value={step}
