@@ -63,6 +63,7 @@ export const FilterPage = () => {
               <span>-</span>
               <input className={styles.Input} placeholder={'최고'} />
             </div>
+            <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
           </div>
           <div className={styles.Row}>
             <Flex direction={'horizontal'} justify={'between'}>
@@ -74,6 +75,7 @@ export const FilterPage = () => {
               <span>-</span>
               <input className={styles.Input} placeholder={'최고'} />
             </div>
+            <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
           </div>
           <div className={styles.Row}>
             <h4>지역</h4>

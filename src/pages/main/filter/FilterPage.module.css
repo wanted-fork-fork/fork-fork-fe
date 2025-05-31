@@ -101,6 +101,12 @@
     }
 }
 
+.Error {
+    color: var(--color-negative);
+    font-weight: 400;
+    font-size: 16px;
+}
+
 .Chip {
     padding-left: 16px;
     padding-right: 16px;
