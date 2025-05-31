@@ -8,6 +8,11 @@ import { Chip } from 'src/shared/ui/Chip/Chip';
 import styles from './FilterPage.module.css';
 import { Theme } from 'src/shared/styles/constants';
 import Flex from 'src/shared/ui/Flex/Flex';
+import { Menu } from 'src/shared/ui/Menu/Menu';
+import { LocationForm } from 'src/entities/candidates/info/processes/LocationForm/LocationForm';
+
+const genderList = ['전체', '남자', '여자'];
+const alignList = ['오래된 등록 순', '최신 등록 순', '이름 내림차순', '이름 오름차순'];
 
 export const FilterPage = () => {
   const navigate = useNavigate();
@@ -28,7 +33,7 @@ export const FilterPage = () => {
         <FormLayout.Body className={styles.Body}>
           <div className={styles.Row}>
             <h3>정렬조건</h3>
-            <button className={styles.SelectButton}>
+            <button className={styles.SelectButton} onClick={openAlign}>
               <span>등록 오래된 순</span>
               <ArrowDown color={Theme.color.neutral50} />
             </button>
@@ -41,7 +46,7 @@ export const FilterPage = () => {
           <div className={styles.Row}>
             <h4>성별</h4>
             <Flex justify={'start'} gap={8}>
-              {['전체', '남자', '여자'].map((value) => (
+              {genderList.map((value) => (
                 <Chip key={value} className={styles.Chip} onClick={console.log}>
                   {value}
                 </Chip>
@@ -72,28 +77,45 @@ export const FilterPage = () => {
           </div>
           <div className={styles.Row}>
             <h4>지역</h4>
-            <button className={`${styles.SelectButton} ${styles.Gray}`}>
+            <button className={`${styles.SelectButton} ${styles.Gray}`} onClick={openLocation}>
               <span>지역 찾기</span>
               <Search color={Theme.color.neutral30} />
             </button>
           </div>
         </FormLayout.Body>
-        <FormLayout.Footer>
-          <Button type={'reset'} color={'neutral'} disabled={resetEnabled} onClick={handleReset}>
+        <FormLayout.Footer className={styles.Footer}>
+          <Button
+            widthType={'fill'}
+            type={'reset'}
+            color={'neutral'}
+            variant={'outline'}
+            disabled={!resetEnabled}
+            onClick={handleReset}
+          >
             초기화
           </Button>
-          <Button type={'submit'} color={'primary'} disabled={submitEnabled} onClick={handleSubmit}>
+          <Button widthType={'fill'} type={'submit'} color={'primary'} disabled={!submitEnabled} onClick={handleSubmit}>
             적용
           </Button>
         </FormLayout.Footer>
       </FormLayout.Container>
       {/* 정렬 조건 */}
-      <BottomSheet isOpen={showAlignBottomSheet} onClose={closeAlign}>
-        dd
+      <BottomSheet detent={'content-height'} isOpen={showAlignBottomSheet} onClose={closeAlign}>
+        <BottomSheet.Content className={styles.AlignSheetContent}>
+          {alignList.map((align) => (
+            <Menu key={align} name={align} selected={true} onClick={console.log} />
+          ))}
+        </BottomSheet.Content>
       </BottomSheet>
       {/* 지역 선택 */}
-      <BottomSheet isOpen={showLocationBottomSheet} onClose={closeLocation}>
-        dd
+      <BottomSheet detent={'content-height'} isOpen={showLocationBottomSheet} onClose={closeLocation}>
+        <BottomSheet.Content className={styles.LocationSheetContent}>
+          <h3>지역을 선택해주세요.</h3>
+          <LocationForm />
+          <div className={styles.Footer}>
+            <Button widthType={'fill'}>선택 완료</Button>
+          </div>
+        </BottomSheet.Content>
       </BottomSheet>
     </>
   );
