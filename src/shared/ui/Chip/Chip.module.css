@@ -2,6 +2,7 @@
   color: var(--color-neutral-900) !important;
   font-size: 14px;
   font-weight: 400;
+  flex-shrink: 0;
 }
 
 .NonButtonChip {

@@ -9,19 +9,68 @@ import styles from './FilterPage.module.css';
 import { Theme } from 'src/shared/styles/constants';
 import Flex from 'src/shared/ui/Flex/Flex';
 import { Menu } from 'src/shared/ui/Menu/Menu';
-import { LocationForm } from 'src/entities/candidates/info/processes/LocationForm/LocationForm';
+import { SearchInfoRequestDtoGender, SearchInfoRequestDtoSortBy, SearchInfoRequestDtoSortDirection } from 'src/types';
+import { useRemixForm } from 'remix-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { LocationSelectTable } from 'src/entities/candidates/_common/components/LocationSelectTable/LocationSelectTable';
+import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
+import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
+import { getLocationText } from 'src/entities/candidates/info/utils/getLocationText';
+import { useTranslation } from 'react-i18next';
 
-const genderList = ['전체', '남자', '여자'];
-const alignList = ['오래된 등록 순', '최신 등록 순', '이름 내림차순', '이름 오름차순'];
+const genderList: { name: string; gender: SearchInfoRequestDtoGender | undefined }[] = [
+  { name: '전체', gender: undefined },
+  { name: '남자', gender: 'MALE' },
+  { name: '여자', gender: 'FEMALE' },
+];
+const alignList: {
+  name: string;
+  sortBy: SearchInfoRequestDtoSortBy;
+  sortDirection: SearchInfoRequestDtoSortDirection;
+}[] = [
+  { name: '오래된 등록 순', sortBy: 'CREATED_DATE', sortDirection: 'ASC' },
+  { name: '최신 등록 순', sortBy: 'CREATED_DATE', sortDirection: 'DESC' },
+  { name: '이름 내림차순', sortBy: 'NAME', sortDirection: 'DESC' },
+  { name: '이름 오름차순', sortBy: 'NAME', sortDirection: 'ASC' },
+];
+
+const schema = z.object({
+  sortBy: z.enum(['CREATED_DATE', 'NAME'] as const satisfies SearchInfoRequestDtoSortBy[]),
+  sortDirection: z.enum(['ASC', 'DESC'] as const satisfies SearchInfoRequestDtoSortDirection[]),
+  gender: z.enum(['MALE', 'FEMALE'] as const satisfies SearchInfoRequestDtoGender[]).optional(),
+  ageFrom: z.number().min(1).optional(),
+  ageTo: z.number().max(100).optional(),
+  heightFrom: z.number().min(100).optional(),
+  heightTo: z.number().max(200).optional(),
+  townList: z.array(z.string()),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const resolver = zodResolver(schema);
 
 export const FilterPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const { value: showAlignBottomSheet, setTrue: openAlign, setFalse: closeAlign } = useBoolean(false);
   const { value: showLocationBottomSheet, setTrue: openLocation, setFalse: closeLocation } = useBoolean(false);
 
+  const { watch, register, setValue } = useRemixForm<FormData>({ mode: 'onBlur', resolver });
+
   const submitEnabled = true;
   const resetEnabled = true;
+
+  const [selectedAlign, setSelectedAlign] = useState(alignList[0]);
+  const { list, toggle } = useMultiSelectToggle<Location>([], (a, b) => a.town[0].town === b.town[0].town);
+
+  const handleSelectAlign = ({ sortBy, sortDirection }: (typeof alignList)[number], idx: number) => {
+    setValue('sortBy', sortBy);
+    setValue('sortDirection', sortDirection);
+    setSelectedAlign(alignList[idx]);
+  };
 
   const handleReset = () => {};
   const handleSubmit = () => {};
@@ -34,7 +83,7 @@ export const FilterPage = () => {
           <div className={styles.Row}>
             <h3>정렬조건</h3>
             <button className={styles.SelectButton} onClick={openAlign}>
-              <span>등록 오래된 순</span>
+              <span>{selectedAlign.name}</span>
               <ArrowDown color={Theme.color.neutral50} />
             </button>
           </div>
@@ -46,9 +95,14 @@ export const FilterPage = () => {
           <div className={styles.Row}>
             <h4>성별</h4>
             <Flex justify={'start'} gap={8}>
-              {genderList.map((value) => (
-                <Chip key={value} className={styles.Chip} onClick={console.log}>
-                  {value}
+              {genderList.map(({ name, gender }) => (
+                <Chip
+                  key={name}
+                  className={styles.Chip}
+                  selected={watch('gender') === gender}
+                  onClick={() => setValue('gender', gender)}
+                >
+                  {name}
                 </Chip>
               ))}
             </Flex>
@@ -59,9 +113,9 @@ export const FilterPage = () => {
               <span className={styles.RangeDescription}>170cm 이상</span>
             </Flex>
             <div className={styles.RangeInput}>
-              <input className={styles.Input} placeholder={'최소'} />
+              <input className={styles.Input} placeholder={'최소'} {...register('heightFrom')} />
               <span>-</span>
-              <input className={styles.Input} placeholder={'최고'} />
+              <input className={styles.Input} placeholder={'최고'} {...register('heightTo')} />
             </div>
             <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
           </div>
@@ -71,9 +125,9 @@ export const FilterPage = () => {
               <span className={styles.RangeDescription}>170cm 이상 180cm 이하</span>
             </Flex>
             <div className={styles.RangeInput}>
-              <input className={styles.Input} placeholder={'최소'} />
+              <input className={styles.Input} placeholder={'최소'} {...register('ageFrom')} />
               <span>-</span>
-              <input className={styles.Input} placeholder={'최고'} />
+              <input className={styles.Input} placeholder={'최고'} {...register('ageTo')} />
             </div>
             <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
           </div>
@@ -104,8 +158,16 @@ export const FilterPage = () => {
       {/* 정렬 조건 */}
       <BottomSheet detent={'content-height'} isOpen={showAlignBottomSheet} onClose={closeAlign}>
         <BottomSheet.Content className={styles.AlignSheetContent}>
-          {alignList.map((align) => (
-            <Menu key={align} name={align} selected={true} onClick={console.log} />
+          {alignList.map((align, idx) => (
+            <Menu
+              key={align.name}
+              name={align.name}
+              selected={selectedAlign.name === align.name}
+              onClick={() => {
+                handleSelectAlign(align, idx);
+                closeAlign();
+              }}
+            />
           ))}
         </BottomSheet.Content>
       </BottomSheet>
@@ -113,7 +175,12 @@ export const FilterPage = () => {
       <BottomSheet detent={'content-height'} isOpen={showLocationBottomSheet} onClose={closeLocation}>
         <BottomSheet.Content className={styles.LocationSheetContent}>
           <h3>지역을 선택해주세요.</h3>
-          <LocationForm />
+          <Flex direction={'horizontal'} justify={'start'} gap={4} overflowX={'auto'}>
+            {list.map((loc) => (
+              <Chip key={loc.town[0].town}>{getLocationText(loc, t)}</Chip>
+            ))}
+          </Flex>
+          <LocationSelectTable selectedLocations={list} selectLocation={toggle} />
           <div className={styles.Footer}>
             <Button widthType={'fill'}>선택 완료</Button>
           </div>

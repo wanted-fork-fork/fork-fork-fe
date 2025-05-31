@@ -30,3 +30,22 @@
 .Direction_Horizontal {
     flex-direction: row;
 }
+
+.OverflowX_Auto{
+    overflow-x: auto
+}
+.OverflowX_Hidden{
+    overflow-x: hidden;
+}
+.OverflowX_Scroll{
+    overflow-x:scroll;
+}
+.OverflowY_Auto{
+    overflow-y:auto;
+}
+.OverflowY_Hidden{
+    overflow-y: hidden;
+}
+.OverflowY_Scroll{
+    overflow-y:scroll;
+}

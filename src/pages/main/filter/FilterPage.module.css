@@ -119,14 +119,18 @@
 .LocationSheetContent {
     padding: 20px;
     max-height: 80vh;
+    gap: 24px;
+    overflow: hidden;
 
     & h3 {
         font-weight: 600;
         font-size: 20px;
-        margin-bottom: 24px;
     }
 
     & .Footer {
-        padding: 24px 0;
+    }
+
+    & > :nth-of-type(2) > div  {
+        height: auto;
     }
 }

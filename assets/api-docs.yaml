@@ -501,6 +501,26 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/info/search:
+    get:
+      tags:
+      - info-controller
+      operationId: searchInfo
+      parameters:
+      - name: searchInfoRequestDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/SearchInfoRequestDto'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArchivedInfoResponse'
   /api/v1/info/detail/{id}:
     get:
       tags:
@@ -1572,6 +1592,287 @@ components:
           type: string
         isOpen:
           type: boolean
+    SearchInfoRequestDto:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          writeOnly: true
+        size:
+          type: integer
+          format: int32
+          writeOnly: true
+        sortBy:
+          type: string
+          writeOnly: true
+          enum:
+          - CREATED_DATE
+          - NAME
+        sortDirection:
+          type: string
+          writeOnly: true
+          enum:
+          - ASC
+          - DESC
+        gender:
+          type: string
+          writeOnly: true
+          enum:
+          - MALE
+          - FEMALE
+        ageFrom:
+          type: string
+          format: date-time
+          writeOnly: true
+        ageTo:
+          type: string
+          format: date-time
+          writeOnly: true
+        heightFrom:
+          type: integer
+          format: int32
+          writeOnly: true
+        heightTo:
+          type: integer
+          format: int32
+          writeOnly: true
+        townList:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+            enum:
+            - GANGNAM
+            - GANGDONG
+            - GANGBUK
+            - GANGSEO
+            - GWANAK
+            - GWANGJIN
+            - GURO
+            - GEUMCHEON
+            - NOWON
+            - DOBONG
+            - DONGDAEMUN
+            - DONGJAK
+            - MAPO
+            - SEODAEMUN
+            - SEOCHO
+            - SEONGDONG
+            - SEONGBUK
+            - SONGPA
+            - YANGCHEON
+            - YEONGDEUNGPO
+            - YONGSAN
+            - EUNPYEONG
+            - JONGNO
+            - SEOUL_JUNG
+            - JUNGRANG
+            - GAPYEONG
+            - GOYANG
+            - GWACHEON
+            - GWANGMYEONG
+            - GWANGJU
+            - GURI
+            - GUNPO
+            - GIMPO
+            - NAMYANGJU
+            - DONGDUCHEON
+            - BUCHEON
+            - SEONGNAM
+            - SUWON
+            - SIHEUNG
+            - ANSAN
+            - ANSEONG
+            - ANYANG
+            - YANGJU
+            - YANGPYEONG
+            - YEOJU
+            - YEONCHEON
+            - OSAN
+            - YONGIN
+            - UIWANG
+            - UIJEONGBU
+            - ICHEON
+            - PAJU
+            - PYEONGTAEK
+            - POCHEON
+            - HANAM
+            - HWASEONG
+            - GANGHWA
+            - GYEYANG
+            - NAMDONG
+            - INCHEON_DONG
+            - MICHUHOL
+            - BUPYEONG
+            - SEO
+            - YEONSU
+            - ONGJIN
+            - INCHEON_JUNG
+            - DAEDEOK
+            - DAEJEON_DONG
+            - DAEJEON_SEO
+            - YUSEONG
+            - DAEJEON_JUNG
+            - BUSAN_GANGSEO
+            - GEUMJEONG
+            - GIJANG
+            - BUSAN_NAM
+            - BUSAN_DONG
+            - DONGNAE
+            - BUSANJIN
+            - BUSAN_BUK
+            - SASANG
+            - SAHA
+            - BUSAN_SEO
+            - SUYEONG
+            - YEONJE
+            - YEONGDO
+            - BUSAN_JUNG
+            - HAEUNDAE
+            - ULSAN_NAM
+            - ULSAN_DONG
+            - ULSAN_BUK
+            - ULJU
+            - ULSAN_JUNG
+            - GWANGSAN
+            - GWANGJU_NAM
+            - GWANGJU_DONG
+            - GWANGJU_BUK
+            - GWANGJU_SEO
+            - GANGNEUNG
+            - GOSEONG
+            - DONGHAE
+            - SAMCHEOK
+            - SOKCHO
+            - YANGGU
+            - YANGYANG
+            - YEONGWOL
+            - WONJU
+            - INJE
+            - JEONGSEON
+            - CHEORWON
+            - CHUNCHEON
+            - TAEBAEK
+            - PYEONGCHANG
+            - HONGCHEON
+            - HWACHEON
+            - HOENGSEONG
+            - SEJONG
+            - GOESAN
+            - DANYANG
+            - BOEUN
+            - YEONGDONG
+            - OKCHEON
+            - EUMSEONG
+            - JECHEON
+            - JEUNGPYEONG
+            - JINCHEON
+            - CHEONGJU
+            - CHUNGJU
+            - GYERYONG
+            - GONGJU
+            - GEUMSAN
+            - NONSAN
+            - DANGJIN
+            - BORYEONG
+            - BUYEO
+            - SEOSAN
+            - SEOCHON
+            - ASAN
+            - YEONGI
+            - YESAN
+            - CHEONAN
+            - CHEONGYANG
+            - TAEAN
+            - HONGSEONG
+            - GYEONGSAN
+            - GYEONGJU
+            - GORYEONG
+            - GUMI
+            - GIMCHEON
+            - MUNGYEONG
+            - BONGHWA
+            - SANGJU
+            - SEONGJU
+            - ANDONG
+            - YEONGDEOK
+            - YEONGYANG
+            - YEONGJU
+            - YEONGCHEON
+            - YECHUN
+            - ULLUNG
+            - ULJIN
+            - UISEONG
+            - CHEONGDO
+            - CHEONGSONG
+            - CHILGOK
+            - POHANG
+            - GEOJE
+            - GEOCHANG
+            - GOSEONG_GN
+            - GIMHAE
+            - NAMHAE
+            - MIRYANG
+            - SACHEON
+            - SANCHEONG
+            - YANGSAN
+            - UIRYEONG
+            - JINJU
+            - CHANGNYEONG
+            - CHANGWON
+            - TONGYEONG
+            - HADONG
+            - HAMAN
+            - HAMYANG
+            - HAPCHEON
+            - GOCHANG
+            - GUNSAN
+            - GIMJE
+            - NAMWON
+            - MUJU
+            - BUAN
+            - SUNCHANG
+            - WANJU
+            - IKSAN
+            - IMSIL
+            - JANGSU
+            - JEONJU
+            - JEONGEUP
+            - JINAN
+            - GANGJIN
+            - GOHEUNG
+            - GOKSEONG
+            - GWANGYANG
+            - GURYE
+            - NAJU
+            - DAMYANG
+            - MOKPO
+            - MUAN
+            - BOSEONG
+            - SUNCHEON
+            - SINAN
+            - YEOSU
+            - YEONGGWANG
+            - YEONGAM
+            - WANDO
+            - JANGSEONG
+            - JANGHEUNG
+            - JINDO
+            - HAMPYEONG
+            - HAENAM
+            - HWASUN
+            - JEJU
+            - SEOGWIPO
+            - GUNWEE
+            - DAEGU_NAM
+            - DALSEO
+            - DALSEONG
+            - DAEGU_DONG
+            - DAEGU_BUK
+            - DAEGU_SEO
+            - SUSEONG
+            - DAEGU_JUNG
     ArchivedInfoResponse:
       required:
       - birthDate

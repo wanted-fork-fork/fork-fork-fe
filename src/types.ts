@@ -18,6 +18,10 @@ export type LoginKakaoParams = {
 code: string;
 };
 
+export type SearchInfoParams = {
+searchInfoRequestDto: SearchInfoRequestDto;
+};
+
 export type UploadImageBody = {
   image: Blob;
 };
@@ -374,6 +378,283 @@ export interface ArchivedInfoResponse {
   smoking: UserInfoSmoking;
 }
 
+export type SearchInfoRequestDtoTownListItem = typeof SearchInfoRequestDtoTownListItem[keyof typeof SearchInfoRequestDtoTownListItem];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SearchInfoRequestDtoTownListItem = {
+  GANGNAM: 'GANGNAM',
+  GANGDONG: 'GANGDONG',
+  GANGBUK: 'GANGBUK',
+  GANGSEO: 'GANGSEO',
+  GWANAK: 'GWANAK',
+  GWANGJIN: 'GWANGJIN',
+  GURO: 'GURO',
+  GEUMCHEON: 'GEUMCHEON',
+  NOWON: 'NOWON',
+  DOBONG: 'DOBONG',
+  DONGDAEMUN: 'DONGDAEMUN',
+  DONGJAK: 'DONGJAK',
+  MAPO: 'MAPO',
+  SEODAEMUN: 'SEODAEMUN',
+  SEOCHO: 'SEOCHO',
+  SEONGDONG: 'SEONGDONG',
+  SEONGBUK: 'SEONGBUK',
+  SONGPA: 'SONGPA',
+  YANGCHEON: 'YANGCHEON',
+  YEONGDEUNGPO: 'YEONGDEUNGPO',
+  YONGSAN: 'YONGSAN',
+  EUNPYEONG: 'EUNPYEONG',
+  JONGNO: 'JONGNO',
+  SEOUL_JUNG: 'SEOUL_JUNG',
+  JUNGRANG: 'JUNGRANG',
+  GAPYEONG: 'GAPYEONG',
+  GOYANG: 'GOYANG',
+  GWACHEON: 'GWACHEON',
+  GWANGMYEONG: 'GWANGMYEONG',
+  GWANGJU: 'GWANGJU',
+  GURI: 'GURI',
+  GUNPO: 'GUNPO',
+  GIMPO: 'GIMPO',
+  NAMYANGJU: 'NAMYANGJU',
+  DONGDUCHEON: 'DONGDUCHEON',
+  BUCHEON: 'BUCHEON',
+  SEONGNAM: 'SEONGNAM',
+  SUWON: 'SUWON',
+  SIHEUNG: 'SIHEUNG',
+  ANSAN: 'ANSAN',
+  ANSEONG: 'ANSEONG',
+  ANYANG: 'ANYANG',
+  YANGJU: 'YANGJU',
+  YANGPYEONG: 'YANGPYEONG',
+  YEOJU: 'YEOJU',
+  YEONCHEON: 'YEONCHEON',
+  OSAN: 'OSAN',
+  YONGIN: 'YONGIN',
+  UIWANG: 'UIWANG',
+  UIJEONGBU: 'UIJEONGBU',
+  ICHEON: 'ICHEON',
+  PAJU: 'PAJU',
+  PYEONGTAEK: 'PYEONGTAEK',
+  POCHEON: 'POCHEON',
+  HANAM: 'HANAM',
+  HWASEONG: 'HWASEONG',
+  GANGHWA: 'GANGHWA',
+  GYEYANG: 'GYEYANG',
+  NAMDONG: 'NAMDONG',
+  INCHEON_DONG: 'INCHEON_DONG',
+  MICHUHOL: 'MICHUHOL',
+  BUPYEONG: 'BUPYEONG',
+  SEO: 'SEO',
+  YEONSU: 'YEONSU',
+  ONGJIN: 'ONGJIN',
+  INCHEON_JUNG: 'INCHEON_JUNG',
+  DAEDEOK: 'DAEDEOK',
+  DAEJEON_DONG: 'DAEJEON_DONG',
+  DAEJEON_SEO: 'DAEJEON_SEO',
+  YUSEONG: 'YUSEONG',
+  DAEJEON_JUNG: 'DAEJEON_JUNG',
+  BUSAN_GANGSEO: 'BUSAN_GANGSEO',
+  GEUMJEONG: 'GEUMJEONG',
+  GIJANG: 'GIJANG',
+  BUSAN_NAM: 'BUSAN_NAM',
+  BUSAN_DONG: 'BUSAN_DONG',
+  DONGNAE: 'DONGNAE',
+  BUSANJIN: 'BUSANJIN',
+  BUSAN_BUK: 'BUSAN_BUK',
+  SASANG: 'SASANG',
+  SAHA: 'SAHA',
+  BUSAN_SEO: 'BUSAN_SEO',
+  SUYEONG: 'SUYEONG',
+  YEONJE: 'YEONJE',
+  YEONGDO: 'YEONGDO',
+  BUSAN_JUNG: 'BUSAN_JUNG',
+  HAEUNDAE: 'HAEUNDAE',
+  ULSAN_NAM: 'ULSAN_NAM',
+  ULSAN_DONG: 'ULSAN_DONG',
+  ULSAN_BUK: 'ULSAN_BUK',
+  ULJU: 'ULJU',
+  ULSAN_JUNG: 'ULSAN_JUNG',
+  GWANGSAN: 'GWANGSAN',
+  GWANGJU_NAM: 'GWANGJU_NAM',
+  GWANGJU_DONG: 'GWANGJU_DONG',
+  GWANGJU_BUK: 'GWANGJU_BUK',
+  GWANGJU_SEO: 'GWANGJU_SEO',
+  GANGNEUNG: 'GANGNEUNG',
+  GOSEONG: 'GOSEONG',
+  DONGHAE: 'DONGHAE',
+  SAMCHEOK: 'SAMCHEOK',
+  SOKCHO: 'SOKCHO',
+  YANGGU: 'YANGGU',
+  YANGYANG: 'YANGYANG',
+  YEONGWOL: 'YEONGWOL',
+  WONJU: 'WONJU',
+  INJE: 'INJE',
+  JEONGSEON: 'JEONGSEON',
+  CHEORWON: 'CHEORWON',
+  CHUNCHEON: 'CHUNCHEON',
+  TAEBAEK: 'TAEBAEK',
+  PYEONGCHANG: 'PYEONGCHANG',
+  HONGCHEON: 'HONGCHEON',
+  HWACHEON: 'HWACHEON',
+  HOENGSEONG: 'HOENGSEONG',
+  SEJONG: 'SEJONG',
+  GOESAN: 'GOESAN',
+  DANYANG: 'DANYANG',
+  BOEUN: 'BOEUN',
+  YEONGDONG: 'YEONGDONG',
+  OKCHEON: 'OKCHEON',
+  EUMSEONG: 'EUMSEONG',
+  JECHEON: 'JECHEON',
+  JEUNGPYEONG: 'JEUNGPYEONG',
+  JINCHEON: 'JINCHEON',
+  CHEONGJU: 'CHEONGJU',
+  CHUNGJU: 'CHUNGJU',
+  GYERYONG: 'GYERYONG',
+  GONGJU: 'GONGJU',
+  GEUMSAN: 'GEUMSAN',
+  NONSAN: 'NONSAN',
+  DANGJIN: 'DANGJIN',
+  BORYEONG: 'BORYEONG',
+  BUYEO: 'BUYEO',
+  SEOSAN: 'SEOSAN',
+  SEOCHON: 'SEOCHON',
+  ASAN: 'ASAN',
+  YEONGI: 'YEONGI',
+  YESAN: 'YESAN',
+  CHEONAN: 'CHEONAN',
+  CHEONGYANG: 'CHEONGYANG',
+  TAEAN: 'TAEAN',
+  HONGSEONG: 'HONGSEONG',
+  GYEONGSAN: 'GYEONGSAN',
+  GYEONGJU: 'GYEONGJU',
+  GORYEONG: 'GORYEONG',
+  GUMI: 'GUMI',
+  GIMCHEON: 'GIMCHEON',
+  MUNGYEONG: 'MUNGYEONG',
+  BONGHWA: 'BONGHWA',
+  SANGJU: 'SANGJU',
+  SEONGJU: 'SEONGJU',
+  ANDONG: 'ANDONG',
+  YEONGDEOK: 'YEONGDEOK',
+  YEONGYANG: 'YEONGYANG',
+  YEONGJU: 'YEONGJU',
+  YEONGCHEON: 'YEONGCHEON',
+  YECHUN: 'YECHUN',
+  ULLUNG: 'ULLUNG',
+  ULJIN: 'ULJIN',
+  UISEONG: 'UISEONG',
+  CHEONGDO: 'CHEONGDO',
+  CHEONGSONG: 'CHEONGSONG',
+  CHILGOK: 'CHILGOK',
+  POHANG: 'POHANG',
+  GEOJE: 'GEOJE',
+  GEOCHANG: 'GEOCHANG',
+  GOSEONG_GN: 'GOSEONG_GN',
+  GIMHAE: 'GIMHAE',
+  NAMHAE: 'NAMHAE',
+  MIRYANG: 'MIRYANG',
+  SACHEON: 'SACHEON',
+  SANCHEONG: 'SANCHEONG',
+  YANGSAN: 'YANGSAN',
+  UIRYEONG: 'UIRYEONG',
+  JINJU: 'JINJU',
+  CHANGNYEONG: 'CHANGNYEONG',
+  CHANGWON: 'CHANGWON',
+  TONGYEONG: 'TONGYEONG',
+  HADONG: 'HADONG',
+  HAMAN: 'HAMAN',
+  HAMYANG: 'HAMYANG',
+  HAPCHEON: 'HAPCHEON',
+  GOCHANG: 'GOCHANG',
+  GUNSAN: 'GUNSAN',
+  GIMJE: 'GIMJE',
+  NAMWON: 'NAMWON',
+  MUJU: 'MUJU',
+  BUAN: 'BUAN',
+  SUNCHANG: 'SUNCHANG',
+  WANJU: 'WANJU',
+  IKSAN: 'IKSAN',
+  IMSIL: 'IMSIL',
+  JANGSU: 'JANGSU',
+  JEONJU: 'JEONJU',
+  JEONGEUP: 'JEONGEUP',
+  JINAN: 'JINAN',
+  GANGJIN: 'GANGJIN',
+  GOHEUNG: 'GOHEUNG',
+  GOKSEONG: 'GOKSEONG',
+  GWANGYANG: 'GWANGYANG',
+  GURYE: 'GURYE',
+  NAJU: 'NAJU',
+  DAMYANG: 'DAMYANG',
+  MOKPO: 'MOKPO',
+  MUAN: 'MUAN',
+  BOSEONG: 'BOSEONG',
+  SUNCHEON: 'SUNCHEON',
+  SINAN: 'SINAN',
+  YEOSU: 'YEOSU',
+  YEONGGWANG: 'YEONGGWANG',
+  YEONGAM: 'YEONGAM',
+  WANDO: 'WANDO',
+  JANGSEONG: 'JANGSEONG',
+  JANGHEUNG: 'JANGHEUNG',
+  JINDO: 'JINDO',
+  HAMPYEONG: 'HAMPYEONG',
+  HAENAM: 'HAENAM',
+  HWASUN: 'HWASUN',
+  JEJU: 'JEJU',
+  SEOGWIPO: 'SEOGWIPO',
+  GUNWEE: 'GUNWEE',
+  DAEGU_NAM: 'DAEGU_NAM',
+  DALSEO: 'DALSEO',
+  DALSEONG: 'DALSEONG',
+  DAEGU_DONG: 'DAEGU_DONG',
+  DAEGU_BUK: 'DAEGU_BUK',
+  DAEGU_SEO: 'DAEGU_SEO',
+  SUSEONG: 'SUSEONG',
+  DAEGU_JUNG: 'DAEGU_JUNG',
+} as const;
+
+export type SearchInfoRequestDtoSortDirection = typeof SearchInfoRequestDtoSortDirection[keyof typeof SearchInfoRequestDtoSortDirection];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SearchInfoRequestDtoSortDirection = {
+  ASC: 'ASC',
+  DESC: 'DESC',
+} as const;
+
+export type SearchInfoRequestDtoSortBy = typeof SearchInfoRequestDtoSortBy[keyof typeof SearchInfoRequestDtoSortBy];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SearchInfoRequestDtoSortBy = {
+  CREATED_DATE: 'CREATED_DATE',
+  NAME: 'NAME',
+} as const;
+
+export type SearchInfoRequestDtoGender = typeof SearchInfoRequestDtoGender[keyof typeof SearchInfoRequestDtoGender];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SearchInfoRequestDtoGender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+} as const;
+
+export interface SearchInfoRequestDto {
+  ageFrom?: string;
+  ageTo?: string;
+  gender?: SearchInfoRequestDtoGender;
+  heightFrom?: number;
+  heightTo?: number;
+  page?: number;
+  size?: number;
+  sortBy?: SearchInfoRequestDtoSortBy;
+  sortDirection?: SearchInfoRequestDtoSortDirection;
+  townList?: SearchInfoRequestDtoTownListItem[];
+}
+
 export interface LinkStatusResponse {
   isOpen: boolean;
   linkId: string;
@@ -556,6 +837,15 @@ export const IdealPartnerRequestLocation = {
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
 
+export type IdealPartnerRequestHobbies = typeof IdealPartnerRequestHobbies[keyof typeof IdealPartnerRequestHobbies];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const IdealPartnerRequestHobbies = {
+  IMPORTANT: 'IMPORTANT',
+  NOT_IMPORTANT: 'NOT_IMPORTANT',
+} as const;
+
 export interface IdealPartnerRequest {
   ageRange?: NumberRange;
   drinking: IdealPartnerDrinking;
@@ -574,15 +864,6 @@ export interface SaveInfoRequest {
   idealPartner?: IdealPartnerRequest;
   userInfo: UserInfoRequest;
 }
-
-export type IdealPartnerRequestHobbies = typeof IdealPartnerRequestHobbies[keyof typeof IdealPartnerRequestHobbies];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const IdealPartnerRequestHobbies = {
-  IMPORTANT: 'IMPORTANT',
-  NOT_IMPORTANT: 'NOT_IMPORTANT',
-} as const;
 
 export interface SaveSharingResponse {
   sharingId: string;
@@ -1405,6 +1686,16 @@ export const getMatchMakerName = (
       options);
     }
   
+export const searchInfo = (
+    params: SearchInfoParams,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ArchivedInfoResponse[]>(
+      {url: `/api/v1/info/search`, method: 'GET',
+        params
+    },
+      options);
+    }
+  
 export const getInfo = (
     id: string,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1507,6 +1798,7 @@ export type GetInfoBySharingIdResult = NonNullable<Awaited<ReturnType<typeof get
 export type ValidateLinkResult = NonNullable<Awaited<ReturnType<typeof validateLink>>>
 export type GetLinkByMatchMakerIdResult = NonNullable<Awaited<ReturnType<typeof getLinkByMatchMakerId>>>
 export type GetMatchMakerNameResult = NonNullable<Awaited<ReturnType<typeof getMatchMakerName>>>
+export type SearchInfoResult = NonNullable<Awaited<ReturnType<typeof searchInfo>>>
 export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
 export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
 export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
@@ -1574,6 +1866,8 @@ export const getValidateLinkResponseMock = (overrideResponse: Partial< ValidateL
 export const getGetLinkByMatchMakerIdResponseMock = (overrideResponse: Partial< LinkStatusResponse > = {}): LinkStatusResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
 export const getGetMatchMakerNameResponseMock = (): string => (faker.word.sample())
+
+export const getSearchInfoResponseMock = (): ArchivedInfoResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), id: faker.helpers.arrayElement([faker.word.sample(), undefined]), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), name: faker.word.sample(), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}})))
 
 export const getGetInfoResponseMock = (overrideResponse: Partial< DetailedInfoDto > = {}): DetailedInfoDto => ({id: faker.word.sample(), idealPartner: faker.helpers.arrayElement([{ageRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NO_PROBLEM','ONE_TWO_TIMES_A_WEEK','ONE_TWO_TIMES_A_MONTH','NEVER','ETC'] as const)}, heightRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), hobbies: faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), images: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), undefined]), location: faker.helpers.arrayElement([faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER','NEVER','GOOD','ETC'] as const)}, style: faker.helpers.arrayElement([faker.word.sample(), undefined]), toMatchMaker: faker.word.sample()}, undefined]), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), name: faker.word.sample(), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
 
@@ -2027,6 +2321,21 @@ export const getGetMatchMakerNameMockHandler = (overrideResponse?: string | ((in
   })
 }
 
+export const getSearchInfoMockHandler = (overrideResponse?: ArchivedInfoResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<ArchivedInfoResponse[]> | ArchivedInfoResponse[])) => {
+  return http.get('*/api/v1/info/search', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSearchInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getGetInfoMockHandler = (overrideResponse?: DetailedInfoDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<DetailedInfoDto> | DetailedInfoDto)) => {
   return http.get('*/api/v1/info/detail/:id', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -2176,6 +2485,7 @@ export const getGoogooApiMock = () => [
   getValidateLinkMockHandler(),
   getGetLinkByMatchMakerIdMockHandler(),
   getGetMatchMakerNameMockHandler(),
+  getSearchInfoMockHandler(),
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),

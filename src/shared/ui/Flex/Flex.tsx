@@ -17,20 +17,24 @@ const flexStyle = cva(styles.Flex, {
     },
     align: { start: styles.Align_Start, center: styles.Align_Center },
     direction: { vertical: styles.Direction_Vertical, horizontal: styles.Direction_Horizontal },
+    overflowX: { auto: styles.OverflowX_Auto, hidden: styles.OverflowX_Hidden, scroll: styles.OverflowX_Scroll },
+    overflowY: { auto: styles.OverflowY_Auto, hidden: styles.OverflowY_Hidden, scroll: styles.OverflowY_Scroll },
   },
   defaultVariants: {
     justify: 'center',
     align: 'center',
     direction: 'horizontal',
+    overflowX: 'auto',
+    overflowY: 'auto',
   },
 });
 
 const Flex = forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
-  const { className, direction, justify, align, gap, children, style, ...otherProps } = props;
+  const { className, direction, justify, align, overflowY, overflowX, gap, children, style, ...otherProps } = props;
   return (
     <div
       ref={ref}
-      className={`${flexStyle({ direction, justify, align })} ${className}`}
+      className={`${flexStyle({ direction, justify, align, overflowX, overflowY })} ${className}`}
       style={{ ['--flex-gap']: `${gap}px`, ...style }}
       {...otherProps}
     >
