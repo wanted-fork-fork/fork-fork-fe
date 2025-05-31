@@ -24,6 +24,7 @@ export { default as Minus } from './Minus';
 export { default as Person } from './Person';
 export { default as Plus } from './Plus';
 export { default as Refresh } from './Refresh';
+export { default as Search } from './Search';
 export { default as Share } from './Share';
 export { default as Timer } from './Timer';
 export { default as ToggleOff } from './ToggleOff';
