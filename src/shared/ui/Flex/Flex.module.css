@@ -1,0 +1,32 @@
+.Flex {
+    --flex-gap: 0;
+    display: flex;
+    gap: var(--flex-gap);
+}
+
+.Justify_Start {
+    justify-content: flex-start;
+}
+.Justify_End {
+    justify-content: flex-end;
+}
+.Justify_Center {
+    justify-content: center;
+}
+.Justify_Between {
+    justify-content: space-between;
+}
+
+.Align_Start {
+    align-items: flex-start;
+}
+.Align_Center {
+    align-items: center;
+}
+
+.Direction_Vertical {
+    flex-direction: column;
+}
+.Direction_Horizontal {
+    flex-direction: row;
+}
