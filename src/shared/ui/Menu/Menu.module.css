@@ -1,0 +1,21 @@
+.Container {
+    cursor: pointer;
+
+    width: 100%;
+    padding: 12px 16px;
+    text-align: left;
+
+    background-color: var(--color-neutral-0);
+    border: none;
+    outline: none;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-neutral-500);
+
+    &[aria-checked="true"] {
+        background-color: var(--color-neutral-100);
+        font-weight: 500;
+        color: var(--color-neutral-900);
+    }
+}
