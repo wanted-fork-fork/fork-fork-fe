@@ -10,9 +10,15 @@ import { useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
+import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);
+
+  const searchParams = new URL(request.url).searchParams;
+  const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+
+  const hasFilter = filterParams && Object.keys(filterParams).length > 0;
 
   const { data: profileList } = await getAllInfo({
     headers: {
@@ -38,6 +44,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       profileList,
       seenOnboarding: enrollmentData.hasSeenOnboarding,
       showEmailBanner: !enrollmentData.hasEmail && !enrollmentData.inEmailOptOut,
+      hasFilter,
     },
     {
       headers: {
@@ -48,7 +55,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { profileList, userInfo, seenOnboarding, showEmailBanner } = useLoaderData<typeof loader>();
+  const { profileList, userInfo, seenOnboarding, showEmailBanner, hasFilter } = useLoaderData<typeof loader>();
 
   const [seenOnboardingState, setSeenOnboardingState] = useState(seenOnboarding);
   const [showEmailForm, setShowEmailForm] = useState(!seenOnboarding && !userInfo.email);
@@ -57,7 +64,7 @@ export default function Index() {
 
   return seenOnboardingState ? (
     <>
-      <InfoListPage userInfo={userInfo} profileList={profileList} />
+      <InfoListPage userInfo={userInfo} profileList={profileList} hasFilter={hasFilter} />
       <GenerateFormLink />
       {showEmailBannerState && (
         <EmailBannerBottomSheet isOpen={showEmailBannerState} onClose={() => setShowEmailBannerState(false)} />

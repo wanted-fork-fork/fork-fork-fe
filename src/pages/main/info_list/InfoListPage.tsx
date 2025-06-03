@@ -12,13 +12,21 @@ import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
+import Flex from 'src/shared/ui/Flex/Flex';
+import { Chip } from 'src/shared/ui/Chip/Chip';
+
+const noop = () => {
+  /**/
+};
 
 export const InfoListPage = ({
   userInfo,
   profileList,
+  hasFilter,
 }: {
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
+  hasFilter: boolean;
 }) => {
   const [viewType, setViewType] = useLocalStorageState<'GRID' | 'LIST'>('info-list-type', 'LIST');
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
@@ -33,13 +41,21 @@ export const InfoListPage = ({
       </div>
       <div className={styles.ListHeader}>
         <p className={styles.ListInfo}>총 {profileList?.length}명</p>
-        <IconButton onClick={() => setViewType((prev) => (prev === 'GRID' ? 'LIST' : 'GRID'))}>
-          {viewType === 'GRID' ? (
-            <GridView color={Theme.color.neutral50} />
-          ) : (
-            <ListView color={Theme.color.neutral50} />
-          )}
-        </IconButton>
+        <Flex gap={12}>
+          <Link to={'/filter'}>
+            <Chip selected={hasFilter} onClick={noop}>
+              <span>필터 및 정렬 조건</span>
+              {hasFilter && <span className={styles.Dot} />}
+            </Chip>
+          </Link>
+          <IconButton onClick={() => setViewType((prev) => (prev === 'GRID' ? 'LIST' : 'GRID'))}>
+            {viewType === 'GRID' ? (
+              <GridView color={Theme.color.neutral50} />
+            ) : (
+              <ListView color={Theme.color.neutral50} />
+            )}
+          </IconButton>
+        </Flex>
       </div>
       {profileList?.length ? (
         <ScrollView viewportClassName={styles.Viewport}>
