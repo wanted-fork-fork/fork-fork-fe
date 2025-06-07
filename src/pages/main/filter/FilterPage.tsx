@@ -37,14 +37,18 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
   const { value: showAlignBottomSheet, setTrue: openAlign, setFalse: closeAlign } = useBoolean(false);
   const { value: showLocationBottomSheet, setTrue: openLocation, setFalse: closeLocation } = useBoolean(false);
 
-  const { handleSubmit, watch, register, setValue, reset } = useRemixForm<FormData>({
+  const {
+    handleSubmit,
+    watch,
+    register,
+    setValue,
+    reset,
+    formState: { isDirty, isValid },
+  } = useRemixForm<FormData>({
     mode: 'onSubmit',
     resolver,
     stringifyAllValues: false,
   });
-
-  const submitEnabled = true;
-  const resetEnabled = true;
 
   const { list, toggle } = useMultiSelectToggle<Location>([], (a, b) => a.town[0].town === b.town[0].town);
 
@@ -64,8 +68,12 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     return !(ageFrom && ageTo && Number(ageFrom) > Number(ageTo));
   }, [ageFrom, ageTo]);
 
-  const handleSelectAlign = (id: (typeof FILTER_ALIGN_KEYS)[number], idx: number) => {
+  const submitEnabled = isValidAge && isValidHeight && isValid;
+  const resetEnabled = isDirty;
+
+  const handleSelectAlign = (id: (typeof FILTER_ALIGN_KEYS)[number]) => {
     setValue('alignId', id);
+    closeAlign();
   };
 
   const handleCloseLocation = () => {
@@ -126,7 +134,10 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                 <h4>키(cm)</h4>
                 {isValidHeight && (
                   <span className={styles.RangeDescription}>
-                    {getRangeText({ min: watch('heightFrom'), max: watch('heightTo') }, 'cm')}
+                    {getRangeText(
+                      { min: watch('heightFrom'), max: watch('heightTo') },
+                      { unit: 'cm', infix: '이상', suffix: '이하', singlePostfix: { min: '이상', max: '이하' } },
+                    )}
                   </span>
                 )}
               </Flex>
@@ -142,7 +153,10 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                 <h4>나이(만)</h4>
                 {isValidAge && (
                   <span className={styles.RangeDescription}>
-                    {getRangeText({ min: watch('ageFrom'), max: watch('ageTo') }, '세')}
+                    {getRangeText(
+                      { min: watch('ageFrom'), max: watch('ageTo') },
+                      { unit: '세', infix: '이상', suffix: '이하', singlePostfix: { min: '이상', max: '이하' } },
+                    )}
                   </span>
                 )}
               </Flex>
@@ -192,8 +206,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
               name={align.name}
               selected={selectedAlign.name === align.name}
               onClick={() => {
-                handleSelectAlign(align.id, idx);
-                closeAlign();
+                handleSelectAlign(align.id);
               }}
             />
           ))}

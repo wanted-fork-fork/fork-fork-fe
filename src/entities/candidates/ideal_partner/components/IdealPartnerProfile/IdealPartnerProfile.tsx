@@ -34,7 +34,11 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
                 onClickEdit={() => onClickEdit?.('IDEAL_AGE')}
                 suffix={renderBadge('나이')}
               />
-              <span>{profile.ageRange ? getRangeText(profile.ageRange, '세') : '나이는 딱히 상관 없어요'}</span>
+              <span>
+                {profile.ageRange
+                  ? getRangeText(profile.ageRange, { unit: '세', singlePrefix: { min: '최소', max: '최대' } })
+                  : '나이는 딱히 상관 없어요'}
+              </span>
             </div>
           )}
           <div className={styles.Cell}>
@@ -43,7 +47,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
               suffix={renderBadge('키 + 선호하는 스타일')}
             />
-            <span>{getRangeText(profile.heightRange, 'cm')}</span>
+            <span>{getRangeText(profile.heightRange, { unit: 'cm', singlePrefix: { min: '최소', max: '최대' } })}</span>
           </div>
         </div>
       )}
