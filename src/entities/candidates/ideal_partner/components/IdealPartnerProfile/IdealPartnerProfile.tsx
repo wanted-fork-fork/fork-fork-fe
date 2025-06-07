@@ -7,6 +7,7 @@ import { IdealPartner, useIdealPartnerImages } from 'src/entities/candidates/ide
 import { getReligionText } from 'src/entities/candidates/info/utils/getReligionText';
 import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
 import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';
+import { getRangeText } from 'src/shared/functions/string';
 
 const ImportantBadge = () => <span className={styles.RequiredBadge}>중요</span>;
 
@@ -121,11 +122,4 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
       )}
     </section>
   );
-};
-
-const getRangeText = (range?: { min?: number; max?: number }, util?: string) => {
-  if (!range || (!range.min && !range.max)) return '상관 없어요';
-  if (!range.min) return `최대 ${range.max}${util}`;
-  if (!range.max) return `최소 ${range.min}${util}`;
-  return `${range.min}${util} - ${range.max}${util}`;
 };

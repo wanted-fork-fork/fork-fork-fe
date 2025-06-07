@@ -12,7 +12,7 @@ import { Menu } from 'src/shared/ui/Menu/Menu';
 import { useRemixForm } from 'remix-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { LocationSelectTable } from 'src/entities/candidates/_common/components/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
@@ -24,6 +24,7 @@ import {
   filterGenderList,
   filterSchema,
 } from 'src/entities/candidates/_common/libs/filter';
+import { getRangeText } from 'src/shared/functions/string';
 
 type FormData = z.infer<typeof filterSchema>;
 
@@ -36,7 +37,7 @@ export const FilterPage = () => {
   const { value: showAlignBottomSheet, setTrue: openAlign, setFalse: closeAlign } = useBoolean(false);
   const { value: showLocationBottomSheet, setTrue: openLocation, setFalse: closeLocation } = useBoolean(false);
 
-  const { handleSubmit, watch, register, setValue } = useRemixForm<FormData>({
+  const { handleSubmit, watch, register, setValue, reset } = useRemixForm<FormData>({
     mode: 'onSubmit',
     resolver,
     stringifyAllValues: false,
@@ -45,15 +46,39 @@ export const FilterPage = () => {
   const submitEnabled = true;
   const resetEnabled = true;
 
-  const [selectedAlign, setSelectedAlign] = useState(filterAlignList[0]);
   const { list, toggle } = useMultiSelectToggle<Location>([], (a, b) => a.town[0].town === b.town[0].town);
+
+  const alignId = watch('alignId');
+  const selectedAlign = useMemo(() => filterAlignList.find((a) => a.id === alignId) ?? filterAlignList[0], [alignId]);
+
+  const heightFrom = watch('heightFrom');
+  const heightTo = watch('heightTo');
+  const ageFrom = watch('ageFrom');
+  const ageTo = watch('ageTo');
+
+  const isValidHeight = useMemo(() => {
+    return !(heightFrom && heightTo && Number(heightFrom) > Number(heightTo));
+  }, [heightFrom, heightTo]);
+
+  const isValidAge = useMemo(() => {
+    return !(ageFrom && ageTo && Number(ageFrom) > Number(ageTo));
+  }, [ageFrom, ageTo]);
 
   const handleSelectAlign = (id: (typeof FILTER_ALIGN_KEYS)[number], idx: number) => {
     setValue('alignId', id);
-    setSelectedAlign(filterAlignList[idx]);
   };
 
-  const handleReset = () => {};
+  const handleCloseLocation = () => {
+    closeLocation();
+    setValue(
+      'townList',
+      list.map((city) => city.town[0].town),
+    );
+  };
+
+  const handleReset = () => {
+    reset();
+  };
 
   return (
     <>
@@ -91,26 +116,34 @@ export const FilterPage = () => {
             <div className={styles.Row}>
               <Flex direction={'horizontal'} justify={'between'}>
                 <h4>키(cm)</h4>
-                <span className={styles.RangeDescription}>170cm 이상</span>
+                {isValidHeight && (
+                  <span className={styles.RangeDescription}>
+                    {getRangeText({ min: watch('heightFrom'), max: watch('heightTo') }, 'cm')}
+                  </span>
+                )}
               </Flex>
               <div className={styles.RangeInput}>
                 <input className={styles.Input} type={'number'} placeholder={'최소'} {...register('heightFrom')} />
                 <span>-</span>
                 <input className={styles.Input} type={'number'} placeholder={'최고'} {...register('heightTo')} />
               </div>
-              <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
+              {!isValidHeight && <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>}
             </div>
             <div className={styles.Row}>
               <Flex direction={'horizontal'} justify={'between'}>
                 <h4>나이(만)</h4>
-                <span className={styles.RangeDescription}>170cm 이상 180cm 이하</span>
+                {isValidAge && (
+                  <span className={styles.RangeDescription}>
+                    {getRangeText({ min: watch('ageFrom'), max: watch('ageTo') }, '세')}
+                  </span>
+                )}
               </Flex>
               <div className={styles.RangeInput}>
                 <input className={styles.Input} type={'number'} placeholder={'최소'} {...register('ageFrom')} />
                 <span>-</span>
                 <input className={styles.Input} type={'number'} placeholder={'최고'} {...register('ageTo')} />
               </div>
-              <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>
+              {!isValidAge && <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>}
             </div>
             <div className={styles.Row}>
               <h4>지역</h4>
@@ -118,6 +151,11 @@ export const FilterPage = () => {
                 <span>지역 찾기</span>
                 <Search color={Theme.color.neutral30} />
               </button>
+              <Flex direction={'horizontal'} justify={'start'} gap={4} overflowX={'auto'}>
+                {list.map((loc) => (
+                  <Chip key={loc.town[0].town}>{getLocationText(loc, t)}</Chip>
+                ))}
+              </Flex>
             </div>
           </FormLayout.Body>
           <FormLayout.Footer className={styles.Footer}>
@@ -164,7 +202,9 @@ export const FilterPage = () => {
           </Flex>
           <LocationSelectTable selectedLocations={list} selectLocation={toggle} />
           <div className={styles.Footer}>
-            <Button widthType={'fill'}>선택 완료</Button>
+            <Button widthType={'fill'} onClick={handleCloseLocation}>
+              선택 완료
+            </Button>
           </div>
         </BottomSheet.Content>
       </BottomSheet>
