@@ -90,11 +90,19 @@ export const InfoListPage = ({
       ) : (
         <div className={styles.EmptyView}>
           <img src="/images/empty.png" alt="정보 목록이 비어있음" />
-          <p>
-            등록된 정보가 없습니다.
-            <br />
-            지인의 정보를 등록하여 인연을 이어주세요!
-          </p>
+          {hasFilter ? (
+            <p>
+              조건에 맞는 후보를 찾을 수 없습니다.
+              <br />
+              필터 조건을 변경하여 다시 검색해보세요.
+            </p>
+          ) : (
+            <p>
+              등록된 정보가 없습니다.
+              <br />
+              지인의 정보를 등록하여 인연을 이어주세요!
+            </p>
+          )}
         </div>
       )}
       <ProfileShareBottomSheet
