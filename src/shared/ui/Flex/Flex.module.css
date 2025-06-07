@@ -31,6 +31,10 @@
     flex-direction: row;
 }
 
+
+.OverflowX_Visible{
+    overflow-x: visible;
+}
 .OverflowX_Auto{
     overflow-x: auto
 }
@@ -39,6 +43,10 @@
 }
 .OverflowX_Scroll{
     overflow-x:scroll;
+}
+
+.OverflowY_Visible{
+    overflow-y: visible;
 }
 .OverflowY_Auto{
     overflow-y:auto;

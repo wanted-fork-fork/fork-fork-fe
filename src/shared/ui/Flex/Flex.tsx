@@ -17,15 +17,25 @@ const flexStyle = cva(styles.Flex, {
     },
     align: { start: styles.Align_Start, center: styles.Align_Center },
     direction: { vertical: styles.Direction_Vertical, horizontal: styles.Direction_Horizontal },
-    overflowX: { auto: styles.OverflowX_Auto, hidden: styles.OverflowX_Hidden, scroll: styles.OverflowX_Scroll },
-    overflowY: { auto: styles.OverflowY_Auto, hidden: styles.OverflowY_Hidden, scroll: styles.OverflowY_Scroll },
+    overflowX: {
+      visible: styles.OverflowX_Visible,
+      auto: styles.OverflowX_Auto,
+      hidden: styles.OverflowX_Hidden,
+      scroll: styles.OverflowX_Scroll,
+    },
+    overflowY: {
+      visible: styles.OverflowY_Visible,
+      auto: styles.OverflowY_Auto,
+      hidden: styles.OverflowY_Hidden,
+      scroll: styles.OverflowY_Scroll,
+    },
   },
   defaultVariants: {
     justify: 'center',
     align: 'center',
     direction: 'horizontal',
-    overflowX: 'auto',
-    overflowY: 'auto',
+    overflowX: 'visible',
+    overflowY: 'visible',
   },
 });
 
