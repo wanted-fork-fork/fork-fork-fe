@@ -43,7 +43,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     register,
     setValue,
     reset,
-    formState: { isDirty, isValid },
+    formState: { isValid, isDirty },
   } = useRemixForm<FormData>({
     mode: 'onSubmit',
     resolver,
@@ -72,7 +72,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
   const resetEnabled = isDirty;
 
   const handleSelectAlign = (id: (typeof FILTER_ALIGN_KEYS)[number]) => {
-    setValue('alignId', id);
+    setValue('alignId', id, { shouldDirty: true });
     closeAlign();
   };
 
@@ -81,6 +81,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     // setValue(
     //   'townList',
     //   list.map((city) => city.town[0].town),
+    //   { shouldDirty: true }
     // );
   };
 
@@ -92,7 +93,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     if (initialFilter) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      Object.entries(initialFilter).forEach(([k, v]) => setValue(k, v));
+      Object.entries(initialFilter).forEach(([k, v]) => setValue(k, v, { shouldDirty: true, shouldTouch: true }));
     }
   }, []);
 
