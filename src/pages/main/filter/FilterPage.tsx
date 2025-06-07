@@ -143,9 +143,21 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                 )}
               </Flex>
               <div className={styles.RangeInput}>
-                <input className={styles.Input} type={'number'} placeholder={'최소'} {...register('heightFrom')} />
+                <input
+                  className={styles.Input}
+                  type={'number'}
+                  inputMode={'numeric'}
+                  placeholder={'최소'}
+                  {...register('heightFrom')}
+                />
                 <span>-</span>
-                <input className={styles.Input} type={'number'} placeholder={'최고'} {...register('heightTo')} />
+                <input
+                  className={styles.Input}
+                  type={'number'}
+                  inputMode={'numeric'}
+                  placeholder={'최고'}
+                  {...register('heightTo')}
+                />
               </div>
               {!isValidHeight && <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>}
             </div>
@@ -162,9 +174,21 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                 )}
               </Flex>
               <div className={styles.RangeInput}>
-                <input className={styles.Input} type={'number'} placeholder={'최소'} {...register('ageFrom')} />
+                <input
+                  className={styles.Input}
+                  type={'number'}
+                  inputMode={'numeric'}
+                  placeholder={'최소'}
+                  {...register('ageFrom')}
+                />
                 <span>-</span>
-                <input className={styles.Input} type={'number'} placeholder={'최고'} {...register('ageTo')} />
+                <input
+                  className={styles.Input}
+                  type={'number'}
+                  inputMode={'numeric'}
+                  placeholder={'최고'}
+                  {...register('ageTo')}
+                />
               </div>
               {!isValidAge && <p className={styles.Error}>최소값보다 큰 숫자를 입력해주세요.</p>}
             </div>
