@@ -36,7 +36,11 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               />
               <span>
                 {profile.ageRange
-                  ? getRangeText(profile.ageRange, { unit: '세', singlePrefix: { min: '최소', max: '최대' } })
+                  ? getRangeText(profile.ageRange, {
+                      unit: '세',
+                      singlePrefix: { min: '최소', max: '최대' },
+                      empty: '상관 없어요',
+                    })
                   : '나이는 딱히 상관 없어요'}
               </span>
             </div>
@@ -47,7 +51,13 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
               onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
               suffix={renderBadge('키 + 선호하는 스타일')}
             />
-            <span>{getRangeText(profile.heightRange, { unit: 'cm', singlePrefix: { min: '최소', max: '최대' } })}</span>
+            <span>
+              {getRangeText(profile.heightRange, {
+                unit: 'cm',
+                singlePrefix: { min: '최소', max: '최대' },
+                empty: '상관 없어요',
+              })}
+            </span>
           </div>
         </div>
       )}
