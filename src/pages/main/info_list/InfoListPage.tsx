@@ -6,7 +6,7 @@ import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Button } from '../../../shared/ui/Button/Button';
 import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useMemo, useState } from 'react';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
@@ -14,6 +14,8 @@ import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
 import Flex from 'src/shared/ui/Flex/Flex';
 import { Chip } from 'src/shared/ui/Chip/Chip';
+import { z } from 'zod';
+import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 
 const noop = () => {
   /**/
@@ -23,13 +25,23 @@ export const InfoListPage = ({
   userInfo,
   profileList,
   hasFilter,
+  filter,
 }: {
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
   hasFilter: boolean;
+  filter: z.infer<typeof filterSchema>;
 }) => {
   const [viewType, setViewType] = useLocalStorageState<'GRID' | 'LIST'>('info-list-type', 'LIST');
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
+
+  const filterUrl = useMemo(() => {
+    const params = Object.entries(filter)
+      .filter(([, value]) => Boolean(value))
+      .map((kv) => kv.join('='))
+      .join('&');
+    return `/filter?${params}`;
+  }, [filter]);
 
   return (
     <div className={styles.Wrapper}>
@@ -42,7 +54,7 @@ export const InfoListPage = ({
       <div className={styles.ListHeader}>
         <p className={styles.ListInfo}>총 {profileList?.length}명</p>
         <Flex gap={12}>
-          <Link to={'/filter'}>
+          <Link to={filterUrl}>
             <Chip selected={hasFilter} onClick={noop}>
               <span>필터 및 정렬 조건</span>
               {hasFilter && <span className={styles.Dot} />}

@@ -27,3 +27,12 @@ export const convertDateToDateObject = (date: Date): DateObj => {
 export const calculateAge = (birthDate: Date) => {
   return dayjs(Date.now()).diff(birthDate, 'year');
 };
+
+export const calculateBirthDate = (age: number): DateObj => {
+  const today = new Date();
+  return {
+    year: today.getFullYear() - age,
+    month: today.getMonth() + 1,
+    date: today.getDate(),
+  };
+};
