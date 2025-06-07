@@ -91,7 +91,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { profileList, userInfo, seenOnboarding, showEmailBanner, filter } = useLoaderData<typeof loader>();
+  const { profileList, userInfo, seenOnboarding, showEmailBanner, hasFilter, filter } = useLoaderData<typeof loader>();
 
   const [seenOnboardingState, setSeenOnboardingState] = useState(seenOnboarding);
   const [showEmailForm, setShowEmailForm] = useState(!seenOnboarding && !userInfo.email);
@@ -100,7 +100,7 @@ export default function Index() {
 
   return seenOnboardingState ? (
     <>
-      <InfoListPage userInfo={userInfo} profileList={profileList} hasFilter={Boolean(filter)} filter={filter} />
+      <InfoListPage userInfo={userInfo} profileList={profileList} hasFilter={hasFilter} filter={filter} />
       <GenerateFormLink />
       {showEmailBannerState && (
         <EmailBannerBottomSheet isOpen={showEmailBannerState} onClose={() => setShowEmailBannerState(false)} />

@@ -1,12 +1,31 @@
 import { FilterPage } from 'src/pages/main/filter/FilterPage';
-import { ActionFunctionArgs, redirect } from '@remix-run/node';
+import { ActionFunctionArgs, json, LoaderFunctionArgs, redirect } from '@remix-run/node';
 import { getValidatedFormData } from 'remix-hook-form';
 import { z } from 'zod';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { commitSession } from 'src/app/server/sessions';
+import { authenticate } from 'src/app/server/authenticate';
+import { useLoaderData } from '@remix-run/react';
 
 type FormData = z.infer<typeof filterSchema>;
 const resolver = zodResolver(filterSchema);
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { newSession } = await authenticate(request);
+
+  const searchParams = new URL(request.url).searchParams;
+  const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+
+  return json(
+    { filter: filterParams },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
+};
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { errors, data, receivedValues: defaultValues } = await getValidatedFormData<FormData>(request, resolver);
@@ -24,5 +43,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function ListFilterPage() {
-  return <FilterPage />;
+  const { filter } = useLoaderData<typeof loader>();
+  return <FilterPage initialFilter={filter} />;
 }

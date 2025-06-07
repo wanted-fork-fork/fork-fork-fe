@@ -12,7 +12,7 @@ import { Menu } from 'src/shared/ui/Menu/Menu';
 import { useRemixForm } from 'remix-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { LocationSelectTable } from 'src/entities/candidates/_common/components/LocationSelectTable/LocationSelectTable';
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { Location } from 'src/entities/candidates/_common/vo/location/types/location';
@@ -30,7 +30,7 @@ type FormData = z.infer<typeof filterSchema>;
 
 const resolver = zodResolver(filterSchema);
 
-export const FilterPage = () => {
+export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -70,15 +70,23 @@ export const FilterPage = () => {
 
   const handleCloseLocation = () => {
     closeLocation();
-    setValue(
-      'townList',
-      list.map((city) => city.town[0].town),
-    );
+    // setValue(
+    //   'townList',
+    //   list.map((city) => city.town[0].town),
+    // );
   };
 
   const handleReset = () => {
     reset();
   };
+
+  useEffect(() => {
+    if (initialFilter) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      Object.entries(initialFilter).forEach(([k, v]) => setValue(k, v));
+    }
+  }, []);
 
   return (
     <>
