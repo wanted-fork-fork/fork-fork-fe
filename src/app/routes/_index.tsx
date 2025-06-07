@@ -43,8 +43,8 @@ export const loader: LoaderFunction = async ({ request }) => {
       size: 10,
       sortBy: align.sortBy,
       sortDirection: align.sortDirection,
-      ageTo,
-      ageFrom,
+      ageTo: ageFrom,
+      ageFrom: ageTo,
     } satisfies SearchInfoRequestDto;
     const { data } = await searchInfo(params as unknown as SearchInfoParams, {
       headers: {
