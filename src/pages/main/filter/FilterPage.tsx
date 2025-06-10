@@ -25,6 +25,7 @@ import {
   filterSchema,
 } from 'src/entities/candidates/_common/libs/filter';
 import { getRangeText } from 'src/shared/functions/string';
+import { SearchInfoRequestDtoGender } from 'src/types';
 
 type FormData = z.infer<typeof filterSchema>;
 
@@ -76,6 +77,10 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     closeAlign();
   };
 
+  const handleSelectGender = (gender: SearchInfoRequestDtoGender | undefined) => {
+    setValue('gender', gender, { shouldDirty: true });
+  };
+
   const handleCloseLocation = () => {
     closeLocation();
     // setValue(
@@ -123,7 +128,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                     key={name}
                     className={styles.Chip}
                     selected={watch('gender') === gender}
-                    onClick={() => setValue('gender', gender)}
+                    onClick={() => handleSelectGender(gender)}
                   >
                     {name}
                   </Chip>
@@ -225,7 +230,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
       {/* 정렬 조건 */}
       <BottomSheet detent={'content-height'} isOpen={showAlignBottomSheet} onClose={closeAlign}>
         <BottomSheet.Content className={styles.AlignSheetContent}>
-          {filterAlignList.map((align, idx) => (
+          {filterAlignList.map((align) => (
             <Menu
               key={align.name}
               name={align.name}
