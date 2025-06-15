@@ -1,13 +1,7 @@
 import { json, LoaderFunction } from '@remix-run/node';
 import { filterAlignList, filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { calculateBirthDate, convertDateObjectToDate } from 'src/shared/functions/date';
-import {
-  getAllInfo,
-  searchInfo,
-  SearchInfoParams,
-  SearchInfoRequestDto,
-  SearchInfoRequestDtoTownListItem,
-} from 'src/types';
+import { getAllInfo, searchInfo, SearchInfoParams, SearchInfoRequestDto } from 'src/types';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 
@@ -16,17 +10,20 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const townList = searchParams.get('townList[]')?.split(',') ?? [];
 
-  const hasFilter = filterParams && Object.keys(filterParams).length > 0;
+  const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
 
   if (hasFilter) {
     const align = filterAlignList.find((ali) => ali.id === filterParams?.alignId) ?? filterAlignList[0];
-    const { townList, ageFrom: ageFromValue, ageTo: ageToValue } = filterParams;
+    const { ageFrom: ageFromValue, ageTo: ageToValue } = filterParams ?? {};
     const ageFrom = ageFromValue ? convertDateObjectToDate(calculateBirthDate(ageFromValue)).toISOString() : undefined;
     const ageTo = ageToValue ? convertDateObjectToDate(calculateBirthDate(ageToValue)).toISOString() : undefined;
     const params = {
       ...filterParams,
-      townList: townList ? (townList as SearchInfoRequestDtoTownListItem[]) : undefined,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      townList: townList ? townList.join(',') : undefined,
       page: Number(searchParams.get('page')) || 0,
       size: 10,
       sortBy: align.sortBy,
@@ -41,8 +38,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
     return json(
       {
-        profileList: data,
-        hasMore: data.length >= 10,
+        profileList: data ?? [],
+        hasMore: data?.length >= 10,
       },
       {
         headers: {

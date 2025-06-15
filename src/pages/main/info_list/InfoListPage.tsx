@@ -43,6 +43,7 @@ export const InfoListPage = ({
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
   const filterUrl = useMemo(() => {
+    if (!hasFilter) return '/filter';
     const params = Object.entries(filter)
       .filter(([, value]) => Boolean(value))
       .map((kv) => kv.join('='))

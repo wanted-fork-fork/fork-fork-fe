@@ -17,8 +17,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const townList = searchParams.get('townList[]')?.split(',') ?? [];
 
-  const hasFilter = filterParams && Object.keys(filterParams).length > 0;
+  const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
 
   const { data: userInfo } = await info({
     headers: {
@@ -39,7 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       seenOnboarding: enrollmentData.hasSeenOnboarding,
       showEmailBanner: !enrollmentData.hasEmail && !enrollmentData.inEmailOptOut,
       hasFilter,
-      filter: filterParams,
+      filter: { ...filterParams, townList },
     },
     {
       headers: {

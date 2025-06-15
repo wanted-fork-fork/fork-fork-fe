@@ -36,7 +36,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const queries = Object.entries(data)
     .filter(([, v]) => Boolean(v))
-    .map(([k, v]) => `${k}=${v}`)
+    .map(([k, v]) => {
+      if (k !== 'townList') {
+        return `${k}=${v}`;
+      }
+      return `${k}[]=${v}`;
+    })
     .join('&');
 
   return redirect(`/?${queries}`);

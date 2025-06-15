@@ -48,7 +48,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
   } = useRemixForm<FormData>({
     mode: 'onSubmit',
     resolver,
-    stringifyAllValues: false,
+    stringifyAllValues: true,
   });
 
   const { list, toggle } = useMultiSelectToggle<Location>([], (a, b) => a.town[0].town === b.town[0].town);
@@ -83,11 +83,11 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
 
   const handleCloseLocation = () => {
     closeLocation();
-    // setValue(
-    //   'townList',
-    //   list.map((city) => city.town[0].town),
-    //   { shouldDirty: true }
-    // );
+    setValue(
+      'townList',
+      list.map((city) => city.town[0].town),
+      { shouldDirty: true },
+    );
   };
 
   const handleReset = () => {
