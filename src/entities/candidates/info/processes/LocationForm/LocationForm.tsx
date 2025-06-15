@@ -7,6 +7,7 @@ import { LocationSelectTable } from 'src/entities/candidates/_common/components/
 import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle';
 import { useTranslation } from 'react-i18next';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { getLocationText } from 'src/entities/candidates/info/utils/getLocationText';
 
 const MAX_LOCATION_COUNT = 5;
 
@@ -39,7 +40,7 @@ export const LocationForm = () => {
             suffixSlot={<Close width={18} />}
             onClick={() => handleSelectLocation(location)}
           >
-            {t(location.city.cityName)} {t(location.town[0].townName)}
+            {getLocationText(location, t)}
           </Chip>
         ))}
       </div>
