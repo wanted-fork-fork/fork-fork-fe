@@ -100,7 +100,8 @@
 }
 
 .SuffixSlot {
-
+    display: flex;
+    align-items: center;
 }
 
 .Center {

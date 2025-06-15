@@ -20,5 +20,5 @@ export const useMultiSelectToggle = <T>(
     });
   };
 
-  return { list, toggle };
+  return { list, toggle, setList };
 };

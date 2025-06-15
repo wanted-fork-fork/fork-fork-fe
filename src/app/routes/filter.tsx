@@ -16,9 +16,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const townList = searchParams.get('townList')?.split(',') ?? [];
 
   return json(
-    { filter: filterParams },
+    { filter: { ...filterParams, townList } },
     {
       headers: {
         ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),

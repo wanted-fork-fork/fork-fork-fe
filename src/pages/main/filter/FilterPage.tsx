@@ -3,7 +3,7 @@ import { Form, useNavigate } from '@remix-run/react';
 import { Button } from 'src/shared/ui/Button/Button';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { useBoolean } from 'src/shared/functions/useBoolean';
-import { ArrowDown, Search } from 'src/shared/ui/icons';
+import { ArrowDown, Close, Search } from 'src/shared/ui/icons';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import styles from './FilterPage.module.css';
 import { Theme } from 'src/shared/styles/constants';
@@ -26,6 +26,7 @@ import {
 } from 'src/entities/candidates/_common/libs/filter';
 import { getRangeText } from 'src/shared/functions/string';
 import { SearchInfoRequestDtoGender } from 'src/types';
+import { locationListMock } from 'src/entities/candidates/_common/vo/location/mocks/location.mock';
 
 type FormData = z.infer<typeof filterSchema>;
 
@@ -51,7 +52,23 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     stringifyAllValues: true,
   });
 
-  const { list, toggle } = useMultiSelectToggle<Location>([], (a, b) => a.town[0].town === b.town[0].town);
+  const initialTownList = useMemo(() => {
+    return (
+      (initialFilter?.townList
+        ?.map((town) => {
+          const city = locationListMock.find((city) =>
+            city.town.some((t) => {
+              return t.town === town;
+            }),
+          );
+          if (!city) return null;
+          return { city: city?.city, town: [city.town.find((city) => city.town === town)] } as Location;
+        })
+        .filter(Boolean) as Location[]) ?? []
+    );
+  }, [initialFilter?.townList]);
+
+  const { list, toggle } = useMultiSelectToggle<Location>(initialTownList, (a, b) => a.town[0].town === b.town[0].town);
 
   const alignId = watch('alignId');
   const selectedAlign = useMemo(() => filterAlignList.find((a) => a.id === alignId) ?? filterAlignList[0], [alignId]);
@@ -83,11 +100,10 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
 
   const handleCloseLocation = () => {
     closeLocation();
-    setValue(
-      'townList',
-      list.map((city) => city.town[0].town),
-      { shouldDirty: true },
-    );
+  };
+
+  const handleToggleLocation = (location: Location) => {
+    toggle(location);
   };
 
   const handleReset = () => {
@@ -101,6 +117,14 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
       Object.entries(initialFilter).forEach(([k, v]) => setValue(k, v, { shouldDirty: true, shouldTouch: true }));
     }
   }, []);
+
+  useEffect(() => {
+    setValue(
+      'townList',
+      list.map((city) => city.town[0].town),
+      { shouldDirty: true },
+    );
+  }, [list]);
 
   return (
     <>
@@ -205,7 +229,13 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
               </button>
               <Flex direction={'horizontal'} justify={'start'} gap={4} overflowX={'auto'}>
                 {list.map((loc) => (
-                  <Chip key={loc.town[0].town}>{getLocationText(loc, t)}</Chip>
+                  <Chip
+                    key={loc.town[0].town}
+                    onClick={() => handleToggleLocation(loc)}
+                    suffixSlot={<Close width={18} height={18} />}
+                  >
+                    {getLocationText(loc, t)}
+                  </Chip>
                 ))}
               </Flex>
             </div>
@@ -246,9 +276,15 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
       <BottomSheet detent={'content-height'} isOpen={showLocationBottomSheet} onClose={closeLocation}>
         <BottomSheet.Content className={styles.LocationSheetContent}>
           <h3>지역을 선택해주세요.</h3>
-          <Flex direction={'horizontal'} justify={'start'} gap={4} overflowX={'auto'}>
+          <Flex direction={'horizontal'} justify={'start'} gap={4} overflowX={'auto'} style={{ flexShrink: 0 }}>
             {list.map((loc) => (
-              <Chip key={loc.town[0].town}>{getLocationText(loc, t)}</Chip>
+              <Chip
+                key={loc.town[0].town}
+                onClick={() => handleToggleLocation(loc)}
+                suffixSlot={<Close width={18} height={18} />}
+              >
+                {getLocationText(loc, t)}
+              </Chip>
             ))}
           </Flex>
           <LocationSelectTable selectedLocations={list} selectLocation={toggle} />
