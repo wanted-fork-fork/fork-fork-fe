@@ -6,7 +6,7 @@ import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
 import { Button } from '../../../shared/ui/Button/Button';
 import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
-import { MouseEvent, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
@@ -16,6 +16,7 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import { Chip } from 'src/shared/ui/Chip/Chip';
 import { z } from 'zod';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
+import { useIntersectionObserver } from 'src/shared/functions/useIntersectionObserver';
 
 const noop = () => {
   /**/
@@ -26,12 +27,18 @@ export const InfoListPage = ({
   profileList,
   hasFilter,
   filter,
+  loading = false,
+  onIntersectBottom,
 }: {
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
   hasFilter: boolean;
   filter: z.infer<typeof filterSchema>;
+  loading?: boolean;
+  onIntersectBottom?: () => void;
 }) => {
+  const { ref, isIntersecting } = useIntersectionObserver();
+
   const [viewType, setViewType] = useLocalStorageState<'GRID' | 'LIST'>('info-list-type', 'LIST');
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
@@ -42,6 +49,10 @@ export const InfoListPage = ({
       .join('&');
     return `/filter?${params}`;
   }, [filter]);
+
+  useEffect(() => {
+    if (isIntersecting) onIntersectBottom?.();
+  }, [isIntersecting, onIntersectBottom]);
 
   return (
     <div className={styles.Wrapper}>
@@ -69,7 +80,7 @@ export const InfoListPage = ({
           </IconButton>
         </Flex>
       </div>
-      {profileList?.length ? (
+      {profileList?.length > 0 && (
         <ScrollView viewportClassName={styles.Viewport}>
           {viewType === 'GRID' ? (
             <ProfileCardGrid
@@ -86,8 +97,10 @@ export const InfoListPage = ({
               )}
             />
           )}
+          <div ref={ref} style={{ margin: 'auto', height: '20px' }} />
         </ScrollView>
-      ) : (
+      )}
+      {!loading && (!profileList || profileList.length === 0) && (
         <div className={styles.EmptyView}>
           <img src="/images/empty.png" alt="정보 목록이 비어있음" />
           {hasFilter ? (
@@ -105,6 +118,7 @@ export const InfoListPage = ({
           )}
         </div>
       )}
+      {loading && <p>불러오는중..</p>}
       <ProfileShareBottomSheet
         infoId={shareTargetId}
         isOpen={Boolean(shareTargetId)}
