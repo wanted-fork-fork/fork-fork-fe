@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
-  const townList = searchParams.get('townList')?.split(',') ?? [];
+  const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
 
   return json(
     { filter: { ...filterParams, townList } },

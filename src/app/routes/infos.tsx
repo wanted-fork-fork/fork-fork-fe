@@ -10,7 +10,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
-  const townList = searchParams.get('townList')?.split(',') ?? [];
+  const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
 
   const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
 
