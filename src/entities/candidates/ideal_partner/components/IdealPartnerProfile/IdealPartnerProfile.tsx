@@ -25,52 +25,46 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
 
   return (
     <section className={styles.Grid}>
-      {(showBlankValue || profile.ageRange || profile.heightRange) && (
-        <div className={styles.GridRow}>
-          {(showBlankValue || profile.ageRange) && (
-            <div className={styles.Cell}>
-              <ProfileCellHeader
-                title={'선호하는 연령대'}
-                onClickEdit={() => onClickEdit?.('IDEAL_AGE')}
-                suffix={renderBadge('나이')}
-              />
-              <span>
-                {profile.ageRange
-                  ? getRangeText(profile.ageRange, {
-                      unit: '세',
-                      singlePrefix: { min: '최소', max: '최대' },
-                      empty: '상관 없어요',
-                    })
-                  : '나이는 딱히 상관 없어요'}
-              </span>
-            </div>
-          )}
-          <div className={styles.Cell}>
-            <ProfileCellHeader
-              title={'선호하는 키'}
-              onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
-              suffix={renderBadge('키 + 선호하는 스타일')}
-            />
-            <span>
-              {getRangeText(profile.heightRange, {
-                unit: 'cm',
-                singlePrefix: { min: '최소', max: '최대' },
-                empty: '상관 없어요',
-              })}
-            </span>
-          </div>
-        </div>
-      )}
-      {(showBlankValue || profile.style) && (
+      <div className={styles.GridRow}>
         <div className={styles.Cell}>
           <ProfileCellHeader
-            title={'선호하는 스타일'}
+            title={'선호하는 연령대'}
+            onClickEdit={() => onClickEdit?.('IDEAL_AGE')}
+            suffix={renderBadge('나이')}
+          />
+          <span>
+            {profile.ageRange
+              ? getRangeText(profile.ageRange, {
+                  unit: '세',
+                  singlePrefix: { min: '최소', max: '최대' },
+                  empty: '상관 없어요',
+                })
+              : '나이는 딱히 상관 없어요'}
+          </span>
+        </div>
+        <div className={styles.Cell}>
+          <ProfileCellHeader
+            title={'선호하는 키'}
             onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
             suffix={renderBadge('키 + 선호하는 스타일')}
           />
-          <span>{profile.style}</span>
+          <span>
+            {getRangeText(profile.heightRange, {
+              unit: 'cm',
+              singlePrefix: { min: '최소', max: '최대' },
+              empty: '상관 없어요',
+            })}
+          </span>
         </div>
-      )}
+      </div>
+      <div className={styles.Cell}>
+        <ProfileCellHeader
+          title={'선호하는 스타일'}
+          onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')}
+          suffix={renderBadge('키 + 선호하는 스타일')}
+        />
+        <span>{profile.style || '상관 없어요'}</span>
+      </div>
       {(showBlankValue || profile.imageDtoList.length > 0) && (
         <div className={styles.Cell}>
           <ProfileCellHeader title={'이상형 참고 사진'} onClickEdit={() => onClickEdit?.('IDEAL_HEIGHT_STYLE')} />
@@ -95,36 +89,30 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
         />
         <span>{t(`HOBBY_${profile.hobbies}`)}</span>
       </div>
-      {(showBlankValue || profile.religion) && (
-        <div className={styles.Cell}>
-          <ProfileCellHeader
-            title={'종교'}
-            onClickEdit={() => onClickEdit?.('IDEAL_RELIGION')}
-            suffix={renderBadge('종교')}
-          />
-          <span>{getReligionText(profile.religion, t)}</span>
-        </div>
-      )}
-      {(showBlankValue || profile.drinking) && (
-        <div className={styles.Cell}>
-          <ProfileCellHeader
-            title={'음주 빈도'}
-            onClickEdit={() => onClickEdit?.('IDEAL_DRINKING')}
-            suffix={renderBadge('음주 습관')}
-          />
-          <span>{getDrinkingText(profile.drinking, t)}</span>
-        </div>
-      )}
-      {(showBlankValue || profile.smoking) && (
-        <div className={styles.Cell}>
-          <ProfileCellHeader
-            title={'흡연여부'}
-            onClickEdit={() => onClickEdit?.('IDEAL_SMOKING')}
-            suffix={renderBadge('흡연 여부')}
-          />
-          <span>{getSmokingText(profile.smoking, 'IDEAL', t)}</span>
-        </div>
-      )}
+      <div className={styles.Cell}>
+        <ProfileCellHeader
+          title={'종교'}
+          onClickEdit={() => onClickEdit?.('IDEAL_RELIGION')}
+          suffix={renderBadge('종교')}
+        />
+        <span>{getReligionText(profile.religion, t)}</span>
+      </div>
+      <div className={styles.Cell}>
+        <ProfileCellHeader
+          title={'음주 빈도'}
+          onClickEdit={() => onClickEdit?.('IDEAL_DRINKING')}
+          suffix={renderBadge('음주 습관')}
+        />
+        <span>{getDrinkingText(profile.drinking, t)}</span>
+      </div>
+      <div className={styles.Cell}>
+        <ProfileCellHeader
+          title={'흡연여부'}
+          onClickEdit={() => onClickEdit?.('IDEAL_SMOKING')}
+          suffix={renderBadge('흡연 여부')}
+        />
+        <span>{getSmokingText(profile.smoking, 'IDEAL', t)}</span>
+      </div>
       {(showBlankValue || profile.toMatchMaker) && (
         <div className={`${styles.Cell} ${styles.Introduce}`}>
           <ProfileCellHeader
