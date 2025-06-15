@@ -12,5 +12,6 @@ export const Default: Story = {
   args: {
     placeholder: '자신의 키를 입력해주세요',
     suffixSlot: 'cm',
+    shape: 'underline',
   },
 };

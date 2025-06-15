@@ -3,10 +3,13 @@ import { Radio } from 'src/shared/ui/Radio/Radio';
 import { Input } from 'src/shared/ui/Input/Input';
 import { ChangeEvent } from 'react';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { getRangeText } from 'src/shared/functions/string';
 
 export const AgeForm = () => {
   const idealPartnerAge = useIdealPartnerStore((state) => state.ageRange);
   const { min, max } = idealPartnerAge ?? { min: undefined, max: undefined };
+
+  const isValid = !(min && max && min > max);
 
   const toggleAge = useIdealPartnerStore((state) => state.toggleAge);
   const onChangeRadio = (type: boolean) => toggleAge(type);
@@ -44,29 +47,44 @@ export const AgeForm = () => {
           checked={!idealPartnerAge}
           onChange={() => onChangeRadio(false)}
         />
-        <Radio label={'네, 있어요!'} checked={Boolean(idealPartnerAge)} onChange={() => onChangeRadio(true)} />
+        <Radio
+          label={'네, 있어요!'}
+          suffix={
+            Boolean(isValid && (min || max)) && (
+              <span className={styles.RadioSuffix}>
+                만{' '}
+                {getRangeText(
+                  { min, max },
+                  { unit: '세', infix: '이상', suffix: '이하', singlePostfix: { min: '이상', max: '이하' } },
+                )}
+              </span>
+            )
+          }
+          checked={Boolean(idealPartnerAge)}
+          onChange={() => onChangeRadio(true)}
+        />
         {idealPartnerAge && (
           <div className={styles.AgeDetailWrapper}>
-            <small>선호하는 연령대를 입력해주세요. (만나이 기준)</small>
             <div className={styles.AgeInputWrapper}>
               <Input
-                placeholder={'최소 나이'}
-                suffixSlot={<span>세</span>}
+                placeholder={'최소'}
                 value={min ?? ''}
                 onChange={onChangeMin}
                 inputMode={'numeric'}
                 max={100}
+                shape={'box'}
               />
               <span>-</span>
               <Input
-                placeholder={'최대 나이'}
-                suffixSlot={<span>세</span>}
+                placeholder={'최대'}
                 value={max ?? ''}
                 onChange={onChangeMax}
                 inputMode={'numeric'}
                 max={100}
+                shape={'box'}
               />
             </div>
+            {!isValid && <p className={styles.Error}>최솟값보다 큰 값을 입력해주세요.</p>}
           </div>
         )}
       </div>
