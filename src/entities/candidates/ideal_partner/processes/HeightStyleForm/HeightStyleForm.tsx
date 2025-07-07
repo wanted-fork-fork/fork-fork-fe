@@ -8,6 +8,7 @@ import {
   useIdealPartnerStore,
   useRemoveIdealPartnerImageDto,
 } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { Accordion } from 'src/shared/ui/Accordion/Accordion';
 
 export const HeightStyleForm = () => {
   const idealHeight = useIdealPartnerStore((state) => state.heightRange);
@@ -66,47 +67,44 @@ export const HeightStyleForm = () => {
       </div>
       {enabled && (
         <div className={styles.Container}>
-          <p className={styles.Description}>그렇다면 선호하는 키와 스타일을 알려주세요</p>
-          <div className={styles.HeightInputWrapper}>
-            <p className={'label'}>키</p>
+          <p className={styles.Description}>주선자가 꼭 알아야 하는 사항을 입력해주세요.</p>
+          <Accordion summary={'선호하는 키'} summaryClassName={styles.AccordionSummary}>
             <div className={styles.HeightInput}>
               <Input
-                placeholder={'최소 키 입력'}
-                suffixSlot={<span>cm</span>}
+                shape={'box'}
+                placeholder={'최소'}
                 value={min ?? ''}
                 onChange={onChangeMin}
                 inputMode={'numeric'}
               />
               <span>-</span>
               <Input
-                placeholder={'최대 키 입력'}
-                suffixSlot={<span>cm</span>}
+                shape={'box'}
+                placeholder={'최대'}
                 value={max ?? ''}
                 onChange={onChangeMax}
                 inputMode={'numeric'}
               />
             </div>
-          </div>
-          <label className={styles.StyleInputWrapper}>
-            선호하는 스타일
+            <p className={styles.Error}>최솟값보다 큰 값을 입력해주세요.</p>
+          </Accordion>
+          <Accordion summary={'좋아하는 스타일'} summaryClassName={styles.AccordionSummary}>
             <Input
+              shape={'box'}
               placeholder={'ex. 눈이 크신 분, 안경이 잘 어울리시는 분'}
               value={style}
               onChange={(e) => setStyle(e.target.value)}
             />
-          </label>
-          <div>
-            <div className={styles.PictureLabelContainer}>
-              <p className={'label'}>이상형 참고사진</p>
-              <p className={styles.PictureLabelDescription}>사진은 최대 10장까지 올릴 수 있어요.</p>
-            </div>
+          </Accordion>
+          <Accordion summary={'이상형 참고 사진'} summaryClassName={styles.AccordionSummary}>
+            <p className={styles.PictureLabelDescription}>사진은 최대 10장까지 올릴 수 있어요.</p>
             <AvatarList
               imageDtoList={imageDtoList}
               setFiles={setFiles}
               maxFileCount={10}
               onClickRemove={removeImageDto}
             />
-          </div>
+          </Accordion>
         </div>
       )}
     </section>

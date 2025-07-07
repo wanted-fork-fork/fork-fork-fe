@@ -34,7 +34,9 @@ export const UploadLoadingPage = ({
       {
         linkKey,
         userInfo: JSON.stringify(convertProfileToDto(profile, profileImageResults)),
-        idealPartner: JSON.stringify(convertIdealPartnerToDto(idealPartner, idealImageResults)),
+        idealPartner: idealPartner.skipped
+          ? null
+          : JSON.stringify(convertIdealPartnerToDto(idealPartner, idealImageResults)),
       },
       { method: 'post' },
     );

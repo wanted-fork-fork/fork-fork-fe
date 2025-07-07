@@ -13,6 +13,7 @@ import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from '@rem
 import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 const MAX_STEP_COUNT = 7;
 
@@ -21,15 +22,17 @@ const createFormPageStep = ({
   name,
   linkKey,
   increase,
+  skipIdeal,
 }: {
   matchMakerName: string;
   name: string;
   linkKey: string;
   increase: () => void;
+  skipIdeal: () => void;
 }) => ({
   0: <ProfileFormIntroPage matchMakerName={matchMakerName} onClickNextStep={increase} />,
   1: <MyProfilePage onClickNextStep={increase} />,
-  2: <IdealPartnerIntroPage name={name} onClickNextStep={increase} />,
+  2: <IdealPartnerIntroPage name={name} onClickNextStep={increase} onClickSkip={skipIdeal} />,
   3: <IdealPartnerPage onClickNextStep={increase} />,
   4: <FormConfirmPage onClickNextStep={increase} />,
   5: <UploadLoadingPage name={name} linkKey={linkKey} onComplete={increase} />,
@@ -87,10 +90,17 @@ export default function ProfileFormPage() {
   const name = useProfileFirstName();
 
   const [step, setStep] = useState(0);
+  const skip = useIdealPartnerStore((state) => state.skip);
+
   const increase = () => setStep((prev) => (prev + 1 < MAX_STEP_COUNT ? prev + 1 : prev));
 
+  const skipIdeal = () => {
+    skip();
+    setStep(4);
+  };
+
   const formPageStep = useMemo(
-    () => createFormPageStep({ name, linkKey, increase, matchMakerName }),
+    () => createFormPageStep({ name, linkKey, increase, matchMakerName, skipIdeal }),
     [linkKey, matchMakerName, name],
   );
 

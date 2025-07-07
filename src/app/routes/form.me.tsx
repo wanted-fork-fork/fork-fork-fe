@@ -14,6 +14,7 @@ import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
+import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 /**
  * TODO: form.$key.tsx 페이지 복붙이니, 중복되는 부분 어느정도 공통화 필요
@@ -26,14 +27,16 @@ const createFormPageStep = ({
   linkKey,
   increase,
   goPrevPage,
+  skipIdeal,
 }: {
   name: string;
   linkKey: string;
   increase: () => void;
   goPrevPage: () => void;
+  skipIdeal: () => void;
 }) => ({
   0: <MyProfilePage onClickNextStep={increase} onClickMovePrevPage={goPrevPage} />,
-  1: <IdealPartnerIntroPage name={name} onClickNextStep={increase} />,
+  1: <IdealPartnerIntroPage name={name} onClickNextStep={increase} onClickSkip={skipIdeal} />,
   2: <IdealPartnerPage onClickNextStep={increase} />,
   3: <FormConfirmPage onClickNextStep={increase} />,
   4: <UploadLoadingPage name={name} linkKey={linkKey} onComplete={increase} />,
@@ -105,7 +108,13 @@ export default function ProfileFormPage() {
   const name = useProfileFirstName();
 
   const [step, setStep] = useState(0);
+  const skip = useIdealPartnerStore((state) => state.skip);
   const increase = useCallback(() => setStep((prev) => (prev + 1 < MAX_STEP_COUNT ? prev + 1 : prev)), []);
+
+  const skipIdeal = () => {
+    skip();
+    setStep(3);
+  };
 
   const navigate = useNavigate();
   const goPrevPage = useCallback(() => {
@@ -113,7 +122,7 @@ export default function ProfileFormPage() {
   }, [navigate]);
 
   const formPageStep = useMemo(
-    () => createFormPageStep({ name, linkKey, increase, goPrevPage }),
+    () => createFormPageStep({ name, linkKey, increase, goPrevPage, skipIdeal }),
     [name, linkKey, increase, goPrevPage],
   );
 

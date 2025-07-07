@@ -15,6 +15,7 @@ import { pickNonFunctionValues } from 'src/shared/functions/pickNonFunctionValue
 export const REQUIRED_OPTION_MAX_COUNT = 3;
 
 export type IdealPartner = {
+  skipped: boolean;
   ageRange?: {
     min?: number;
     max?: number;
@@ -45,6 +46,7 @@ export type IdealPartner = {
 };
 
 type Action = {
+  skip: () => void;
   toggleAge: (on: boolean) => void;
   setMinAge: (value?: number) => void;
   setMaxAge: (value?: number) => void;
@@ -69,6 +71,7 @@ type Action = {
 
 const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
+    skipped: false,
     ageRange: undefined,
     heightRange: undefined,
     style: '',
@@ -91,6 +94,7 @@ const createStoreHook = (initialState?: IdealPartner) =>
     requiredOptions: [],
     toMatchMaker: '',
     ...initialState,
+    skip: () => set({ skipped: true }),
     toggleAge: (on: boolean) => set({ ageRange: on ? { max: undefined, min: undefined } : undefined }),
     setMinAge: (min) => set({ ageRange: { ...get().ageRange, min } }),
     setMaxAge: (max) => set({ ageRange: { ...get().ageRange, max } }),

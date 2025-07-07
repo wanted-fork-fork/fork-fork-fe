@@ -2,7 +2,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
+  margin-left: 32px;
 }
 
 .HeightInputWrapper {
@@ -21,9 +22,16 @@
   }
 }
 
+.Error {
+  font-size: 14px;
+  color: var(--color-negative);
+  margin-top: 8px;
+}
+
 .Description {
   font-size: 16px;
   color: var(--color-neutral-500);
+  margin-bottom: 8px;
 }
 
 .StyleInputWrapper{
@@ -42,4 +50,12 @@
   font-weight: 500;
   font-size: 14px;
   color: var(--color-neutral-500);
+}
+
+.AccordionSummary {
+  padding: 14px 0;
+
+  .Suffix {
+    font-weight: 400;
+  }
 }
