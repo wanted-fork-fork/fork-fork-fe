@@ -4,10 +4,12 @@ import { Input } from 'src/shared/ui/Input/Input';
 import { ChangeEvent } from 'react';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { getRangeText } from 'src/shared/functions/string';
+import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_partner/processes/_store/idealPartnerFormProcessStore';
 
 export const AgeForm = () => {
   const idealPartnerAge = useIdealPartnerStore((state) => state.ageRange);
   const { min, max } = idealPartnerAge ?? { min: undefined, max: undefined };
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
 
   const isValid = !(min && max && min > max);
 
@@ -18,6 +20,7 @@ export const AgeForm = () => {
   const setMax = useIdealPartnerStore((state) => state.setMaxAge);
 
   const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
+    addTouchedStep('IDEAL_AGE');
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMin(undefined);
@@ -29,6 +32,7 @@ export const AgeForm = () => {
   };
 
   const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
+    addTouchedStep('IDEAL_AGE');
     const value = Number(e.target.value);
     if (value <= 0 || isNaN(value)) {
       setMax(undefined);

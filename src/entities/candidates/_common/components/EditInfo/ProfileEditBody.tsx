@@ -30,11 +30,11 @@ export const ProfileEditBody = ({
   const hasTouchedProfile = useMyProfileFormProcessStore((state) => state.hasTouchedStep);
   const touchedIdeal = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
   const canGoNext =
-    stepMeta.canGoNext(type === 'PROFILE' ? profileState : idealState) ||
-    (selectedKey &&
-      (type === 'PROFILE'
-        ? hasTouchedProfile(selectedKey as keyof typeof MyProfileStepMeta)
-        : touchedIdeal.has(selectedKey as keyof typeof IdealPartnerStepMeta)));
+    stepMeta.canGoNext(type === 'PROFILE' ? profileState : idealState) &&
+    selectedKey &&
+    (type === 'PROFILE'
+      ? hasTouchedProfile(selectedKey as keyof typeof MyProfileStepMeta)
+      : touchedIdeal.has(selectedKey as keyof typeof IdealPartnerStepMeta));
 
   const handleClickComplete = () => {
     onCompleteEdit(profileState, idealState);

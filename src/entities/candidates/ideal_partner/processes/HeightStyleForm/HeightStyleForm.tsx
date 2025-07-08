@@ -9,6 +9,8 @@ import {
   useRemoveIdealPartnerImageDto,
 } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { Accordion } from 'src/shared/ui/Accordion/Accordion';
+import Flex from 'src/shared/ui/Flex/Flex';
+import { getRangeText } from 'src/shared/functions/string';
 
 export const HeightStyleForm = () => {
   const idealHeight = useIdealPartnerStore((state) => state.heightRange);
@@ -68,7 +70,20 @@ export const HeightStyleForm = () => {
       {enabled && (
         <div className={styles.Container}>
           <p className={styles.Description}>주선자가 꼭 알아야 하는 사항을 입력해주세요.</p>
-          <Accordion summary={'선호하는 키'} summaryClassName={styles.AccordionSummary}>
+          <Accordion
+            summary={
+              <Flex className={styles.AccordionWithPostfix} justify={'between'} align={'center'}>
+                <p>선호하는 키</p>
+                <span className={styles.Postfix}>
+                  {getRangeText(
+                    { min, max },
+                    { unit: 'cm', infix: '이상', suffix: '이하', singlePostfix: { min: '이상', max: '이하' } },
+                  )}
+                </span>
+              </Flex>
+            }
+            summaryClassName={styles.AccordionSummary}
+          >
             <div className={styles.HeightInput}>
               <Input
                 shape={'box'}
@@ -86,9 +101,16 @@ export const HeightStyleForm = () => {
                 inputMode={'numeric'}
               />
             </div>
-            <p className={styles.Error}>최솟값보다 큰 값을 입력해주세요.</p>
+            {Boolean(min && max && min >= max) && <p className={styles.Error}>최솟값보다 큰 값을 입력해주세요.</p>}
           </Accordion>
-          <Accordion summary={'좋아하는 스타일'} summaryClassName={styles.AccordionSummary}>
+          <Accordion
+            summary={
+              <Flex className={styles.AccordionWithPostfix} justify={'between'} align={'center'}>
+                <span>좋아하는 스타일</span>
+              </Flex>
+            }
+            summaryClassName={styles.AccordionSummary}
+          >
             <Input
               shape={'box'}
               placeholder={'ex. 눈이 크신 분, 안경이 잘 어울리시는 분'}

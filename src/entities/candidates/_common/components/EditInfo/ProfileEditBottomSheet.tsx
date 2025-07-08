@@ -25,7 +25,9 @@ export const ProfileEditBottomSheet = ({ selectedKey, extra, onClose, onComplete
   const profileState = useMyProfileStore((state) => state);
   const idealState = useIdealPartnerStore((state) => state);
 
-  const type = selectedKey ?? '' in MyProfileStepMeta ? 'PROFILE' : 'IDEAL_PARTNER';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const type = Object.keys(MyProfileStepMeta).includes(selectedKey) ? 'PROFILE' : 'IDEAL_PARTNER';
   const stepMeta = getStepFromFormMeta(selectedKey) as StepMeta<MyProfile | IdealPartner>;
 
   const handleClose = () => {
