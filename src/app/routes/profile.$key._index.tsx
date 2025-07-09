@@ -28,6 +28,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     },
   });
 
+  console.log(data);
+
   return json(
     { profile: { ...data, userInfo: { ...data.userInfo, introduction: undefined } } },
     {

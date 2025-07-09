@@ -11,7 +11,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
   const { data: filterParams } = filterSchema.safeParse({ ...Object.fromEntries(searchParams), townList: undefined });
   const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
-
   const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
 
   if (hasFilter) {
@@ -23,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       ...filterParams,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      townList: townList ? townList.join(',') : undefined,
+      townList: townList ? townList.join(',') : [],
       page: Number(searchParams.get('page')) || 0,
       size: 10,
       sortBy: align.sortBy,
@@ -36,6 +35,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log(params);
     return json(
       {
         profileList: data?.infos ?? [],
