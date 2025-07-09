@@ -25,6 +25,7 @@ const noop = () => {
 export const InfoListPage = ({
   userInfo,
   profileList,
+  totalCount,
   hasFilter,
   filter,
   loading = false,
@@ -32,6 +33,7 @@ export const InfoListPage = ({
 }: {
   userInfo: UserInfoResponse;
   profileList: ArchivedInfoResponse[];
+  totalCount: number;
   hasFilter: boolean;
   filter: z.infer<typeof filterSchema>;
   loading?: boolean;
@@ -64,7 +66,7 @@ export const InfoListPage = ({
         </Link>
       </div>
       <div className={styles.ListHeader}>
-        <p className={styles.ListInfo}>총 {profileList?.length}명</p>
+        <p className={styles.ListInfo}>총 {totalCount}명</p>
         <Flex gap={12}>
           <Link to={filterUrl}>
             <Chip selected={hasFilter} onClick={noop}>

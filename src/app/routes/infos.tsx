@@ -38,8 +38,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
     return json(
       {
-        profileList: data ?? [],
-        hasMore: data?.length >= 10,
+        profileList: data?.infos ?? [],
+        totalCount: data?.count ?? 0,
+        hasMore: data?.infos.length >= 10,
       },
       {
         headers: {
@@ -54,7 +55,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       },
     });
     return json(
-      { profileList: data, hasMore: false },
+      { profileList: data, hasMore: false, totalCount: data.length },
       {
         headers: {
           ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),

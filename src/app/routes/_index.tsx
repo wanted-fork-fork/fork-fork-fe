@@ -60,7 +60,9 @@ export default function Index() {
 
   const [page, setPage] = useState(0);
   const [profileList, setProfileList] = useState<ArchivedInfoResponse[]>([]);
-  const fetcher = useFetcher<{ profileList: ArchivedInfoResponse[]; hasMore: boolean }>();
+  const fetcher = useFetcher<{ profileList: ArchivedInfoResponse[]; hasMore: boolean; totalCount: number }>();
+
+  const totalCount = fetcher?.data?.totalCount;
 
   const handleIntersectBottom = useCallback(() => {
     if (!fetcher.data?.hasMore) {
@@ -87,6 +89,7 @@ export default function Index() {
       <InfoListPage
         userInfo={userInfo}
         profileList={profileList}
+        totalCount={totalCount}
         hasFilter={hasFilter}
         filter={filter}
         loading={fetcher.state === 'loading'}
