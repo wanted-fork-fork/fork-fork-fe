@@ -518,9 +518,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ArchivedInfoResponse'
+                $ref: '#/components/schemas/SearchInfoResponse'
   /api/v1/info/detail/{id}:
     get:
       tags:
@@ -1940,6 +1938,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InfoImage'
+    SearchInfoResponse:
+      required:
+      - count
+      - infos
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchivedInfoResponse'
     CityAndTownResponse:
       required:
       - city
