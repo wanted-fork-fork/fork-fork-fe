@@ -16,7 +16,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
-  const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const { data: filterParams } = filterSchema.safeParse({
+    ...Object.fromEntries(searchParams),
+    townList: undefined,
+  });
   const townList = searchParams.get('townList[]')?.split(',').filter(Boolean) ?? [];
 
   const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
@@ -62,7 +65,7 @@ export default function Index() {
   const [profileList, setProfileList] = useState<ArchivedInfoResponse[]>([]);
   const fetcher = useFetcher<{ profileList: ArchivedInfoResponse[]; hasMore: boolean; totalCount: number }>();
 
-  const totalCount = fetcher?.data?.totalCount;
+  const totalCount = fetcher?.data?.totalCount ?? 0;
 
   const handleIntersectBottom = useCallback(() => {
     if (!fetcher.data?.hasMore) {

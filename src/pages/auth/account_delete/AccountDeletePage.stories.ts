@@ -11,6 +11,7 @@ type Story = StoryObj<typeof AccountDeletePage>;
 export const Default: Story = {
   args: {
     userInfo: {
+      joinType: 'KAKAO',
       userId: '1',
       name: '김유저',
       profileImage: '',

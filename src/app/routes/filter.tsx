@@ -15,7 +15,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
-  const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const { data: filterParams } = filterSchema.safeParse({ ...Object.fromEntries(searchParams), townList: undefined });
   const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
 
   return json(

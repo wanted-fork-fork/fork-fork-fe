@@ -23,6 +23,7 @@ export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: Ima
 
 export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPartner => {
   return {
+    skipped: false,
     ageRange: dto.ageRange,
     drinking: dto.drinking,
     heightRange: dto.heightRange,

@@ -1,6 +1,7 @@
 import { IdealPartner } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const MockIdealPartner: IdealPartner = {
+  skipped: false,
   imageDtoList: [],
   ageRange: { max: 25, min: 20 },
   drinking: { drinkingAmount: '주 1-2회 가볍게는 괜찮아요', drinkingCategory: 'ONE_TWO_TIMES_A_WEEK' },

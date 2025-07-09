@@ -9,7 +9,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
-  const { data: filterParams } = filterSchema.safeParse(Object.fromEntries(searchParams));
+  const { data: filterParams } = filterSchema.safeParse({ ...Object.fromEntries(searchParams), townList: undefined });
   const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
 
   const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
