@@ -8,6 +8,8 @@ import { getReligionText } from 'src/entities/candidates/info/utils/getReligionT
 import { getDrinkingText } from 'src/entities/candidates/info/utils/getDrinkingText';
 import { getSmokingText } from 'src/entities/candidates/info/utils/getSmokingText';
 import { getRangeText } from 'src/shared/functions/string';
+import Flex from 'src/shared/ui/Flex/Flex';
+import { Menu } from 'src/shared/ui/icons';
 
 const ImportantBadge = () => <span className={styles.RequiredBadge}>중요</span>;
 
@@ -16,6 +18,7 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
 
   const value = useProfileEditContext();
   const onClickEdit = value.canEdit ? value.onEdit : undefined;
+  const showEmpty = !value.canEdit && profile.skipped;
 
   const imageDtoList = useIdealPartnerImages();
 
@@ -23,7 +26,18 @@ export const IdealPartnerProfile = ({ profile }: { profile: IdealPartner }) => {
 
   const renderBadge = (key: string) => (profile.requiredOptions.includes(key) ? <ImportantBadge /> : <></>);
 
-  return (
+  return showEmpty ? (
+    <Flex className={styles.Empty} direction={'vertical'} gap={24}>
+      <img src={'/images/empty.png'} alt={'이상형 정보가 없습니다'} />
+      <p>
+        이상형 정보가 없습니다. <br /> 상단{' '}
+        <span>
+          <Menu width={16} height={14} />
+        </span>{' '}
+        &gt; 수정하기에서 내용을 추가하세요.
+      </p>
+    </Flex>
+  ) : (
     <section className={styles.Grid}>
       <div className={styles.GridRow}>
         <div className={styles.Cell}>

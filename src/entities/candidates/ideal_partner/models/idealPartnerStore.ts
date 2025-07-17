@@ -77,7 +77,7 @@ const createStoreHook = (initialState?: IdealPartner) =>
     style: '',
     images: [],
     imageDtoList: [],
-    locations: 'NOT_IMPORTANT',
+    locations: 'NOT_IMPORTANT' as const,
     hobbies: 'NOT_IMPORTANT',
     religion: {
       religionCategory: 'ETC',

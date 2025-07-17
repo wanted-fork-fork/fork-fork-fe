@@ -1,5 +1,6 @@
 import { DetailedInfoIdealPartner, IdealPartnerRequest, ImageDto } from 'src/types';
 import { IdealPartner } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { undefined } from 'zod';
 
 export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: ImageDto[]): IdealPartnerRequest => {
   return {
@@ -36,5 +37,29 @@ export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPa
     smoking: dto.smoking,
     style: dto.style ?? '',
     toMatchMaker: dto.toMatchMaker ?? '',
+  };
+};
+
+export const getSkippedIdealPartnerState = (): IdealPartner => {
+  return {
+    skipped: true,
+    ageRange: {},
+    drinking: {
+      drinkingCategory: 'ETC',
+    },
+    heightRange: {},
+    hobbies: 'NOT_IMPORTANT',
+    images: [],
+    imageDtoList: [],
+    locations: 'NOT_IMPORTANT',
+    religion: {
+      religionCategory: 'ETC',
+    },
+    requiredOptions: [],
+    smoking: {
+      smokingCategory: 'ETC',
+    },
+    style: '',
+    toMatchMaker: '',
   };
 };

@@ -7,7 +7,10 @@ import { EditInfoPage } from 'src/pages/edit_info/EditInfoPage';
 import { MyProfileProvider } from 'src/entities/candidates/info/models/myProfileStore';
 import { useMemo } from 'react';
 import { convertDtoToProfile } from 'src/entities/candidates/info/models/convertProfileToDto';
-import { convertDtoToIdealPartner } from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
+import {
+  convertDtoToIdealPartner,
+  getSkippedIdealPartnerState,
+} from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
 import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -77,7 +80,7 @@ export default function Page() {
   const { profile } = useLoaderData<typeof loader>();
   const profileInitialState = useMemo(() => convertDtoToProfile(profile.userInfo), [profile.userInfo]);
   const idealPartnerInitialState = useMemo(
-    () => (profile.idealPartner ? convertDtoToIdealPartner(profile.idealPartner) : undefined),
+    () => (profile.idealPartner ? convertDtoToIdealPartner(profile.idealPartner) : getSkippedIdealPartnerState()),
     [profile.idealPartner],
   );
 
