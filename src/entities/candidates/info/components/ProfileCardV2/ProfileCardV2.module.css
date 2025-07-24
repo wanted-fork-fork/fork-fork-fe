@@ -2,7 +2,7 @@
     position: relative;
     background: var(--color-neutral-100);
     border-radius: 24px;
-    padding: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -11,8 +11,7 @@
 .Header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    height: 56px;
+    gap: 20px;
 }
 
 .HeaderRightSlot {
@@ -22,36 +21,39 @@
 }
 
 .ProfileImageContainer {
-    width: 56px;
-    height: 56px;
+    width: 80px;
+    height: 80px;
+}
+
+.ProfileImageContainer img {
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    object-fit: cover;
 }
 
 .InfoSummaryContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    gap: 12px;
+    gap: 8px;
 }
 
 .InfoSummaryContainer .Name {
     font-weight: 600;
-    font-size: 16px;
-    line-height: 100%;
+    font-size: 18px;
+    line-height: 14px;
     margin: 0;
 }
 
 .InfoSummaryContainer .Info {
     font-weight: 400;
     font-size: 14px;
-    line-height: 100%;
+    line-height: 14px;
 }
 
 .InfoSummaryContainer .Info span:not(:last-child)::after {
-    content: '';
-    border-right: 1px solid var(--color-neutral-300);
-    padding-left: 8px;
-    margin-right: 8px;
+    content: '·';
+    margin: 0 4px;
 }
 
 .DetailTableContainer {
@@ -66,18 +68,6 @@
     border-collapse: separate;
     border-spacing: 15px;
     margin: -15px;
-
-    & tr {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        height: 20px;
-
-        &:not(:last-child) {
-            margin-bottom: 12px;
-        }
-    }
 }
 
 .DetailTable th {
@@ -85,15 +75,7 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 14px;
-    align-content: center;
-
-    width: fit-content;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    margin-right: 8px;
+    width: 42px;
 }
 
 .DetailTable td {
@@ -101,9 +83,6 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
-    align-content: center;
-    text-align: left;
-    flex: 1;
 }
 
 .HobbyList {
