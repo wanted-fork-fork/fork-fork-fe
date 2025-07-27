@@ -8,8 +8,12 @@ import styles from './GroupInfoPage.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
 import Flex from 'src/shared/ui/Flex/Flex';
 import { ReactNode } from 'react';
+import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
+import { useBoolean } from 'src/shared/functions/useBoolean';
 
 export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary; isAdmin?: boolean }) => {
+  const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
+
   return (
     <div>
       <Header
@@ -45,11 +49,27 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
             />
           )}
           <Menu to={`/groups/${groupInfo.id}/invite`} text={'멤버 추가'} />
-          <Button className={styles.TextButton} variant={'ghost'} size={'fit'} color={'neutral'} widthType={'hug'}>
+          <Button
+            className={styles.TextButton}
+            variant={'ghost'}
+            size={'fit'}
+            color={'neutral'}
+            widthType={'hug'}
+            onClick={openDeleteConfirm}
+          >
             그룹 삭제
           </Button>
         </div>
       </div>
+      <ConfirmModal
+        show={isDeleteConfirmOpen}
+        title={'그룹을 삭제하시겠어요?'}
+        description={'공유한 후보자 정보는 함께 삭제돼요.\n참여자는 다시 초대할 수 있어요.'}
+        confirmText={'확인'}
+        cancelText={'취소'}
+        onCancel={closeDeleteConfirm}
+        onConfirm={closeDeleteConfirm}
+      />
     </div>
   );
 };
