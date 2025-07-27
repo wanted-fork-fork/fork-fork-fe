@@ -6,8 +6,13 @@ import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
 import { GroupSummaryCard } from 'src/entities/groups/components/card/GroupSummaryCard';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
+import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
+import { useBoolean } from 'src/shared/functions/useBoolean';
+import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 
 export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoResponse; groupList: GroupSummary[] }) => {
+  const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
+
   return (
     <div className={styles.Wrapper}>
       <MainHeader selectedTab={'GROUP_LIST'} userInfo={userInfo} />
@@ -20,6 +25,8 @@ export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoRespo
           ))}
         </div>
       </ScrollView>
+      <FloatingButton onClick={open} />
+      <GroupCreateModal isOpen={isOpen} onClose={close} onSubmit={console.log} />
     </div>
   );
 };
