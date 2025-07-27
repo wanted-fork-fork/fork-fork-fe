@@ -1,0 +1,28 @@
+.Container {
+    align-items: start;
+    padding: 20px 0;
+
+    & h3 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 150%;
+    }
+
+    & p {
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--color-neutral-700);
+    }
+}
+
+.ButtonList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+
+    & > button {
+        flex-grow: 1;
+        padding: 20px;
+    }
+}

@@ -9,9 +9,16 @@ import { Link } from '@remix-run/react';
 import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
+import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
 
 export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoResponse; groupList: GroupSummary[] }) => {
-  const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
+  const { value: isOpenCreateModal, setTrue: openCreateModal, setFalse: closeCreateModal } = useBoolean(false);
+  const { value: isOpenCompleteModal, setTrue: openCompleteModal, setFalse: closeCompleteModal } = useBoolean(false);
+
+  const handleSubmitCreate = () => {
+    closeCreateModal();
+    openCompleteModal();
+  };
 
   return (
     <div className={styles.Wrapper}>
@@ -25,8 +32,9 @@ export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoRespo
           ))}
         </div>
       </ScrollView>
-      <FloatingButton onClick={open} />
-      <GroupCreateModal isOpen={isOpen} onClose={close} onSubmit={console.log} />
+      <FloatingButton onClick={openCreateModal} />
+      <GroupCreateModal isOpen={isOpenCreateModal} onClose={closeCreateModal} onSubmit={handleSubmitCreate} />
+      <GroupCreateCompleteModal isOpen={isOpenCompleteModal} onClose={closeCompleteModal} />
     </div>
   );
 };

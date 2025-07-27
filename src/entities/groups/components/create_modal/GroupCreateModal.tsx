@@ -34,7 +34,7 @@ export const GroupCreateModal = ({
         <span className={styles.Header}>그룹 생성</span>
       </BottomSheet.Header>
       <BottomSheet.Content>
-        <form className={styles.Form}>
+        <form className={styles.Form} onSubmit={(e) => e.preventDefault()}>
           <label className={styles.Label}>
             그룹명
             <Input
