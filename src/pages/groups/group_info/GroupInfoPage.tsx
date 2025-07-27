@@ -10,9 +10,17 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import { ReactNode } from 'react';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { useBoolean } from 'src/shared/functions/useBoolean';
+import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
+import toast from 'react-hot-toast';
 
 export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary; isAdmin?: boolean }) => {
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
+  const { value: isEditModalOpen, setTrue: openEditModal, setFalse: closeEditModal } = useBoolean(false);
+
+  const handleSubmitEdit = () => {
+    toast.success('변경사항이 저장되었습니다.');
+    closeEditModal();
+  };
 
   return (
     <div>
@@ -29,7 +37,7 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
         <div className={styles.InfoContainer}>
           <Avatar className={styles.Thumbnail} fallback={''} shape={'circle'} src={groupInfo.icon.url} size={50} />
           <p>{groupInfo.name}</p>
-          <Button variant={'ghost'} size={'fit'}>
+          <Button variant={'ghost'} size={'fit'} onClick={openEditModal}>
             수정
           </Button>
         </div>
@@ -69,6 +77,13 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
         cancelText={'취소'}
         onCancel={closeDeleteConfirm}
         onConfirm={closeDeleteConfirm}
+      />
+      <GroupCreateModal
+        isOpen={isEditModalOpen}
+        initialData={{ name: groupInfo.name, icon: groupInfo.icon.url }}
+        onClose={closeEditModal}
+        onSubmit={handleSubmitEdit}
+        edit
       />
     </div>
   );
