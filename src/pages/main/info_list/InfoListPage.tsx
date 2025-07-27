@@ -8,7 +8,6 @@ import { GridView, ListView, Share } from '../../../shared/ui/icons';
 import { Theme } from '../../../shared/styles/constants';
 import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
-import { UserAvatar } from 'src/entities/users/profiles/components/UserAvatar';
 import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
@@ -17,6 +16,7 @@ import { Chip } from 'src/shared/ui/Chip/Chip';
 import { z } from 'zod';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { useIntersectionObserver } from 'src/shared/functions/useIntersectionObserver';
+import { MainHeader } from 'src/widgets/main/header/MainHeader';
 
 const noop = () => {
   /**/
@@ -59,12 +59,7 @@ export const InfoListPage = ({
 
   return (
     <div className={styles.Wrapper}>
-      <div className={styles.Header}>
-        <h2>소개 후보</h2>
-        <Link to={'/mypage'}>
-          <UserAvatar size={32} imageSrc={userInfo.profileImage} />
-        </Link>
-      </div>
+      <MainHeader selectedTab={'MY_INFO_LIST'} userInfo={userInfo} />
       <div className={styles.ListHeader}>
         <p className={styles.ListInfo}>총 {totalCount}명</p>
         <Flex gap={12}>

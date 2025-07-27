@@ -5,6 +5,7 @@ export { default as ArrowLeft } from './ArrowLeft';
 export { default as ArrowRight } from './ArrowRight';
 export { default as Camera } from './Camera';
 export { default as Check } from './Check';
+export { default as CheckCircle } from './CheckCircle';
 export { default as CheckLine } from './CheckLine';
 export { default as CheckedRadio } from './CheckedRadio';
 export { default as ChevronRight } from './ChevronRight';
