@@ -1,0 +1,55 @@
+.Container {
+  width: 100%;
+  padding: 16px 20px;
+}
+
+.HistoryInfo {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+
+  .Contents {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: start;
+
+    & p {
+      line-height: 100%;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .Info {
+      display: flex;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-neutral-700);
+
+      & > span:not(:last-child)::after {
+        content: '|';
+        padding: 0 4px;
+        color: var(--color-neutral-300);
+      }
+    }
+  }
+}
+
+.ProfileInfo {
+  background-color: var(--color-neutral-100);
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+
+  .Name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-neutral-700);
+  }
+}
