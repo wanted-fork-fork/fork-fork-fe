@@ -23,6 +23,9 @@
   left: 50%;
   transform: translateX(-50%);
 
+  font-weight: 700;
+  font-size: 18px;
+
   display: flex;
   align-items: center;
 }
