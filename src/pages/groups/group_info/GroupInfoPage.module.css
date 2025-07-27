@@ -1,0 +1,68 @@
+.Container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.InfoContainer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    padding: 0 20px;
+
+    .Thumbnail {
+        border: 2px solid var(--color-primary);
+        padding: 8px;
+    }
+
+    & p {
+        flex: 1;
+    }
+
+    & button {
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
+
+.MenuContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 20px;
+    align-items: start;
+
+    & h3 {
+        color: var(--color-neutral-500);
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    & a {
+        width: 100%;
+    }
+
+    .Menu {
+        padding: 20px 0;
+    }
+
+    .TextButton {
+        margin-top: 24px;
+    }
+
+    .GraySuffix {
+        color: var(--color-neutral-400);
+    }
+
+    .PrimarySuffix {
+        color: var(--color-primary);
+    }
+}
+
+.Divider {
+    height: 8px;
+    width: 100%;
+    background-color: var(--color-neutral-200);
+    border: none;
+}
