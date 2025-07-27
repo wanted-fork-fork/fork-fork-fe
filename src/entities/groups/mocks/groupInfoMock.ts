@@ -21,3 +21,12 @@ export const iconList = [
   '/images/group/asset_9.png',
   '/images/group/asset_10.png',
 ];
+
+export const groupMemberMock = {
+  id: 1,
+  name: '김감자',
+  profileImage: '/images/default_profile.png',
+  isAdmin: false,
+};
+
+export type GroupMember = typeof groupMemberMock;
