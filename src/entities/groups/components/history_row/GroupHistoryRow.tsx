@@ -1,5 +1,4 @@
-import { GroupMember } from 'src/entities/groups/mocks/groupInfoMock';
-import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
+import { GroupHistory } from 'src/entities/groups/mocks/groupInfoMock';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import dayjs from 'dayjs';
 import { ArrowRight } from 'src/shared/ui/icons';
@@ -9,16 +8,10 @@ import { Theme } from 'src/shared/styles/constants';
 import { Link } from '@remix-run/react';
 
 export const GroupHistoryRow = ({
-  member,
-  contents,
-  info,
-  date,
+  history: { member, contents, info, date },
   groupId,
 }: {
-  member: GroupMember;
-  contents: string;
-  info: ProfileSummary;
-  date: Date;
+  history: GroupHistory;
   groupId: number;
 }) => {
   return (

@@ -1,3 +1,6 @@
+import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
+import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
+
 export const groupInfoMock = {
   id: 1,
   name: '유부 프로젝트',
@@ -30,3 +33,19 @@ export const groupMemberMock = {
 };
 
 export type GroupMember = typeof groupMemberMock;
+
+export type GroupHistory = {
+  id: number;
+  member: GroupMember;
+  contents: string;
+  info: ProfileSummary;
+  date: Date;
+};
+
+export const groupHistoryMock = {
+  id: 1,
+  member: groupMemberMock,
+  contents: '외부 정보 공유',
+  info: profileMock,
+  date: new Date(),
+} satisfies GroupHistory;

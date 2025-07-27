@@ -19,7 +19,7 @@ export const JoinRequestsPage = ({ requestList, groupId }: { requestList: GroupM
   };
 
   return (
-    <div>
+    <div className={styles.Container}>
       <Header
         prefixSlot={
           <Link to={`/groups/${groupId}/info`}>

@@ -8,6 +8,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import toast from 'react-hot-toast';
+import styles from './MemberListPage.module.css';
 
 export const MemberListPage = ({
   group,
@@ -26,7 +27,7 @@ export const MemberListPage = ({
   };
 
   return (
-    <div>
+    <div className={styles.Container}>
       <Header
         prefixSlot={
           <Link to={`/groups/${group.id}/info`}>
