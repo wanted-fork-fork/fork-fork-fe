@@ -5,7 +5,7 @@ import { useImageLoadingStatus } from 'src/shared/functions/useImageLoadingStatu
 export type AvatarProp = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
   fallback: ReactNode;
   shape: 'circle' | 'roundedSquare';
-  size: number;
+  size?: number;
   actionSlot?: ReactNode;
   onClick?: () => void;
 };
@@ -18,7 +18,7 @@ export const Avatar = ({ className = '', actionSlot, shape, size, alt, fallback,
       <div
         className={`${styles.Container} ${className}`}
         role={onClick ? 'button' : undefined}
-        style={{ '--size': size }}
+        style={size ? { '--size': size } : undefined}
         data-shape={shape}
         data-loading={loadingStatus === 'loading'}
         draggable={false}
