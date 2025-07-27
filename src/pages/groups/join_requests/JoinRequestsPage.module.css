@@ -1,0 +1,19 @@
+.Empty {
+    display: flex;
+    flex-direction:  column;
+    gap: 24px;
+    align-items: center;
+
+    margin-top: 32px;
+
+    & p {
+        color: var(--color-neutral-600);
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    & img {
+        width: 120px;
+        height: 120px;
+    }
+}
