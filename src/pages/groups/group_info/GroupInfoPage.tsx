@@ -15,6 +15,11 @@ import toast from 'react-hot-toast';
 
 export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary; isAdmin?: boolean }) => {
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
+  const {
+    value: isWithdrawConfirmOpen,
+    setTrue: openWithdrawConfirm,
+    setFalse: closeWithdrawConfirm,
+  } = useBoolean(false);
   const { value: isEditModalOpen, setTrue: openEditModal, setFalse: closeEditModal } = useBoolean(false);
 
   const handleSubmitEdit = () => {
@@ -57,16 +62,30 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
             />
           )}
           <Menu to={`/groups/${groupInfo.id}/invite`} text={'멤버 추가'} />
-          <Button
-            className={styles.TextButton}
-            variant={'ghost'}
-            size={'fit'}
-            color={'neutral'}
-            widthType={'hug'}
-            onClick={openDeleteConfirm}
-          >
-            그룹 삭제
-          </Button>
+          {isAdmin && (
+            <Button
+              className={styles.TextButton}
+              variant={'ghost'}
+              size={'fit'}
+              color={'neutral'}
+              widthType={'hug'}
+              onClick={openDeleteConfirm}
+            >
+              그룹 삭제
+            </Button>
+          )}
+          {!isAdmin && (
+            <Button
+              className={styles.TextButton}
+              variant={'ghost'}
+              size={'fit'}
+              color={'neutral'}
+              widthType={'hug'}
+              onClick={openWithdrawConfirm}
+            >
+              그룹에서 나가기
+            </Button>
+          )}
         </div>
       </div>
       <ConfirmModal
@@ -77,6 +96,14 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
         cancelText={'취소'}
         onCancel={closeDeleteConfirm}
         onConfirm={closeDeleteConfirm}
+      />
+      <ConfirmModal
+        show={isWithdrawConfirmOpen}
+        title={'그룹을 탈퇴하시겠어요?'}
+        confirmText={'확인'}
+        cancelText={'취소'}
+        onCancel={closeWithdrawConfirm}
+        onConfirm={closeWithdrawConfirm}
       />
       <GroupCreateModal
         isOpen={isEditModalOpen}
