@@ -1,4 +1,5 @@
 export const groupInfoMock = {
+  id: 1,
   name: '유부 프로젝트',
   icon: {
     url: '/images/group/asset_1.png',

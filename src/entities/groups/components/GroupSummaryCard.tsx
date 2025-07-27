@@ -3,7 +3,7 @@ import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
 import styles from './GroupSummaryCard.module.css';
 import Flex from 'src/shared/ui/Flex/Flex';
 
-export const GroupSummaryCard = ({ name, icon, candidateCounts }: GroupSummary) => {
+export const GroupSummaryCard = ({ group: { name, icon, candidateCounts } }: { group: GroupSummary }) => {
   return (
     <article className={styles.Container}>
       <Avatar className={styles.Thumbnail} fallback={''} shape={'circle'} size={50} src={icon.url} />
