@@ -3,7 +3,7 @@ import { UserInfoResponse } from 'src/types';
 
 import styles from './GroupListPage.module.css';
 import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
-import { GroupSummaryCard } from 'src/entities/groups/components/GroupSummaryCard';
+import { GroupSummaryCard } from 'src/entities/groups/components/card/GroupSummaryCard';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import { Link } from '@remix-run/react';
 

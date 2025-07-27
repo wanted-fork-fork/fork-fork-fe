@@ -1,6 +1,6 @@
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
-import styles from './GroupSummaryCard.module.css';
+import styles from 'src/entities/groups/components/card/GroupSummaryCard.module.css';
 import Flex from 'src/shared/ui/Flex/Flex';
 
 export const GroupSummaryCard = ({ group: { name, icon, candidateCounts } }: { group: GroupSummary }) => {

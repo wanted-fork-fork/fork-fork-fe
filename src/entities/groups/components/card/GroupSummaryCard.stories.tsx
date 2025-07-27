@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { GroupSummaryCard } from 'src/entities/groups/components/GroupSummaryCard';
+import { GroupSummaryCard } from 'src/entities/groups/components/card/GroupSummaryCard';
 import { groupInfoMock } from 'src/entities/groups/mocks/groupInfoMock';
 
 const meta: Meta<typeof GroupSummaryCard> = {
