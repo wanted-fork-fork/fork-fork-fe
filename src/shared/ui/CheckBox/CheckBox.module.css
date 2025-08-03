@@ -36,6 +36,18 @@
             }
         }
     }
+
+    &[aria-disabled='true'] {
+        & .CheckBox {
+            & + label::before {
+                background-color: var(--color-neutral-200);
+            }
+        }
+
+        & .CheckMark {
+            color: var(--color-neutral-300);
+        }
+    }
 }
 
 .Label {
@@ -70,7 +82,6 @@
          height: 18px;
          border-radius: 50%;
      }
-
 }
 
 .CheckBox:checked ~ .CheckMark {
