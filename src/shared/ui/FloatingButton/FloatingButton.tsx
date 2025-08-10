@@ -7,8 +7,9 @@ export const FloatingButton = ({
   className = '',
   onClick,
   text,
+  size = 24,
   ...props
-}: HTMLProps<HTMLButtonElement> & { onClick: () => void; text?: string }) => {
+}: HTMLProps<HTMLButtonElement> & { onClick: () => void; text?: string; size?: number }) => {
   return (
     <button
       className={`${className} ${styles.FloatingButton}`}
@@ -17,7 +18,7 @@ export const FloatingButton = ({
       type={'button'}
       data-shape={text ? 'rounded' : 'circle'}
     >
-      <Plus color={Theme.color.neutral0} width={24} />
+      <Plus color={Theme.color.neutral0} width={size} />
       {Boolean(text) && <span>{text}</span>}
     </button>
   );

@@ -64,7 +64,7 @@ export const InfoListPage = ({
         <p className={styles.ListInfo}>총 {totalCount}명</p>
         <Flex gap={12}>
           <Link to={filterUrl}>
-            <Chip selected={hasFilter} onClick={noop}>
+            <Chip className={styles.FilterButton} selected={hasFilter} onClick={noop}>
               <span>필터 및 정렬 조건</span>
               {hasFilter && <span className={styles.Dot} />}
             </Chip>
