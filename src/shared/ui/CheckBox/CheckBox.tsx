@@ -1,11 +1,12 @@
 import styles from './CheckBox.module.css';
-import { useId } from 'react';
+import { ChangeEvent, MouseEvent, useId } from 'react';
 import { Check } from 'src/shared/ui/icons';
 
 type CheckBoxProps = {
   checked: boolean;
   label: string;
-  onChange: (value: boolean) => void;
+  onClick?: (e: MouseEvent) => void;
+  onChange: (value: boolean, e: ChangeEvent) => void;
   /**
    * @default circle
    */
@@ -13,7 +14,7 @@ type CheckBoxProps = {
   disabled?: boolean;
 };
 
-export const CheckBox = ({ shape = 'circle', checked, label, onChange, disabled }: CheckBoxProps) => {
+export const CheckBox = ({ shape = 'circle', checked, label, onChange, onClick, disabled }: CheckBoxProps) => {
   const id = useId();
 
   return (
@@ -28,7 +29,8 @@ export const CheckBox = ({ shape = 'circle', checked, label, onChange, disabled 
         type={'checkbox'}
         checked={checked}
         id={id}
-        onChange={() => onChange(!checked)}
+        onChange={(e) => onChange(!checked, e)}
+        onClick={onClick}
         disabled={disabled}
       />
       <label className={styles.Label} htmlFor={id}>

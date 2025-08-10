@@ -23,9 +23,9 @@ export const SelectCandidateCard = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <button className={styles.Container} role={'radio'} aria-checked={selected} disabled={disabled}>
+    <button className={styles.Container} role={'radio'} aria-checked={selected} disabled={disabled} onClick={onClick}>
       <div className={styles.Wrapper}>
-        <CheckBox checked={selected} onChange={onClick} label={''} disabled={disabled} />
+        <CheckBox checked={selected} onChange={() => {}} label={''} disabled={disabled} />
         <Avatar
           fallback={''}
           shape={'circle'}

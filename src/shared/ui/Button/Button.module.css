@@ -6,6 +6,7 @@
     gap: 8px;
     text-align: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .Variant_Filled_Primary {
