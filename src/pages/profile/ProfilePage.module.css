@@ -106,6 +106,29 @@
     padding: 0 20px;
 }
 
+.NameWithMessage {
+    margin-bottom: 12px;
+}
+
+.MessageBox {
+    border-radius: 0 8px 8px 8px;
+    padding: 8px;
+    color: var(--color-neutral-700);
+    background-color: var(--color-neutral-100);
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 6px;
+    position: relative;
+
+    .Arrow {
+        position: absolute;
+        left: -6px;
+        top: -1px;
+        z-index: -1;
+        color: var(--color-neutral-100);
+    }
+}
+
 .TabTriggerList {
     position: sticky;
     top: 0;

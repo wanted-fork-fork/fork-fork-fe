@@ -1,6 +1,13 @@
 .Container {
     padding: 12px 20px;
     width: 100%;
+
+    > div:last-child {
+        width: 100%;
+        > div {
+            width: 100%;
+        }
+    }
 }
 
 .Name {

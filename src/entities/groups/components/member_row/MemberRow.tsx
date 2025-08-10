@@ -5,15 +5,28 @@ import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 
 import styles from './MemberRow.module.css';
 
-export const MemberRow = ({ member, suffix }: { member: GroupMember; suffix?: ReactNode }) => {
+export const MemberRow = ({
+  member,
+  suffix,
+  bottom,
+}: {
+  member: GroupMember;
+  suffix?: ReactNode;
+  bottom?: ReactNode;
+}) => {
   return (
     <Flex className={styles.Container} gap={12}>
       <Avatar fallback={''} src={member.profileImage} size={40} shape={'circle'} />
-      <div className={styles.Name}>
-        <span>{member.name}</span>
-        {member.isAdmin && <span className={styles.Badge}>그룹장</span>}
-      </div>
-      {suffix}
+      <Flex direction={'vertical'} gap={8}>
+        <Flex>
+          <div className={styles.Name}>
+            <span>{member.name}</span>
+            {member.isAdmin && <span className={styles.Badge}>그룹장</span>}
+          </div>
+          {suffix}
+        </Flex>
+        {bottom}
+      </Flex>
     </Flex>
   );
 };
