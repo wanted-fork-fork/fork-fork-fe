@@ -1,0 +1,36 @@
+.Wrapper {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 150%;
+    }
+}
+
+.TitleWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px;
+    margin-top: 54px;
+}
+
+.Image {
+    width: 80%;
+    position: absolute;
+    bottom: calc(50% + 24px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.Footer {
+    position: relative;
+    padding: 20px 20px 54px;
+}
