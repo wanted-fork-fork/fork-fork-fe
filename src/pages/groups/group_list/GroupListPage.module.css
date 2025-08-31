@@ -8,6 +8,14 @@
     padding: 20px;
 }
 
+.Empty {
+    margin-top: 134px;
+
+    p {
+        color: var(--color-neutral-700);
+    }
+}
+
 .List {
     display: flex;
     flex-direction: column;

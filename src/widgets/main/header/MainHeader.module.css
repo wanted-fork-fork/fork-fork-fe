@@ -30,6 +30,9 @@
   flex-direction: column;
   gap: 8px;
 
+  max-width: 480px;
+  margin: auto;
+
   & button {
     border-radius: 16px;
     padding: 24px;
