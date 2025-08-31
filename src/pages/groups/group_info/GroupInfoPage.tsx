@@ -1,4 +1,4 @@
-import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
+import { GroupSummary, iconMap } from 'src/entities/groups/mocks/groupInfoMock';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link } from '@remix-run/react';
 import { ArrowLeft, ArrowRight } from 'src/shared/ui/icons';
@@ -12,9 +12,11 @@ import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 import toast from 'react-hot-toast';
+import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
 
 export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary; isAdmin?: boolean }) => {
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
+  const { value: isShareModalOpen, setTrue: openShareModal, setFalse: closeShareModal } = useBoolean(false);
   const {
     value: isWithdrawConfirmOpen,
     setTrue: openWithdrawConfirm,
@@ -40,7 +42,7 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
       </Header>
       <div className={styles.Container}>
         <div className={styles.InfoContainer}>
-          <Avatar className={styles.Thumbnail} fallback={''} shape={'circle'} src={groupInfo.icon.url} size={50} />
+          <Avatar className={styles.Thumbnail} fallback={''} shape={'circle'} src={iconMap[groupInfo.icon]} size={50} />
           <p>{groupInfo.name}</p>
           <Button variant={'ghost'} size={'fit'} onClick={openEditModal}>
             수정
@@ -61,7 +63,21 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
               suffix={<span className={styles.PrimarySuffix}>{groupInfo.candidateCounts}명</span>}
             />
           )}
-          <Menu to={`/groups/${groupInfo.id}/invite`} text={'멤버 추가'} />
+          <Button
+            className={styles.Menu}
+            variant={'ghost'}
+            color={'neutral'}
+            widthType={'fill'}
+            textAlign={'left'}
+            onClick={openShareModal}
+            suffixSlot={
+              <Flex align={'center'} gap={12}>
+                <ArrowRight color={Theme.color.neutral40} />
+              </Flex>
+            }
+          >
+            멤버 추가
+          </Button>
           {isAdmin && (
             <Button
               className={styles.TextButton}
@@ -107,10 +123,23 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
       />
       <GroupCreateModal
         isOpen={isEditModalOpen}
-        initialData={{ name: groupInfo.name, icon: groupInfo.icon.url }}
+        initialData={{ name: groupInfo.name, icon: groupInfo.icon }}
         onClose={closeEditModal}
         onSubmit={handleSubmitEdit}
         edit
+      />
+      <GroupCreateCompleteModal
+        title="멤버 추가"
+        description={
+          <>
+            같이 인연을 만들어가고 싶은 분께
+            <br />
+            참여 링크를 보내고 후보자 공유를 시작하세요.
+          </>
+        }
+        groupId={groupInfo.id}
+        isOpen={isShareModalOpen}
+        onClose={closeShareModal}
       />
     </div>
   );

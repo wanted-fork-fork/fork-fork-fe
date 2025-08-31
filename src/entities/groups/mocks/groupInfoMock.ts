@@ -3,11 +3,9 @@ import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummar
 import { CreateGroupRequestIcon } from 'src/types';
 
 export const groupInfoMock = {
-  id: 1,
+  id: '1',
   name: '유부 프로젝트',
-  icon: {
-    url: '/images/group/asset_1.png',
-  },
+  icon: 'LOCK' as CreateGroupRequestIcon,
   candidateCounts: 5,
 };
 

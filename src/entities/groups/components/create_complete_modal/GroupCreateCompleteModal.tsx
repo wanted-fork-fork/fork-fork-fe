@@ -6,13 +6,18 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupCreateCompleteModal.module.css';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 import toast from 'react-hot-toast';
+import { ReactNode } from 'react';
 
 export const GroupCreateCompleteModal = ({
   groupId,
+  title = '그룹을 생성했습니다.',
+  description = '그룹 참여 링크를 보내고 후보자 공유를 시작하세요.',
   isOpen,
   onClose,
 }: {
   groupId?: string;
+  title?: string;
+  description?: ReactNode;
   isOpen: boolean;
   onClose: () => void;
 }) => {
@@ -32,8 +37,10 @@ export const GroupCreateCompleteModal = ({
     <BottomSheet isOpen={isOpen} onClose={onClose} detent={'content-height'}>
       <BottomSheet.Content>
         <Flex className={styles.Container} direction={'vertical'} gap={24}>
-          <h3>그룹을 생성했습니다.</h3>
-          <p>그룹 참여 링크를 보내고 후보자 공유를 시작하세요.</p>
+          <Flex direction={'vertical'} gap={8} align={'start'}>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </Flex>
           <div className={styles.ButtonList}>
             <IconBoxButton icon={<Link />} text={'링크 복사'} onClick={onClickShareLink} />
             <IconBoxButton
