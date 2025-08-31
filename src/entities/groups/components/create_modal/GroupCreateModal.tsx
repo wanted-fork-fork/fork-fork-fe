@@ -5,6 +5,7 @@ import { iconList } from 'src/entities/groups/mocks/groupInfoMock';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import styles from './GroupCreateModal.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
+import { CreateGroupRequestIcon } from 'src/types';
 
 export const GroupCreateModal = ({
   isOpen,
@@ -12,15 +13,17 @@ export const GroupCreateModal = ({
   onSubmit,
   initialData = {},
   edit = false,
+  isPending = false,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (name: string, icon: string) => void;
-  initialData?: { name?: string; icon?: string };
+  onSubmit: (name: string, icon: CreateGroupRequestIcon) => void;
+  initialData?: { name?: string; icon?: CreateGroupRequestIcon };
   edit?: boolean;
+  isPending?: boolean;
 }) => {
   const [name, setName] = useState(initialData.name ?? '');
-  const [selectedIcon, setIcon] = useState(initialData.icon ?? iconList[0]);
+  const [selectedIcon, setIcon] = useState<CreateGroupRequestIcon>(initialData.icon ?? iconList[0][0]);
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -52,21 +55,25 @@ export const GroupCreateModal = ({
           <label className={styles.Label}>
             대표 아이콘
             <div className={styles.RadioList} role={'radiogroup'}>
-              {iconList.map((icon) => (
+              {iconList.map(([value, img]) => (
                 <Avatar
                   className={styles.Thumbnail}
-                  key={icon}
+                  key={value}
                   role={'radio'}
                   fallback={''}
                   shape={'circle'}
-                  src={icon}
-                  aria-checked={selectedIcon === icon}
-                  onClick={() => setIcon(icon)}
+                  src={img}
+                  aria-checked={selectedIcon === value}
+                  onClick={() => setIcon(value)}
                 />
               ))}
             </div>
           </label>
-          <Button type={'submit'} disabled={name.length === 0} onClick={() => onSubmit(name, selectedIcon)}>
+          <Button
+            type={'submit'}
+            disabled={isPending || name.length === 0}
+            onClick={() => onSubmit(name, selectedIcon)}
+          >
             {edit ? '변경사항 저장' : '그룹 만들기'}
           </Button>
         </form>

@@ -1,5 +1,6 @@
 import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
 import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
+import { CreateGroupRequestIcon } from 'src/types';
 
 export const groupInfoMock = {
   id: 1,
@@ -12,18 +13,20 @@ export const groupInfoMock = {
 
 export type GroupSummary = typeof groupInfoMock;
 
-export const iconList = [
-  '/images/group/asset_1.png',
-  '/images/group/asset_2.png',
-  '/images/group/asset_3.png',
-  '/images/group/asset_4.png',
-  '/images/group/asset_5.png',
-  '/images/group/asset_6.png',
-  '/images/group/asset_7.png',
-  '/images/group/asset_8.png',
-  '/images/group/asset_9.png',
-  '/images/group/asset_10.png',
-];
+export const iconMap: Record<CreateGroupRequestIcon, string> = {
+  [CreateGroupRequestIcon.WINE_GLASS]: '/images/group/asset_1.png',
+  [CreateGroupRequestIcon.LOCK]: '/images/group/asset_2.png',
+  [CreateGroupRequestIcon.LETTER]: '/images/group/asset_3.png',
+  [CreateGroupRequestIcon.ARROW]: '/images/group/asset_4.png',
+  [CreateGroupRequestIcon.HEART]: '/images/group/asset_5.png',
+  [CreateGroupRequestIcon.FOOTPRINT]: '/images/group/asset_6.png',
+  [CreateGroupRequestIcon.EGG]: '/images/group/asset_7.png',
+  [CreateGroupRequestIcon.BOUQUET]: '/images/group/asset_8.png',
+  [CreateGroupRequestIcon.RING]: '/images/group/asset_9.png',
+  [CreateGroupRequestIcon.STAR]: '/images/group/asset_10.png',
+};
+
+export const iconList = Object.entries(iconMap) as [CreateGroupRequestIcon, string][];
 
 export const groupMemberMock = {
   id: 1,

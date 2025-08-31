@@ -1,24 +1,44 @@
 import { MainHeader } from 'src/widgets/main/header/MainHeader';
-import { UserInfoResponse } from 'src/types';
+import { createGroup, CreateGroupRequestIcon, GroupListResponse, UserInfoResponse } from 'src/types';
 
 import styles from './GroupListPage.module.css';
-import { GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
 import { GroupSummaryCard } from 'src/entities/groups/components/card/GroupSummaryCard';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { Link } from '@remix-run/react';
+import { Link, useRevalidator } from '@remix-run/react';
 import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
 import Flex from 'src/shared/ui/Flex/Flex';
+import { useMutation } from '@tanstack/react-query';
 
-export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoResponse; groupList: GroupSummary[] }) => {
+export const GroupListPage = ({
+  userInfo,
+  groupList,
+}: {
+  userInfo: UserInfoResponse;
+  groupList: GroupListResponse[];
+}) => {
+  const revalidator = useRevalidator();
+
   const { value: isOpenCreateModal, setTrue: openCreateModal, setFalse: closeCreateModal } = useBoolean(false);
   const { value: isOpenCompleteModal, setTrue: openCompleteModal, setFalse: closeCompleteModal } = useBoolean(false);
 
-  const handleSubmitCreate = () => {
-    closeCreateModal();
-    openCompleteModal();
+  const {
+    mutate: mutateCreateGroup,
+    isPending,
+    data,
+  } = useMutation({
+    mutationFn: createGroup,
+    onSuccess: () => {
+      closeCreateModal();
+      openCompleteModal();
+      revalidator.revalidate();
+    },
+  });
+
+  const handleSubmitCreate = (name: string, icon: CreateGroupRequestIcon) => {
+    mutateCreateGroup({ name, icon });
   };
 
   return (
@@ -33,15 +53,24 @@ export const GroupListPage = ({ userInfo, groupList }: { userInfo: UserInfoRespo
             </Flex>
           )}
           {groupList.map((item) => (
-            <Link key={item.id} to={`/groups/${item.id}`}>
+            <Link key={item.groupId} to={`/groups/${item.groupId}`}>
               <GroupSummaryCard group={item} />
             </Link>
           ))}
         </div>
       </ScrollView>
       <FloatingButton onClick={openCreateModal} />
-      <GroupCreateModal isOpen={isOpenCreateModal} onClose={closeCreateModal} onSubmit={handleSubmitCreate} />
-      <GroupCreateCompleteModal isOpen={isOpenCompleteModal} onClose={closeCompleteModal} />
+      <GroupCreateModal
+        isOpen={isOpenCreateModal}
+        onClose={closeCreateModal}
+        onSubmit={handleSubmitCreate}
+        isPending={isPending}
+      />
+      <GroupCreateCompleteModal
+        groupId={data?.data.groupId}
+        isOpen={isOpenCompleteModal}
+        onClose={closeCompleteModal}
+      />
     </div>
   );
 };
