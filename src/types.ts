@@ -18,6 +18,14 @@ export type LoginKakaoParams = {
 code: string;
 };
 
+export type SearchInfoParams = {
+searchInfoRequestDto: SearchInfoRequestDto;
+};
+
+export type ApplyToJoinGroupParams = {
+inviteKey: string;
+};
+
 export type UploadImageBody = {
   image: Blob;
 };
@@ -48,6 +56,73 @@ export interface UserInfoResponse {
   profileImage?: string;
   receiveEmail: boolean;
   userId: string;
+}
+
+export interface AvailableCandidateResponse {
+  info: ArchivedInfoResponse;
+  isAlreadyInGroup: boolean;
+}
+
+export interface GroupInfoDetailResponse {
+  comment?: string;
+  creatorImage?: string;
+  creatorName: string;
+  groupInfoId?: string;
+  idealPartner?: DetailedInfoIdealPartner;
+  infoId: string;
+  isCreatedByMe: boolean;
+  userInfo: DetailedInfoUserInfo;
+}
+
+export type GroupMemberResponseStatus = typeof GroupMemberResponseStatus[keyof typeof GroupMemberResponseStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GroupMemberResponseStatus = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER',
+  PENDING: 'PENDING',
+} as const;
+
+export interface GroupMemberResponse {
+  status: GroupMemberResponseStatus;
+  userId: string;
+  userName: string;
+}
+
+export type GroupListResponseMyStatus = typeof GroupListResponseMyStatus[keyof typeof GroupListResponseMyStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GroupListResponseMyStatus = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER',
+  PENDING: 'PENDING',
+} as const;
+
+export type GroupListResponseGroupIcon = typeof GroupListResponseGroupIcon[keyof typeof GroupListResponseGroupIcon];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GroupListResponseGroupIcon = {
+  LOCK: 'LOCK',
+  ARROW: 'ARROW',
+  LETTER: 'LETTER',
+  HEART: 'HEART',
+  FOOTPRINT: 'FOOTPRINT',
+  WINE_GLASS: 'WINE_GLASS',
+  EGG: 'EGG',
+  BOUQUET: 'BOUQUET',
+  RING: 'RING',
+  STAR: 'STAR',
+} as const;
+
+export interface GroupListResponse {
+  candidateCount: number;
+  groupIcon: GroupListResponseGroupIcon;
+  groupId: string;
+  groupName: string;
+  myStatus: GroupListResponseMyStatus;
 }
 
 export type TownDtoTown = typeof TownDtoTown[keyof typeof TownDtoTown];
@@ -656,10 +731,6 @@ export interface SearchInfoRequestDto {
   townList?: SearchInfoRequestDtoTownListItem[];
 }
 
-export type SearchInfoParams = {
-searchInfoRequestDto: SearchInfoRequestDto;
-};
-
 export interface LinkStatusResponse {
   isOpen: boolean;
   linkId: string;
@@ -775,6 +846,71 @@ export interface UserTokenDto {
   refreshToken: string;
 }
 
+export interface ApplyToJoinGroupResponse {
+  groupId?: string;
+  groupName?: string;
+  success: boolean;
+}
+
+export interface CreateGroupInfoRequest {
+  groupId: string;
+  infoId: string;
+  message?: string;
+}
+
+export interface CreateGroupInfoListRequest {
+  groupInfoList: CreateGroupInfoRequest[];
+}
+
+export interface CreateGroupInviteLinkResponse {
+  inviteKey: string;
+}
+
+export type CreateGroupResponseIcon = typeof CreateGroupResponseIcon[keyof typeof CreateGroupResponseIcon];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateGroupResponseIcon = {
+  LOCK: 'LOCK',
+  ARROW: 'ARROW',
+  LETTER: 'LETTER',
+  HEART: 'HEART',
+  FOOTPRINT: 'FOOTPRINT',
+  WINE_GLASS: 'WINE_GLASS',
+  EGG: 'EGG',
+  BOUQUET: 'BOUQUET',
+  RING: 'RING',
+  STAR: 'STAR',
+} as const;
+
+export interface CreateGroupResponse {
+  groupId: string;
+  icon: CreateGroupResponseIcon;
+  name: string;
+}
+
+export type CreateGroupRequestIcon = typeof CreateGroupRequestIcon[keyof typeof CreateGroupRequestIcon];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateGroupRequestIcon = {
+  LOCK: 'LOCK',
+  ARROW: 'ARROW',
+  LETTER: 'LETTER',
+  HEART: 'HEART',
+  FOOTPRINT: 'FOOTPRINT',
+  WINE_GLASS: 'WINE_GLASS',
+  EGG: 'EGG',
+  BOUQUET: 'BOUQUET',
+  RING: 'RING',
+  STAR: 'STAR',
+} as const;
+
+export interface CreateGroupRequest {
+  icon: CreateGroupRequestIcon;
+  name: string;
+}
+
 export interface ImageDto {
   imageId: string;
   url: string;
@@ -812,6 +948,32 @@ export const UserInfoRequestGender = {
   FEMALE: 'FEMALE',
 } as const;
 
+export interface UserInfoRequest {
+  birthDate: string;
+  book?: Book;
+  dateStyle?: string[];
+  drinking: UserInfoDrinking;
+  foods?: string[];
+  gender: UserInfoRequestGender;
+  height: number;
+  hobbies: string[];
+  images: InfoImage[];
+  introduction?: string;
+  job: Job;
+  location: UserInfoLocation;
+  mbti?: UserInfoRequestMbti;
+  movie?: Movie;
+  name: string;
+  pets?: string[];
+  religion: Religion;
+  smoking: UserInfoSmoking;
+}
+
+export interface SaveInfoRequest {
+  idealPartner?: IdealPartnerRequest;
+  userInfo: UserInfoRequest;
+}
+
 export type IdealPartnerRequestLocation = typeof IdealPartnerRequestLocation[keyof typeof IdealPartnerRequestLocation];
 
 
@@ -829,25 +991,6 @@ export const IdealPartnerRequestHobbies = {
   IMPORTANT: 'IMPORTANT',
   NOT_IMPORTANT: 'NOT_IMPORTANT',
 } as const;
-
-export interface IdealPartnerRequest {
-  ageRange?: NumberRange;
-  drinking: IdealPartnerDrinking;
-  heightRange?: NumberRange;
-  hobbies: IdealPartnerRequestHobbies;
-  images?: InfoImage[];
-  location?: IdealPartnerRequestLocation;
-  religion: Religion;
-  requiredOptions: string[];
-  smoking: IdealPartnerSmoking;
-  style?: string;
-  toMatchMaker: string;
-}
-
-export interface SaveInfoRequest {
-  idealPartner?: IdealPartnerRequest;
-  userInfo: UserInfoRequest;
-}
 
 export interface SaveSharingResponse {
   sharingId: string;
@@ -873,6 +1016,32 @@ export interface UpdatePasswordRequest {
 
 export interface UpdateProfileImageRequest {
   profileImage: string;
+}
+
+export interface UpdateGroupInfoCommentRequest {
+  message?: string;
+}
+
+export interface ManageInvitationResponse {
+  groupId?: string;
+  groupName?: string;
+  memberName?: string;
+  success: boolean;
+}
+
+export type ManageInvitationRequestAction = typeof ManageInvitationRequestAction[keyof typeof ManageInvitationRequestAction];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ManageInvitationRequestAction = {
+  APPROVE: 'APPROVE',
+  REJECT: 'REJECT',
+  KICK: 'KICK',
+  LEAVE: 'LEAVE',
+} as const;
+
+export interface ManageInvitationRequest {
+  action: ManageInvitationRequestAction;
 }
 
 export type UserInfoSmokingSmokingCategory = typeof UserInfoSmokingSmokingCategory[keyof typeof UserInfoSmokingSmokingCategory];
@@ -1192,6 +1361,20 @@ export interface NumberRange {
   min: number;
 }
 
+export interface IdealPartnerRequest {
+  ageRange?: NumberRange;
+  drinking: IdealPartnerDrinking;
+  heightRange?: NumberRange;
+  hobbies: IdealPartnerRequestHobbies;
+  images?: InfoImage[];
+  location?: IdealPartnerRequestLocation;
+  religion: Religion;
+  requiredOptions: string[];
+  smoking: IdealPartnerSmoking;
+  style?: string;
+  toMatchMaker: string;
+}
+
 export interface Movie {
   cause: string;
   movieName: string;
@@ -1347,27 +1530,6 @@ export interface Book {
   cause: string;
 }
 
-export interface UserInfoRequest {
-  birthDate: string;
-  book?: Book;
-  dateStyle?: string[];
-  drinking: UserInfoDrinking;
-  foods?: string[];
-  gender: UserInfoRequestGender;
-  height: number;
-  hobbies: string[];
-  images: InfoImage[];
-  introduction?: string;
-  job: Job;
-  location: UserInfoLocation;
-  mbti?: UserInfoRequestMbti;
-  movie?: Movie;
-  name: string;
-  pets?: string[];
-  religion: Religion;
-  smoking: UserInfoSmoking;
-}
-
 export interface CreateLinkResponse {
   isOpen: boolean;
   linkId: string;
@@ -1414,6 +1576,31 @@ export const updateInfo = (
       {url: `/api/v1/info`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: detailedInfoDto
+    },
+      options);
+    }
+  
+export const manageMember = (
+    groupId: string,
+    memberId: string,
+    manageInvitationRequest: ManageInvitationRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ManageInvitationResponse>(
+      {url: `/api/v1/groups/${groupId}/members/${memberId}/manage`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: manageInvitationRequest
+    },
+      options);
+    }
+  
+export const updateGroupInfoComment = (
+    groupInfoId: string,
+    updateGroupInfoCommentRequest: UpdateGroupInfoCommentRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/groups/group-infos/${groupInfoId}/comment`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateGroupInfoCommentRequest
     },
       options);
     }
@@ -1513,6 +1700,56 @@ formData.append('image', uploadImageBody.image)
       {url: `/api/v1/image/upload`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData
+    },
+      options);
+    }
+  
+export const getMyGroups = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<GroupListResponse[]>(
+      {url: `/api/v1/groups`, method: 'GET'
+    },
+      options);
+    }
+  
+export const createGroup = (
+    createGroupRequest: CreateGroupRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateGroupResponse>(
+      {url: `/api/v1/groups`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createGroupRequest
+    },
+      options);
+    }
+  
+export const createGroupInviteLink = (
+    groupId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateGroupInviteLinkResponse>(
+      {url: `/api/v1/groups/${groupId}/invite-link`, method: 'POST'
+    },
+      options);
+    }
+  
+export const createGroupInfoList = (
+    createGroupInfoListRequest: CreateGroupInfoListRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<string[]>(
+      {url: `/api/v1/groups/group-infos`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createGroupInfoListRequest
+    },
+      options);
+    }
+  
+export const applyToJoinGroup = (
+    params: ApplyToJoinGroupParams,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ApplyToJoinGroupResponse>(
+      {url: `/api/v1/groups/apply`, method: 'POST',
+        params
     },
       options);
     }
@@ -1728,6 +1965,34 @@ export const getAddress = (
       options);
     }
   
+export const getGroupMembers = (
+    groupId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<GroupMemberResponse[]>(
+      {url: `/api/v1/groups/${groupId}/members`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getGroupInfoDetail = (
+    groupId: string,
+    infoId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<GroupInfoDetailResponse>(
+      {url: `/api/v1/groups/${groupId}/group-infos/${infoId}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getAvailableCandidates = (
+    groupId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<AvailableCandidateResponse[]>(
+      {url: `/api/v1/groups/${groupId}/candidates`, method: 'GET'
+    },
+      options);
+    }
+  
 export const loginKakao = (
     params: LoginKakaoParams,
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1765,6 +2030,15 @@ export const deleteInfo = (
       options);
     }
   
+export const deleteGroupInfo = (
+    groupInfoId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<Unit>(
+      {url: `/api/v1/groups/group-infos/${groupInfoId}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 export const quit = (
     
  options?: SecondParameter<typeof customInstance>,) => {
@@ -1777,6 +2051,8 @@ export const quit = (
 export type UpdateLinkOpenResult = NonNullable<Awaited<ReturnType<typeof updateLinkOpen>>>
 export type RegenerateLinkKeyResult = NonNullable<Awaited<ReturnType<typeof regenerateLinkKey>>>
 export type UpdateInfoResult = NonNullable<Awaited<ReturnType<typeof updateInfo>>>
+export type ManageMemberResult = NonNullable<Awaited<ReturnType<typeof manageMember>>>
+export type UpdateGroupInfoCommentResult = NonNullable<Awaited<ReturnType<typeof updateGroupInfoComment>>>
 export type UpdateProfileImageResult = NonNullable<Awaited<ReturnType<typeof updateProfileImage>>>
 export type UpdatePasswordResult = NonNullable<Awaited<ReturnType<typeof updatePassword>>>
 export type UpdateNameResult = NonNullable<Awaited<ReturnType<typeof updateName>>>
@@ -1786,6 +2062,11 @@ export type SaveSharingResult = NonNullable<Awaited<ReturnType<typeof saveSharin
 export type CreateLinkResult = NonNullable<Awaited<ReturnType<typeof createLink>>>
 export type SaveInfoResult = NonNullable<Awaited<ReturnType<typeof saveInfo>>>
 export type UploadImageResult = NonNullable<Awaited<ReturnType<typeof uploadImage>>>
+export type GetMyGroupsResult = NonNullable<Awaited<ReturnType<typeof getMyGroups>>>
+export type CreateGroupResult = NonNullable<Awaited<ReturnType<typeof createGroup>>>
+export type CreateGroupInviteLinkResult = NonNullable<Awaited<ReturnType<typeof createGroupInviteLink>>>
+export type CreateGroupInfoListResult = NonNullable<Awaited<ReturnType<typeof createGroupInfoList>>>
+export type ApplyToJoinGroupResult = NonNullable<Awaited<ReturnType<typeof applyToJoinGroup>>>
 export type RefreshTokenResult = NonNullable<Awaited<ReturnType<typeof refreshToken>>>
 export type VerifyExistedPasswordResult = NonNullable<Awaited<ReturnType<typeof verifyExistedPassword>>>
 export type LogoutResult = NonNullable<Awaited<ReturnType<typeof logout>>>
@@ -1807,10 +2088,14 @@ export type SearchInfoResult = NonNullable<Awaited<ReturnType<typeof searchInfo>
 export type GetInfoResult = NonNullable<Awaited<ReturnType<typeof getInfo>>>
 export type GetAllInfoResult = NonNullable<Awaited<ReturnType<typeof getAllInfo>>>
 export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>>>
+export type GetGroupMembersResult = NonNullable<Awaited<ReturnType<typeof getGroupMembers>>>
+export type GetGroupInfoDetailResult = NonNullable<Awaited<ReturnType<typeof getGroupInfoDetail>>>
+export type GetAvailableCandidatesResult = NonNullable<Awaited<ReturnType<typeof getAvailableCandidates>>>
 export type LoginKakaoResult = NonNullable<Awaited<ReturnType<typeof loginKakao>>>
 export type InfoResult = NonNullable<Awaited<ReturnType<typeof info>>>
 export type GetUserEnrollmentStatusResult = NonNullable<Awaited<ReturnType<typeof getUserEnrollmentStatus>>>
 export type DeleteInfoResult = NonNullable<Awaited<ReturnType<typeof deleteInfo>>>
+export type DeleteGroupInfoResult = NonNullable<Awaited<ReturnType<typeof deleteGroupInfo>>>
 export type QuitResult = NonNullable<Awaited<ReturnType<typeof quit>>>
 
 
@@ -1819,6 +2104,10 @@ export const getUpdateLinkOpenResponseMock = (): Unit => ({})
 export const getRegenerateLinkKeyResponseMock = (overrideResponse: Partial< CreateLinkResponse > = {}): CreateLinkResponse => ({isOpen: faker.datatype.boolean(), linkId: faker.word.sample(), linkKey: faker.word.sample(), ...overrideResponse})
 
 export const getUpdateInfoResponseMock = (): string => (faker.word.sample())
+
+export const getManageMemberResponseMock = (overrideResponse: Partial< ManageInvitationResponse > = {}): ManageInvitationResponse => ({groupId: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupName: faker.helpers.arrayElement([faker.word.sample(), undefined]), memberName: faker.helpers.arrayElement([faker.word.sample(), undefined]), success: faker.datatype.boolean(), ...overrideResponse})
+
+export const getUpdateGroupInfoCommentResponseMock = (): Unit => ({})
 
 export const getUpdateProfileImageResponseMock = (): boolean => (faker.datatype.boolean())
 
@@ -1837,6 +2126,16 @@ export const getCreateLinkResponseMock = (overrideResponse: Partial< CreateLinkR
 export const getSaveInfoResponseMock = (): string => (faker.word.sample())
 
 export const getUploadImageResponseMock = (overrideResponse: Partial< ImageDto > = {}): ImageDto => ({imageId: faker.word.sample(), url: faker.word.sample(), ...overrideResponse})
+
+export const getGetMyGroupsResponseMock = (): GroupListResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({candidateCount: faker.number.int({min: undefined, max: undefined}), groupIcon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), groupId: faker.word.sample(), groupName: faker.word.sample(), myStatus: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const)})))
+
+export const getCreateGroupResponseMock = (overrideResponse: Partial< CreateGroupResponse > = {}): CreateGroupResponse => ({groupId: faker.word.sample(), icon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), name: faker.word.sample(), ...overrideResponse})
+
+export const getCreateGroupInviteLinkResponseMock = (overrideResponse: Partial< CreateGroupInviteLinkResponse > = {}): CreateGroupInviteLinkResponse => ({inviteKey: faker.word.sample(), ...overrideResponse})
+
+export const getCreateGroupInfoListResponseMock = (): string[] => (Array.from({length: faker.number.int({min: 1,max: 10})}, () => faker.word.sample()))
+
+export const getApplyToJoinGroupResponseMock = (overrideResponse: Partial< ApplyToJoinGroupResponse > = {}): ApplyToJoinGroupResponse => ({groupId: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupName: faker.helpers.arrayElement([faker.word.sample(), undefined]), success: faker.datatype.boolean(), ...overrideResponse})
 
 export const getRefreshTokenResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
@@ -1880,6 +2179,12 @@ export const getGetAllInfoResponseMock = (): ArchivedInfoResponse[] => (Array.fr
 
 export const getGetAddressResponseMock = (): CityAndTownResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({city: {city: faker.helpers.arrayElement(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), cityName: faker.word.sample()}, town: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({town: faker.helpers.arrayElement(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const), townName: faker.word.sample()}))})))
 
+export const getGetGroupMembersResponseMock = (): GroupMemberResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({status: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const), userId: faker.word.sample(), userName: faker.word.sample()})))
+
+export const getGetGroupInfoDetailResponseMock = (overrideResponse: Partial< GroupInfoDetailResponse > = {}): GroupInfoDetailResponse => ({comment: faker.helpers.arrayElement([faker.word.sample(), undefined]), creatorImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), creatorName: faker.word.sample(), groupInfoId: faker.helpers.arrayElement([faker.word.sample(), undefined]), idealPartner: faker.helpers.arrayElement([{ageRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NO_PROBLEM','ONE_TWO_TIMES_A_WEEK','ONE_TWO_TIMES_A_MONTH','NEVER','ETC'] as const)}, heightRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), hobbies: faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), images: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), undefined]), location: faker.helpers.arrayElement([faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER','NEVER','GOOD','ETC'] as const)}, style: faker.helpers.arrayElement([faker.word.sample(), undefined]), toMatchMaker: faker.word.sample()}, undefined]), infoId: faker.word.sample(), isCreatedByMe: faker.datatype.boolean(), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), name: faker.word.sample(), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
+
+export const getGetAvailableCandidatesResponseMock = (): AvailableCandidateResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({info: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), id: faker.helpers.arrayElement([faker.word.sample(), undefined]), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), name: faker.word.sample(), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, isAlreadyInGroup: faker.datatype.boolean()})))
+
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
 export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse > = {}): UserInfoResponse => ({email: faker.helpers.arrayElement([faker.word.sample(), undefined]), joinType: faker.helpers.arrayElement(['KAKAO','EMAIL'] as const), name: faker.word.sample(), profileImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), receiveEmail: faker.datatype.boolean(), userId: faker.word.sample(), ...overrideResponse})
@@ -1887,6 +2192,8 @@ export const getInfoResponseMock = (overrideResponse: Partial< UserInfoResponse 
 export const getGetUserEnrollmentStatusResponseMock = (overrideResponse: Partial< UserEnrollmentStatusResponse > = {}): UserEnrollmentStatusResponse => ({hasEmail: faker.datatype.boolean(), hasSeenOnboarding: faker.datatype.boolean(), inEmailOptOut: faker.datatype.boolean(), ...overrideResponse})
 
 export const getDeleteInfoResponseMock = (): string => (faker.word.sample())
+
+export const getDeleteGroupInfoResponseMock = (): Unit => ({})
 
 export const getQuitResponseMock = (): Unit => ({})
 
@@ -1926,6 +2233,36 @@ export const getUpdateInfoMockHandler = (overrideResponse?: string | ((info: Par
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUpdateInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getManageMemberMockHandler = (overrideResponse?: ManageInvitationResponse | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<ManageInvitationResponse> | ManageInvitationResponse)) => {
+  return http.put('*/api/v1/groups/:groupId/members/:memberId/manage', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getManageMemberResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getUpdateGroupInfoCommentMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.put('*/api/v1/groups/group-infos/:groupInfoId/comment', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateGroupInfoCommentResponseMock()),
       {
         status: 200,
         headers: {
@@ -2061,6 +2398,81 @@ export const getUploadImageMockHandler = (overrideResponse?: ImageDto | ((info: 
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getUploadImageResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getGetMyGroupsMockHandler = (overrideResponse?: GroupListResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupListResponse[]> | GroupListResponse[])) => {
+  return http.get('*/api/v1/groups', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetMyGroupsResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getCreateGroupMockHandler = (overrideResponse?: CreateGroupResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateGroupResponse> | CreateGroupResponse)) => {
+  return http.post('*/api/v1/groups', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateGroupResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getCreateGroupInviteLinkMockHandler = (overrideResponse?: CreateGroupInviteLinkResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateGroupInviteLinkResponse> | CreateGroupInviteLinkResponse)) => {
+  return http.post('*/api/v1/groups/:groupId/invite-link', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateGroupInviteLinkResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getCreateGroupInfoListMockHandler = (overrideResponse?: string[] | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<string[]> | string[])) => {
+  return http.post('*/api/v1/groups/group-infos', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateGroupInfoListResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getApplyToJoinGroupMockHandler = (overrideResponse?: ApplyToJoinGroupResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<ApplyToJoinGroupResponse> | ApplyToJoinGroupResponse)) => {
+  return http.post('*/api/v1/groups/apply', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getApplyToJoinGroupResponseMock()),
       {
         status: 200,
         headers: {
@@ -2386,6 +2798,51 @@ export const getGetAddressMockHandler = (overrideResponse?: CityAndTownResponse[
   })
 }
 
+export const getGetGroupMembersMockHandler = (overrideResponse?: GroupMemberResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupMemberResponse[]> | GroupMemberResponse[])) => {
+  return http.get('*/api/v1/groups/:groupId/members', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetGroupMembersResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getGetGroupInfoDetailMockHandler = (overrideResponse?: GroupInfoDetailResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupInfoDetailResponse> | GroupInfoDetailResponse)) => {
+  return http.get('*/api/v1/groups/:groupId/group-infos/:infoId', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetGroupInfoDetailResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getGetAvailableCandidatesMockHandler = (overrideResponse?: AvailableCandidateResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<AvailableCandidateResponse[]> | AvailableCandidateResponse[])) => {
+  return http.get('*/api/v1/groups/:groupId/candidates', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetAvailableCandidatesResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getLoginKakaoMockHandler = (overrideResponse?: UserTokenDto | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<UserTokenDto> | UserTokenDto)) => {
   return http.get('*/api/v1/auth/kakao/login', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -2446,6 +2903,21 @@ export const getDeleteInfoMockHandler = (overrideResponse?: string | ((info: Par
   })
 }
 
+export const getDeleteGroupInfoMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<Unit> | Unit)) => {
+  return http.delete('*/api/v1/groups/group-infos/:groupInfoId', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getDeleteGroupInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
 export const getQuitMockHandler = (overrideResponse?: Unit | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<Unit> | Unit)) => {
   return http.delete('*/api/v1/auth/quit', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
@@ -2464,6 +2936,8 @@ export const getGoogooApiMock = () => [
   getUpdateLinkOpenMockHandler(),
   getRegenerateLinkKeyMockHandler(),
   getUpdateInfoMockHandler(),
+  getManageMemberMockHandler(),
+  getUpdateGroupInfoCommentMockHandler(),
   getUpdateProfileImageMockHandler(),
   getUpdatePasswordMockHandler(),
   getUpdateNameMockHandler(),
@@ -2473,6 +2947,11 @@ export const getGoogooApiMock = () => [
   getCreateLinkMockHandler(),
   getSaveInfoMockHandler(),
   getUploadImageMockHandler(),
+  getGetMyGroupsMockHandler(),
+  getCreateGroupMockHandler(),
+  getCreateGroupInviteLinkMockHandler(),
+  getCreateGroupInfoListMockHandler(),
+  getApplyToJoinGroupMockHandler(),
   getRefreshTokenMockHandler(),
   getVerifyExistedPasswordMockHandler(),
   getLogoutMockHandler(),
@@ -2494,8 +2973,12 @@ export const getGoogooApiMock = () => [
   getGetInfoMockHandler(),
   getGetAllInfoMockHandler(),
   getGetAddressMockHandler(),
+  getGetGroupMembersMockHandler(),
+  getGetGroupInfoDetailMockHandler(),
+  getGetAvailableCandidatesMockHandler(),
   getLoginKakaoMockHandler(),
   getInfoMockHandler(),
   getGetUserEnrollmentStatusMockHandler(),
   getDeleteInfoMockHandler(),
+  getDeleteGroupInfoMockHandler(),
   getQuitMockHandler()]

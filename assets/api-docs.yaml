@@ -57,6 +57,59 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/groups/{groupId}/members/{memberId}/manage:
+    put:
+      tags:
+      - group-controller
+      operationId: manageMember
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: memberId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageInvitationRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ManageInvitationResponse'
+  /api/v1/groups/group-infos/{groupInfoId}/comment:
+    put:
+      tags:
+      - group-info-controller
+      operationId: updateGroupInfoComment
+      parameters:
+      - name: groupInfoId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupInfoCommentRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
   /api/v1/auth/profile-image:
     put:
       tags:
@@ -224,6 +277,93 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ImageDto'
+  /api/v1/groups:
+    get:
+      tags:
+      - group-controller
+      operationId: getMyGroups
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupListResponse'
+    post:
+      tags:
+      - group-controller
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateGroupResponse'
+  /api/v1/groups/{groupId}/invite-link:
+    post:
+      tags:
+      - group-controller
+      operationId: createGroupInviteLink
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateGroupInviteLinkResponse'
+  /api/v1/groups/group-infos:
+    post:
+      tags:
+      - group-info-controller
+      operationId: createGroupInfoList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupInfoListRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/v1/groups/apply:
+    post:
+      tags:
+      - group-controller
+      operationId: applyToJoinGroup
+      parameters:
+      - name: inviteKey
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApplyToJoinGroupResponse'
   /api/v1/auth/refresh-token:
     post:
       tags:
@@ -565,6 +705,69 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CityAndTownResponse'
+  /api/v1/groups/{groupId}/members:
+    get:
+      tags:
+      - group-controller
+      operationId: getGroupMembers
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupMemberResponse'
+  /api/v1/groups/{groupId}/group-infos/{infoId}:
+    get:
+      tags:
+      - group-info-controller
+      operationId: getGroupInfoDetail
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: infoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GroupInfoDetailResponse'
+  /api/v1/groups/{groupId}/candidates:
+    get:
+      tags:
+      - group-info-controller
+      operationId: getAvailableCandidates
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailableCandidateResponse'
   /api/v1/auth/kakao/login:
     get:
       tags:
@@ -625,6 +828,24 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/groups/group-infos/{groupInfoId}:
+    delete:
+      tags:
+      - group-info-controller
+      operationId: deleteGroupInfo
+      parameters:
+      - name: groupInfoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
   /api/v1/auth/quit:
     delete:
       tags:
@@ -1190,6 +1411,36 @@ components:
           - ETC
         smokingAmount:
           type: string
+    ManageInvitationRequest:
+      required:
+      - action
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - APPROVE
+          - REJECT
+          - KICK
+          - LEAVE
+    ManageInvitationResponse:
+      required:
+      - success
+      type: object
+      properties:
+        success:
+          type: boolean
+        groupId:
+          type: string
+        groupName:
+          type: string
+        memberName:
+          type: string
+    UpdateGroupInfoCommentRequest:
+      type: object
+      properties:
+        message:
+          type: string
     UpdateProfileImageRequest:
       required:
       - profileImage
@@ -1380,6 +1631,90 @@ components:
         imageId:
           type: string
         url:
+          type: string
+    CreateGroupRequest:
+      required:
+      - icon
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+          enum:
+          - LOCK
+          - ARROW
+          - LETTER
+          - HEART
+          - FOOTPRINT
+          - WINE_GLASS
+          - EGG
+          - BOUQUET
+          - RING
+          - STAR
+    CreateGroupResponse:
+      required:
+      - groupId
+      - icon
+      - name
+      type: object
+      properties:
+        groupId:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+          enum:
+          - LOCK
+          - ARROW
+          - LETTER
+          - HEART
+          - FOOTPRINT
+          - WINE_GLASS
+          - EGG
+          - BOUQUET
+          - RING
+          - STAR
+    CreateGroupInviteLinkResponse:
+      required:
+      - inviteKey
+      type: object
+      properties:
+        inviteKey:
+          type: string
+    CreateGroupInfoListRequest:
+      required:
+      - groupInfoList
+      type: object
+      properties:
+        groupInfoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateGroupInfoRequest'
+    CreateGroupInfoRequest:
+      required:
+      - groupId
+      - infoId
+      type: object
+      properties:
+        infoId:
+          type: string
+        groupId:
+          type: string
+        message:
+          type: string
+    ApplyToJoinGroupResponse:
+      required:
+      - success
+      type: object
+      properties:
+        success:
+          type: boolean
+        groupId:
+          type: string
+        groupName:
           type: string
     UserTokenDto:
       required:
@@ -2232,6 +2567,92 @@ components:
           - DAEGU_JUNG
         townName:
           type: string
+    GroupListResponse:
+      required:
+      - candidateCount
+      - groupIcon
+      - groupId
+      - groupName
+      - myStatus
+      type: object
+      properties:
+        groupId:
+          type: string
+        groupName:
+          type: string
+        groupIcon:
+          type: string
+          enum:
+          - LOCK
+          - ARROW
+          - LETTER
+          - HEART
+          - FOOTPRINT
+          - WINE_GLASS
+          - EGG
+          - BOUQUET
+          - RING
+          - STAR
+        candidateCount:
+          type: integer
+          format: int32
+        myStatus:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+          - PENDING
+    GroupMemberResponse:
+      required:
+      - status
+      - userId
+      - userName
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        status:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+          - PENDING
+    GroupInfoDetailResponse:
+      required:
+      - creatorName
+      - infoId
+      - isCreatedByMe
+      - userInfo
+      type: object
+      properties:
+        groupInfoId:
+          type: string
+        infoId:
+          type: string
+        userInfo:
+          $ref: '#/components/schemas/DetailedInfoUserInfo'
+        idealPartner:
+          $ref: '#/components/schemas/DetailedInfoIdealPartner'
+        creatorName:
+          type: string
+        creatorImage:
+          type: string
+        comment:
+          type: string
+        isCreatedByMe:
+          type: boolean
+    AvailableCandidateResponse:
+      required:
+      - info
+      - isAlreadyInGroup
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/ArchivedInfoResponse'
+        isAlreadyInGroup:
+          type: boolean
     UserInfoResponse:
       required:
       - joinType
