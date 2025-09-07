@@ -2,21 +2,21 @@ import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link } from '@remix-run/react';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
-import { GroupMember, GroupSummary } from 'src/entities/groups/mocks/groupInfoMock';
 import { MemberRow } from 'src/entities/groups/components/member_row/MemberRow';
 import { Button } from 'src/shared/ui/Button/Button';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import toast from 'react-hot-toast';
 import styles from './MemberListPage.module.css';
+import { GroupListResponse, GroupMemberResponse } from 'src/types';
 
 export const MemberListPage = ({
   group,
   memberList,
   isAdmin,
 }: {
-  group: GroupSummary;
-  memberList: GroupMember[];
+  group: GroupListResponse;
+  memberList: GroupMemberResponse[];
   isAdmin: boolean;
 }) => {
   const { value: isOutConfirmOpen, setTrue: openOutConfirm, setFalse: closeOutConfirm } = useBoolean(false);
@@ -30,7 +30,7 @@ export const MemberListPage = ({
     <div className={styles.Container}>
       <Header
         prefixSlot={
-          <Link to={`/groups/${group.id}/info`}>
+          <Link to={`/groups/${group.groupId}/info`}>
             <ArrowLeft color={Theme.color.neutral50} />
           </Link>
         }
@@ -40,11 +40,11 @@ export const MemberListPage = ({
       <div>
         {memberList.map((member) => (
           <MemberRow
-            key={member.id}
+            key={member.userId}
             member={member}
             suffix={
               isAdmin &&
-              !member.isAdmin && (
+              member.status !== 'ADMIN' && (
                 <Button size={'S'} color={'neutral'} variant={'outline'} onClick={openOutConfirm}>
                   내보내기
                 </Button>
