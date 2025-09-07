@@ -57,6 +57,47 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/groups/{groupId}:
+    put:
+      tags:
+      - group-controller
+      operationId: updateGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdateGroupResponse'
+    delete:
+      tags:
+      - group-controller
+      operationId: deleteGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
   /api/v1/groups/{groupId}/members/{memberId}/manage:
     put:
       tags:
@@ -86,13 +127,18 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ManageInvitationResponse'
-  /api/v1/groups/group-infos/{groupInfoId}/comment:
+  /api/v1/groups/{groupId}/group-infos/{infoId}/comment:
     put:
       tags:
       - group-info-controller
       operationId: updateGroupInfoComment
       parameters:
-      - name: groupInfoId
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: infoId
         in: path
         required: true
         schema:
@@ -206,6 +252,29 @@ paths:
       - sharing-controller
       operationId: saveSharing
       parameters:
+      - name: infoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaveSharingResponse'
+  /api/v1/sharing/groups/{groupId}/infos/{infoId}:
+    post:
+      tags:
+      - sharing-controller
+      operationId: saveSharingWithGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
       - name: infoId
         in: path
         required: true
@@ -343,9 +412,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: array
-                items:
-                  type: string
+                $ref: '#/components/schemas/Unit'
   /api/v1/groups/apply:
     post:
       tags:
@@ -705,6 +772,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CityAndTownResponse'
+  /api/v1/groups/{groupId}/search:
+    get:
+      tags:
+      - group-info-controller
+      operationId: searchGroupInfo
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: searchGroupInfoRequestDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/SearchGroupInfoRequestDto'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SearchGroupInfoResponse'
   /api/v1/groups/{groupId}/members:
     get:
       tags:
@@ -725,6 +815,24 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GroupMemberResponse'
+  /api/v1/groups/{groupId}/info:
+    get:
+      tags:
+      - group-controller
+      operationId: getGroupInfo
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
   /api/v1/groups/{groupId}/group-infos/{infoId}:
     get:
       tags:
@@ -748,6 +856,28 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GroupInfoDetailResponse'
+    delete:
+      tags:
+      - group-info-controller
+      operationId: deleteGroupInfo
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: infoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unit'
   /api/v1/groups/{groupId}/candidates:
     get:
       tags:
@@ -768,6 +898,24 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AvailableCandidateResponse'
+  /api/v1/groups/invite/{inviteKey}:
+    get:
+      tags:
+      - group-controller
+      operationId: getGroupInfoByInviteKey
+      parameters:
+      - name: inviteKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ValidateGroupInviteLinkResponse'
   /api/v1/auth/kakao/login:
     get:
       tags:
@@ -828,24 +976,6 @@ paths:
             '*/*':
               schema:
                 type: string
-  /api/v1/groups/group-infos/{groupInfoId}:
-    delete:
-      tags:
-      - group-info-controller
-      operationId: deleteGroupInfo
-      parameters:
-      - name: groupInfoId
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Unit'
   /api/v1/auth/quit:
     delete:
       tags:
@@ -1411,6 +1541,51 @@ components:
           - ETC
         smokingAmount:
           type: string
+    UpdateGroupRequest:
+      required:
+      - icon
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+          enum:
+          - LOCK
+          - ARROW
+          - LETTER
+          - HEART
+          - FOOTPRINT
+          - WINE_GLASS
+          - EGG
+          - BOUQUET
+          - RING
+          - STAR
+    UpdateGroupResponse:
+      required:
+      - groupId
+      - icon
+      - name
+      type: object
+      properties:
+        groupId:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+          enum:
+          - LOCK
+          - ARROW
+          - LETTER
+          - HEART
+          - FOOTPRINT
+          - WINE_GLASS
+          - EGG
+          - BOUQUET
+          - RING
+          - STAR
     ManageInvitationRequest:
       required:
       - action
@@ -2595,13 +2770,384 @@ components:
           - STAR
         candidateCount:
           type: integer
-          format: int32
+          format: int64
         myStatus:
           type: string
           enum:
           - ADMIN
           - MEMBER
           - PENDING
+    SearchGroupInfoRequestDto:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          writeOnly: true
+        size:
+          type: integer
+          format: int32
+          writeOnly: true
+        sortBy:
+          type: string
+          writeOnly: true
+          enum:
+          - CREATED_DATE
+          - NAME
+        sortDirection:
+          type: string
+          writeOnly: true
+          enum:
+          - ASC
+          - DESC
+        gender:
+          type: string
+          writeOnly: true
+          enum:
+          - MALE
+          - FEMALE
+        ageFrom:
+          type: string
+          format: date-time
+          writeOnly: true
+        ageTo:
+          type: string
+          format: date-time
+          writeOnly: true
+        heightFrom:
+          type: integer
+          format: int32
+          writeOnly: true
+        heightTo:
+          type: integer
+          format: int32
+          writeOnly: true
+        townList:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+            enum:
+            - GANGNAM
+            - GANGDONG
+            - GANGBUK
+            - GANGSEO
+            - GWANAK
+            - GWANGJIN
+            - GURO
+            - GEUMCHEON
+            - NOWON
+            - DOBONG
+            - DONGDAEMUN
+            - DONGJAK
+            - MAPO
+            - SEODAEMUN
+            - SEOCHO
+            - SEONGDONG
+            - SEONGBUK
+            - SONGPA
+            - YANGCHEON
+            - YEONGDEUNGPO
+            - YONGSAN
+            - EUNPYEONG
+            - JONGNO
+            - SEOUL_JUNG
+            - JUNGRANG
+            - GAPYEONG
+            - GOYANG
+            - GWACHEON
+            - GWANGMYEONG
+            - GWANGJU
+            - GURI
+            - GUNPO
+            - GIMPO
+            - NAMYANGJU
+            - DONGDUCHEON
+            - BUCHEON
+            - SEONGNAM
+            - SUWON
+            - SIHEUNG
+            - ANSAN
+            - ANSEONG
+            - ANYANG
+            - YANGJU
+            - YANGPYEONG
+            - YEOJU
+            - YEONCHEON
+            - OSAN
+            - YONGIN
+            - UIWANG
+            - UIJEONGBU
+            - ICHEON
+            - PAJU
+            - PYEONGTAEK
+            - POCHEON
+            - HANAM
+            - HWASEONG
+            - GANGHWA
+            - GYEYANG
+            - NAMDONG
+            - INCHEON_DONG
+            - MICHUHOL
+            - BUPYEONG
+            - SEO
+            - YEONSU
+            - ONGJIN
+            - INCHEON_JUNG
+            - DAEDEOK
+            - DAEJEON_DONG
+            - DAEJEON_SEO
+            - YUSEONG
+            - DAEJEON_JUNG
+            - BUSAN_GANGSEO
+            - GEUMJEONG
+            - GIJANG
+            - BUSAN_NAM
+            - BUSAN_DONG
+            - DONGNAE
+            - BUSANJIN
+            - BUSAN_BUK
+            - SASANG
+            - SAHA
+            - BUSAN_SEO
+            - SUYEONG
+            - YEONJE
+            - YEONGDO
+            - BUSAN_JUNG
+            - HAEUNDAE
+            - ULSAN_NAM
+            - ULSAN_DONG
+            - ULSAN_BUK
+            - ULJU
+            - ULSAN_JUNG
+            - GWANGSAN
+            - GWANGJU_NAM
+            - GWANGJU_DONG
+            - GWANGJU_BUK
+            - GWANGJU_SEO
+            - GANGNEUNG
+            - GOSEONG
+            - DONGHAE
+            - SAMCHEOK
+            - SOKCHO
+            - YANGGU
+            - YANGYANG
+            - YEONGWOL
+            - WONJU
+            - INJE
+            - JEONGSEON
+            - CHEORWON
+            - CHUNCHEON
+            - TAEBAEK
+            - PYEONGCHANG
+            - HONGCHEON
+            - HWACHEON
+            - HOENGSEONG
+            - SEJONG
+            - GOESAN
+            - DANYANG
+            - BOEUN
+            - YEONGDONG
+            - OKCHEON
+            - EUMSEONG
+            - JECHEON
+            - JEUNGPYEONG
+            - JINCHEON
+            - CHEONGJU
+            - CHUNGJU
+            - GYERYONG
+            - GONGJU
+            - GEUMSAN
+            - NONSAN
+            - DANGJIN
+            - BORYEONG
+            - BUYEO
+            - SEOSAN
+            - SEOCHON
+            - ASAN
+            - YEONGI
+            - YESAN
+            - CHEONAN
+            - CHEONGYANG
+            - TAEAN
+            - HONGSEONG
+            - GYEONGSAN
+            - GYEONGJU
+            - GORYEONG
+            - GUMI
+            - GIMCHEON
+            - MUNGYEONG
+            - BONGHWA
+            - SANGJU
+            - SEONGJU
+            - ANDONG
+            - YEONGDEOK
+            - YEONGYANG
+            - YEONGJU
+            - YEONGCHEON
+            - YECHUN
+            - ULLUNG
+            - ULJIN
+            - UISEONG
+            - CHEONGDO
+            - CHEONGSONG
+            - CHILGOK
+            - POHANG
+            - GEOJE
+            - GEOCHANG
+            - GOSEONG_GN
+            - GIMHAE
+            - NAMHAE
+            - MIRYANG
+            - SACHEON
+            - SANCHEONG
+            - YANGSAN
+            - UIRYEONG
+            - JINJU
+            - CHANGNYEONG
+            - CHANGWON
+            - TONGYEONG
+            - HADONG
+            - HAMAN
+            - HAMYANG
+            - HAPCHEON
+            - GOCHANG
+            - GUNSAN
+            - GIMJE
+            - NAMWON
+            - MUJU
+            - BUAN
+            - SUNCHANG
+            - WANJU
+            - IKSAN
+            - IMSIL
+            - JANGSU
+            - JEONJU
+            - JEONGEUP
+            - JINAN
+            - GANGJIN
+            - GOHEUNG
+            - GOKSEONG
+            - GWANGYANG
+            - GURYE
+            - NAJU
+            - DAMYANG
+            - MOKPO
+            - MUAN
+            - BOSEONG
+            - SUNCHEON
+            - SINAN
+            - YEOSU
+            - YEONGGWANG
+            - YEONGAM
+            - WANDO
+            - JANGSEONG
+            - JANGHEUNG
+            - JINDO
+            - HAMPYEONG
+            - HAENAM
+            - HWASUN
+            - JEJU
+            - SEOGWIPO
+            - GUNWEE
+            - DAEGU_NAM
+            - DALSEO
+            - DALSEONG
+            - DAEGU_DONG
+            - DAEGU_BUK
+            - DAEGU_SEO
+            - SUSEONG
+            - DAEGU_JUNG
+    GroupInfoWithDetailResponse:
+      required:
+      - birthDate
+      - creatorName
+      - drinking
+      - gender
+      - height
+      - hobbies
+      - images
+      - isCreatedByMe
+      - job
+      - location
+      - name
+      - religion
+      - smoking
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        birthDate:
+          type: string
+          format: date-time
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEMALE
+        location:
+          $ref: '#/components/schemas/UserInfoLocation'
+        height:
+          type: integer
+          format: int32
+        mbti:
+          type: string
+          enum:
+          - ENFP
+          - ENFJ
+          - ENTJ
+          - ENTP
+          - ESFJ
+          - ESFP
+          - ESTJ
+          - ESTP
+          - INFJ
+          - INFP
+          - INTJ
+          - INTP
+          - ISFJ
+          - ISFP
+          - ISTJ
+          - ISTP
+        religion:
+          $ref: '#/components/schemas/Religion'
+        job:
+          $ref: '#/components/schemas/Job'
+        drinking:
+          $ref: '#/components/schemas/UserInfoDrinking'
+        smoking:
+          $ref: '#/components/schemas/UserInfoSmoking'
+        hobbies:
+          type: array
+          items:
+            type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfoImage'
+        creatorName:
+          type: string
+        creatorImage:
+          type: string
+        comment:
+          type: string
+        isCreatedByMe:
+          type: boolean
+    SearchGroupInfoResponse:
+      required:
+      - count
+      - infos
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupInfoWithDetailResponse'
     GroupMemberResponse:
       required:
       - status
@@ -2627,8 +3173,6 @@ components:
       - userInfo
       type: object
       properties:
-        groupInfoId:
-          type: string
         infoId:
           type: string
         userInfo:
@@ -2653,6 +3197,21 @@ components:
           $ref: '#/components/schemas/ArchivedInfoResponse'
         isAlreadyInGroup:
           type: boolean
+    ValidateGroupInviteLinkResponse:
+      required:
+      - isValid
+      type: object
+      properties:
+        isValid:
+          type: boolean
+        groupId:
+          type: string
+        groupName:
+          type: string
+        creatorName:
+          type: string
+        reason:
+          type: string
     UserInfoResponse:
       required:
       - joinType
