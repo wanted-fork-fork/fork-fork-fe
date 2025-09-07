@@ -7,7 +7,7 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupJoinPage.module.css';
 
 export const GroupJoinPage = () => {
-  const { value: isOpen, setTrue: openSheet, setFalse: closeSheet } = useBoolean(true);
+  const { value: isOpen, setTrue: openSheet, setFalse: closeSheet } = useBoolean(false);
 
   const handleClickJoin = () => {
     openSheet();
@@ -38,19 +38,19 @@ export const GroupJoinPage = () => {
       />
       <BottomSheet isOpen={isOpen} onClose={closeSheet} detent={'content-height'}>
         <BottomSheet.Content>
-          <Link to={'/'}>
-            <Flex direction={'vertical'} align={'start'} gap={32}>
-              <Flex className={styles.TitleWrapper} direction={'vertical'} align={'start'} gap={16}>
-                <h3>그룹 참여 신청이 완료되었습니다.</h3>
-                <p>
-                  그룹장이 참여 신청을 수락하면
-                  <br />
-                  그룹 활동을 시작할 수 있어요.
-                </p>
-              </Flex>
-              <Button widthType={'fill'}>구구 둘러보기</Button>
+          <Flex direction={'vertical'} align={'start'} gap={32}>
+            <Flex className={styles.TitleWrapper} direction={'vertical'} align={'start'} gap={16}>
+              <h3>그룹 참여 신청이 완료되었습니다.</h3>
+              <p>
+                그룹장이 참여 신청을 수락하면
+                <br />
+                그룹 활동을 시작할 수 있어요.
+              </p>
             </Flex>
-          </Link>
+            <Link to={'/'} style={{ width: '100%' }}>
+              <Button widthType={'fill'}>구구 둘러보기</Button>
+            </Link>
+          </Flex>
         </BottomSheet.Content>
       </BottomSheet>
     </>

@@ -21,7 +21,7 @@ export const GroupCreateCompleteModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const shareLink = `${location.origin}/group/join/${groupId}`;
+  const shareLink = typeof location === undefined ? '' : `${location.origin}/groups/join/${groupId}`;
 
   const onClickShareLink = async () => {
     setTimeout(() => {

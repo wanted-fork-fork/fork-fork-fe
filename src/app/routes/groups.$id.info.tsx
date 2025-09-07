@@ -1,18 +1,25 @@
 import { GroupInfoPage } from 'src/pages/groups/group_info/GroupInfoPage';
-import { groupInfoMock } from 'src/entities/groups/mocks/groupInfoMock';
 import { json, LoaderFunction } from '@remix-run/node';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { useLoaderData } from '@remix-run/react';
+import { getGroupInfo } from 'src/types';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
-  const { newSession } = await authenticate(request);
+  const { newSession, accessToken } = await authenticate(request);
 
   if (!id) return null;
+
+  const { data } = await getGroupInfo(id, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
   return json(
     {
-      groupInfo: { ...groupInfoMock, id },
+      groupInfo: data,
     },
     {
       headers: {

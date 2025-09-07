@@ -8,7 +8,7 @@ import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
 import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupHistoryPage.module.css';
 
-export const GroupHistoryPage = ({ groupId, historyList }: { groupId: number; historyList: GroupHistory[] }) => {
+export const GroupHistoryPage = ({ groupId, historyList }: { groupId: string; historyList: GroupHistory[] }) => {
   return (
     <div className={styles.Container}>
       <Header

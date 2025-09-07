@@ -1,4 +1,4 @@
-import { GroupSummary, iconMap } from 'src/entities/groups/mocks/groupInfoMock';
+import { iconMap } from 'src/entities/groups/mocks/groupInfoMock';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link } from '@remix-run/react';
 import { ArrowLeft, ArrowRight } from 'src/shared/ui/icons';
@@ -13,8 +13,9 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 import toast from 'react-hot-toast';
 import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
+import { GroupListResponse } from 'src/types';
 
-export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary; isAdmin?: boolean }) => {
+export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupListResponse; isAdmin?: boolean }) => {
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
   const { value: isShareModalOpen, setTrue: openShareModal, setFalse: closeShareModal } = useBoolean(false);
   const {
@@ -33,7 +34,7 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
     <div>
       <Header
         prefixSlot={
-          <Link to={`/groups/${groupInfo.id}`}>
+          <Link to={`/groups/${groupInfo.groupId}`}>
             <ArrowLeft color={Theme.color.neutral50} />
           </Link>
         }
@@ -42,8 +43,14 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
       </Header>
       <div className={styles.Container}>
         <div className={styles.InfoContainer}>
-          <Avatar className={styles.Thumbnail} fallback={''} shape={'circle'} src={iconMap[groupInfo.icon]} size={50} />
-          <p>{groupInfo.name}</p>
+          <Avatar
+            className={styles.Thumbnail}
+            fallback={''}
+            shape={'circle'}
+            src={iconMap[groupInfo.groupIcon]}
+            size={50}
+          />
+          <p>{groupInfo.groupName}</p>
           <Button variant={'ghost'} size={'fit'} onClick={openEditModal}>
             수정
           </Button>
@@ -52,15 +59,15 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
         <div className={styles.MenuContainer}>
           <h3>참여자 관리</h3>
           <Menu
-            to={`/groups/${groupInfo.id}/members`}
+            to={`/groups/${groupInfo.groupId}/members`}
             text={'참여자 목록'}
-            suffix={<span className={styles.GraySuffix}>{groupInfo.candidateCounts}명</span>}
+            suffix={<span className={styles.GraySuffix}>{groupInfo.candidateCount}명</span>}
           />
           {isAdmin && (
             <Menu
-              to={`/groups/${groupInfo.id}/members`}
+              to={`/groups/${groupInfo.groupId}/members`}
               text={'수락 대기 중'}
-              suffix={<span className={styles.PrimarySuffix}>{groupInfo.candidateCounts}명</span>}
+              suffix={<span className={styles.PrimarySuffix}>{groupInfo.candidateCount}명</span>}
             />
           )}
           <Button
@@ -123,7 +130,7 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
       />
       <GroupCreateModal
         isOpen={isEditModalOpen}
-        initialData={{ name: groupInfo.name, icon: groupInfo.icon }}
+        initialData={{ name: groupInfo.groupName, icon: groupInfo.groupIcon }}
         onClose={closeEditModal}
         onSubmit={handleSubmitEdit}
         edit
@@ -137,7 +144,7 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupSummary;
             참여 링크를 보내고 후보자 공유를 시작하세요.
           </>
         }
-        groupId={groupInfo.id}
+        groupId={groupInfo.groupId}
         isOpen={isShareModalOpen}
         onClose={closeShareModal}
       />

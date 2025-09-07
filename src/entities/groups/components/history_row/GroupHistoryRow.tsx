@@ -12,7 +12,7 @@ export const GroupHistoryRow = ({
   groupId,
 }: {
   history: GroupHistory;
-  groupId: number;
+  groupId: string;
 }) => {
   return (
     <Flex className={styles.Container} gap={12} direction={'vertical'}>
