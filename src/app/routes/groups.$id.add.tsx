@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   });
 
   return json(
-    { groupId: id, infoList: data.map((info) => ({ isAdded: false, profile: info })) },
+    { groupId: id, infoList: data },
     {
       headers: {
         ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
