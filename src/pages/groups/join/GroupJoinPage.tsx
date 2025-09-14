@@ -5,12 +5,27 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import { Link } from '@remix-run/react';
 import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupJoinPage.module.css';
+import { applyToJoinGroup, ValidateGroupInviteLinkResponse } from 'src/types';
+import { useMutation } from '@tanstack/react-query';
 
-export const GroupJoinPage = () => {
+export const GroupJoinPage = ({
+  groupInfo,
+  inviteKey,
+}: {
+  groupInfo: ValidateGroupInviteLinkResponse;
+  inviteKey: string;
+}) => {
   const { value: isOpen, setTrue: openSheet, setFalse: closeSheet } = useBoolean(false);
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: applyToJoinGroup,
+    onSuccess: () => {
+      openSheet();
+    },
+  });
+
   const handleClickJoin = () => {
-    openSheet();
+    mutate({ inviteKey });
   };
 
   return (
@@ -24,14 +39,15 @@ export const GroupJoinPage = () => {
         }
         description={
           <>
-            관리자: 강혜원 <br />
-            그룹명: 유부 프로젝트
+            {`관리자: ${groupInfo.creatorName}`}
+            <br />
+            {`그룹명: ${groupInfo.groupName}`}
           </>
         }
         imgUrl={'/images/join.png'}
         imgAlt={'이미지'}
         footer={
-          <Button widthType={'fill'} onClick={handleClickJoin}>
+          <Button widthType={'fill'} onClick={handleClickJoin} disabled={isPending}>
             그룹 참여 신청
           </Button>
         }
