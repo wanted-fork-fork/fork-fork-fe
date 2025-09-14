@@ -1,6 +1,6 @@
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { useNavigate } from '@remix-run/react';
-import { ArchivedInfoResponse } from 'src/types';
+import { ArchivedInfoResponse, createGroupInfoList } from 'src/types';
 import { SelectCandidateCard } from 'src/entities/candidates/_common/components/SelectCandidateCard/SelectCandidateCard';
 import { useState } from 'react';
 import Flex from 'src/shared/ui/Flex/Flex';
@@ -11,29 +11,52 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import { useBoolean } from 'src/shared/functions/useBoolean';
+import toast from 'react-hot-toast';
 
 export const AddCandidatePage = ({
   groupId,
   candidates,
 }: {
-  groupId: number;
+  groupId: string;
   candidates: { profile: ArchivedInfoResponse; isAdded: boolean }[];
 }) => {
   const navigate = useNavigate();
-  const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
+  const [selectedCandidates, setSelectedCandidates] = useState<Map<string, string>>(new Map());
 
   const { value: isConfirmOpen, setTrue: openConfirm, setFalse: closeConfirm } = useBoolean(false);
 
-  const handleClickSubmit = () => {
-    // TODO : API 호출
-    closeConfirm();
+  const handleClickSubmit = async () => {
+    try {
+      await createGroupInfoList({
+        groupInfoList: Array.from(selectedCandidates).map(([id, comment]) => ({
+          infoId: id,
+          groupId,
+          message: comment,
+        })),
+      });
+
+      closeConfirm();
+      navigate(`/groups/${groupId}`);
+      toast('후보자를 그룹에 공유했습니다.');
+    } catch (e) {
+      console.error(e);
+      toast.error('오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    }
   };
 
   const toggleCandidate = (candidateId: string) => {
-    if (selectedCandidates.includes(candidateId)) {
-      setSelectedCandidates(selectedCandidates.filter((id) => id !== candidateId));
+    if (selectedCandidates.has(candidateId)) {
+      setSelectedCandidates((prev) => {
+        const newSelectedCandidates = new Map(prev);
+        newSelectedCandidates.delete(candidateId);
+        return newSelectedCandidates;
+      });
     } else {
-      setSelectedCandidates([...selectedCandidates, candidateId]);
+      setSelectedCandidates((prev) => {
+        const newSelectedCandidates = new Map(prev);
+        newSelectedCandidates.set(candidateId, '');
+        return newSelectedCandidates;
+      });
     }
   };
 
@@ -49,21 +72,28 @@ export const AddCandidatePage = ({
       <ScrollView viewportClassName={styles.Viewport}>
         <Flex gap={12} direction={'vertical'}>
           {candidates.map((candidate) => {
-            const selected = selectedCandidates.includes(candidate.profile.id ?? '');
+            const selectedComment = selectedCandidates.get(candidate.profile.id!);
             return (
               <SelectCandidateCard
                 key={candidate.profile.id}
                 profile={candidate.profile}
                 disabled={candidate.isAdded}
-                selected={selected}
+                selected={selectedComment != null}
                 onClick={() => toggleCandidate(candidate.profile.id ?? '')}
                 footer={
-                  selected && (
+                  selectedComment != null && (
                     <Input
                       className={styles.Input}
                       placeholder={'후보자에 대한 코멘트를 입력해주세요'}
                       shape={'box'}
-                      suffixSlot={<span className={styles.Suffix}>0/20</span>}
+                      suffixSlot={<span className={styles.Suffix}>{`${selectedComment.length}/20`}</span>}
+                      onChange={(v) =>
+                        setSelectedCandidates((prev) => {
+                          const newMap = new Map(prev);
+                          newMap.set(candidate.profile.id!, v.target.value);
+                          return newMap;
+                        })
+                      }
                       onClick={(e) => e.stopPropagation()}
                     />
                   )
@@ -74,14 +104,14 @@ export const AddCandidatePage = ({
         </Flex>
       </ScrollView>
       <div className={styles.Footer}>
-        <Button widthType={'fill'} onClick={openConfirm} disabled={selectedCandidates.length === 0}>
-          추가하기 ({selectedCandidates.length}/{candidates.filter((c) => !c.isAdded).length})
+        <Button widthType={'fill'} onClick={openConfirm} disabled={selectedCandidates.size === 0}>
+          추가하기 ({selectedCandidates.size}/{candidates.filter((c) => !c.isAdded).length})
         </Button>
       </div>
       <BottomSheet detent={'content-height'} isOpen={isConfirmOpen} onClose={closeConfirm}>
         <BottomSheet.Content className={styles.BottomSheetBody}>
           <h2>잠깐! 공유 전 확인해주세요.</h2>
-          <Flex gap={24} direction={'vertical'}>
+          <Flex gap={8} direction={'vertical'}>
             <InfoBox className={styles.Box} radiusSize={'S'}>
               <Flex className={styles.Title}>
                 <span>👀</span>

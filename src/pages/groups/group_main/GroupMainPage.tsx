@@ -6,6 +6,7 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { ListAlt, Setting } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
+import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 
 export const GroupMainPage = ({ groupInfo }: { groupInfo: GroupListResponse }) => {
   const navigate = useNavigate();
@@ -31,6 +32,14 @@ export const GroupMainPage = ({ groupInfo }: { groupInfo: GroupListResponse }) =
       >
         {groupInfo.groupName}
       </Header>
+      <Link to={`/groups/${groupInfo.groupId}/add`}>
+        <FloatingButton
+          text={'후보 추가'}
+          onClick={() => {
+            /**/
+          }}
+        />
+      </Link>
     </FormLayout.Container>
   );
 };
