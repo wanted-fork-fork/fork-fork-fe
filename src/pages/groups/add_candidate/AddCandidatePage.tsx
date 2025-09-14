@@ -1,6 +1,6 @@
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { useNavigate } from '@remix-run/react';
-import { ArchivedInfoResponse, createGroupInfoList } from 'src/types';
+import { AvailableCandidateResponse, createGroupInfoList } from 'src/types';
 import { SelectCandidateCard } from 'src/entities/candidates/_common/components/SelectCandidateCard/SelectCandidateCard';
 import { useState } from 'react';
 import Flex from 'src/shared/ui/Flex/Flex';
@@ -18,7 +18,7 @@ export const AddCandidatePage = ({
   candidates,
 }: {
   groupId: string;
-  candidates: { profile: ArchivedInfoResponse; isAdded: boolean }[];
+  candidates: AvailableCandidateResponse[];
 }) => {
   const navigate = useNavigate();
   const [selectedCandidates, setSelectedCandidates] = useState<Map<string, string>>(new Map());
@@ -72,14 +72,14 @@ export const AddCandidatePage = ({
       <ScrollView viewportClassName={styles.Viewport}>
         <Flex gap={12} direction={'vertical'}>
           {candidates.map((candidate) => {
-            const selectedComment = selectedCandidates.get(candidate.profile.id!);
+            const selectedComment = selectedCandidates.get(candidate.info.id!);
             return (
               <SelectCandidateCard
-                key={candidate.profile.id}
-                profile={candidate.profile}
-                disabled={candidate.isAdded}
+                key={candidate.info.id}
+                profile={candidate.info}
+                disabled={candidate.isAlreadyInGroup}
                 selected={selectedComment != null}
-                onClick={() => toggleCandidate(candidate.profile.id ?? '')}
+                onClick={() => toggleCandidate(candidate.info.id ?? '')}
                 footer={
                   selectedComment != null && (
                     <Input
@@ -90,7 +90,7 @@ export const AddCandidatePage = ({
                       onChange={(v) =>
                         setSelectedCandidates((prev) => {
                           const newMap = new Map(prev);
-                          newMap.set(candidate.profile.id!, v.target.value);
+                          newMap.set(candidate.info.id!, v.target.value);
                           return newMap;
                         })
                       }
@@ -105,7 +105,7 @@ export const AddCandidatePage = ({
       </ScrollView>
       <div className={styles.Footer}>
         <Button widthType={'fill'} onClick={openConfirm} disabled={selectedCandidates.size === 0}>
-          추가하기 ({selectedCandidates.size}/{candidates.filter((c) => !c.isAdded).length})
+          추가하기 ({selectedCandidates.size}/{candidates.filter((c) => !c.isAlreadyInGroup).length})
         </Button>
       </div>
       <BottomSheet detent={'content-height'} isOpen={isConfirmOpen} onClose={closeConfirm}>

@@ -2,7 +2,7 @@ import { json, LoaderFunction } from '@remix-run/node';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { useLoaderData } from '@remix-run/react';
-import { getAllInfo } from 'src/types';
+import { getAvailableCandidates } from 'src/types';
 import { AddCandidatePage } from 'src/pages/groups/add_candidate/AddCandidatePage';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   if (!id) return null;
 
-  const { data } = await getAllInfo({
+  const { data } = await getAvailableCandidates(id, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 
