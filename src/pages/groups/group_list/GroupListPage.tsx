@@ -52,11 +52,15 @@ export const GroupListPage = ({
               <p>아직 참여한 그룹이 없어요.</p>
             </Flex>
           )}
-          {groupList.map((item) => (
-            <Link key={item.groupId} to={`/groups/${item.groupId}`}>
-              <GroupSummaryCard group={item} />
-            </Link>
-          ))}
+          {groupList.map((item) =>
+            item.myStatus === 'PENDING' ? (
+              <GroupSummaryCard group={item} key={item.groupId} />
+            ) : (
+              <Link key={item.groupId} to={`/groups/${item.groupId}`}>
+                <GroupSummaryCard group={item} />
+              </Link>
+            ),
+          )}
         </div>
       </ScrollView>
       <FloatingButton onClick={openCreateModal} />

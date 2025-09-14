@@ -1,7 +1,10 @@
 .Container {
+    position: relative;
+
     display: flex;
     flex-direction: row;
     gap: 20px;
+    overflow: hidden;
 
     background-color: var(--color-neutral-100);
     padding: 24px 16px;
@@ -21,4 +24,21 @@
 .Thumbnail {
     padding: 8px;
     background-color: var(--color-neutral-0);
+}
+
+.Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #121113CC;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-0);
+
+    font-weight: 700;
+    font-size: 16px;
 }
