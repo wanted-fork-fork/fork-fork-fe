@@ -1,0 +1,56 @@
+.ListHeader {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.FilterButton {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.Dot {
+  display: inline-block;
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-left: 4px;
+  margin-bottom: 6px;
+  align-self: start;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.ListInfo {
+  /*padding: 12px 20px 16px;*/
+}
+
+.Viewport {
+  padding: 0 20px;
+}
+
+.EmptyView {
+  margin-top: 90px;
+
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+
+  & img {
+    width: 173px;
+  }
+}
+
+.ListWrapper {
+  padding: 0 20px;
+}

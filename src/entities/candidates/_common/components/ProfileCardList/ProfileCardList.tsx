@@ -7,14 +7,15 @@ import { ProfileCardV2 } from 'src/entities/candidates/info/components/ProfileCa
 type Props = {
   profileList: ProfileSummary[];
   profileActionSlot?: (profile: ProfileSummary) => ReactElement;
+  getLink: (id: string) => string;
 };
 
-export const ProfileCardList = ({ profileList, profileActionSlot }: Props) => {
+export const ProfileCardList = ({ profileList, profileActionSlot, getLink }: Props) => {
   return (
     <ul className={styles.Container}>
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
-          <Link to={`/profile/${profile.id}`}>
+          <Link to={getLink(profile.id!)}>
             <ProfileCardV2 profile={profile} headerRightSlot={profileActionSlot?.(profile)} />
           </Link>
         </li>

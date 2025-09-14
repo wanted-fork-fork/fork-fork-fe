@@ -7,14 +7,15 @@ import { ProfileSmallCard } from 'src/entities/candidates/info/components/Profil
 type Props = {
   profileList: ProfileSummary[];
   profileActionSlot?: (profile: ProfileSummary) => ReactElement;
+  getLink: (id: string) => string;
 };
 
-export const ProfileCardGrid = ({ profileList, profileActionSlot }: Props) => {
+export const ProfileCardGrid = ({ profileList, profileActionSlot, getLink }: Props) => {
   return (
     <ul className={styles.Container}>
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
-          <Link to={`/profile/${profile.id}`}>
+          <Link to={getLink(profile.id!)}>
             <ProfileSmallCard profile={profile} topRightSlot={profileActionSlot?.(profile)} />
           </Link>
         </li>

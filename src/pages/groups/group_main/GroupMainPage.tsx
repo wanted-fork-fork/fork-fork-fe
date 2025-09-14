@@ -1,4 +1,4 @@
-import { GroupListResponse } from 'src/types';
+import { ArchivedInfoResponse, GroupListResponse } from 'src/types';
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link, useNavigate } from '@remix-run/react';
@@ -7,8 +7,17 @@ import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { ListAlt, Setting } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
+import { InfoList } from 'src/widgets/info/InfoList';
 
-export const GroupMainPage = ({ groupInfo }: { groupInfo: GroupListResponse }) => {
+export const GroupMainPage = ({
+  totalCount,
+  groupInfo,
+  infos,
+}: {
+  groupInfo: GroupListResponse;
+  totalCount: number;
+  infos: ArchivedInfoResponse[];
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -32,6 +41,15 @@ export const GroupMainPage = ({ groupInfo }: { groupInfo: GroupListResponse }) =
       >
         {groupInfo.groupName}
       </Header>
+
+      <InfoList
+        profileList={infos}
+        totalCount={totalCount}
+        hasFilter={false}
+        loading={false}
+        getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
+      />
+
       <Link to={`/groups/${groupInfo.groupId}/add`}>
         <FloatingButton
           text={'후보 추가'}
