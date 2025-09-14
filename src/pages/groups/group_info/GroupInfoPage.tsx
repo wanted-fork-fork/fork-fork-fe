@@ -1,6 +1,6 @@
 import { iconMap } from 'src/entities/groups/mocks/groupInfoMock';
 import { Header } from 'src/shared/ui/layout/Header/Header';
-import { Link } from '@remix-run/react';
+import { Link, useNavigate, useRevalidator } from '@remix-run/react';
 import { ArrowLeft, ArrowRight } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
@@ -13,9 +13,12 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 import toast from 'react-hot-toast';
 import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
-import { GroupListResponse } from 'src/types';
+import { CreateGroupRequestIcon, deleteGroup, GroupListResponse, manageMember, updateGroup } from 'src/types';
 
-export const GroupInfoPage = ({ groupInfo }: { groupInfo: GroupListResponse }) => {
+export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupListResponse; userId: string }) => {
+  const navigate = useNavigate();
+  const revalidator = useRevalidator();
+
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
   const { value: isShareModalOpen, setTrue: openShareModal, setFalse: closeShareModal } = useBoolean(false);
   const {
@@ -27,11 +30,29 @@ export const GroupInfoPage = ({ groupInfo }: { groupInfo: GroupListResponse }) =
 
   const isAdmin = groupInfo.myStatus === 'ADMIN';
 
-  console.log(groupInfo);
+  const handleSubmitEdit = async (name: string, icon: CreateGroupRequestIcon) => {
+    await updateGroup(groupInfo.groupId, {
+      name,
+      icon,
+    });
 
-  const handleSubmitEdit = () => {
     toast.success('변경사항이 저장되었습니다.');
+    revalidator.revalidate();
     closeEditModal();
+  };
+
+  const handleDeleteGroup = async () => {
+    await deleteGroup(groupInfo.groupId);
+
+    toast.success('그룹을 삭제했습니다.');
+    navigate('/');
+  };
+
+  const handleWithdraw = async () => {
+    await manageMember(groupInfo.groupId, userId, { action: 'LEAVE' });
+
+    toast.success('그룹에서 나왔습니다.');
+    navigate('/');
   };
 
   return (
@@ -126,7 +147,7 @@ export const GroupInfoPage = ({ groupInfo }: { groupInfo: GroupListResponse }) =
         confirmText={'확인'}
         cancelText={'취소'}
         onCancel={closeDeleteConfirm}
-        onConfirm={closeDeleteConfirm}
+        onConfirm={handleDeleteGroup}
       />
       <ConfirmModal
         show={isWithdrawConfirmOpen}
@@ -134,7 +155,7 @@ export const GroupInfoPage = ({ groupInfo }: { groupInfo: GroupListResponse }) =
         confirmText={'확인'}
         cancelText={'취소'}
         onCancel={closeWithdrawConfirm}
-        onConfirm={closeWithdrawConfirm}
+        onConfirm={handleWithdraw}
       />
       <GroupCreateModal
         isOpen={isEditModalOpen}

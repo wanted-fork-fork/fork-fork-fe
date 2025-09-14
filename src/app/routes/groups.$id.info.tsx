@@ -3,13 +3,19 @@ import { json, LoaderFunction } from '@remix-run/node';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { useLoaderData } from '@remix-run/react';
-import { getGroupInfo } from 'src/types';
+import { getGroupInfo, info } from 'src/types';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
   const { newSession, accessToken } = await authenticate(request);
 
   if (!id) return null;
+
+  const { data: userInfo } = await info({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   const { data } = await getGroupInfo(id, {
     headers: {
@@ -19,6 +25,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   return json(
     {
+      userId: userInfo.userId,
       groupInfo: data,
     },
     {
@@ -30,7 +37,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 };
 
 export default function GroupDetailPage() {
-  const { groupInfo } = useLoaderData<typeof loader>();
+  const { groupInfo, userId } = useLoaderData<typeof loader>();
 
-  return <GroupInfoPage groupInfo={groupInfo} />;
+  return <GroupInfoPage userId={userId} groupInfo={groupInfo} />;
 }
