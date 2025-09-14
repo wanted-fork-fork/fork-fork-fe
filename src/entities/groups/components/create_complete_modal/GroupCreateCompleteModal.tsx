@@ -7,6 +7,7 @@ import styles from './GroupCreateCompleteModal.module.css';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 import toast from 'react-hot-toast';
 import { ReactNode } from 'react';
+import { useGroupJoinLink } from 'src/entities/groups/hooks/useGroupJoinLink';
 
 export const GroupCreateCompleteModal = ({
   groupId,
@@ -21,15 +22,19 @@ export const GroupCreateCompleteModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const shareLink = typeof location === undefined ? '' : `${location.origin}/groups/join/${groupId}`;
+  const { link: shareLink, isLoading } = useGroupJoinLink(groupId!);
 
   const onClickShareLink = async () => {
+    if (isLoading) return;
+
     setTimeout(() => {
       navigator.clipboard.writeText(shareLink).then(() => toast.success('링크가 복사되었습니다', { icon: null }));
     }, 0);
   };
 
   const onClickShareKakao = async () => {
+    if (isLoading) return;
+
     await KakaoSdk.instance().shareMessage({ url: shareLink });
   };
 
@@ -42,12 +47,13 @@ export const GroupCreateCompleteModal = ({
             <p>{description}</p>
           </Flex>
           <div className={styles.ButtonList}>
-            <IconBoxButton icon={<Link />} text={'링크 복사'} onClick={onClickShareLink} />
+            <IconBoxButton icon={<Link />} text={'링크 복사'} onClick={onClickShareLink} disabled={isLoading} />
             <IconBoxButton
               icon={<img src="/images/kakao.png" alt="카카오톡으로 공유하기" width={29} height={29} />}
               iconBackgroundColor={Theme.color.kakao}
               text={'카카오톡 공유'}
               onClick={onClickShareKakao}
+              disabled={isLoading}
             />
           </div>
         </Flex>

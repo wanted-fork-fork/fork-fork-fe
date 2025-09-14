@@ -1,5 +1,5 @@
 import { GroupJoinPage } from 'src/pages/groups/join/GroupJoinPage';
 
-export default function GroupsJoinPage() {
+export default function GroupsJoin() {
   return <GroupJoinPage />;
 }
