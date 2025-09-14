@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
 import { GroupListResponse } from 'src/types';
 
-export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupListResponse; isAdmin?: boolean }) => {
+export const GroupInfoPage = ({ groupInfo }: { groupInfo: GroupListResponse }) => {
   const { value: isDeleteConfirmOpen, setTrue: openDeleteConfirm, setFalse: closeDeleteConfirm } = useBoolean(false);
   const { value: isShareModalOpen, setTrue: openShareModal, setFalse: closeShareModal } = useBoolean(false);
   const {
@@ -24,6 +24,10 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupListResp
     setFalse: closeWithdrawConfirm,
   } = useBoolean(false);
   const { value: isEditModalOpen, setTrue: openEditModal, setFalse: closeEditModal } = useBoolean(false);
+
+  const isAdmin = groupInfo.myStatus === 'ADMIN';
+
+  console.log(groupInfo);
 
   const handleSubmitEdit = () => {
     toast.success('변경사항이 저장되었습니다.');
@@ -65,9 +69,13 @@ export const GroupInfoPage = ({ groupInfo, isAdmin }: { groupInfo: GroupListResp
           />
           {isAdmin && (
             <Menu
-              to={`/groups/${groupInfo.groupId}/members`}
-              text={'수락 대기 중'}
-              suffix={<span className={styles.PrimarySuffix}>{groupInfo.candidateCount}명</span>}
+              to={`/groups/${groupInfo.groupId}/requests`}
+              text={'참여 요청 목록'}
+              suffix={
+                groupInfo.candidateCount > 0 && (
+                  <span className={styles.PrimarySuffix}>{groupInfo.candidateCount}명</span>
+                )
+              }
             />
           )}
           <Button

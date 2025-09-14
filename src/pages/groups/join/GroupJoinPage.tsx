@@ -2,7 +2,7 @@ import { IntroLayout } from 'src/shared/ui/layout/IntroLayout';
 import { Button } from 'src/shared/ui/Button/Button';
 import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { useBoolean } from 'src/shared/functions/useBoolean';
-import { Link } from '@remix-run/react';
+import { Link, useNavigate } from '@remix-run/react';
 import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupJoinPage.module.css';
 import { applyToJoinGroup, ValidateGroupInviteLinkResponse } from 'src/types';
@@ -15,7 +15,9 @@ export const GroupJoinPage = ({
   groupInfo: ValidateGroupInviteLinkResponse;
   inviteKey: string;
 }) => {
-  const { value: isOpen, setTrue: openSheet, setFalse: closeSheet } = useBoolean(false);
+  const navigate = useNavigate();
+
+  const { value: isOpen, setTrue: openSheet } = useBoolean(false);
 
   const { mutate, isPending } = useMutation({
     mutationFn: applyToJoinGroup,
@@ -26,6 +28,10 @@ export const GroupJoinPage = ({
 
   const handleClickJoin = () => {
     mutate({ inviteKey });
+  };
+
+  const handleCloseConfirm = () => {
+    navigate('/');
   };
 
   return (
@@ -52,7 +58,7 @@ export const GroupJoinPage = ({
           </Button>
         }
       />
-      <BottomSheet isOpen={isOpen} onClose={closeSheet} detent={'content-height'}>
+      <BottomSheet isOpen={isOpen} onClose={handleCloseConfirm} detent={'content-height'}>
         <BottomSheet.Content>
           <Flex direction={'vertical'} align={'start'} gap={32}>
             <Flex className={styles.TitleWrapper} direction={'vertical'} align={'start'} gap={16}>

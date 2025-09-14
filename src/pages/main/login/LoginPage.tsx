@@ -24,7 +24,7 @@ export const LoginPage = () => {
               카카오톡으로 시작하기
             </button>
           </Link>
-          <Link to={'/login/email'}>
+          <Link to={`/login/email?${searchParam}`}>
             <Button widthType={'fill'} prefixSlot={<Email />} suffixSlot={<Email color={'transparent'} />}>
               이메일로 시작하기
             </Button>

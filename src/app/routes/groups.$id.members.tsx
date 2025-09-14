@@ -21,7 +21,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   return json(
     {
-      members: data,
+      members: data.filter((member) => member.status !== 'PENDING'),
       groupInfo,
     },
     {
