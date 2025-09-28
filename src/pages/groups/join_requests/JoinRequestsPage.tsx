@@ -8,6 +8,7 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import toast from 'react-hot-toast';
 import styles from './JoinRequestsPage.module.css';
 import { GroupMemberResponse, manageMember } from 'src/types';
+import { Empty } from 'src/shared/ui/Empty/Empty';
 
 export const JoinRequestsPage = ({ requestList, groupId }: { requestList: GroupMemberResponse[]; groupId: string }) => {
   const revalidator = useRevalidator();
@@ -64,12 +65,7 @@ export const JoinRequestsPage = ({ requestList, groupId }: { requestList: GroupM
             }
           />
         ))}
-        {requestList.length === 0 && (
-          <div className={styles.Empty}>
-            <img src={'/images/empty.png'} alt={'수락 대기 중인 사람이 없습니다.'} width={120} height={120} />
-            <p>수락 대기 중인 사람이 없습니다.</p>
-          </div>
-        )}
+        {requestList.length === 0 && <Empty text={'참여 대기 중인 사람이 없습니다.'} />}
       </div>
     </div>
   );
