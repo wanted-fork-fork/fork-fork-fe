@@ -1,5 +1,5 @@
 import { GroupJoinPage } from 'src/pages/groups/join/GroupJoinPage';
-import { json, LoaderFunction } from '@remix-run/node';
+import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { authenticate } from 'src/app/server/authenticate';
 import { getGroupInfoByInviteKey } from 'src/types';
 import { commitSession } from 'src/app/server/sessions';
@@ -26,6 +26,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       },
     },
   );
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { title: `[구구] ${data.groupInfo.groupName}에 참여해주세요.` },
+    { property: 'og:image', content: 'https://www.meetgoogoo.com/images/meta_join.png' },
+    { property: 'og:image:width', content: '800' },
+    { property: 'og:image:height', content: '400' },
+  ];
 };
 
 export default function GroupsJoin() {
