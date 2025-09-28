@@ -1,0 +1,22 @@
+.EmptyView {
+  margin-top: 90px;
+
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    color: var(--color-neutral-700);
+  }
+
+  & img {
+    width: 173px;
+  }
+}

@@ -9,3 +9,4 @@ declare interface Kakao {
 declare const window: {
   Kakao?: Kakao;
 };
+e

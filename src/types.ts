@@ -70,6 +70,11 @@ export interface ValidateGroupInviteLinkResponse {
   reason?: string;
 }
 
+export interface AvailableCandidateResponse {
+  info: ArchivedInfoResponse;
+  isAlreadyInGroup: boolean;
+}
+
 export interface GroupInfoDetailResponse {
   comment?: string;
   creatorImage?: string;
@@ -78,6 +83,24 @@ export interface GroupInfoDetailResponse {
   infoId: string;
   isCreatedByMe: boolean;
   userInfo: DetailedInfoUserInfo;
+}
+
+export type GroupHistoryResponseType = typeof GroupHistoryResponseType[keyof typeof GroupHistoryResponseType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GroupHistoryResponseType = {
+  INFO_ADDED: 'INFO_ADDED',
+  INFO_SHARED: 'INFO_SHARED',
+} as const;
+
+export interface GroupHistoryResponse {
+  infoId: string;
+  timestamp: string;
+  type: GroupHistoryResponseType;
+  userId: string;
+  userName: string;
+  userProfileImage?: string;
 }
 
 export type GroupMemberResponseStatus = typeof GroupMemberResponseStatus[keyof typeof GroupMemberResponseStatus];
@@ -430,21 +453,21 @@ export interface SearchGroupInfoRequestDto {
   townList?: SearchGroupInfoRequestDtoTownListItem[];
 }
 
-export type GroupListResponseMyStatus = typeof GroupListResponseMyStatus[keyof typeof GroupListResponseMyStatus];
+export type GroupInfoResponseMyStatus = typeof GroupInfoResponseMyStatus[keyof typeof GroupInfoResponseMyStatus];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GroupListResponseMyStatus = {
+export const GroupInfoResponseMyStatus = {
   ADMIN: 'ADMIN',
   MEMBER: 'MEMBER',
   PENDING: 'PENDING',
 } as const;
 
-export type GroupListResponseGroupIcon = typeof GroupListResponseGroupIcon[keyof typeof GroupListResponseGroupIcon];
+export type GroupInfoResponseGroupIcon = typeof GroupInfoResponseGroupIcon[keyof typeof GroupInfoResponseGroupIcon];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GroupListResponseGroupIcon = {
+export const GroupInfoResponseGroupIcon = {
   LOCK: 'LOCK',
   ARROW: 'ARROW',
   LETTER: 'LETTER',
@@ -457,12 +480,14 @@ export const GroupListResponseGroupIcon = {
   STAR: 'STAR',
 } as const;
 
-export interface GroupListResponse {
+export interface GroupInfoResponse {
   candidateCount: number;
-  groupIcon: GroupListResponseGroupIcon;
+  groupIcon: GroupInfoResponseGroupIcon;
   groupId: string;
   groupName: string;
-  myStatus: GroupListResponseMyStatus;
+  memberCount: number;
+  myStatus: GroupInfoResponseMyStatus;
+  pendingCount: number;
 }
 
 export type TownDtoTown = typeof TownDtoTown[keyof typeof TownDtoTown];
@@ -792,11 +817,6 @@ export interface ArchivedInfoResponse {
   name: string;
   religion: Religion;
   smoking: UserInfoSmoking;
-}
-
-export interface AvailableCandidateResponse {
-  info: ArchivedInfoResponse;
-  isAlreadyInGroup: boolean;
 }
 
 export type SearchInfoRequestDtoTownListItem = typeof SearchInfoRequestDtoTownListItem[keyof typeof SearchInfoRequestDtoTownListItem];
@@ -2129,7 +2149,7 @@ formData.append('image', uploadImageBody.image)
 export const getMyGroups = (
     
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GroupListResponse[]>(
+      return customInstance<GroupInfoResponse[]>(
       {url: `/api/v1/groups`, method: 'GET'
     },
       options);
@@ -2410,8 +2430,17 @@ export const getGroupMembers = (
 export const getGroupInfo = (
     groupId: string,
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GroupListResponse>(
+      return customInstance<GroupInfoResponse>(
       {url: `/api/v1/groups/${groupId}/info`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getGroupHistory = (
+    groupId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<GroupHistoryResponse[]>(
+      {url: `/api/v1/groups/${groupId}/history`, method: 'GET'
     },
       options);
     }
@@ -2546,6 +2575,7 @@ export type GetAddressResult = NonNullable<Awaited<ReturnType<typeof getAddress>
 export type SearchGroupInfoResult = NonNullable<Awaited<ReturnType<typeof searchGroupInfo>>>
 export type GetGroupMembersResult = NonNullable<Awaited<ReturnType<typeof getGroupMembers>>>
 export type GetGroupInfoResult = NonNullable<Awaited<ReturnType<typeof getGroupInfo>>>
+export type GetGroupHistoryResult = NonNullable<Awaited<ReturnType<typeof getGroupHistory>>>
 export type GetGroupInfoDetailResult = NonNullable<Awaited<ReturnType<typeof getGroupInfoDetail>>>
 export type DeleteGroupInfoResult = NonNullable<Awaited<ReturnType<typeof deleteGroupInfo>>>
 export type GetAvailableCandidatesResult = NonNullable<Awaited<ReturnType<typeof getAvailableCandidates>>>
@@ -2591,7 +2621,7 @@ export const getSaveInfoResponseMock = (): string => (faker.word.sample())
 
 export const getUploadImageResponseMock = (overrideResponse: Partial< ImageDto > = {}): ImageDto => ({imageId: faker.word.sample(), url: faker.word.sample(), ...overrideResponse})
 
-export const getGetMyGroupsResponseMock = (): GroupListResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({candidateCount: faker.number.int({min: undefined, max: undefined}), groupIcon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), groupId: faker.word.sample(), groupName: faker.word.sample(), myStatus: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const)})))
+export const getGetMyGroupsResponseMock = (): GroupInfoResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({candidateCount: faker.number.int({min: undefined, max: undefined}), groupIcon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), groupId: faker.word.sample(), groupName: faker.word.sample(), memberCount: faker.number.int({min: undefined, max: undefined}), myStatus: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const), pendingCount: faker.number.int({min: undefined, max: undefined})})))
 
 export const getCreateGroupResponseMock = (overrideResponse: Partial< CreateGroupResponse > = {}): CreateGroupResponse => ({groupId: faker.word.sample(), icon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), name: faker.word.sample(), ...overrideResponse})
 
@@ -2647,7 +2677,9 @@ export const getSearchGroupInfoResponseMock = (overrideResponse: Partial< Search
 
 export const getGetGroupMembersResponseMock = (): GroupMemberResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({status: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const), userId: faker.word.sample(), userName: faker.word.sample()})))
 
-export const getGetGroupInfoResponseMock = (overrideResponse: Partial< GroupListResponse > = {}): GroupListResponse => ({candidateCount: faker.number.int({min: undefined, max: undefined}), groupIcon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), groupId: faker.word.sample(), groupName: faker.word.sample(), myStatus: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const), ...overrideResponse})
+export const getGetGroupInfoResponseMock = (overrideResponse: Partial< GroupInfoResponse > = {}): GroupInfoResponse => ({candidateCount: faker.number.int({min: undefined, max: undefined}), groupIcon: faker.helpers.arrayElement(['LOCK','ARROW','LETTER','HEART','FOOTPRINT','WINE_GLASS','EGG','BOUQUET','RING','STAR'] as const), groupId: faker.word.sample(), groupName: faker.word.sample(), memberCount: faker.number.int({min: undefined, max: undefined}), myStatus: faker.helpers.arrayElement(['ADMIN','MEMBER','PENDING'] as const), pendingCount: faker.number.int({min: undefined, max: undefined}), ...overrideResponse})
+
+export const getGetGroupHistoryResponseMock = (): GroupHistoryResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({infoId: faker.word.sample(), timestamp: `${faker.date.past().toISOString().split('.')[0]}Z`, type: faker.helpers.arrayElement(['INFO_ADDED','INFO_SHARED'] as const), userId: faker.word.sample(), userName: faker.word.sample(), userProfileImage: faker.helpers.arrayElement([faker.word.sample(), undefined])})))
 
 export const getGetGroupInfoDetailResponseMock = (overrideResponse: Partial< GroupInfoDetailResponse > = {}): GroupInfoDetailResponse => ({comment: faker.helpers.arrayElement([faker.word.sample(), undefined]), creatorImage: faker.helpers.arrayElement([faker.word.sample(), undefined]), creatorName: faker.word.sample(), idealPartner: faker.helpers.arrayElement([{ageRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NO_PROBLEM','ONE_TWO_TIMES_A_WEEK','ONE_TWO_TIMES_A_MONTH','NEVER','ETC'] as const)}, heightRange: faker.helpers.arrayElement([{max: faker.number.int({min: undefined, max: undefined}), min: faker.number.int({min: undefined, max: undefined})}, undefined]), hobbies: faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), images: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), undefined]), location: faker.helpers.arrayElement([faker.helpers.arrayElement(['IMPORTANT','NOT_IMPORTANT'] as const), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, requiredOptions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['DOESNT_MATTER','NEVER','GOOD','ETC'] as const)}, style: faker.helpers.arrayElement([faker.word.sample(), undefined]), toMatchMaker: faker.word.sample()}, undefined]), infoId: faker.word.sample(), isCreatedByMe: faker.datatype.boolean(), userInfo: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, book: faker.helpers.arrayElement([{bookName: faker.word.sample(), cause: faker.word.sample()}, undefined]), dateStyle: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, foods: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), introduction: faker.helpers.arrayElement([faker.word.sample(), undefined]), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), movie: faker.helpers.arrayElement([{cause: faker.word.sample(), movieName: faker.word.sample()}, undefined]), name: faker.word.sample(), pets: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), undefined]), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, ...overrideResponse})
 
@@ -2923,7 +2955,7 @@ export const getUploadImageMockHandler = (overrideResponse?: ImageDto | ((info: 
   })
 }
 
-export const getGetMyGroupsMockHandler = (overrideResponse?: GroupListResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupListResponse[]> | GroupListResponse[])) => {
+export const getGetMyGroupsMockHandler = (overrideResponse?: GroupInfoResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupInfoResponse[]> | GroupInfoResponse[])) => {
   return http.get('*/api/v1/groups', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
@@ -3343,11 +3375,26 @@ export const getGetGroupMembersMockHandler = (overrideResponse?: GroupMemberResp
   })
 }
 
-export const getGetGroupInfoMockHandler = (overrideResponse?: GroupListResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupListResponse> | GroupListResponse)) => {
+export const getGetGroupInfoMockHandler = (overrideResponse?: GroupInfoResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupInfoResponse> | GroupInfoResponse)) => {
   return http.get('*/api/v1/groups/:groupId/info', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
             : getGetGroupInfoResponseMock()),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+  })
+}
+
+export const getGetGroupHistoryMockHandler = (overrideResponse?: GroupHistoryResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<GroupHistoryResponse[]> | GroupHistoryResponse[])) => {
+  return http.get('*/api/v1/groups/:groupId/history', async (info) => {await delay(1000);
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetGroupHistoryResponseMock()),
       {
         status: 200,
         headers: {
@@ -3539,6 +3586,7 @@ export const getGoogooApiMock = () => [
   getSearchGroupInfoMockHandler(),
   getGetGroupMembersMockHandler(),
   getGetGroupInfoMockHandler(),
+  getGetGroupHistoryMockHandler(),
   getGetGroupInfoDetailMockHandler(),
   getDeleteGroupInfoMockHandler(),
   getGetAvailableCandidatesMockHandler(),

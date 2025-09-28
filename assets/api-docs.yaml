@@ -359,7 +359,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GroupListResponse'
+                  $ref: '#/components/schemas/GroupInfoResponse'
     post:
       tags:
       - group-controller
@@ -832,7 +832,27 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/GroupListResponse'
+                $ref: '#/components/schemas/GroupInfoResponse'
+  /api/v1/groups/{groupId}/history:
+    get:
+      tags:
+      - group-controller
+      operationId: getGroupHistory
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupHistoryResponse'
   /api/v1/groups/{groupId}/group-infos/{infoId}:
     get:
       tags:
@@ -2742,13 +2762,15 @@ components:
           - DAEGU_JUNG
         townName:
           type: string
-    GroupListResponse:
+    GroupInfoResponse:
       required:
       - candidateCount
       - groupIcon
       - groupId
       - groupName
+      - memberCount
       - myStatus
+      - pendingCount
       type: object
       properties:
         groupId:
@@ -2777,6 +2799,12 @@ components:
           - ADMIN
           - MEMBER
           - PENDING
+        memberCount:
+          type: integer
+          format: int64
+        pendingCount:
+          type: integer
+          format: int64
     SearchGroupInfoRequestDto:
       type: object
       properties:
@@ -3165,6 +3193,31 @@ components:
           - ADMIN
           - MEMBER
           - PENDING
+    GroupHistoryResponse:
+      required:
+      - infoId
+      - timestamp
+      - type
+      - userId
+      - userName
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        userProfileImage:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+          - INFO_ADDED
+          - INFO_SHARED
+        infoId:
+          type: string
     GroupInfoDetailResponse:
       required:
       - creatorName
