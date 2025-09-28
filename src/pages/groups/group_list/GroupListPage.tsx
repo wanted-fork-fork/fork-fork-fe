@@ -1,5 +1,5 @@
 import { MainHeader } from 'src/widgets/main/header/MainHeader';
-import { createGroup, CreateGroupRequestIcon, GroupListResponse, UserInfoResponse } from 'src/types';
+import { createGroup, CreateGroupRequestIcon, GroupInfoResponse, UserInfoResponse } from 'src/types';
 
 import styles from './GroupListPage.module.css';
 import { GroupSummaryCard } from 'src/entities/groups/components/card/GroupSummaryCard';
@@ -17,7 +17,7 @@ export const GroupListPage = ({
   groupList,
 }: {
   userInfo: UserInfoResponse;
-  groupList: GroupListResponse[];
+  groupList: GroupInfoResponse[];
 }) => {
   const revalidator = useRevalidator();
 

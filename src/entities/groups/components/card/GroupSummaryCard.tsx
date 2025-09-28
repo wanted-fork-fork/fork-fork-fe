@@ -2,12 +2,12 @@ import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import { iconMap } from 'src/entities/groups/mocks/groupInfoMock';
 import styles from 'src/entities/groups/components/card/GroupSummaryCard.module.css';
 import Flex from 'src/shared/ui/Flex/Flex';
-import { GroupListResponse } from 'src/types';
+import { GroupInfoResponse } from 'src/types';
 
 export const GroupSummaryCard = ({
   group: { groupName, groupIcon, candidateCount, myStatus },
 }: {
-  group: GroupListResponse;
+  group: GroupInfoResponse;
 }) => {
   return (
     <article className={styles.Container}>

@@ -13,9 +13,9 @@ import { useBoolean } from 'src/shared/functions/useBoolean';
 import { GroupCreateModal } from 'src/entities/groups/components/create_modal/GroupCreateModal';
 import toast from 'react-hot-toast';
 import { GroupCreateCompleteModal } from 'src/entities/groups/components/create_complete_modal/GroupCreateCompleteModal';
-import { CreateGroupRequestIcon, deleteGroup, GroupListResponse, manageMember, updateGroup } from 'src/types';
+import { CreateGroupRequestIcon, deleteGroup, GroupInfoResponse, manageMember, updateGroup } from 'src/types';
 
-export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupListResponse; userId: string }) => {
+export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupInfoResponse; userId: string }) => {
   const navigate = useNavigate();
   const revalidator = useRevalidator();
 
@@ -86,16 +86,14 @@ export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupListRespo
           <Menu
             to={`/groups/${groupInfo.groupId}/members`}
             text={'참여자 목록'}
-            suffix={<span className={styles.GraySuffix}>{groupInfo.candidateCount}명</span>}
+            suffix={<span className={styles.GraySuffix}>{groupInfo.memberCount}명</span>}
           />
           {isAdmin && (
             <Menu
               to={`/groups/${groupInfo.groupId}/requests`}
               text={'참여 요청 목록'}
               suffix={
-                groupInfo.candidateCount > 0 && (
-                  <span className={styles.PrimarySuffix}>{groupInfo.candidateCount}명</span>
-                )
+                groupInfo.pendingCount > 0 && <span className={styles.PrimarySuffix}>{groupInfo.pendingCount}명</span>
               }
             />
           )}

@@ -1,4 +1,4 @@
-import { ArchivedInfoResponse, GroupListResponse } from 'src/types';
+import { ArchivedInfoResponse, GroupInfoResponse } from 'src/types';
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link, useNavigate } from '@remix-run/react';
@@ -14,7 +14,7 @@ export const GroupMainPage = ({
   groupInfo,
   infos,
 }: {
-  groupInfo: GroupListResponse;
+  groupInfo: GroupInfoResponse;
   totalCount: number;
   infos: ArchivedInfoResponse[];
 }) => {
@@ -47,6 +47,7 @@ export const GroupMainPage = ({
         totalCount={totalCount}
         hasFilter={false}
         loading={false}
+        filter={{}}
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
       />
 

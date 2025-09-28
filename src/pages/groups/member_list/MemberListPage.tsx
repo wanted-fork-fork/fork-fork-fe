@@ -7,7 +7,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 import toast from 'react-hot-toast';
 import styles from './MemberListPage.module.css';
-import { GroupListResponse, GroupMemberResponse, manageMember } from 'src/types';
+import { GroupInfoResponse, GroupMemberResponse, manageMember } from 'src/types';
 import { useState } from 'react';
 
 export const MemberListPage = ({
@@ -15,7 +15,7 @@ export const MemberListPage = ({
   memberList,
   isAdmin,
 }: {
-  group: GroupListResponse;
+  group: GroupInfoResponse;
   memberList: GroupMemberResponse[];
   isAdmin: boolean;
 }) => {
