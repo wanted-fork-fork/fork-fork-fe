@@ -1,31 +1,46 @@
 import { GroupJoinPage } from 'src/pages/groups/join/GroupJoinPage';
 import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
-import { authenticate } from 'src/app/server/authenticate';
+import { authenticateWithoutRedirection, redirectToLoginPage } from 'src/app/server/authenticate';
 import { getGroupInfoByInviteKey } from 'src/types';
-import { commitSession } from 'src/app/server/sessions';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useNavigate } from '@remix-run/react';
+import { isbot } from 'isbot';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
-  const { accessToken, newSession } = await authenticate(request);
+  const res = await authenticateWithoutRedirection(request);
+  const accessToken = res?.accessToken;
 
   if (!id) return null;
 
   const { data } = await getGroupInfoByInviteKey(id, {
-    headers: { Authorization: `Bearer ${accessToken}` },
+    headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' },
   });
 
-  return json(
-    {
+  if (data.isValid) {
+    return json({
       groupInfo: data,
       inviteKey: id,
-    },
-    {
-      headers: {
-        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
-      },
-    },
-  );
+    });
+  }
+
+  if (isbot(request.headers.get('User-Agent') || '')) {
+    return json({
+      groupInfo: data,
+      inviteKey: id,
+    });
+  }
+
+  if (!data.reason) {
+    redirectToLoginPage(`/groups/join/${id}`);
+    return;
+  }
+
+  return json({
+    groupInfo: data,
+    inviteKey: id,
+  });
 };
 
 export const meta: MetaFunction = ({ data }) => {
@@ -41,6 +56,26 @@ export const meta: MetaFunction = ({ data }) => {
 
 export default function GroupsJoin() {
   const { groupInfo, inviteKey } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (groupInfo.isValid) {
+      return;
+    }
+
+    toast(groupInfo.reason);
+
+    if (groupInfo.reason.includes('참여 신청')) {
+      navigate(`/groups`, { replace: true });
+      return;
+    }
+
+    navigate(`/groups/${groupInfo.groupId}`, { replace: true });
+  }, [groupInfo.groupId, groupInfo.isValid, groupInfo.reason, navigate]);
+
+  if (!groupInfo.isValid) {
+    return null;
+  }
 
   return <GroupJoinPage groupInfo={groupInfo} inviteKey={inviteKey} />;
 }

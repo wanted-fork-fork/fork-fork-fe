@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async (args) => {
     new Request(args.request, {
       redirect: 'manual',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       },
     }),
   );

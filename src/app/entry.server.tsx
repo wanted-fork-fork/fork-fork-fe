@@ -27,12 +27,19 @@ axios.interceptors.response.use(
   },
   async (e) => {
     console.error(e);
+    if (
+      e.response.status !== 401 ||
+      e.config.url.includes('refresh') ||
+      e.config.sent ||
+      e.config.headers.Authorization == null
+    )
+      return e;
 
-    if (e.response.status !== 401 || e.config.url.includes('refresh') || e.config.sent) return e;
-
-    const accessToken = await requestRefreshToken(e.config.headers);
-    e.config.headers.Authorization = `Bearer ${accessToken}`;
-    e.config.sent = true;
+    const { data } = await requestRefreshToken(e.config.headers);
+    if (data.accessToken) {
+      e.config.headers.Authorization = `Bearer ${data.accessToken}`;
+      e.config.sent = true;
+    }
     return axios(e.config);
   },
 );

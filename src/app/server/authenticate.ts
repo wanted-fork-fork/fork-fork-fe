@@ -56,3 +56,7 @@ export const requestRefreshToken = async (headers: Headers) => {
     });
   }
 };
+
+export const redirectToLoginPage = (path?: string) => {
+  throw redirect(`/login${path ? `?path=${path}` : ''}`);
+};
