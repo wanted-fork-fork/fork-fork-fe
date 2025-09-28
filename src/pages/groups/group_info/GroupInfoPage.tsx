@@ -45,7 +45,7 @@ export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupInfoRespo
     await deleteGroup(groupInfo.groupId);
 
     toast.success('그룹을 삭제했습니다.');
-    navigate('/');
+    navigate('/groups');
   };
 
   const handleWithdraw = async () => {
@@ -76,9 +76,11 @@ export const GroupInfoPage = ({ groupInfo, userId }: { groupInfo: GroupInfoRespo
             size={50}
           />
           <p>{groupInfo.groupName}</p>
-          <Button variant={'ghost'} size={'fit'} onClick={openEditModal}>
-            수정
-          </Button>
+          {isAdmin && (
+            <Button variant={'ghost'} size={'fit'} onClick={openEditModal}>
+              수정
+            </Button>
+          )}
         </div>
         <hr className={styles.Divider} />
         <div className={styles.MenuContainer}>
