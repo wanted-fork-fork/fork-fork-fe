@@ -6,17 +6,17 @@ import { useInView } from 'react-intersection-observer';
 import { ImageLayout } from 'src/shared/ui/ImageLayout/ImageLayout';
 import { useTranslation } from 'react-i18next';
 import { ProfilePageHeader } from 'src/pages/profile/components/ProfilePageHeader';
-import { useMemo } from 'react';
-import { ProfileHeaderActions } from 'src/pages/profile/components/ProfileHeaderActions';
+import { ReactNode, useMemo } from 'react';
 import { ArrowLeft } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
-import { Link } from '@remix-run/react';
+import { useNavigate } from '@remix-run/react';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
-import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
-export const ProfilePage = ({ infoId }: { infoId: string }) => {
+export const ProfilePage = ({ headerSuffixSlot }: { headerSuffixSlot: (profile: MyProfile) => ReactNode }) => {
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
 
@@ -31,13 +31,11 @@ export const ProfilePage = ({ infoId }: { infoId: string }) => {
       <ProfilePageHeader
         profile={profile}
         prefix={
-          <Link to={'/'}>
-            <IconButton>
-              <ArrowLeft color={Theme.color.neutral50} />
-            </IconButton>
-          </Link>
+          <IconButton onClick={() => navigate(-1)}>
+            <ArrowLeft color={Theme.color.neutral50} />
+          </IconButton>
         }
-        suffix={<ProfileHeaderActions infoId={infoId} name={profile.name} />}
+        suffix={headerSuffixSlot(profile)}
         showTitle={!inView}
       />
       <ScrollView rootClassName={styles.Body}>

@@ -12,6 +12,7 @@ import {
   getSkippedIdealPartnerState,
 } from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
 import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { ProfileHeaderActions } from 'src/pages/profile/components/ProfileHeaderActions';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -32,7 +33,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   });
 
   return json(
-    { profile: { ...data, userInfo: { ...data.userInfo, introduction: undefined } } },
+    { id: key, profile: { ...data, userInfo: { ...data.userInfo, introduction: undefined } } },
     {
       headers: {
         ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
@@ -42,7 +43,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 };
 
 export default function Page() {
-  const { profile } = useLoaderData<typeof loader>();
+  const { id, profile } = useLoaderData<typeof loader>();
   const profileInitialState = useMemo(() => convertDtoToProfile(profile.userInfo), [profile.userInfo]);
   const idealPartnerInitialState = useMemo(
     () => (profile.idealPartner ? convertDtoToIdealPartner(profile.idealPartner) : getSkippedIdealPartnerState()),
@@ -51,7 +52,7 @@ export default function Page() {
   return (
     <MyProfileProvider initialState={profileInitialState}>
       <IdealPartnerProvider initialState={idealPartnerInitialState}>
-        <ProfilePage infoId={profile.id} />
+        <ProfilePage headerSuffixSlot={(profile) => <ProfileHeaderActions infoId={id} name={profile.name} />} />
       </IdealPartnerProvider>
     </MyProfileProvider>
   );
