@@ -78,9 +78,11 @@ export default function GroupDetailPage() {
         <ProfilePage
           headerSuffixSlot={() => (
             <Flex gap={16}>
-              <IconButton onClick={handleClickDelete}>
-                <Delete color={Theme.color.neutral50} />
-              </IconButton>
+              {profile.isCreatedByMe && (
+                <IconButton onClick={handleClickDelete}>
+                  <Delete color={Theme.color.neutral50} />
+                </IconButton>
+              )}
               <IconButton onClick={() => setShareOpen(true)}>
                 <Share color={Theme.color.neutral50} />
               </IconButton>
