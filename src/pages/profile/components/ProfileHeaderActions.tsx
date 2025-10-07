@@ -8,7 +8,7 @@ import { Modal } from 'src/shared/ui/Modal/Modal';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { deleteInfo } from 'src/types';
+import { deleteInfo, saveSharing } from 'src/types';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 
@@ -88,7 +88,12 @@ export const ProfileHeaderActions = ({ infoId, name }: Props) => {
           </Button>
         </div>
       </Modal>
-      <ProfileShareBottomSheet isOpen={isShareOpen} onClose={() => setShareOpen(false)} infoId={infoId} />
+      <ProfileShareBottomSheet
+        isOpen={isShareOpen}
+        onClose={() => setShareOpen(false)}
+        infoId={infoId}
+        saveSharing={saveSharing}
+      />
     </>
   );
 };

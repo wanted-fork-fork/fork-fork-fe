@@ -1,4 +1,4 @@
-import { ArchivedInfoResponse, GroupInfoResponse } from 'src/types';
+import { ArchivedInfoResponse, GroupInfoResponse, saveSharingWithGroup } from 'src/types';
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link, useNavigate } from '@remix-run/react';
@@ -49,6 +49,7 @@ export const GroupMainPage = ({
         loading={false}
         filter={{}}
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
+        saveSharing={(infoId) => saveSharingWithGroup(groupInfo.groupId, infoId)}
       />
 
       <Link to={`/groups/${groupInfo.groupId}/add`}>

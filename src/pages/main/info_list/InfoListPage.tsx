@@ -1,5 +1,5 @@
 import styles from './InfoListPage.module.css';
-import { ArchivedInfoResponse, UserInfoResponse } from 'src/types';
+import { ArchivedInfoResponse, saveSharing, UserInfoResponse } from 'src/types';
 import { Button } from 'src/shared/ui/Button/Button';
 import { Share } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
@@ -36,6 +36,7 @@ export const InfoListPage = ({
         hasFilter={hasFilter}
         loading={loading}
         getProfileLink={(id) => `/profile/${id}`}
+        saveSharing={saveSharing}
         onIntersectBottom={onIntersectBottom}
       />
     </div>

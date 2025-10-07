@@ -4,20 +4,22 @@ import { Link } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import styles from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet.module.css';
 import { useMutation } from '@tanstack/react-query';
-import { saveSharing } from 'src/types';
 import toast from 'react-hot-toast';
 import { createSharedProfileLink } from 'src/shared/functions/linkUtil';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 import { useCallback } from 'react';
+import { SaveSharingResult } from 'src/types';
 
 export const ProfileShareBottomSheet = ({
   isOpen,
   onClose,
   infoId,
+  saveSharing,
 }: {
   isOpen: boolean;
   onClose: () => void;
   infoId: string | null;
+  saveSharing: (infoId: string) => Promise<SaveSharingResult>;
 }) => {
   const { mutateAsync } = useMutation({
     mutationFn: saveSharing,

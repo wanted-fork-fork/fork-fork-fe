@@ -13,7 +13,7 @@ import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntersectionObserver } from 'src/shared/functions/useIntersectionObserver';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
-import { ArchivedInfoResponse } from 'src/types';
+import { ArchivedInfoResponse, SaveSharingResult } from 'src/types';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { z } from 'zod';
 
@@ -25,6 +25,7 @@ export const InfoList = ({
   filter,
   loading = false,
   getProfileLink,
+  saveSharing,
   onIntersectBottom,
 }: {
   // userInfo: UserInfoResponse;
@@ -34,6 +35,7 @@ export const InfoList = ({
   filter: z.infer<typeof filterSchema>;
   loading?: boolean;
   getProfileLink: (id: string) => string;
+  saveSharing: (infoId: string) => Promise<SaveSharingResult>;
   onIntersectBottom?: () => void;
 }) => {
   const { ref, isIntersecting } = useIntersectionObserver();
@@ -125,6 +127,7 @@ export const InfoList = ({
         infoId={shareTargetId}
         isOpen={Boolean(shareTargetId)}
         onClose={() => setShareTargetId(null)}
+        saveSharing={saveSharing}
       />
     </>
   );
