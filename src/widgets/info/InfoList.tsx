@@ -26,6 +26,7 @@ export const InfoList = ({
   loading = false,
   getProfileLink,
   saveSharing,
+  createSharedLink,
   onIntersectBottom,
 }: {
   // userInfo: UserInfoResponse;
@@ -36,6 +37,7 @@ export const InfoList = ({
   loading?: boolean;
   getProfileLink: (id: string) => string;
   saveSharing: (infoId: string) => Promise<SaveSharingResult>;
+  createSharedLink: (shareId: string) => string;
   onIntersectBottom?: () => void;
 }) => {
   const { ref, isIntersecting } = useIntersectionObserver();
@@ -128,6 +130,7 @@ export const InfoList = ({
         isOpen={Boolean(shareTargetId)}
         onClose={() => setShareTargetId(null)}
         saveSharing={saveSharing}
+        createSharedLink={createSharedLink}
       />
     </>
   );

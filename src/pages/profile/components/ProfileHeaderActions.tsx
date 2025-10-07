@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import { deleteInfo, saveSharing } from 'src/types';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
+import { createSharedProfileLink } from 'src/shared/functions/linkUtil';
 
 type Props = {
   infoId: string;
@@ -93,6 +94,7 @@ export const ProfileHeaderActions = ({ infoId, name }: Props) => {
         onClose={() => setShareOpen(false)}
         infoId={infoId}
         saveSharing={saveSharing}
+        createSharedLink={(shareId) => createSharedProfileLink(shareId, true)}
       />
     </>
   );

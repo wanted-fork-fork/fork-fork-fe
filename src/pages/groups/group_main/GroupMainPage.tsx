@@ -8,6 +8,7 @@ import { ListAlt, Setting } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { InfoList } from 'src/widgets/info/InfoList';
+import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 
 export const GroupMainPage = ({
   totalCount,
@@ -50,6 +51,7 @@ export const GroupMainPage = ({
         filter={{}}
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
         saveSharing={(infoId) => saveSharingWithGroup(groupInfo.groupId, infoId)}
+        createSharedLink={(shareId) => createSharedGroupLink({ groupId: groupInfo.groupId, shareId, fullLink: true })}
       />
 
       <Link to={`/groups/${groupInfo.groupId}/add`}>

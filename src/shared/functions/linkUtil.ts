@@ -17,6 +17,6 @@ export const createSharedGroupLink = ({
   shareId: string,
   fullLink?: boolean
 }) =>
-  `${fullLink ? location.origin : ''}/groups/${groupId}/share/${shareId}`;
+  `${fullLink ? location.origin : ''}/g/${groupId}/share/${shareId}`;
 
 export const createFormLink = (key: string, fullLink = false) => `${fullLink ? location.origin : ''}/form/${key}`;

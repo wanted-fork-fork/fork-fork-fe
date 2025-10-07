@@ -19,6 +19,7 @@ import { Theme } from 'src/shared/styles/constants';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
+import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id, infoId } = params;
@@ -91,6 +92,7 @@ export default function GroupDetailPage() {
           onClose={() => setShareOpen(false)}
           infoId={infoId}
           saveSharing={(infoId) => saveSharingWithGroup(groupId, infoId)}
+          createSharedLink={(shareId) => createSharedGroupLink({ groupId, shareId, fullLink: true })}
         />
         </>
       </IdealPartnerProvider>

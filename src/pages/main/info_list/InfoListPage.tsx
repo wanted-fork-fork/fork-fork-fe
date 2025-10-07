@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { MainHeader } from 'src/widgets/main/header/MainHeader';
 import { InfoList } from 'src/widgets/info/InfoList';
+import { createSharedProfileLink } from 'src/shared/functions/linkUtil';
 
 export const InfoListPage = ({
   userInfo,
@@ -37,6 +38,7 @@ export const InfoListPage = ({
         loading={loading}
         getProfileLink={(id) => `/profile/${id}`}
         saveSharing={saveSharing}
+        createSharedLink={(shareId) => createSharedProfileLink(shareId, true)}
         onIntersectBottom={onIntersectBottom}
       />
     </div>

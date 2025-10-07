@@ -5,7 +5,6 @@ import { Theme } from 'src/shared/styles/constants';
 import styles from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet.module.css';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { createSharedProfileLink } from 'src/shared/functions/linkUtil';
 import { KakaoSdk } from 'src/shared/lib/kakao/KakaoSdk';
 import { useCallback } from 'react';
 import { SaveSharingResult } from 'src/types';
@@ -15,11 +14,13 @@ export const ProfileShareBottomSheet = ({
   onClose,
   infoId,
   saveSharing,
+  createSharedLink,
 }: {
   isOpen: boolean;
   onClose: () => void;
   infoId: string | null;
   saveSharing: (infoId: string) => Promise<SaveSharingResult>;
+  createSharedLink: (shareId: string) => string;
 }) => {
   const { mutateAsync } = useMutation({
     mutationFn: saveSharing,
@@ -30,11 +31,11 @@ export const ProfileShareBottomSheet = ({
 
     try {
       const result = await mutateAsync(infoId);
-      return createSharedProfileLink(result.data.sharingId, true);
+      return createSharedLink(result.data.sharingId);
     } catch (e) {
       console.error(e);
     }
-  }, [infoId, mutateAsync]);
+  }, [infoId, mutateAsync, createSharedLink]);
 
   const onClickShareLink = async () => {
     const link = (await generateLink()) ?? '';
