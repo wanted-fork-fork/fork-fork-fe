@@ -1,0 +1,13 @@
+.Comment {
+  border-radius: 0 8px 8px 8px;
+  padding: 8px;
+  margin-left: -1px;
+  background-color: var(--color-neutral-0);
+}
+
+.CreatorName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-neutral-900);
+  line-height: 100%;
+}

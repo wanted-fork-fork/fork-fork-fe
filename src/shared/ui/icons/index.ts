@@ -25,6 +25,7 @@ export { default as ListAlt } from './ListAlt';
 export { default as ListView } from './ListView';
 export { default as Location } from './Location';
 export { default as Menu } from './Menu';
+export { default as MessageBoxTail } from './MessageBoxTail';
 export { default as Mindfulness } from './Mindfulness';
 export { default as Minus } from './Minus';
 export { default as MusicNote } from './MusicNote';
