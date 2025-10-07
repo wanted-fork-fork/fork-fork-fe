@@ -24,6 +24,7 @@ import {
 type Props = {
   profile: ProfileSummary;
   headerRightSlot?: ReactElement;
+  footerSlot?: ReactElement;
 };
 
 const iconProps = {
@@ -32,7 +33,7 @@ const iconProps = {
   color: '#ccc',
 };
 
-export const ProfileCardV2 = ({ profile, headerRightSlot }: Props) => {
+export const ProfileCardV2 = ({ profile, headerRightSlot, footerSlot }: Props) => {
   const { t } = useTranslation('common');
 
   const location = convertDtoToLocation(profile.location)[0];
@@ -112,6 +113,7 @@ export const ProfileCardV2 = ({ profile, headerRightSlot }: Props) => {
           </tbody>
         </table>
       </div>
+      {footerSlot}
     </article>
   );
 };

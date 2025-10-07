@@ -10,14 +10,14 @@ import { ProfileCardGrid } from 'src/entities/candidates/_common/components/Prof
 import { ProfileCardList } from 'src/entities/candidates/_common/components/ProfileCardList/ProfileCardList';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useIntersectionObserver } from 'src/shared/functions/useIntersectionObserver';
 import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
 import { ArchivedInfoResponse, SaveSharingResult } from 'src/types';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { z } from 'zod';
 
-export const InfoList = ({
+export const InfoList = <InfoType extends ArchivedInfoResponse>({
   // userInfo,
   profileList,
   totalCount,
@@ -28,9 +28,10 @@ export const InfoList = ({
   saveSharing,
   createSharedLink,
   onIntersectBottom,
+  renderCardFooter,
 }: {
   // userInfo: UserInfoResponse;
-  profileList: ArchivedInfoResponse[];
+  profileList: InfoType[];
   totalCount: number;
   hasFilter: boolean;
   filter: z.infer<typeof filterSchema>;
@@ -38,6 +39,7 @@ export const InfoList = ({
   getProfileLink: (id: string) => string;
   saveSharing: (infoId: string) => Promise<SaveSharingResult>;
   createSharedLink: (shareId: string) => string;
+  renderCardFooter?: (profile: InfoType) => ReactNode;
   onIntersectBottom?: () => void;
 }) => {
   const { ref, isIntersecting } = useIntersectionObserver();
@@ -101,6 +103,7 @@ export const InfoList = ({
                 <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
               )}
               getLink={getProfileLink}
+              footerSlot={renderCardFooter}
             />
           )}
           <div ref={ref} style={{ margin: 'auto', height: '20px' }} />

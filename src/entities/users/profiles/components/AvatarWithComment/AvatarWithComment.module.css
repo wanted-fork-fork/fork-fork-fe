@@ -3,6 +3,33 @@
   padding: 8px;
   margin-left: -1px;
   background-color: var(--color-neutral-0);
+
+  font-size: 13px;
+  width: 100%;
+}
+
+.CommentContainer {
+  width: 100%;
+  flex-grow: 1;
+
+  >div {
+    width: 100%;
+  }
+
+  & svg {
+    color: var(--color-neutral-0);
+  }
+
+  &[data-theme='gray'] {
+    .Comment {
+      background-color: var(--color-neutral-100);
+      color: var(--color-neutral-700);
+    }
+
+    & svg {
+      color: var(--color-neutral-100);
+    }
+  }
 }
 
 .CreatorName {
@@ -10,4 +37,8 @@
   font-weight: 500;
   color: var(--color-neutral-900);
   line-height: 100%;
+}
+
+.Container {
+  width: 100%;
 }

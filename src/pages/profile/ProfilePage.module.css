@@ -70,7 +70,8 @@
         object-position: center;
     }
 
-    &[data-itemcount='5'], &[data-itemcount='4'] {
+    &[data-itemcount='5'],
+    &[data-itemcount='4'] {
         grid: 1fr 1fr / 2fr 1fr 1fr;
 
         & img:nth-child(1) {
@@ -127,6 +128,10 @@
         z-index: -1;
         color: var(--color-neutral-100);
     }
+}
+
+.CommentContainer {
+    padding: 0 20px 16px;
 }
 
 .TabTriggerList {

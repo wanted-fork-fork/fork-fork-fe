@@ -1,4 +1,4 @@
-import { ArchivedInfoResponse, GroupInfoResponse, saveSharingWithGroup } from 'src/types';
+import { GroupInfoResponse, GroupInfoWithDetailResponse, saveSharingWithGroup } from 'src/types';
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Link, useNavigate } from '@remix-run/react';
@@ -9,6 +9,7 @@ import { Theme } from 'src/shared/styles/constants';
 import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { InfoList } from 'src/widgets/info/InfoList';
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
+import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
 
 export const GroupMainPage = ({
   totalCount,
@@ -17,7 +18,7 @@ export const GroupMainPage = ({
 }: {
   groupInfo: GroupInfoResponse;
   totalCount: number;
-  infos: ArchivedInfoResponse[];
+  infos: GroupInfoWithDetailResponse[];
 }) => {
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export const GroupMainPage = ({
         {groupInfo.groupName}
       </Header>
 
-      <InfoList
+      <InfoList<GroupInfoWithDetailResponse>
         profileList={infos}
         totalCount={totalCount}
         hasFilter={false}
@@ -52,6 +53,13 @@ export const GroupMainPage = ({
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
         saveSharing={(infoId) => saveSharingWithGroup(groupInfo.groupId, infoId)}
         createSharedLink={(shareId) => createSharedGroupLink({ groupId: groupInfo.groupId, shareId, fullLink: true })}
+        renderCardFooter={(profile) => (
+          profile.comment ? <AvatarWithComment
+            creatorImg={profile.creatorImage ?? ''}
+            creatorName={profile.creatorName}
+            comment={profile.comment ?? ''}
+          /> : null
+        )}
       />
 
       <Link to={`/groups/${groupInfo.groupId}/add`}>

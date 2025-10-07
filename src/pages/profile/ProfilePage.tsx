@@ -13,8 +13,16 @@ import { useNavigate } from '@remix-run/react';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
 
-export const ProfilePage = ({ headerSuffixSlot }: { headerSuffixSlot: (profile: MyProfile) => ReactNode }) => {
+export const ProfilePage = ({ headerSuffixSlot, comment }: {
+  comment?: {
+    creatorImg: string;
+    creatorName: string;
+    comment: string;
+  };
+  headerSuffixSlot: (profile: MyProfile) => ReactNode;
+ }) => {
   const { ref, inView } = useInView();
   const navigate = useNavigate();
 
@@ -43,6 +51,16 @@ export const ProfilePage = ({ headerSuffixSlot }: { headerSuffixSlot: (profile: 
         <h1 className={styles.Name} ref={ref}>
           {profile.name}({t(profile.gender)}, {age})
         </h1>
+        {comment && (
+          <div className={styles.CommentContainer}>
+            <AvatarWithComment
+              creatorImg={comment.creatorImg}
+              creatorName={comment.creatorName}
+              comment={comment.comment}
+              theme="gray"
+            />
+          </div>
+        )}
         <ProfileTab.Root>
           <ProfileTab.TriggerList className={styles.TabTriggerList} />
           <div className={styles.TabContent}>

@@ -4,13 +4,13 @@ import { Link } from '@remix-run/react';
 import { ReactElement } from 'react';
 import { ProfileSmallCard } from 'src/entities/candidates/info/components/ProfileSmallCard/ProfileSmallCard';
 
-type Props = {
-  profileList: ProfileSummary[];
-  profileActionSlot?: (profile: ProfileSummary) => ReactElement;
+type Props<InfoType extends ProfileSummary> = {
+  profileList: InfoType[];
+  profileActionSlot?: (profile: InfoType) => ReactElement;
   getLink: (id: string) => string;
 };
 
-export const ProfileCardGrid = ({ profileList, profileActionSlot, getLink }: Props) => {
+export const ProfileCardGrid = <InfoType extends ProfileSummary>({ profileList, profileActionSlot, getLink }: Props<InfoType>) => {
   return (
     <ul className={styles.Container}>
       {profileList.map((profile) => (

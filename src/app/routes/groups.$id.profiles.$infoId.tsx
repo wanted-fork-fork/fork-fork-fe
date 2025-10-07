@@ -86,6 +86,11 @@ export default function GroupDetailPage() {
               </IconButton>
             </Flex>
           )}
+          comment={profile.comment ? {
+            creatorImg: profile.creatorImage ?? '',
+            creatorName: profile.creatorName,
+            comment: profile.comment ?? '',
+          } : undefined}
         />
         <ProfileShareBottomSheet
           isOpen={isShareOpen}
