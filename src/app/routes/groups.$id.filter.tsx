@@ -1,0 +1,57 @@
+import { FilterPage } from 'src/pages/main/filter/FilterPage';
+import { ActionFunctionArgs, json, LoaderFunctionArgs, redirect } from '@remix-run/node';
+import { getValidatedFormData } from 'remix-hook-form';
+import { z } from 'zod';
+import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { commitSession } from 'src/app/server/sessions';
+import { authenticate } from 'src/app/server/authenticate';
+import { useLoaderData } from '@remix-run/react';
+
+type FormData = z.infer<typeof filterSchema>;
+const resolver = zodResolver(filterSchema);
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { newSession } = await authenticate(request);
+
+  const searchParams = new URL(request.url).searchParams;
+  const param = { ...Object.fromEntries(searchParams) };
+  delete param.townList;
+  const { data: filterParams } = filterSchema.safeParse(param);
+  const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
+
+  return json(
+    { filter: { ...filterParams, townList } },
+    {
+      headers: {
+        ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
+      },
+    },
+  );
+};
+
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const { id } = params;
+  const { errors, data, receivedValues: defaultValues } = await getValidatedFormData<FormData>(request, resolver);
+
+  if (errors) {
+    return { errors, defaultValues };
+  }
+
+  const queries = Object.entries(data)
+    .filter(([, v]) => Boolean(v))
+    .map(([k, v]) => {
+      if (k !== 'townList') {
+        return `${k}=${v}`;
+      }
+      return `${k}[]=${v}`;
+    })
+    .join('&');
+
+  return redirect(`/groups/${id}?${queries}`);
+};
+
+export default function GroupFilterPage() {
+  const { filter } = useLoaderData<typeof loader>();
+  return <FilterPage initialFilter={filter} />;
+}

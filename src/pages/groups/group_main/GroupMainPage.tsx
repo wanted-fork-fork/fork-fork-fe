@@ -43,7 +43,7 @@ export const GroupMainPage = ({
       .map(([k, v]) => `${k}=${v}`)
       .join('&');
     fetcher.load(`/groups/${groupInfo.groupId}/infos?page=${page}&${params}`);
-  }, [fetcher, filter, groupInfo.groupId, page]);
+  }, [filter, groupInfo.groupId, page]);
 
   useEffect(() => {
     if (!fetcher.data) return;
@@ -78,7 +78,7 @@ export const GroupMainPage = ({
         hasFilter={hasFilter}
         loading={fetcher.state === 'loading'}
         filter={filter}
-        filterPathName={`/groups/${groupInfo.groupId}/filter}`}
+        filterPathName={`/groups/${groupInfo.groupId}/filter`}
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
         saveSharing={(infoId) => saveSharingWithGroup(groupInfo.groupId, infoId)}
         createSharedLink={(shareId) => createSharedGroupLink({ groupId: groupInfo.groupId, shareId, fullLink: true })}

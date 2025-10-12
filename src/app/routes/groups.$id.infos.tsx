@@ -29,20 +29,19 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       ...filterParams,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      townList: townList ? townList.join(',') : [],
+      ...(townList && townList.length > 0 ? { townList: townList.join(',') } : undefined),
       page: Number(searchParams.get('page')) || 0,
       size: 10,
       sortBy: align.sortBy,
       sortDirection: align.sortDirection,
       ageTo: ageFrom,
       ageFrom: ageTo,
-    } satisfies SearchInfoRequestDto;
+    } satisfies Omit<SearchInfoRequestDto, 'townList'>;
     const { data } = await searchGroupInfo(groupKey, params as unknown as SearchGroupInfoParams, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(params);
     return json(
       {
         profileList: data?.infos ?? [],
@@ -62,7 +61,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       },
     });
     return json(
-      { profileList: data, hasMore: false, totalCount: data },
+      { profileList: data.infos, hasMore: false, totalCount: data.count },
       {
         headers: {
           ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),

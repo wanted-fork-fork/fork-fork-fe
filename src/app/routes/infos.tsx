@@ -24,20 +24,19 @@ export const loader: LoaderFunction = async ({ request }) => {
       ...filterParams,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      townList: townList ? townList.join(',') : [],
+      ...(townList && townList.length > 0 ? { townList: townList.join(',') } : undefined),
       page: Number(searchParams.get('page')) || 0,
       size: 10,
       sortBy: align.sortBy,
       sortDirection: align.sortDirection,
       ageTo: ageFrom,
       ageFrom: ageTo,
-    } satisfies SearchInfoRequestDto;
+    } satisfies Omit<SearchInfoRequestDto, 'townList'>;
     const { data } = await searchInfo(params as unknown as SearchInfoParams, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(params);
     return json(
       {
         profileList: data?.infos ?? [],

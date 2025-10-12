@@ -52,6 +52,5 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function GroupDetailPage() {
   const { groupInfo, totalCount, hasFilter, filter } = useLoaderData<typeof loader>();
-
   return <GroupMainPage groupInfo={groupInfo} totalCount={totalCount} hasFilter={hasFilter} filter={filter} />;
 }
