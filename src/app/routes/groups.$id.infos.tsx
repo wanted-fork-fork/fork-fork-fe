@@ -1,11 +1,16 @@
 import { json, LoaderFunction } from '@remix-run/node';
 import { filterAlignList, filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { calculateBirthDate, convertDateObjectToDate } from 'src/shared/functions/date';
-import { getAllInfo, searchInfo, SearchInfoParams, SearchInfoRequestDto } from 'src/types';
+import { searchGroupInfo, SearchGroupInfoParams, SearchInfoRequestDto } from 'src/types';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const { id: groupKey } = params;
+  if (!groupKey) {
+    throw new Error('No group key provided');
+  }
+
   const { accessToken, newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
@@ -32,7 +37,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       ageTo: ageFrom,
       ageFrom: ageTo,
     } satisfies Omit<SearchInfoRequestDto, 'townList'>;
-    const { data } = await searchInfo(params as unknown as SearchInfoParams, {
+    const { data } = await searchGroupInfo(groupKey, params as unknown as SearchGroupInfoParams, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -50,13 +55,13 @@ export const loader: LoaderFunction = async ({ request }) => {
       },
     );
   } else {
-    const { data } = await getAllInfo({
+    const { data } = await searchGroupInfo(groupKey, {} as unknown as SearchGroupInfoParams, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
     return json(
-      { profileList: data, hasMore: false, totalCount: data.length },
+      { profileList: data.infos, hasMore: false, totalCount: data.count },
       {
         headers: {
           ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
