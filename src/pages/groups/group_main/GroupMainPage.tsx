@@ -1,7 +1,7 @@
 import { GroupInfoResponse, GroupInfoWithDetailResponse, saveSharingWithGroup } from 'src/types';
 import { FormLayout } from 'src/pages/layout/FormLayout';
 import { Header } from 'src/shared/ui/layout/Header/Header';
-import { Link, useNavigate } from '@remix-run/react';
+import { Link, useFetcher, useNavigate } from '@remix-run/react';
 import Flex from 'src/shared/ui/Flex/Flex';
 import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { ListAlt, Setting } from 'src/shared/ui/icons';
@@ -10,17 +10,45 @@ import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { InfoList } from 'src/widgets/info/InfoList';
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
+import { useCallback, useEffect, useState } from 'react';
 
 export const GroupMainPage = ({
-  totalCount,
+  filter,
+  hasFilter,
   groupInfo,
-  infos,
 }: {
   groupInfo: GroupInfoResponse;
   totalCount: number;
-  infos: GroupInfoWithDetailResponse[];
+  hasFilter: boolean;
+  filter: object;
 }) => {
   const navigate = useNavigate();
+
+  const [page, setPage] = useState(0);
+  const [profileList, setProfileList] = useState<GroupInfoWithDetailResponse[]>([]);
+  const fetcher = useFetcher<{ profileList: GroupInfoWithDetailResponse[]; hasMore: boolean; totalCount: number }>();
+
+  const totalCount = fetcher?.data?.totalCount ?? 0;
+
+  const handleIntersectBottom = useCallback(() => {
+    if (!fetcher.data?.hasMore) {
+      return;
+    }
+
+    setPage((prev) => prev + 1);
+  }, [fetcher.data?.hasMore]);
+
+  useEffect(() => {
+    const params = Object.entries(filter)
+      .map(([k, v]) => `${k}=${v}`)
+      .join('&');
+    fetcher.load(`/groups/${groupInfo.groupId}/infos?page=${page}&${params}`);
+  }, [fetcher, filter, groupInfo.groupId, page]);
+
+  useEffect(() => {
+    if (!fetcher.data) return;
+    setProfileList((prev) => [...prev, ...(fetcher.data?.profileList ?? [])]);
+  }, [fetcher.data]);
 
   return (
     <FormLayout.Container>
@@ -45,21 +73,25 @@ export const GroupMainPage = ({
       </Header>
 
       <InfoList<GroupInfoWithDetailResponse>
-        profileList={infos}
+        profileList={profileList}
         totalCount={totalCount}
-        hasFilter={false}
-        loading={false}
-        filter={{}}
+        hasFilter={hasFilter}
+        loading={fetcher.state === 'loading'}
+        filter={filter}
+        filterPathName={`/groups/${groupInfo.groupId}/filter}`}
         getProfileLink={(id) => `/groups/${groupInfo.groupId}/profiles/${id}`}
         saveSharing={(infoId) => saveSharingWithGroup(groupInfo.groupId, infoId)}
         createSharedLink={(shareId) => createSharedGroupLink({ groupId: groupInfo.groupId, shareId, fullLink: true })}
-        renderCardFooter={(profile) => (
-          profile.comment ? <AvatarWithComment
-            creatorImg={profile.creatorImage ?? ''}
-            creatorName={profile.creatorName}
-            comment={profile.comment ?? ''}
-          /> : null
-        )}
+        renderCardFooter={(profile) =>
+          profile.comment ? (
+            <AvatarWithComment
+              creatorImg={profile.creatorImage ?? ''}
+              creatorName={profile.creatorName}
+              comment={profile.comment ?? ''}
+            />
+          ) : null
+        }
+        onIntersectBottom={handleIntersectBottom}
       />
 
       <Link to={`/groups/${groupInfo.groupId}/add`}>

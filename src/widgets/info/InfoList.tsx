@@ -23,6 +23,7 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
   totalCount,
   hasFilter,
   filter,
+  filterPathName = '/filter',
   loading = false,
   getProfileLink,
   saveSharing,
@@ -35,6 +36,7 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
   totalCount: number;
   hasFilter: boolean;
   filter: z.infer<typeof filterSchema>;
+  filterPathName?: string;
   loading?: boolean;
   getProfileLink: (id: string) => string;
   saveSharing: (infoId: string) => Promise<SaveSharingResult>;
@@ -48,12 +50,12 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
   const [shareTargetId, setShareTargetId] = useState<string | null>(null);
 
   const filterUrl = useMemo(() => {
-    if (!hasFilter) return '/filter';
+    if (!hasFilter) return filterPathName;
     const params = Object.entries(filter)
       .filter(([, value]) => Boolean(value))
       .map((kv) => kv.join('='))
       .join('&');
-    return `/filter?${params}`;
+    return `${filterPathName}?${params}`;
   }, [filter]);
 
   useEffect(() => {

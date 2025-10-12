@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
 import styles from 'src/entities/candidates/info/components/ProfileCard/ProfileCard.module.css';
 import { calculateAge } from 'src/shared/functions/date';
@@ -24,7 +24,7 @@ import {
 type Props = {
   profile: ProfileSummary;
   headerRightSlot?: ReactElement;
-  footerSlot?: ReactElement;
+  footerSlot?: ReactNode;
 };
 
 const iconProps = {
