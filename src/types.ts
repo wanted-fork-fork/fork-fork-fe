@@ -62,12 +62,24 @@ export interface UserInfoResponse {
   userId: string;
 }
 
+export type ValidateGroupInviteLinkResponseReason = typeof ValidateGroupInviteLinkResponseReason[keyof typeof ValidateGroupInviteLinkResponseReason];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ValidateGroupInviteLinkResponseReason = {
+  INVITE_LINK_NOT_FOUND: 'INVITE_LINK_NOT_FOUND',
+  GROUP_NOT_FOUND: 'GROUP_NOT_FOUND',
+  ALREADY_ADMIN: 'ALREADY_ADMIN',
+  ALREADY_MEMBER: 'ALREADY_MEMBER',
+  ALREADY_PENDING: 'ALREADY_PENDING',
+} as const;
+
 export interface ValidateGroupInviteLinkResponse {
   creatorName?: string;
   groupId?: string;
   groupName?: string;
   isValid: boolean;
-  reason?: string;
+  reason?: ValidateGroupInviteLinkResponseReason;
 }
 
 export interface AvailableCandidateResponse {
@@ -766,11 +778,6 @@ export interface CityAndTownResponse {
   town: TownDto[];
 }
 
-export interface SearchInfoResponse {
-  count: number;
-  infos: ArchivedInfoResponse[];
-}
-
 export type ArchivedInfoResponseMbti = typeof ArchivedInfoResponseMbti[keyof typeof ArchivedInfoResponseMbti];
 
 
@@ -817,6 +824,11 @@ export interface ArchivedInfoResponse {
   name: string;
   religion: Religion;
   smoking: UserInfoSmoking;
+}
+
+export interface SearchInfoResponse {
+  count: number;
+  infos: ArchivedInfoResponse[];
 }
 
 export type SearchInfoRequestDtoTownListItem = typeof SearchInfoRequestDtoTownListItem[keyof typeof SearchInfoRequestDtoTownListItem];
@@ -2687,7 +2699,7 @@ export const getDeleteGroupInfoResponseMock = (): Unit => ({})
 
 export const getGetAvailableCandidatesResponseMock = (): AvailableCandidateResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({info: {birthDate: `${faker.date.past().toISOString().split('.')[0]}Z`, drinking: {drinkingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), drinkingCategory: faker.helpers.arrayElement(['NON_DRINKER','DRINKER'] as const)}, gender: faker.helpers.arrayElement(['MALE','FEMALE'] as const), height: faker.number.int({min: undefined, max: undefined}), hobbies: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.word.sample())), id: faker.helpers.arrayElement([faker.word.sample(), undefined]), images: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({imageId: faker.word.sample(), url: faker.word.sample()})), job: {jobCategory: faker.helpers.arrayElement(['STUDENT','EMPLOYEE','FREELANCER','ETC'] as const), jobName: faker.word.sample()}, location: {cities: faker.helpers.arrayElements(['SEOUL','GYEONGGI','INCHEON','DAEJEON','DAEGU','BUSAN','ULSAN','GWANGJU','GANGWON','SEJONG','CHUNGCHEONGNAM','CHUNGCHEONGBUK','GYEONGSANGNAM','GYEONGSANGBUK','JEOLANAM','JEOLABUK','JEJU'] as const), towns: faker.helpers.arrayElements(['GANGNAM','GANGDONG','GANGBUK','GANGSEO','GWANAK','GWANGJIN','GURO','GEUMCHEON','NOWON','DOBONG','DONGDAEMUN','DONGJAK','MAPO','SEODAEMUN','SEOCHO','SEONGDONG','SEONGBUK','SONGPA','YANGCHEON','YEONGDEUNGPO','YONGSAN','EUNPYEONG','JONGNO','SEOUL_JUNG','JUNGRANG','GAPYEONG','GOYANG','GWACHEON','GWANGMYEONG','GWANGJU','GURI','GUNPO','GIMPO','NAMYANGJU','DONGDUCHEON','BUCHEON','SEONGNAM','SUWON','SIHEUNG','ANSAN','ANSEONG','ANYANG','YANGJU','YANGPYEONG','YEOJU','YEONCHEON','OSAN','YONGIN','UIWANG','UIJEONGBU','ICHEON','PAJU','PYEONGTAEK','POCHEON','HANAM','HWASEONG','GANGHWA','GYEYANG','NAMDONG','INCHEON_DONG','MICHUHOL','BUPYEONG','SEO','YEONSU','ONGJIN','INCHEON_JUNG','DAEDEOK','DAEJEON_DONG','DAEJEON_SEO','YUSEONG','DAEJEON_JUNG','BUSAN_GANGSEO','GEUMJEONG','GIJANG','BUSAN_NAM','BUSAN_DONG','DONGNAE','BUSANJIN','BUSAN_BUK','SASANG','SAHA','BUSAN_SEO','SUYEONG','YEONJE','YEONGDO','BUSAN_JUNG','HAEUNDAE','ULSAN_NAM','ULSAN_DONG','ULSAN_BUK','ULJU','ULSAN_JUNG','GWANGSAN','GWANGJU_NAM','GWANGJU_DONG','GWANGJU_BUK','GWANGJU_SEO','GANGNEUNG','GOSEONG','DONGHAE','SAMCHEOK','SOKCHO','YANGGU','YANGYANG','YEONGWOL','WONJU','INJE','JEONGSEON','CHEORWON','CHUNCHEON','TAEBAEK','PYEONGCHANG','HONGCHEON','HWACHEON','HOENGSEONG','SEJONG','GOESAN','DANYANG','BOEUN','YEONGDONG','OKCHEON','EUMSEONG','JECHEON','JEUNGPYEONG','JINCHEON','CHEONGJU','CHUNGJU','GYERYONG','GONGJU','GEUMSAN','NONSAN','DANGJIN','BORYEONG','BUYEO','SEOSAN','SEOCHON','ASAN','YEONGI','YESAN','CHEONAN','CHEONGYANG','TAEAN','HONGSEONG','GYEONGSAN','GYEONGJU','GORYEONG','GUMI','GIMCHEON','MUNGYEONG','BONGHWA','SANGJU','SEONGJU','ANDONG','YEONGDEOK','YEONGYANG','YEONGJU','YEONGCHEON','YECHUN','ULLUNG','ULJIN','UISEONG','CHEONGDO','CHEONGSONG','CHILGOK','POHANG','GEOJE','GEOCHANG','GOSEONG_GN','GIMHAE','NAMHAE','MIRYANG','SACHEON','SANCHEONG','YANGSAN','UIRYEONG','JINJU','CHANGNYEONG','CHANGWON','TONGYEONG','HADONG','HAMAN','HAMYANG','HAPCHEON','GOCHANG','GUNSAN','GIMJE','NAMWON','MUJU','BUAN','SUNCHANG','WANJU','IKSAN','IMSIL','JANGSU','JEONJU','JEONGEUP','JINAN','GANGJIN','GOHEUNG','GOKSEONG','GWANGYANG','GURYE','NAJU','DAMYANG','MOKPO','MUAN','BOSEONG','SUNCHEON','SINAN','YEOSU','YEONGGWANG','YEONGAM','WANDO','JANGSEONG','JANGHEUNG','JINDO','HAMPYEONG','HAENAM','HWASUN','JEJU','SEOGWIPO','GUNWEE','DAEGU_NAM','DALSEO','DALSEONG','DAEGU_DONG','DAEGU_BUK','DAEGU_SEO','SUSEONG','DAEGU_JUNG'] as const)}, mbti: faker.helpers.arrayElement([faker.helpers.arrayElement(['ENFP','ENFJ','ENTJ','ENTP','ESFJ','ESFP','ESTJ','ESTP','INFJ','INFP','INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'] as const), undefined]), name: faker.word.sample(), religion: {religionCategory: faker.helpers.arrayElement(['CHRISTIANITY','CATHOLICISM','BUDDHISM','IRRELIGION','ETC'] as const), religionName: faker.helpers.arrayElement([faker.word.sample(), undefined])}, smoking: {smokingAmount: faker.helpers.arrayElement([faker.word.sample(), undefined]), smokingCategory: faker.helpers.arrayElement(['NON_SMOKER','SMOKER','ETC'] as const)}}, isAlreadyInGroup: faker.datatype.boolean()})))
 
-export const getGetGroupInfoByInviteKeyResponseMock = (overrideResponse: Partial< ValidateGroupInviteLinkResponse > = {}): ValidateGroupInviteLinkResponse => ({creatorName: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupId: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupName: faker.helpers.arrayElement([faker.word.sample(), undefined]), isValid: faker.datatype.boolean(), reason: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
+export const getGetGroupInfoByInviteKeyResponseMock = (overrideResponse: Partial< ValidateGroupInviteLinkResponse > = {}): ValidateGroupInviteLinkResponse => ({creatorName: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupId: faker.helpers.arrayElement([faker.word.sample(), undefined]), groupName: faker.helpers.arrayElement([faker.word.sample(), undefined]), isValid: faker.datatype.boolean(), reason: faker.helpers.arrayElement([faker.helpers.arrayElement(['INVITE_LINK_NOT_FOUND','GROUP_NOT_FOUND','ALREADY_ADMIN','ALREADY_MEMBER','ALREADY_PENDING'] as const), undefined]), ...overrideResponse})
 
 export const getLoginKakaoResponseMock = (overrideResponse: Partial< UserTokenDto > = {}): UserTokenDto => ({accessToken: faker.word.sample(), refreshToken: faker.word.sample(), ...overrideResponse})
 
