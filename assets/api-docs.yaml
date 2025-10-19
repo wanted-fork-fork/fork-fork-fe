@@ -3265,6 +3265,12 @@ components:
           type: string
         reason:
           type: string
+          enum:
+          - INVITE_LINK_NOT_FOUND
+          - GROUP_NOT_FOUND
+          - ALREADY_ADMIN
+          - ALREADY_MEMBER
+          - ALREADY_PENDING
     UserInfoResponse:
       required:
       - joinType
