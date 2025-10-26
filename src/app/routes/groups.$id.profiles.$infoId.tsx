@@ -2,7 +2,7 @@ import { json, LoaderFunction } from '@remix-run/node';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { deleteGroupInfo, getGroupInfoDetail, saveSharingWithGroup } from 'src/types';
-import { useLoaderData, useNavigate } from '@remix-run/react';
+import { useLoaderData, useNavigate, useRevalidator } from '@remix-run/react';
 import { MyProfileProvider } from 'src/entities/candidates/info/models/myProfileStore';
 import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { ProfilePage } from 'src/pages/profile/ProfilePage';
@@ -20,6 +20,8 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
+import { useBoolean } from 'src/shared/functions/useBoolean';
+import { EditCommentBottomSheet } from 'src/entities/groups/components/comment/EditCommentBottomSheet';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id, infoId } = params;
@@ -50,6 +52,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function GroupDetailPage() {
   const { profile, groupId, infoId } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
+  const revalidator = useRevalidator();
+
+  const { value: isCommentEditOpen, setTrue: openCommentEdit, setFalse: closeCommentEdit } = useBoolean();
 
   const [isShareOpen, setShareOpen] = useState(false);
 
@@ -61,6 +66,19 @@ export default function GroupDetailPage() {
     },
   });
 
+  const comment = useMemo(
+    () =>
+      profile.comment || profile.isCreatedByMe
+        ? {
+            creatorImg: profile.creatorImage ?? '',
+            creatorName: profile.creatorName,
+            comment: profile.comment ?? '',
+            onClickEdit: profile.isCreatedByMe ? openCommentEdit : undefined,
+          }
+        : undefined,
+    [openCommentEdit, profile.comment, profile.creatorImage, profile.creatorName, profile.isCreatedByMe],
+  );
+
   const profileInitialState = useMemo(() => convertDtoToProfile(profile.userInfo), [profile.userInfo]);
   const idealPartnerInitialState = useMemo(
     () => (profile.idealPartner ? convertDtoToIdealPartner(profile.idealPartner) : getSkippedIdealPartnerState()),
@@ -71,36 +89,44 @@ export default function GroupDetailPage() {
     mutateDelete();
   }, [mutateDelete]);
 
+  const handleCloseEditComment = useCallback(() => {
+    revalidator.revalidate();
+    closeCommentEdit();
+  }, [closeCommentEdit, revalidator]);
+
   return (
     <MyProfileProvider initialState={profileInitialState}>
       <IdealPartnerProvider initialState={idealPartnerInitialState}>
         <>
-        <ProfilePage
-          headerSuffixSlot={() => (
-            <Flex gap={16}>
-              {profile.isCreatedByMe && (
-                <IconButton onClick={handleClickDelete}>
-                  <Delete color={Theme.color.neutral50} />
+          <ProfilePage
+            headerSuffixSlot={() => (
+              <Flex gap={16}>
+                {profile.isCreatedByMe && (
+                  <IconButton onClick={handleClickDelete}>
+                    <Delete color={Theme.color.neutral50} />
+                  </IconButton>
+                )}
+                <IconButton onClick={() => setShareOpen(true)}>
+                  <Share color={Theme.color.neutral50} />
                 </IconButton>
-              )}
-              <IconButton onClick={() => setShareOpen(true)}>
-                <Share color={Theme.color.neutral50} />
-              </IconButton>
-            </Flex>
-          )}
-          comment={profile.comment ? {
-            creatorImg: profile.creatorImage ?? '',
-            creatorName: profile.creatorName,
-            comment: profile.comment ?? '',
-          } : undefined}
-        />
-        <ProfileShareBottomSheet
-          isOpen={isShareOpen}
-          onClose={() => setShareOpen(false)}
-          infoId={infoId}
-          saveSharing={(infoId) => saveSharingWithGroup(groupId, infoId)}
-          createSharedLink={(shareId) => createSharedGroupLink({ groupId, shareId, fullLink: true })}
-        />
+              </Flex>
+            )}
+            comment={comment}
+          />
+          <ProfileShareBottomSheet
+            isOpen={isShareOpen}
+            onClose={() => setShareOpen(false)}
+            infoId={infoId}
+            saveSharing={(infoId) => saveSharingWithGroup(groupId, infoId)}
+            createSharedLink={(shareId) => createSharedGroupLink({ groupId, shareId, fullLink: true })}
+          />
+          <EditCommentBottomSheet
+            isOpen={isCommentEditOpen}
+            groupId={groupId}
+            infoId={infoId}
+            initialComment={comment?.comment ?? ''}
+            onClose={handleCloseEditComment}
+          />
         </>
       </IdealPartnerProvider>
     </MyProfileProvider>

@@ -4,6 +4,12 @@ import styles from './Header.module.css';
 import { PropsWithChildren, ReactNode } from 'react';
 import { Theme } from 'src/shared/styles/constants';
 
+export type HeaderProps = {
+  suffixSlot?: ReactNode;
+  prefixSlot?: ReactNode;
+  onClose?: () => void;
+  onPrev?: () => void;
+};
 export const Header = ({
   suffixSlot,
   prefixSlot,
@@ -11,13 +17,11 @@ export const Header = ({
   onClose,
   children,
   className = '',
-}: PropsWithChildren<{
-  suffixSlot?: ReactNode;
-  prefixSlot?: ReactNode;
-  onClose?: () => void;
-  onPrev?: () => void;
-  className?: string;
-}>) => {
+}: PropsWithChildren<
+  HeaderProps & {
+    className?: string;
+  }
+>) => {
   return (
     <div className={`${styles.Header} ${className}`}>
       {onPrev && (

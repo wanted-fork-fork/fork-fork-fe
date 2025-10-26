@@ -24,10 +24,28 @@
     .Comment {
       background-color: var(--color-neutral-100);
       color: var(--color-neutral-700);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     & svg {
       color: var(--color-neutral-100);
+    }
+  }
+
+  .EditButton {
+    outline: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    background-color: transparent;
+    cursor: pointer;
+
+    svg {
+      color: var(--color-neutral-300);
     }
   }
 }

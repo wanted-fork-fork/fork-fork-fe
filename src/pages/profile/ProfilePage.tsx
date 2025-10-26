@@ -15,14 +15,18 @@ import { MyProfile, useMyProfileStore } from 'src/entities/candidates/info/model
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
 
-export const ProfilePage = ({ headerSuffixSlot, comment }: {
+export const ProfilePage = ({
+  headerSuffixSlot,
+  comment,
+}: {
   comment?: {
     creatorImg: string;
     creatorName: string;
     comment: string;
+    onClickEdit?: () => void;
   };
   headerSuffixSlot: (profile: MyProfile) => ReactNode;
- }) => {
+}) => {
   const { ref, inView } = useInView();
   const navigate = useNavigate();
 
@@ -58,6 +62,7 @@ export const ProfilePage = ({ headerSuffixSlot, comment }: {
               creatorName={comment.creatorName}
               comment={comment.comment}
               theme="gray"
+              onClickEdit={comment.onClickEdit}
             />
           </div>
         )}

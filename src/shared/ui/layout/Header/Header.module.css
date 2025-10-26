@@ -18,10 +18,10 @@
 
 .Content {
   position: absolute;
-  top: 0;
-  height: 100%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  height: 100%;
+  transform: translate(-50%, -50%);
 
   font-weight: 700;
   font-size: 18px;

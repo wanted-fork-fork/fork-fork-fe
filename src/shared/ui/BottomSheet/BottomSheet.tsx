@@ -1,7 +1,7 @@
 import { Sheet } from 'react-modal-sheet';
 import { PropsWithChildren, ReactNode } from 'react';
 import styles from './BottomSheet.module.css';
-import { Header } from 'src/shared/ui/layout/Header/Header';
+import { Header, HeaderProps } from 'src/shared/ui/layout/Header/Header';
 
 type BottomSheetProps = PropsWithChildren<Parameters<typeof Sheet>[0]>;
 
@@ -14,11 +14,13 @@ export const BottomSheet = ({ children, className = '', ...props }: BottomSheetP
   );
 };
 
-type BottomSheetHeaderProps = PropsWithChildren<{
-  className?: string;
-  onClose?: () => void;
-  onPrev?: () => void;
-}>;
+type BottomSheetHeaderProps = PropsWithChildren<
+  {
+    className?: string;
+    onClose?: () => void;
+    onPrev?: () => void;
+  } & HeaderProps
+>;
 
 const BottomSheetHeader = ({ className = '', ...props }: BottomSheetHeaderProps) => {
   return (
