@@ -2,7 +2,7 @@ import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummar
 import styles from 'src/entities/candidates/info/components/ProfileCardGrid/ProfileCardGrid.module.css';
 import { Link } from '@remix-run/react';
 import { ReactElement } from 'react';
-import { ProfileSmallCard } from 'src/entities/candidates/info/components/ProfileSmallCard/ProfileSmallCard';
+import { ProfileSmallCardV2 } from 'src/entities/candidates/info/components/ProfileSmallCardV2/ProfileSmallCardV2';
 
 type Props<InfoType extends ProfileSummary> = {
   profileList: InfoType[];
@@ -20,7 +20,7 @@ export const ProfileCardGrid = <InfoType extends ProfileSummary>({
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
           <Link to={getLink(profile.id!)}>
-            <ProfileSmallCard profile={profile} topRightSlot={profileActionSlot?.(profile)} />
+            <ProfileSmallCardV2 profile={profile} topRightSlot={profileActionSlot?.(profile)} />
           </Link>
         </li>
       ))}
