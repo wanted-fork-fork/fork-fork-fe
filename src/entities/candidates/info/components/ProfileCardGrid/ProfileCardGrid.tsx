@@ -1,5 +1,5 @@
 import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
-import styles from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid.module.css';
+import styles from 'src/entities/candidates/info/components/ProfileCardGrid/ProfileCardGrid.module.css';
 import { Link } from '@remix-run/react';
 import { ReactElement } from 'react';
 import { ProfileSmallCard } from 'src/entities/candidates/info/components/ProfileSmallCard/ProfileSmallCard';
@@ -10,7 +10,11 @@ type Props<InfoType extends ProfileSummary> = {
   getLink: (id: string) => string;
 };
 
-export const ProfileCardGrid = <InfoType extends ProfileSummary>({ profileList, profileActionSlot, getLink }: Props<InfoType>) => {
+export const ProfileCardGrid = <InfoType extends ProfileSummary>({
+  profileList,
+  profileActionSlot,
+  getLink,
+}: Props<InfoType>) => {
   return (
     <ul className={styles.Container}>
       {profileList.map((profile) => (

@@ -6,7 +6,7 @@ import { IconButton } from 'src/shared/ui/IconButton/IconButton';
 import { GridView, ListView } from 'src/shared/ui/icons';
 import { Theme } from 'src/shared/styles/constants';
 import { ScrollView } from 'src/shared/ui/ScrollView/ScrollView';
-import { ProfileCardGrid } from 'src/entities/candidates/_common/components/ProfileCardGrid/ProfileCardGrid';
+import { ProfileCardGrid } from 'src/entities/candidates/info/components/ProfileCardGrid/ProfileCardGrid';
 import { ProfileCardList } from 'src/entities/candidates/_common/components/ProfileCardList/ProfileCardList';
 import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/components/ProfileShare/ProfileShareBottomSheet';
 import { ProfileShareTrigger } from 'src/pages/main/info_list/InfoListPage';
