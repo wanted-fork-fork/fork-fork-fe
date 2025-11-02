@@ -17,7 +17,7 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export const loginResolver = zodResolver(loginSchema);
 
 export const action: ActionFunction = async ({ request }) => {
-  const { errors, data, receivedValues } = await getValidatedFormData<LoginFormData>(request, loginResolver);
+  const { errors, data } = await getValidatedFormData<LoginFormData>(request, loginResolver);
 
   if (errors) {
     return { errors };
@@ -54,12 +54,7 @@ export const action: ActionFunction = async ({ request }) => {
     session.set('refreshToken', loginResult.refreshToken);
     session.set('expiredAt', generateExpiredDate());
 
-    let path = '/';
-
-    const authState = searchParams.get('state');
-    if (authState) {
-      path = decodeURIComponent(authState).replace('path:', '');
-    }
+    const path = decodeURIComponent(searchParams.get('path') ?? '');
 
     return redirect(path, {
       headers: {

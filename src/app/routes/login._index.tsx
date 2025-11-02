@@ -5,7 +5,10 @@ import { commitSession, getAuthSession } from 'src/app/server/sessions';
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getAuthSession(request);
   if (session.has('accessToken')) {
-    return redirect('/');
+    const searchParams = new URL(request.url).searchParams;
+    const path = decodeURIComponent(searchParams.get('path') ?? '');
+
+    return redirect(path);
   }
 
   const data = { error: session.get('error') };
