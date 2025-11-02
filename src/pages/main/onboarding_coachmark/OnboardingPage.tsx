@@ -196,6 +196,7 @@ export const OnboardingPage = ({
             <ProfileCardList
               profileList={[profileMock]}
               profileActionSlot={() => <ProfileShareTrigger onClick={noop} />}
+              getLink={() => ''}
             />
           </div>
         )}
