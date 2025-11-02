@@ -23,7 +23,6 @@ export const GroupCreateCompleteModal = ({
   onClose: () => void;
 }) => {
   const { link: shareLink, isLoading } = useGroupJoinLink(groupId!);
-
   const onClickShareLink = async () => {
     if (isLoading) return;
 
