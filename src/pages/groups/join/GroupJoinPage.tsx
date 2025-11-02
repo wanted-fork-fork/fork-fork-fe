@@ -7,13 +7,16 @@ import Flex from 'src/shared/ui/Flex/Flex';
 import styles from './GroupJoinPage.module.css';
 import { applyToJoinGroup, ValidateGroupInviteLinkResponse } from 'src/types';
 import { useMutation } from '@tanstack/react-query';
+import { redirectToLoginPage } from 'src/shared/functions/redirectToLoginPage';
 
 export const GroupJoinPage = ({
   groupInfo,
   inviteKey,
+  isUser,
 }: {
   groupInfo: ValidateGroupInviteLinkResponse;
   inviteKey: string;
+  isUser: boolean;
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +30,12 @@ export const GroupJoinPage = ({
   });
 
   const handleClickJoin = () => {
-    mutate({ inviteKey });
+    if (isUser) {
+      mutate({ inviteKey });
+      return;
+    }
+
+    redirectToLoginPage();
   };
 
   const handleCloseConfirm = () => {

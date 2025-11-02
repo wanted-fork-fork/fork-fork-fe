@@ -1,9 +1,9 @@
 import { GroupJoinPage } from 'src/pages/groups/join/GroupJoinPage';
 import { json, LoaderFunction, MetaFunction } from '@remix-run/node';
-import { authenticateWithoutRedirection, redirectToLoginPage } from 'src/app/server/authenticate';
-import { getGroupInfoByInviteKey } from 'src/types';
+import { authenticateWithoutRedirection } from 'src/app/server/authenticate';
+import { getGroupInfoByInviteKey, ValidateGroupInviteLinkResponseReason } from 'src/types';
 import { useLoaderData, useNavigate } from '@remix-run/react';
-import { isbot } from 'isbot';
+import { ErrorPage } from 'src/pages/error/ErrorPage';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -18,28 +18,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' },
   });
 
-  if (data.isValid) {
-    return json({
-      groupInfo: data,
-      inviteKey: id,
-    });
-  }
-
-  if (isbot(request.headers.get('User-Agent') || '')) {
-    return json({
-      groupInfo: data,
-      inviteKey: id,
-    });
-  }
-
-  if (!data.reason) {
-    redirectToLoginPage(`/groups/join/${id}`);
-    return;
-  }
-
   return json({
     groupInfo: data,
     inviteKey: id,
+    isUser: Boolean(accessToken),
   });
 };
 
@@ -55,27 +37,54 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function GroupsJoin() {
-  const { groupInfo, inviteKey } = useLoaderData<typeof loader>();
+  const { groupInfo, inviteKey, isUser } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (groupInfo.isValid) {
+    if (!groupInfo.reason) {
       return;
     }
 
-    toast(groupInfo.reason);
-
-    if (groupInfo.reason.includes('참여 신청')) {
-      navigate(`/groups`, { replace: true });
-      return;
+    switch (groupInfo.reason as ValidateGroupInviteLinkResponseReason) {
+      case 'ALREADY_ADMIN':
+      case 'ALREADY_MEMBER':
+        toast('이미 참여한 그룹입니다.');
+        navigate(`/groups/${groupInfo.groupId}`);
+        break;
+      case 'ALREADY_PENDING':
+        toast('이미 참여 신청을 완료한 그룹입니다.\n그룹장의 수락을 기다려주세요.');
+        navigate('/groups');
+        break;
     }
+  }, [groupInfo.groupId, groupInfo.reason, navigate]);
 
-    navigate(`/groups/${groupInfo.groupId}`, { replace: true });
-  }, [groupInfo.groupId, groupInfo.isValid, groupInfo.reason, navigate]);
-
-  if (!groupInfo.isValid) {
-    return null;
+  if (groupInfo.reason) {
+    switch (groupInfo.reason as ValidateGroupInviteLinkResponseReason) {
+      case 'INVITE_LINK_NOT_FOUND':
+        return (
+          <ErrorPage
+            title={'잘못된 접근입니다.'}
+            description={'그룹 초대자에게 참여 링크를 다시 요청하세요.'}
+            buttonText={'메인으로 이동'}
+            buttonLink={'/'}
+          />
+        );
+      case 'GROUP_NOT_FOUND':
+        return (
+          <ErrorPage
+            title={'그룹이 삭제되었습니다.'}
+            description={`그룹이 삭제되어 참여할 수 없습니다.\n그룹 초대자에게 문의하세요.`}
+            buttonText={'메인으로 이동'}
+            buttonLink={'/'}
+          />
+        );
+      case 'ALREADY_PENDING':
+      case 'ALREADY_MEMBER':
+      case 'ALREADY_ADMIN':
+      default:
+        return null;
+    }
   }
 
-  return <GroupJoinPage groupInfo={groupInfo} inviteKey={inviteKey} />;
+  return <GroupJoinPage groupInfo={groupInfo} inviteKey={inviteKey} isUser={isUser} />;
 }
