@@ -22,6 +22,7 @@ import { ProfileShareBottomSheet } from 'src/entities/candidates/_common/compone
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { EditCommentBottomSheet } from 'src/entities/groups/components/comment/EditCommentBottomSheet';
+import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id, infoId } = params;
@@ -55,6 +56,7 @@ export default function GroupDetailPage() {
   const revalidator = useRevalidator();
 
   const { value: isCommentEditOpen, setTrue: openCommentEdit, setFalse: closeCommentEdit } = useBoolean();
+  const { value: isProfileDeleteOpen, setTrue: openProfileDelete, setFalse: closeProfileDelete } = useBoolean();
 
   const [isShareOpen, setShareOpen] = useState(false);
 
@@ -85,10 +87,6 @@ export default function GroupDetailPage() {
     [profile.idealPartner],
   );
 
-  const handleClickDelete = useCallback(() => {
-    mutateDelete();
-  }, [mutateDelete]);
-
   const handleCloseEditComment = useCallback(() => {
     revalidator.revalidate();
     closeCommentEdit();
@@ -102,7 +100,7 @@ export default function GroupDetailPage() {
             headerSuffixSlot={() => (
               <Flex gap={16}>
                 {profile.isCreatedByMe && (
-                  <IconButton onClick={handleClickDelete}>
+                  <IconButton onClick={openProfileDelete}>
                     <Delete color={Theme.color.neutral50} />
                   </IconButton>
                 )}
@@ -126,6 +124,15 @@ export default function GroupDetailPage() {
             infoId={infoId}
             initialComment={comment?.comment ?? ''}
             onClose={handleCloseEditComment}
+          />
+          <ConfirmModal
+            show={isProfileDeleteOpen}
+            title={`${profile.userInfo.name} 정보를 삭제할까요?`}
+            description={'그룹에서 해당 정보가 삭제됩니다.'}
+            confirmText={'삭제'}
+            cancelText={'취소'}
+            onConfirm={() => mutateDelete()}
+            onCancel={closeProfileDelete}
           />
         </>
       </IdealPartnerProvider>
