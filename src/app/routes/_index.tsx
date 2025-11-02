@@ -6,7 +6,7 @@ import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useFetcher, useLoaderData } from '@remix-run/react';
 import { GenerateFormLink } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLink';
 import { commitSession } from 'src/app/server/sessions';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
@@ -66,6 +66,14 @@ export default function Index() {
 
   const totalCount = fetcher?.data?.totalCount ?? 0;
 
+  const filterParams = useMemo(
+    () =>
+      Object.entries(filter)
+        .map(([k, v]) => `${k}=${v}`)
+        .join('&'),
+    [filter],
+  );
+
   const handleIntersectBottom = useCallback(() => {
     if (!fetcher.data?.hasMore) {
       return;
@@ -75,11 +83,8 @@ export default function Index() {
   }, [fetcher.data?.hasMore]);
 
   useEffect(() => {
-    const params = Object.entries(filter)
-      .map(([k, v]) => `${k}=${v}`)
-      .join('&');
-    fetcher.load(`/infos?page=${page}&${params}`);
-  }, [filter, page]);
+    fetcher.load(`/infos?page=${page}&${filterParams}`);
+  }, [filterParams, page]);
 
   useEffect(() => {
     if (!fetcher.data) return;
