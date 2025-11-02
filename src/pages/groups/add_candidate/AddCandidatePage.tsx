@@ -86,14 +86,17 @@ export const AddCandidatePage = ({
                       className={styles.Input}
                       placeholder={'후보자에 대한 코멘트를 입력해주세요'}
                       shape={'box'}
+                      value={selectedCandidates.get(candidate.info.id ?? '') ?? ''}
                       suffixSlot={<span className={styles.Suffix}>{`${selectedComment.length}/20`}</span>}
-                      onChange={(v) =>
+                      onKeyUp={(e) => e.preventDefault()}
+                      onChange={(v) => {
+                        if (v.target.value.length > 20) return;
                         setSelectedCandidates((prev) => {
                           const newMap = new Map(prev);
                           newMap.set(candidate.info.id!, v.target.value);
                           return newMap;
-                        })
-                      }
+                        });
+                      }}
                       onClick={(e) => e.stopPropagation()}
                     />
                   )

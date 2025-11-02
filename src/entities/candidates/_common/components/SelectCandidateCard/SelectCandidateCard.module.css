@@ -53,3 +53,7 @@
     }
   }
 }
+
+.CheckBox {
+  pointer-events: none;
+}

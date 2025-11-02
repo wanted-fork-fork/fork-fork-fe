@@ -3,6 +3,7 @@ import { ChangeEvent, MouseEvent, useId } from 'react';
 import { Check } from 'src/shared/ui/icons';
 
 type CheckBoxProps = {
+  className?: string;
   checked: boolean;
   label: string;
   onClick?: (e: MouseEvent) => void;
@@ -14,12 +15,20 @@ type CheckBoxProps = {
   disabled?: boolean;
 };
 
-export const CheckBox = ({ shape = 'circle', checked, label, onChange, onClick, disabled }: CheckBoxProps) => {
+export const CheckBox = ({
+  className = '',
+  shape = 'circle',
+  checked,
+  label,
+  onChange,
+  onClick,
+  disabled,
+}: CheckBoxProps) => {
   const id = useId();
 
   return (
     <div
-      className={styles.Wrapper}
+      className={`${styles.Wrapper} ${className}`}
       data-background={shape === 'circle'}
       data-checked={checked}
       aria-disabled={disabled}

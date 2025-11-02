@@ -25,7 +25,13 @@ export const SelectCandidateCard = ({
   return (
     <button className={styles.Container} role={'radio'} aria-checked={selected} disabled={disabled} onClick={onClick}>
       <div className={styles.Wrapper}>
-        <CheckBox checked={selected} onChange={() => {}} label={''} disabled={disabled} />
+        <CheckBox
+          className={styles.CheckBox}
+          checked={selected}
+          onChange={() => onClick()}
+          label={''}
+          disabled={disabled}
+        />
         <Avatar
           fallback={''}
           shape={'circle'}
