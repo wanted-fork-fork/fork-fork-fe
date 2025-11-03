@@ -16,6 +16,7 @@ import useLocalStorageState from 'src/shared/functions/useLocalStorageState';
 import { ArchivedInfoResponse, SaveSharingResult } from 'src/types';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { z } from 'zod';
+import { LoadingSpinner } from 'src/shared/ui/client/LoadingSpinner';
 
 export const InfoList = <InfoType extends ArchivedInfoResponse>({
   // userInfo,
@@ -129,7 +130,11 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
           )}
         </div>
       )}
-      {loading && <p>불러오는중..</p>}
+      {loading && (
+        <Flex align={'center'} justify={'center'}>
+          <LoadingSpinner />
+        </Flex>
+      )}
       <ProfileShareBottomSheet
         infoId={shareTargetId}
         isOpen={Boolean(shareTargetId)}
