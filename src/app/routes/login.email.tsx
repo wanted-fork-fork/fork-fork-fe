@@ -1,5 +1,5 @@
 import { EmailLoginPage } from 'src/pages/auth/email-login/EmailLoginPage';
-import { ActionFunction, redirect } from '@remix-run/node';
+import { ActionFunction, json, LoaderFunctionArgs, redirect } from '@remix-run/node';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getValidatedFormData } from 'remix-hook-form';
@@ -15,6 +15,24 @@ const loginSchema = z.object({
 export type LoginFormData = z.infer<typeof loginSchema>;
 
 export const loginResolver = zodResolver(loginSchema);
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const session = await getAuthSession(request);
+  if (session.has('accessToken')) {
+    const searchParams = new URL(request.url).searchParams;
+    const path = decodeURIComponent(searchParams.get('path') ?? '');
+
+    return redirect(path);
+  }
+
+  const data = { error: session.get('error') };
+
+  return json(data, {
+    headers: {
+      'Set-Cookie': await commitSession(session),
+    },
+  });
+}
 
 export const action: ActionFunction = async ({ request }) => {
   const { errors, data } = await getValidatedFormData<LoginFormData>(request, loginResolver);
