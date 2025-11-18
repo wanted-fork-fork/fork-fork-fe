@@ -26,15 +26,16 @@ export const EditCommentBottomSheet = ({
   const [comment, setComment] = useState(initialComment);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (comment: string) => updateGroupInfoComment(groupId, infoId, { message: comment }),
+    mutationFn: (comment: string) => updateGroupInfoComment(groupId, infoId, { message: comment.trim() }),
     onSuccess: () => {
       toast('코멘트를 수정했어요');
+      setComment(comment.trim());
       onClose();
     },
   });
 
   const handleEdit = () => {
-    mutate(comment);
+    mutate(comment.trim());
   };
 
   const handleDelete = () => {
@@ -60,7 +61,7 @@ export const EditCommentBottomSheet = ({
         <Input
           className={styles.Input}
           value={comment}
-          onChange={(e) => setComment(e.target.value.trim())}
+          onChange={(e) => setComment(e.target.value)}
           shape={'box'}
           placeholder={'후보자에 대한 코멘트를 입력해주세요.'}
           suffixSlot={<span className={styles.Count}>{`${comment.length}/20`}</span>}
