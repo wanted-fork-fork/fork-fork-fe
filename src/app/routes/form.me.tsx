@@ -40,7 +40,7 @@ const createFormPageStep = ({
   2: <IdealPartnerPage onClickNextStep={increase} />,
   3: <FormConfirmPage onClickNextStep={increase} />,
   4: <UploadLoadingPage name={name} linkKey={linkKey} onComplete={increase} />,
-  5: <CompletePage />,
+  5: <CompletePage showMainButton />,
 });
 
 export const meta: MetaFunction = () => {
