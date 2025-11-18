@@ -40,6 +40,7 @@ export const EditCommentBottomSheet = ({
 
   const handleDelete = () => {
     mutate('');
+    setComment('');
   };
 
   return (
