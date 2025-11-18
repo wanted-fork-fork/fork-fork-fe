@@ -17,6 +17,7 @@ export const LocationForm = () => {
   const locations = useIdealPartnerStore((state) => state.locations);
   const setLocations = useIdealPartnerStore((state) => state.setLocation);
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+  const hasTouched = useIdealPartnerFormProcessStore((state) => state.touchedSteps).has('IDEAL_LOCATION');
 
   const onSelect = (category: IdealPartnerRequestLocation) => {
     setLocations(category);
@@ -28,7 +29,7 @@ export const LocationForm = () => {
       <div>
         <Radio
           label={'네, 저와 가까운 분을 선호해요'}
-          checked={locations === 'IMPORTANT'}
+          checked={hasTouched && locations === 'IMPORTANT'}
           onChange={() => onSelect('IMPORTANT')}
         />
         {locations === 'IMPORTANT' && (
@@ -45,7 +46,7 @@ export const LocationForm = () => {
         )}
         <Radio
           label={'상관없어요'}
-          checked={locations === 'NOT_IMPORTANT'}
+          checked={hasTouched && locations === 'NOT_IMPORTANT'}
           onChange={() => onSelect('NOT_IMPORTANT')}
         />
       </div>

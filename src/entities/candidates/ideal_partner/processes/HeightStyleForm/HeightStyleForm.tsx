@@ -11,12 +11,16 @@ import {
 import { Accordion } from 'src/shared/ui/Accordion/Accordion';
 import Flex from 'src/shared/ui/Flex/Flex';
 import { getRangeText } from 'src/shared/functions/string';
+import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_partner/processes/_store/idealPartnerFormProcessStore';
 
 export const HeightStyleForm = () => {
   const idealHeight = useIdealPartnerStore((state) => state.heightRange);
   const style = useIdealPartnerStore((state) => state.style);
   const imageDtoList = useIdealPartnerImages();
   const removeImageDto = useRemoveIdealPartnerImageDto();
+
+  const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+  const hasTouched = useIdealPartnerFormProcessStore((state) => state.touchedSteps).has('IDEAL_HEIGHT_STYLE');
 
   const { min, max } = idealHeight ?? { min: undefined, max: undefined };
 
@@ -50,6 +54,7 @@ export const HeightStyleForm = () => {
   };
 
   const onCheckDisable = () => {
+    addTouchedStep('IDEAL_HEIGHT_STYLE');
     setStyle('');
     setFiles(() => []);
     toggleHeight(false);
@@ -57,6 +62,7 @@ export const HeightStyleForm = () => {
   };
 
   const onCheckEnabled = () => {
+    addTouchedStep('IDEAL_HEIGHT_STYLE');
     toggleHeight(true);
     setEnabled(true);
   };
@@ -64,8 +70,8 @@ export const HeightStyleForm = () => {
   return (
     <section>
       <div>
-        <Radio label={'상관 없어요'} checked={!enabled} onChange={onCheckDisable} />
-        <Radio label={'중요해요'} checked={enabled} onChange={onCheckEnabled} />
+        <Radio label={'상관 없어요'} checked={hasTouched && !enabled} onChange={onCheckDisable} />
+        <Radio label={'중요해요'} checked={hasTouched && enabled} onChange={onCheckEnabled} />
       </div>
       {enabled && (
         <div className={styles.Container}>

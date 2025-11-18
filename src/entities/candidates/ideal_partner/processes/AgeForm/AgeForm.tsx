@@ -10,11 +10,15 @@ export const AgeForm = () => {
   const idealPartnerAge = useIdealPartnerStore((state) => state.ageRange);
   const { min, max } = idealPartnerAge ?? { min: undefined, max: undefined };
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);
+  const hasTouched = useIdealPartnerFormProcessStore((state) => state.touchedSteps).has('IDEAL_AGE');
 
   const isValid = !(min && max && min > max);
 
   const toggleAge = useIdealPartnerStore((state) => state.toggleAge);
-  const onChangeRadio = (type: boolean) => toggleAge(type);
+  const onChangeRadio = (type: boolean) => {
+    addTouchedStep('IDEAL_AGE');
+    toggleAge(type);
+  };
 
   const setMin = useIdealPartnerStore((state) => state.setMinAge);
   const setMax = useIdealPartnerStore((state) => state.setMaxAge);
@@ -48,7 +52,7 @@ export const AgeForm = () => {
       <div>
         <Radio
           label={'아니요, 나이는 딱히 상관 없어요!'}
-          checked={!idealPartnerAge}
+          checked={hasTouched && !idealPartnerAge}
           onChange={() => onChangeRadio(false)}
         />
         <Radio
@@ -64,7 +68,7 @@ export const AgeForm = () => {
               </span>
             )
           }
-          checked={Boolean(idealPartnerAge)}
+          checked={hasTouched && Boolean(idealPartnerAge)}
           onChange={() => onChangeRadio(true)}
         />
         {idealPartnerAge && (
