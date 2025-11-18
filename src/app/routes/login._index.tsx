@@ -6,7 +6,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getAuthSession(request);
   if (session.has('accessToken')) {
     const searchParams = new URL(request.url).searchParams;
-    const path = decodeURIComponent(searchParams.get('path') ?? '');
+    const path = decodeURIComponent(searchParams.get('path') ?? '/');
 
     return redirect(path);
   }
