@@ -26,8 +26,8 @@ export const GroupHistoryRow = ({ history, groupId }: { history: GroupHistoryRes
         </div>
       </div>
       <Link className={styles.ProfileInfo} to={`/groups/${groupId}/profiles/${history.infoId}`}>
-        <Avatar fallback={''} shape={'circle'} size={24} src={history.userProfileImage} />
-        <span className={styles.Name}>{history.userName}</span>
+        <Avatar fallback={''} shape={'circle'} size={24} src={history.infoProfileImage} />
+        <span className={styles.Name}>{history.infoName}</span>
         <ArrowRight width={16} color={Theme.color.neutral40} />
       </Link>
     </Flex>
