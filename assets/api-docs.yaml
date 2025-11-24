@@ -57,6 +57,31 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/v1/info/status:
+    put:
+      tags:
+      - info-controller
+      operationId: updateInfoStatus
+      parameters:
+      - name: infoId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - IN_RELATIONSHIP
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
   /api/v1/groups/{groupId}:
     put:
       tags:
@@ -1182,6 +1207,10 @@ components:
           $ref: '#/components/schemas/Book'
         movie:
           $ref: '#/components/schemas/Movie'
+        status:
+          type: string
+          enum:
+          - IN_RELATIONSHIP
     IdealPartnerDrinking:
       required:
       - drinkingCategory
@@ -1817,6 +1846,10 @@ components:
           $ref: '#/components/schemas/Book'
         movie:
           $ref: '#/components/schemas/Movie'
+        status:
+          type: string
+          enum:
+          - IN_RELATIONSHIP
     ImageDto:
       required:
       - imageId
@@ -2401,6 +2434,11 @@ components:
             - DAEGU_SEO
             - SUSEONG
             - DAEGU_JUNG
+        userStatus:
+          type: string
+          writeOnly: true
+          enum:
+          - IN_RELATIONSHIP
     ArchivedInfoResponse:
       required:
       - birthDate
@@ -2468,6 +2506,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InfoImage'
+        status:
+          type: string
+          enum:
+          - IN_RELATIONSHIP
     SearchInfoResponse:
       required:
       - count
@@ -3086,6 +3128,11 @@ components:
             - DAEGU_SEO
             - SUSEONG
             - DAEGU_JUNG
+        userStatus:
+          type: string
+          writeOnly: true
+          enum:
+          - IN_RELATIONSHIP
     GroupInfoWithDetailResponse:
       required:
       - birthDate
@@ -3217,6 +3264,10 @@ components:
           - INFO_ADDED
           - INFO_SHARED
         infoId:
+          type: string
+        infoName:
+          type: string
+        infoProfileImage:
           type: string
     GroupInfoDetailResponse:
       required:
