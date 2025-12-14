@@ -209,6 +209,8 @@ export type SearchGroupInfoRequestDtoUserStatus = typeof SearchGroupInfoRequestD
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SearchGroupInfoRequestDtoUserStatus = {
   IN_RELATIONSHIP: 'IN_RELATIONSHIP',
+  ALL: 'ALL',
+  SINGLE: 'SINGLE',
 } as const;
 
 export type SearchGroupInfoRequestDtoTownListItem = typeof SearchGroupInfoRequestDtoTownListItem[keyof typeof SearchGroupInfoRequestDtoTownListItem];
@@ -870,6 +872,8 @@ export type SearchInfoRequestDtoUserStatus = typeof SearchInfoRequestDtoUserStat
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SearchInfoRequestDtoUserStatus = {
   IN_RELATIONSHIP: 'IN_RELATIONSHIP',
+  ALL: 'ALL',
+  SINGLE: 'SINGLE',
 } as const;
 
 export type SearchInfoRequestDtoTownListItem = typeof SearchInfoRequestDtoTownListItem[keyof typeof SearchInfoRequestDtoTownListItem];
