@@ -32,26 +32,43 @@
     justify-content: center;
     height: 100%;
     gap: 12px;
-}
 
-.InfoSummaryContainer .Name {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 100%;
-    margin: 0;
-}
+    .NameContainer {
+        display: flex;
+        gap: 4px;
+        align-items: center;
 
-.InfoSummaryContainer .Info {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
-}
+        .Name {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 100%;
+            margin: 0;
+        }
 
-.InfoSummaryContainer .Info span:not(:last-child)::after {
-    content: '';
-    border-right: 1px solid var(--color-neutral-300);
-    padding-left: 8px;
-    margin-right: 8px;
+        .StatusChip {
+            background-color: var(--color-primary);
+            border-radius: 32px;
+            padding: 3px 6px;
+            color: var(--color-neutral-0);
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 100%;
+        }
+    }
+
+
+    .Info {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+
+        span:not(:last-child)::after {
+            content: '';
+            border-right: 1px solid var(--color-neutral-300);
+            padding-left: 8px;
+            margin-right: 8px;
+        }
+    }
 }
 
 .DetailTableContainer {

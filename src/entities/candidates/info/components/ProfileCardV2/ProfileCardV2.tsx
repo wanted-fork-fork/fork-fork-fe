@@ -52,7 +52,10 @@ export const ProfileCardV2 = ({ profile, headerRightSlot, footerSlot }: Props) =
           />
         </div>
         <div className={styles.InfoSummaryContainer}>
-          <p className={styles.Name}>{profile.name}</p>
+          <div className={styles.NameContainer}>
+            <p className={styles.Name}>{profile.name}</p>
+            {profile.status === 'IN_RELATIONSHIP' && <span className={styles.StatusChip}>연애 중</span>}
+          </div>
           <div className={styles.Info}>
             <span>{calculateAge(new Date(profile.birthDate))}세</span>
             <span>{t(profile.gender)}자</span>
