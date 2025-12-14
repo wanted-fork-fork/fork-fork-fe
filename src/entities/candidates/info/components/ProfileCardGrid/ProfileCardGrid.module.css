@@ -1,9 +1,9 @@
 .Container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px 2px;
+    gap: 20px 6px;
     list-style: none;
-    padding: 0 0 70px;
+    padding: 0 8px 70px;
     margin: 0 -20px;
 
     width: calc(100% + 40px);
