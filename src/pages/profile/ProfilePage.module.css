@@ -100,11 +100,16 @@
     }
 }
 
+.NameContainer {
+    margin: 24px 0;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .Name {
     font-size: 24px;
     font-weight: 600;
-    margin: 24px 0;
-    padding: 0 20px;
 }
 
 .NameWithMessage {

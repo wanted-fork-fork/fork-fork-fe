@@ -1,0 +1,28 @@
+
+.SelectButton {
+  cursor: pointer;
+
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 8px;
+  background-color: var(--color-neutral-0);
+  color: var(--color-neutral-900);
+
+  width: 88px;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  &.Gray {
+    color: var(--color-neutral-500);
+  }
+}
+
+
+.SheetContent {
+  padding: 20px 0;
+}

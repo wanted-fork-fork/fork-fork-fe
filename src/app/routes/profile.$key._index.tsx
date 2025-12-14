@@ -13,6 +13,7 @@ import {
 } from 'src/entities/candidates/ideal_partner/models/convertIdealPartnerToDto';
 import { IdealPartnerProvider } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { ProfileHeaderActions } from 'src/pages/profile/components/ProfileHeaderActions';
+import { SoloStateButton } from 'src/entities/candidates/info/components/SoloStateButton/SoloStateButton';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -52,7 +53,10 @@ export default function Page() {
   return (
     <MyProfileProvider initialState={profileInitialState}>
       <IdealPartnerProvider initialState={idealPartnerInitialState}>
-        <ProfilePage headerSuffixSlot={(profile) => <ProfileHeaderActions infoId={id} name={profile.name} />} />
+        <ProfilePage
+          headerSuffixSlot={(profile) => <ProfileHeaderActions infoId={id} name={profile.name} />}
+          nameSuffixSlot={() => <SoloStateButton infoId={id} status={profile.userInfo.status} />}
+        />
       </IdealPartnerProvider>
     </MyProfileProvider>
   );

@@ -18,6 +18,7 @@ import { AvatarWithComment } from 'src/entities/users/profiles/components/Avatar
 export const ProfilePage = ({
   headerSuffixSlot,
   comment,
+  nameSuffixSlot,
 }: {
   comment?: {
     creatorImg: string;
@@ -26,6 +27,7 @@ export const ProfilePage = ({
     onClickEdit?: () => void;
   };
   headerSuffixSlot: (profile: MyProfile) => ReactNode;
+  nameSuffixSlot?: (profile: MyProfile) => ReactNode;
 }) => {
   const { ref, inView } = useInView();
   const navigate = useNavigate();
@@ -52,9 +54,12 @@ export const ProfilePage = ({
       />
       <ScrollView rootClassName={styles.Body}>
         <ImageLayout urls={urls} />
-        <h1 className={styles.Name} ref={ref}>
-          {profile.name}({t(profile.gender)}, {age})
-        </h1>
+        <div className={styles.NameContainer}>
+          <h1 className={styles.Name} ref={ref}>
+            {profile.name}({t(profile.gender)}, {age})
+          </h1>
+          {nameSuffixSlot?.(profile)}
+        </div>
         {comment && (
           <div className={styles.CommentContainer}>
             <AvatarWithComment
