@@ -1,10 +1,21 @@
-import { SearchInfoRequestDtoGender, SearchInfoRequestDtoSortBy, SearchInfoRequestDtoSortDirection } from 'src/types';
+import {
+  SearchInfoRequestDtoGender,
+  SearchInfoRequestDtoSortBy,
+  SearchInfoRequestDtoSortDirection,
+  SearchInfoRequestDtoUserStatus,
+} from 'src/types';
 import { z } from 'zod';
 
 export const filterGenderList: { name: string; gender: SearchInfoRequestDtoGender | undefined }[] = [
   { name: '전체', gender: undefined },
   { name: '남자', gender: 'MALE' },
   { name: '여자', gender: 'FEMALE' },
+];
+
+export const filterStatusList: { name: string; status: SearchInfoRequestDtoUserStatus | undefined }[] = [
+  { name: '전체', status: 'ALL' },
+  { name: '솔로', status: 'SINGLE' },
+  { name: '연애중', status: 'IN_RELATIONSHIP' },
 ];
 
 export const FILTER_ALIGN_KEYS = ['CREATED_ASC', 'CREATED_DESC', 'NAME_DESC', 'NAME_ASC'] as const;
@@ -23,6 +34,7 @@ export const filterAlignList: {
 export const filterSchema = z.object({
   alignId: z.enum(FILTER_ALIGN_KEYS).optional(),
   gender: z.enum(['MALE', 'FEMALE'] as const satisfies SearchInfoRequestDtoGender[]).optional(),
+  status: z.enum(['IN_RELATIONSHIP', 'SINGLE', 'ALL'] as const satisfies SearchInfoRequestDtoUserStatus[]).optional(),
   ageFrom: z.coerce.number().optional(),
   ageTo: z.coerce.number().optional(),
   heightFrom: z.coerce.number().optional(),

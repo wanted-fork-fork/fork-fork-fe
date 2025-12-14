@@ -20,6 +20,7 @@ export const Chip = ({ className = '', selected, onClick, suffixSlot, children }
       color={selected ? 'primary' : 'neutral'}
       onClick={onClick}
       suffixSlot={suffixSlot}
+      aria-selected={selected}
     >
       {children}
     </Button>

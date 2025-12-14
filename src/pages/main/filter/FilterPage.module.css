@@ -110,6 +110,14 @@
 .Chip {
     padding-left: 16px;
     padding-right: 16px;
+
+    border-color: var(--color-neutral-300);
+
+    &[aria-selected="true"] {
+        background-color: var(--color-neutral-900);
+        color: var(--color-primary) !important;
+        border-color: transparent;
+    }
 }
 
 .AlignSheetContent {

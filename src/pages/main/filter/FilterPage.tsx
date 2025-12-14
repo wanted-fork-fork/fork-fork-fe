@@ -23,9 +23,10 @@ import {
   filterAlignList,
   filterGenderList,
   filterSchema,
+  filterStatusList,
 } from 'src/entities/candidates/_common/libs/filter';
 import { getRangeText } from 'src/shared/functions/string';
-import { SearchInfoRequestDtoGender } from 'src/types';
+import { SearchInfoRequestDtoGender, SearchInfoRequestDtoUserStatus } from 'src/types';
 import { locationListMock } from 'src/entities/candidates/_common/vo/location/mocks/location.mock';
 
 type FormData = z.infer<typeof filterSchema>;
@@ -98,6 +99,10 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     setValue('gender', gender, { shouldDirty: true });
   };
 
+  const handleSelectStatus = (status: SearchInfoRequestDtoUserStatus | undefined) => {
+    setValue('status', status, { shouldDirty: true });
+  };
+
   const handleCloseLocation = () => {
     closeLocation();
   };
@@ -153,6 +158,21 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                     className={styles.Chip}
                     selected={watch('gender') === gender}
                     onClick={() => handleSelectGender(gender)}
+                  >
+                    {name}
+                  </Chip>
+                ))}
+              </Flex>
+            </div>
+            <div className={styles.Row}>
+              <h4>연애 상태</h4>
+              <Flex justify={'start'} gap={8}>
+                {filterStatusList.map(({ name, status }) => (
+                  <Chip
+                    key={name}
+                    className={styles.Chip}
+                    selected={watch('status') === status}
+                    onClick={() => handleSelectStatus(status)}
                   >
                     {name}
                   </Chip>
