@@ -8,12 +8,14 @@ type Props<InfoType extends ProfileSummary> = {
   profileList: InfoType[];
   profileActionSlot?: (profile: InfoType) => ReactElement;
   getLink: (id: string) => string;
+  onClickEmptyCard?: () => void;
 };
 
 export const ProfileCardGrid = <InfoType extends ProfileSummary>({
   profileList,
   profileActionSlot,
   getLink,
+  onClickEmptyCard,
 }: Props<InfoType>) => {
   return (
     <ul className={styles.Container}>
@@ -24,6 +26,14 @@ export const ProfileCardGrid = <InfoType extends ProfileSummary>({
           </Link>
         </li>
       ))}
+      {onClickEmptyCard && (
+        <li className={styles.EmptyCardWrapper}>
+          <button className={styles.EmptyCard} onClick={onClickEmptyCard}>
+            <img src="/images/empty_card.png" alt="새 후보를 추가해주세요" width={48} height={48} />
+            <p className={styles.Description}>새 후보를 추가해주세요</p>
+          </button>
+        </li>
+      )}
     </ul>
   );
 };

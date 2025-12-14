@@ -4,13 +4,13 @@ import { authenticate } from 'src/app/server/authenticate';
 import { ArchivedInfoResponse, getUserEnrollmentStatus, info } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useFetcher, useLoaderData } from '@remix-run/react';
-import { GenerateFormLink } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLink';
 import { commitSession } from 'src/app/server/sessions';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
 import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
+import { GenerateFormLinkProvider } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLinkContext';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
@@ -93,19 +93,20 @@ export default function Index() {
 
   return seenOnboardingState ? (
     <>
-      <InfoListPage
-        userInfo={userInfo}
-        profileList={profileList}
-        totalCount={totalCount}
-        hasFilter={hasFilter}
-        filter={filter}
-        loading={fetcher.state === 'loading'}
-        onIntersectBottom={handleIntersectBottom}
-      />
-      <GenerateFormLink />
-      {showEmailBannerState && (
-        <EmailBannerBottomSheet isOpen={showEmailBannerState} onClose={() => setShowEmailBannerState(false)} />
-      )}
+      <GenerateFormLinkProvider>
+        <InfoListPage
+          userInfo={userInfo}
+          profileList={profileList}
+          totalCount={totalCount}
+          hasFilter={hasFilter}
+          filter={filter}
+          loading={fetcher.state === 'loading'}
+          onIntersectBottom={handleIntersectBottom}
+        />
+        {showEmailBannerState && (
+          <EmailBannerBottomSheet isOpen={showEmailBannerState} onClose={() => setShowEmailBannerState(false)} />
+        )}
+      </GenerateFormLinkProvider>
     </>
   ) : (
     <>

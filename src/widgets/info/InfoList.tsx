@@ -31,6 +31,7 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
   createSharedLink,
   onIntersectBottom,
   renderCardFooter,
+  onClickEmptyCard,
 }: {
   // userInfo: UserInfoResponse;
   profileList: InfoType[];
@@ -44,6 +45,7 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
   createSharedLink: (shareId: string) => string;
   renderCardFooter?: (profile: InfoType) => ReactNode;
   onIntersectBottom?: () => void;
+  onClickEmptyCard?: () => void;
 }) => {
   const { ref, isIntersecting } = useIntersectionObserver();
 
@@ -98,6 +100,7 @@ export const InfoList = <InfoType extends ArchivedInfoResponse>({
                 <ProfileShareTrigger onClick={() => profile.id && setShareTargetId(profile.id)} />
               )}
               getLink={getProfileLink}
+              onClickEmptyCard={onClickEmptyCard}
             />
           ) : (
             <ProfileCardList

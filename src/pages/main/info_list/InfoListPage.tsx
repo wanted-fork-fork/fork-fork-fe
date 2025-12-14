@@ -9,6 +9,7 @@ import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { MainHeader } from 'src/widgets/main/header/MainHeader';
 import { InfoList } from 'src/widgets/info/InfoList';
 import { createSharedProfileLink } from 'src/shared/functions/linkUtil';
+import { useGenerateFormLink } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLinkContext';
 
 export const InfoListPage = ({
   userInfo,
@@ -27,6 +28,8 @@ export const InfoListPage = ({
   loading?: boolean;
   onIntersectBottom?: () => void;
 }) => {
+  const { openGenerateFormBottomSheet } = useGenerateFormLink();
+
   return (
     <div className={styles.Wrapper}>
       <MainHeader selectedTab={'MY_INFO_LIST'} userInfo={userInfo} />
@@ -40,6 +43,7 @@ export const InfoListPage = ({
         saveSharing={saveSharing}
         createSharedLink={(shareId) => createSharedProfileLink(shareId, true)}
         onIntersectBottom={onIntersectBottom}
+        onClickEmptyCard={openGenerateFormBottomSheet}
       />
     </div>
   );

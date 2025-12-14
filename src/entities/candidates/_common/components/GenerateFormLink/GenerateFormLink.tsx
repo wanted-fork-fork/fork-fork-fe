@@ -12,9 +12,13 @@ const GenerateFormLinkBottomSheet = lazy(async () => {
   return { default: module.GenerateFormLinkBottomSheet };
 });
 
-export const GenerateFormLink = () => {
-  const [isTriggerOpen, setTriggerOpen] = useState(false);
-
+export const GenerateFormLink = ({
+  isTriggerOpen,
+  setTriggerOpen,
+}: {
+  isTriggerOpen: boolean;
+  setTriggerOpen: (v: boolean) => void;
+}) => {
   const [isOnceOpened, setIsOnceOpened] = useState(false);
   const { value: isOpen, setFalse: onClose, setTrue: open } = useBoolean(false);
 
