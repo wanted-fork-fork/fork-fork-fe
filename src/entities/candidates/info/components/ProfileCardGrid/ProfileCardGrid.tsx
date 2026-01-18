@@ -1,12 +1,13 @@
 import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
 import styles from 'src/entities/candidates/info/components/ProfileCardGrid/ProfileCardGrid.module.css';
 import { Link } from '@remix-run/react';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { ProfileSmallCardV2 } from 'src/entities/candidates/info/components/ProfileSmallCardV2/ProfileSmallCardV2';
 
 type Props<InfoType extends ProfileSummary> = {
   profileList: InfoType[];
   profileActionSlot?: (profile: InfoType) => ReactElement;
+  imageOverlaySlot?: (profile: InfoType) => ReactNode;
   getLink: (id: string) => string;
   onClickEmptyCard?: () => void;
 };
@@ -14,6 +15,7 @@ type Props<InfoType extends ProfileSummary> = {
 export const ProfileCardGrid = <InfoType extends ProfileSummary>({
   profileList,
   profileActionSlot,
+  imageOverlaySlot,
   getLink,
   onClickEmptyCard,
 }: Props<InfoType>) => {
@@ -22,7 +24,11 @@ export const ProfileCardGrid = <InfoType extends ProfileSummary>({
       {profileList.map((profile) => (
         <li key={profile.name + profile.birthDate}>
           <Link to={getLink(profile.id!)}>
-            <ProfileSmallCardV2 profile={profile} topRightSlot={profileActionSlot?.(profile)} />
+            <ProfileSmallCardV2
+              profile={profile}
+              topRightSlot={profileActionSlot?.(profile)}
+              imageOverlay={imageOverlaySlot?.(profile)}
+            />
           </Link>
         </li>
       ))}

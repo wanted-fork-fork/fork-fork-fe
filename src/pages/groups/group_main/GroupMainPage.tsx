@@ -11,6 +11,8 @@ import { InfoList } from 'src/widgets/info/InfoList';
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
 import { useCallback, useEffect, useState } from 'react';
+import { Avatar } from 'src/shared/ui/Avatar/Avatar';
+import styles from './GroupMainPage.module.css';
 
 export const GroupMainPage = ({
   filter,
@@ -85,12 +87,25 @@ export const GroupMainPage = ({
         renderCardFooter={(profile) =>
           profile.comment ? (
             <AvatarWithComment
-              creatorImg={profile.creatorImage ?? ''}
+              creatorImg={profile.creatorImage ?? '/images/default_profile.png'}
               creatorName={profile.creatorName}
               comment={profile.comment ?? ''}
             />
           ) : null
         }
+        renderGridImageOverlay={(profile) => (
+          <div className={styles.GridImageOverlay}>
+            <Avatar
+              src={profile.creatorImage ?? '/images/default_profile.png'}
+              alt={profile.creatorName}
+              width={40}
+              height={40}
+              size={40}
+              shape={'circle'}
+              fallback={profile.creatorName}
+            />
+          </div>
+        )}
         onIntersectBottom={handleIntersectBottom}
       />
 

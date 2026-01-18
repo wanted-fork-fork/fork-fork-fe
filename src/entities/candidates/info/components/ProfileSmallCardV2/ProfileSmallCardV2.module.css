@@ -26,6 +26,12 @@
     line-height: 100%;
 }
 
+.ImageWrapper {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+}
+
 .Image {
     width: 100%;
     aspect-ratio: 1;

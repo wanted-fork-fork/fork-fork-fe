@@ -1,6 +1,6 @@
 import styles from './ProfileSmallCardV2.module.css';
 import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { Location, Person } from 'src/shared/ui/icons';
 import { calculateAge } from 'src/shared/functions/date';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,10 @@ import { getLocationText } from 'src/entities/candidates/info/utils/getLocationT
 type Props = {
   profile: ProfileSummary;
   topRightSlot?: ReactElement;
+  imageOverlay?: ReactNode;
 };
 
-export const ProfileSmallCardV2 = ({ profile, topRightSlot }: Props) => {
+export const ProfileSmallCardV2 = ({ profile, topRightSlot, imageOverlay }: Props) => {
   const { t } = useTranslation('common');
   const location = convertDtoToLocation(profile.location)[0];
   const totalLocationCount = profile.location.towns.length;
@@ -21,7 +22,10 @@ export const ProfileSmallCardV2 = ({ profile, topRightSlot }: Props) => {
     <article className={styles.Container}>
       {topRightSlot && <div className={styles.TopRightSlot}>{topRightSlot}</div>}
       {profile.status === 'IN_RELATIONSHIP' && <span className={styles.StatusChip}>연애 중</span>}
-      <img className={styles.Image} src={profile.images[0]?.url} alt={`${profile.name} 대표 사진`} />
+      <div className={styles.ImageWrapper}>
+        <img className={styles.Image} src={profile.images[0]?.url} alt={`${profile.name} 대표 사진`} />
+        {imageOverlay}
+      </div>
       <div className={styles.ContentWrapper}>
         <p className={styles.Name}>{profile.name}</p>
         <div className={styles.InfoWrapper}>
