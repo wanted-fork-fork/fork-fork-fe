@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Button } from 'src/shared/ui/Button/Button';
 import styles from 'src/pages/form/my_profile/MyProfilePage.module.css';
 import { MyProfileStepMeta } from 'src/pages/form/my_profile/MyProfileStepMeta';
@@ -19,13 +19,14 @@ export const MyProfilePage = ({
   onClickNextStep: () => void;
   onClickMovePrevPage?: () => void;
 }) => {
-  const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
 
-  const currentStep = Steps[currentStepIdx];
-
+  const currentStepIdx = useMyProfileFormProcessStore((state) => state.currentStepIdx);
+  const setCurrentStep = useMyProfileFormProcessStore((state) => state.setStepIdx);
   const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
   const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+
+  const currentStep = Steps[currentStepIdx];
 
   const canGoNext = useMyProfileStore((state) =>
     currentStep.canGoNext(state, (key) => touchedSteps.has(key as keyof typeof MyProfileStepMeta)),

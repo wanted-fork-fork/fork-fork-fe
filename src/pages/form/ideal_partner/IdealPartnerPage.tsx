@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import styles from './IdealPartnerPage.module.css';
 import { Button } from 'src/shared/ui/Button/Button';
 import { IdealPartnerStepMeta } from 'src/pages/form/ideal_partner/IdealPartnerStepMeta';
@@ -6,17 +6,16 @@ import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_p
 import { Header } from 'src/shared/ui/layout/Header/Header';
 import { Spacing } from 'src/shared/ui/Spacing/Spacing';
 import { StepMeta } from 'src/shared/types/FormStepMeta';
-import {
-  IdealPartner,
-  useIdealPartnerStore,
-} from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { IdealPartner, useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 
 const Steps = Object.values(IdealPartnerStepMeta) as StepMeta<IdealPartner>[];
 const StepKeys = Object.keys(IdealPartnerStepMeta) as (keyof typeof IdealPartnerStepMeta)[];
 export const IdealPartnerPage = ({ onClickNextStep }: { onClickNextStep: () => void }) => {
-  const [currentStepIdx, setCurrentStep] = useState(0);
   const name = useProfileFirstName();
+
+  const currentStepIdx = useIdealPartnerFormProcessStore((state) => state.currentStepIdx);
+  const setCurrentStep = useIdealPartnerFormProcessStore((state) => state.setStepIdx);
 
   const touchedSteps = useIdealPartnerFormProcessStore((state) => state.touchedSteps);
   const addTouchedStep = useIdealPartnerFormProcessStore((state) => state.addTouchedStep);

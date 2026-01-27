@@ -15,6 +15,7 @@ import { commitSession } from 'src/app/server/sessions';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { FormTempSave } from 'src/entities/candidates/_common/components/FormTempSave';
 
 /**
  * TODO: form.$key.tsx 페이지 복붙이니, 중복되는 부분 어느정도 공통화 필요
@@ -134,6 +135,7 @@ export default function ProfileFormPage() {
     <div className={styles.Wrapper}>
       <SwitchCase value={step} caseBy={formPageStep} />
       {showShortcut && <Shortcut right={'20px'} bottom={'100px'} />}
+      <FormTempSave linkKey={'me'} step={step} setStep={setStep} />
     </div>
   );
 }

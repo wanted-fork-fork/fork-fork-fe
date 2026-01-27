@@ -14,6 +14,7 @@ import { useBeforeUnload, useLoaderData } from '@remix-run/react';
 import { useProfileFirstName } from 'src/entities/candidates/info/utils/useProfileFirstName';
 import { Shortcut } from 'src/entities/candidates/_common/components/Shortcut/Shortcut';
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
+import { FormTempSave } from 'src/entities/candidates/_common/components/FormTempSave';
 
 const MAX_STEP_COUNT = 7;
 
@@ -112,6 +113,7 @@ export default function ProfileFormPage() {
     <div className={styles.Wrapper}>
       <SwitchCase value={step} caseBy={formPageStep} />
       {showShortcut && <Shortcut right={'20px'} bottom={'100px'} />}
+      <FormTempSave linkKey={linkKey} step={step} setStep={setStep} />
     </div>
   );
 }
