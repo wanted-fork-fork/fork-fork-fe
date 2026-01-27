@@ -100,7 +100,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
   };
 
   const handleSelectStatus = (status: SearchInfoRequestDtoUserStatus | undefined) => {
-    setValue('status', status, { shouldDirty: true });
+    setValue('userStatus', status, { shouldDirty: true });
   };
 
   const handleCloseLocation = () => {
@@ -171,7 +171,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
                   <Chip
                     key={name}
                     className={styles.Chip}
-                    selected={watch('status') === status}
+                    selected={watch('userStatus') === status}
                     onClick={() => handleSelectStatus(status)}
                   >
                     {name}

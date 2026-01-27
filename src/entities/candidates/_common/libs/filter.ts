@@ -34,7 +34,9 @@ export const filterAlignList: {
 export const filterSchema = z.object({
   alignId: z.enum(FILTER_ALIGN_KEYS).optional(),
   gender: z.enum(['MALE', 'FEMALE'] as const satisfies SearchInfoRequestDtoGender[]).optional(),
-  status: z.enum(['IN_RELATIONSHIP', 'SINGLE', 'ALL'] as const satisfies SearchInfoRequestDtoUserStatus[]).optional(),
+  userStatus: z
+    .enum(['IN_RELATIONSHIP', 'SINGLE', 'ALL'] as const satisfies SearchInfoRequestDtoUserStatus[])
+    .optional(),
   ageFrom: z.coerce.number().optional(),
   ageTo: z.coerce.number().optional(),
   heightFrom: z.coerce.number().optional(),
