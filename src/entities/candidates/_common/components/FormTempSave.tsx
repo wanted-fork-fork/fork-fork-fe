@@ -1,14 +1,17 @@
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { useFormTempSave } from 'src/entities/candidates/_common/hooks/useFormTempSave';
 import { ConfirmModal } from 'src/shared/ui/ConfirmModal/ConfirmModal';
+import { useEffect } from 'react';
 
 export const FormTempSave = ({
   linkKey,
   step,
+  lastStep,
   setStep,
 }: {
   linkKey: string;
   step: number;
+  lastStep: number;
   setStep: (step: number) => void;
 }) => {
   const { value: show, setTrue: open, setFalse: close } = useBoolean();
@@ -24,6 +27,12 @@ export const FormTempSave = ({
     handleReset();
     close();
   };
+
+  useEffect(() => {
+    if (step === lastStep) {
+      handleReset();
+    }
+  }, [handleReset, lastStep, step]);
 
   return (
     <>

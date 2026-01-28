@@ -135,7 +135,7 @@ export default function ProfileFormPage() {
     <div className={styles.Wrapper}>
       <SwitchCase value={step} caseBy={formPageStep} />
       {showShortcut && <Shortcut right={'20px'} bottom={'100px'} />}
-      <FormTempSave linkKey={'me'} step={step} setStep={setStep} />
+      <FormTempSave linkKey={'me'} step={step} lastStep={MAX_STEP_COUNT} setStep={setStep} />
     </div>
   );
 }
