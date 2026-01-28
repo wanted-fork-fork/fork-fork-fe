@@ -53,11 +53,12 @@ export const useFormTempSave = ({
 
   const handleOverride = useCallback(() => {
     try {
-      const saved = tempSaveScheme.parse(JSON.parse(localStorage.getItem(storageKey) ?? '{}'));
+      const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
+      const parsed = tempSaveScheme.parse(saved);
 
-      setStep(saved.step);
-      setMyProfileStepIdx(saved.myProfileStep);
-      setIdealStepIdx(saved.idealStep);
+      setStep(parsed.step);
+      setMyProfileStepIdx(parsed.myProfileStep);
+      setIdealStepIdx(parsed.idealStep);
       overrideMyProfile(saved.myProfile as MyProfile);
       overrideIdealPartner(saved.idealPartner as IdealPartner);
     } catch (e) {
