@@ -25,7 +25,7 @@ export const Header = ({
   return (
     <div className={`${styles.Header} ${className}`}>
       {onPrev && (
-        <Button variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onPrev}>
+        <Button type={'button'} variant={'ghost'} color={'neutral'} widthType={'hug'} size={'fit'} onClick={onPrev}>
           <ArrowLeft width={24} color={Theme.color.neutral50} />
         </Button>
       )}

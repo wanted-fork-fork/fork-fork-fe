@@ -43,3 +43,15 @@ export const filterSchema = z.object({
   heightTo: z.coerce.number().optional(),
   townList: z.array(z.string()).optional(),
 });
+
+export const getFilterQueries = (filterData: z.infer<typeof filterSchema>) => {
+  return Object.entries(filterData)
+    .filter(([, v]) => Boolean(v))
+    .map(([k, v]) => {
+      if (k !== 'townList') {
+        return `${k}=${v}`;
+      }
+      return `${k}[]=${v}`;
+    })
+    .join('&');
+};

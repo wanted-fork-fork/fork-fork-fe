@@ -24,6 +24,7 @@ import {
   filterGenderList,
   filterSchema,
   filterStatusList,
+  getFilterQueries,
 } from 'src/entities/candidates/_common/libs/filter';
 import { getRangeText } from 'src/shared/functions/string';
 import { SearchInfoRequestDtoGender, SearchInfoRequestDtoUserStatus } from 'src/types';
@@ -33,7 +34,7 @@ type FormData = z.infer<typeof filterSchema>;
 
 const resolver = zodResolver(filterSchema);
 
-export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
+export const FilterPage = ({ initialFilter, prevPath }: { initialFilter?: FormData; prevPath: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -115,6 +116,11 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     reset();
   };
 
+  const handlePrev = () => {
+    const query = initialFilter ? getFilterQueries(initialFilter) : '';
+    navigate(`${prevPath}${query ? `?${query}` : ''}`);
+  };
+
   useEffect(() => {
     if (initialFilter) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -135,7 +141,7 @@ export const FilterPage = ({ initialFilter }: { initialFilter?: FormData }) => {
     <>
       <Form style={{ height: '100%' }} method={'POST'} onSubmit={handleSubmit}>
         <FormLayout.Container>
-          <FormLayout.Header onPrev={() => navigate('/')}>정렬조건 및 필터</FormLayout.Header>
+          <FormLayout.Header onPrev={handlePrev}>정렬조건 및 필터</FormLayout.Header>
           <FormLayout.Body className={styles.Body}>
             <div className={styles.Row}>
               <h3>정렬조건</h3>

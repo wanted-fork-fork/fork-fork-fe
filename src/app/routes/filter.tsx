@@ -52,5 +52,5 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function ListFilterPage() {
   const { filter } = useLoaderData<typeof loader>();
-  return <FilterPage initialFilter={filter} />;
+  return <FilterPage initialFilter={filter} prevPath={'/'} />;
 }

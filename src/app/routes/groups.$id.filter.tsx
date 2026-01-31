@@ -11,7 +11,8 @@ import { useLoaderData } from '@remix-run/react';
 type FormData = z.infer<typeof filterSchema>;
 const resolver = zodResolver(filterSchema);
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const { id } = params;
   const { newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
@@ -21,7 +22,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
 
   return json(
-    { filter: { ...filterParams, townList } },
+    { filter: { ...filterParams, townList }, groupId: id },
     {
       headers: {
         ...(newSession && { 'Set-Cookie': await commitSession(newSession) }),
@@ -52,6 +53,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function GroupFilterPage() {
-  const { filter } = useLoaderData<typeof loader>();
-  return <FilterPage initialFilter={filter} />;
+  const { filter, groupId } = useLoaderData<typeof loader>();
+  return <FilterPage initialFilter={filter} prevPath={`/groups/${groupId}`} />;
 }
