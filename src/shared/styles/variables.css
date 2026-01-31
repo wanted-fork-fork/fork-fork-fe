@@ -1,5 +1,7 @@
 :root {
     --color-primary: #d752ff;
+    --color-primary-bg: #F4D1FF;
+    --color-primary-bd: #EEB8FF;
     --color-positive: #3bb5a3;
     --color-negative: #f35b5b;
     --color-neutral-900: #121113;

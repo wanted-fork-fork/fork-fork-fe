@@ -96,6 +96,7 @@ export const GroupMainPage = ({
         renderGridImageOverlay={(profile) => (
           <div className={styles.GridImageOverlay}>
             <Avatar
+              className={styles.ProfileImage}
               src={profile.creatorImage ?? '/images/default_profile.png'}
               alt={profile.creatorName}
               width={40}
