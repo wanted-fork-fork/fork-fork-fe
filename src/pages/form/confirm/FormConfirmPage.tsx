@@ -17,6 +17,15 @@ export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => vo
     close();
   }, []);
 
+  const onSubmit = () => {
+    if (profile.images.length + profile.imageDtoList.length === 0) {
+      toast('후보자의 이미지가 등록되지 않았어요.');
+      return;
+    }
+
+    onClickNextStep();
+  };
+
   return (
     <div className={styles.Wrapper}>
       <Header className={styles.InnerHeader} onPrev={console.log} />
@@ -28,7 +37,7 @@ export const FormConfirmPage = ({ onClickNextStep }: { onClickNextStep: () => vo
         <ProfileTab profile={profile} idealPartner={idealPartner} />
       </ProfileEditProvider>
       <div className={styles.Footer}>
-        <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onClickNextStep}>
+        <Button variant={'filled'} widthType={'fill'} color={'primary'} onClick={onSubmit}>
           확인했어요
         </Button>
       </div>
