@@ -38,8 +38,9 @@ export const FormTempSave = ({
     <>
       <ConfirmModal
         show={show}
-        title={'작성하던 정보가 있어요. 덮어씌울까요?'}
-        confirmText={'확인'}
+        title={'작성 중인 후보자 정보가 있습니다.'}
+        description={`이어서 정보를 작성할까요?\n취소할 경우 기존 정보는 사라져요.`}
+        confirmText={'이어쓰기'}
         cancelText={'취소'}
         onConfirm={handleConfirm}
         onCancel={handleCancel}

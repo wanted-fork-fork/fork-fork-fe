@@ -18,6 +18,8 @@
     cursor: pointer;
     outline: none;
 
+    z-index: 1;
+
     &[data-shape='circle'] {
         padding: 16px;
     }
