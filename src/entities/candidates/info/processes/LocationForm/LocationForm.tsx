@@ -8,11 +8,14 @@ import { useMultiSelectToggle } from 'src/shared/functions/useMultiSelectToggle'
 import { useTranslation } from 'react-i18next';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import { getLocationText } from 'src/entities/candidates/info/utils/getLocationText';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
 
 const MAX_LOCATION_COUNT = 5;
 
 export const LocationForm = () => {
   const { t } = useTranslation();
+
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
 
   const locations = useMyProfileStore((state) => state.location);
   const { list: selectedTownList, toggle: toggleTown } = useMultiSelectToggle<Location>(
@@ -23,6 +26,7 @@ export const LocationForm = () => {
 
   const handleSelectLocation = (loc: Location) => {
     toggleTown(loc);
+    addTouchedStep('PROFILE_LOCATION');
   };
 
   const setLocation = useMyProfileStore((state) => state.setLocation);

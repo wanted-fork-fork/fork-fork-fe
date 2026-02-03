@@ -20,6 +20,8 @@ const drinkingRadioMeta: DistributedOmit<RadioMeta<UserInfoDrinkingDrinkingCateg
 
 export const SmokeAlcoholForm = () => {
   const touchedSteps = useMyProfileFormProcessStore((state) => state.touchedSteps);
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+
   const [touchedDrinking, setTouchedDrinking] = useState(() => touchedSteps.has('PROFILE_SMOKE_ALCOHOL'));
   const [touchedSmoking, setTouchedSmoking] = useState(() => touchedSteps.has('PROFILE_SMOKE_ALCOHOL'));
 
@@ -54,11 +56,13 @@ export const SmokeAlcoholForm = () => {
   const onSelectDrinking = (category: UserInfoDrinkingDrinkingCategory) => {
     setDrinkingCategory(category);
     setTouchedDrinking(true);
+    addTouchedStep('PROFILE_SMOKE_ALCOHOL');
   };
 
   const onSelectSmoking = (category: UserInfoSmokingSmokingCategory) => {
     setSmokingCategory(category);
     setTouchedSmoking(true);
+    addTouchedStep('PROFILE_SMOKE_ALCOHOL');
   };
 
   return (

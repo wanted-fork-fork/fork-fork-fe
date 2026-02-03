@@ -2,8 +2,11 @@ import styles from 'src/entities/candidates/info/processes/PersonalInfoForm/Pers
 import { Input } from 'src/shared/ui/Input/Input';
 import { ChangeEvent } from 'react';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
 
 export const HeightForm = () => {
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+
   const height = useMyProfileStore((state) => state.height);
   const setHeight = useMyProfileStore((state) => state.setHeight);
 
@@ -14,6 +17,7 @@ export const HeightForm = () => {
       return;
     }
     setHeight(value);
+    addTouchedStep('PROFILE_PERSONAL_INFO');
   };
 
   return (

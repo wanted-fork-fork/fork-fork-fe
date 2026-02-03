@@ -2,6 +2,8 @@ import styles from 'src/entities/candidates/info/processes/PersonalInfoForm/Pers
 import { Select } from 'src/shared/ui/Select/Select';
 import { useMyProfileStore } from 'src/entities/candidates/info/models/myProfileStore';
 import { useProfileAge } from 'src/entities/candidates/info/utils/useProfileAge';
+import { useMyProfileFormProcessStore } from 'src/entities/candidates/info/processes/_store/myProfileFormProcessStore';
+import { useEffect } from 'react';
 
 const MINIMUM_YEAR = 1980;
 const YearOptionList = Array.from({ length: new Date().getFullYear() - MINIMUM_YEAR + 1 })
@@ -16,6 +18,8 @@ const DateOptionList = Array.from({ length: 31 })
   .map((v) => v.toString());
 
 export const BirthDateForm = () => {
+  const addTouchedStep = useMyProfileFormProcessStore((state) => state.addTouchedStep);
+
   const year = useMyProfileStore((state) => state.birthDate?.year)?.toString();
   const month = useMyProfileStore((state) => state.birthDate?.month)?.toString();
   const date = useMyProfileStore((state) => state.birthDate?.date)?.toString();
@@ -25,6 +29,12 @@ export const BirthDateForm = () => {
   const setDate = useMyProfileStore((state) => state.setBirthDate);
 
   const hasFullDate = year && month && date;
+
+  useEffect(() => {
+    if (hasFullDate) {
+      addTouchedStep('PROFILE_PERSONAL_INFO');
+    }
+  }, [addTouchedStep, hasFullDate]);
 
   return (
     <fieldset>

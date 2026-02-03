@@ -28,8 +28,13 @@ export const MbtiForm = () => {
 
   const mbtiState = `${eiState ?? ''}${snState ?? ''}${tfState ?? ''}${jpState ?? ''}`;
   useEffect(() => {
-    isValidMbti(mbtiState) ? setMbti(mbtiState) : setMbti(null);
-  }, [mbtiState, setMbti]);
+    if (isValidMbti(mbtiState)) {
+      setMbti(mbti);
+      addTouchedStep('PROFILE_MBTI');
+    } else {
+      setMbti(null);
+    }
+  }, [addTouchedStep, mbti, mbtiState, setMbti]);
 
   const onClickSkip = () => {
     setSkipState(true);

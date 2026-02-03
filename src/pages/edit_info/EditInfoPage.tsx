@@ -65,7 +65,7 @@ export const EditInfoPage = ({ infoId }: Props) => {
 
   const navigate = useNavigate();
   const onNavigatePrev = useCallback(() => {
-    navigate(`/profile/${infoId}`);
+    navigate(-1);
   }, [infoId, navigate]);
 
   return (
