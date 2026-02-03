@@ -15,7 +15,7 @@ import { useIdealPartnerFormProcessStore } from 'src/entities/candidates/ideal_p
 
 export const HeightStyleForm = () => {
   const idealHeight = useIdealPartnerStore((state) => state.heightRange);
-  const style = useIdealPartnerStore((state) => state.style);
+  const style = useIdealPartnerStore((state) => state.style) ?? '';
   const imageDtoList = useIdealPartnerImages();
   const removeImageDto = useRemoveIdealPartnerImageDto();
 

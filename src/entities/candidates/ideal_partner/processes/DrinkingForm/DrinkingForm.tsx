@@ -16,8 +16,8 @@ const drinkingRadioMeta: DistributedOmit<RadioMeta<IdealPartnerDrinkingDrinkingC
 ];
 
 export const DrinkingForm = () => {
-  const drinkingCategory = useIdealPartnerStore((state) => state.drinking.drinkingCategory);
-  const drinkingAmount = useIdealPartnerStore((state) => state.drinking.drinkingAmount);
+  const drinkingCategory = useIdealPartnerStore((state) => state.drinking?.drinkingCategory) ?? 'ETC';
+  const drinkingAmount = useIdealPartnerStore((state) => state.drinking?.drinkingAmount) ?? '';
   const setDrinkingCategory = useIdealPartnerStore((state) => state.setDrinkingCategory);
   const setDrinkingAmount = useIdealPartnerStore((state) => state.setDrinkingAmount);
 

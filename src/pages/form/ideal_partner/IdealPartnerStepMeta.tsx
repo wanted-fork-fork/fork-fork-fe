@@ -65,6 +65,7 @@ export const IdealPartnerStepMeta = {
     description: () => <></>,
     form: () => <ReligionForm />,
     canGoNext: (state) =>
+      state.religion != null &&
       state.religion.religionCategory &&
       (state.religion.religionCategory !== 'ETC' || Boolean(state.religion.religionName)),
     shortcutTitle: '종교',
@@ -80,6 +81,7 @@ export const IdealPartnerStepMeta = {
     description: () => <></>,
     form: () => <DrinkingForm />,
     canGoNext: (state) =>
+      state.drinking != null &&
       state.drinking.drinkingCategory &&
       (state.drinking.drinkingCategory !== 'ETC' || Boolean(state.drinking.drinkingAmount)),
     shortcutTitle: '상대방의 음주 빈도',
@@ -89,6 +91,7 @@ export const IdealPartnerStepMeta = {
     description: () => <></>,
     form: () => <SmokingForm />,
     canGoNext: (state) =>
+      state.smoking != null &&
       state.smoking.smokingCategory &&
       (state.smoking.smokingCategory !== 'ETC' || Boolean(state.smoking.smokingAmount)),
     shortcutTitle: '상대방의 흡연 여부',

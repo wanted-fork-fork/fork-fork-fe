@@ -16,8 +16,8 @@ const religionRadioMeta: DistributedOmit<RadioMeta<ReligionReligionCategory>, 'n
 ];
 
 export const ReligionForm = () => {
-  const religionCategory = useIdealPartnerStore((state) => state.religion.religionCategory);
-  const religionName = useIdealPartnerStore((state) => state.religion.religionName);
+  const religionCategory = useIdealPartnerStore((state) => state.religion?.religionCategory ?? 'ETC');
+  const religionName = useIdealPartnerStore((state) => state.religion?.religionName ?? '');
   const setReligionCategory = useIdealPartnerStore((state) => state.setReligionCategory);
   const setReligionName = useIdealPartnerStore((state) => state.setReligionName);
 

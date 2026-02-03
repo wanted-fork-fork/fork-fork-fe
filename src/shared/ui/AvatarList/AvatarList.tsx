@@ -10,11 +10,12 @@ import { useMemo, useState } from 'react';
 type Props = {
   imageDtoList: ImageDto[];
   setFiles?: (getState: (prevFiles: File[]) => File[]) => void;
+  onFileChange?: (files: File[]) => void;
   onClickRemove?: (url: string, fileIdx?: number) => void;
   maxFileCount?: number;
 };
 
-export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFileCount }: Props) => {
+export const AvatarList = ({ imageDtoList = [], setFiles, onFileChange, onClickRemove, maxFileCount }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [initialSlide, setInitialSlide] = useState(0);
 
@@ -29,6 +30,7 @@ export const AvatarList = ({ imageDtoList = [], setFiles, onClickRemove, maxFile
 
   const onFileChanged = (files: File[]) => {
     setFiles?.((prev) => [...prev, ...files].slice(0, maxFileCount));
+    onFileChange?.(files);
   };
 
   return (

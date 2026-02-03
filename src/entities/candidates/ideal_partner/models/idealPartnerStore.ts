@@ -19,30 +19,30 @@ export type IdealPartner = {
   ageRange?: {
     min?: number;
     max?: number;
-  };
+  } | null;
   heightRange?: {
     min?: number;
     max?: number;
-  };
-  style: string;
+  } | null;
+  style: string | null;
   images: File[];
   imageDtoList: ImageDto[];
-  locations: IdealPartnerRequestLocation;
-  hobbies: IdealPartnerRequestHobbies;
+  locations: IdealPartnerRequestLocation | null;
+  hobbies: IdealPartnerRequestHobbies | null;
   religion: {
     religionCategory: ReligionReligionCategory;
     religionName?: string;
-  };
+  } | null;
   drinking: {
     drinkingCategory: IdealPartnerDrinkingDrinkingCategory;
     drinkingAmount?: string;
-  };
+  } | null;
   smoking: {
     smokingCategory: IdealPartnerSmokingSmokingCategory;
     smokingAmount?: string;
-  };
+  } | null;
   requiredOptions: string[];
-  toMatchMaker: string;
+  toMatchMaker: string | null;
 };
 
 type Action = {
@@ -72,27 +72,18 @@ type Action = {
 const createStoreHook = (initialState?: IdealPartner) =>
   create<IdealPartner & Action>((set, get) => ({
     skipped: false,
-    ageRange: undefined,
-    heightRange: undefined,
-    style: '',
+    ageRange: null,
+    heightRange: null,
+    style: null,
     images: [],
     imageDtoList: [],
-    locations: 'NOT_IMPORTANT' as const,
-    hobbies: 'NOT_IMPORTANT',
-    religion: {
-      religionCategory: 'ETC',
-      religionName: '',
-    },
-    drinking: {
-      drinkingCategory: 'ETC',
-      drinkingAmount: '',
-    },
-    smoking: {
-      smokingCategory: 'ETC',
-      smokingAmount: '',
-    },
+    locations: null,
+    hobbies: null,
+    religion: null,
+    drinking: null,
+    smoking: null,
     requiredOptions: [],
-    toMatchMaker: '',
+    toMatchMaker: null,
     ...initialState,
     skip: () => set({ skipped: true }),
     toggleAge: (on: boolean) => set({ ageRange: on ? { max: undefined, min: undefined } : undefined }),
@@ -113,11 +104,14 @@ const createStoreHook = (initialState?: IdealPartner) =>
     setLocation: (locations) => set({ locations }),
     setHobbies: (hobbies) => set({ hobbies }),
     setReligionCategory: (religion) => set({ religion: { ...get().religion, religionCategory: religion } }),
-    setReligionName: (desc) => set({ religion: { ...get().religion, religionName: desc } }),
+    setReligionName: (desc) =>
+      set({ religion: { ...(get().religion ?? { religionCategory: 'ETC' as const }), religionName: desc } }),
     setDrinkingCategory: (drinking) => set({ drinking: { ...get().drinking, drinkingCategory: drinking } }),
-    setDrinkingAmount: (amount) => set({ drinking: { ...get().drinking, drinkingAmount: amount } }),
+    setDrinkingAmount: (amount) =>
+      set({ drinking: { ...(get().drinking ?? { drinkingCategory: 'ETC' }), drinkingAmount: amount } }),
     setSmokingCategory: (smoking) => set({ smoking: { ...get().smoking, smokingCategory: smoking } }),
-    setSmokingAmount: (amount) => set({ smoking: { ...get().smoking, smokingAmount: amount } }),
+    setSmokingAmount: (amount) =>
+      set({ smoking: { ...(get().smoking ?? { smokingCategory: 'ETC' }), smokingAmount: amount } }),
     setRequiredOptions: (requiredOptions) =>
       requiredOptions.length <= REQUIRED_OPTION_MAX_COUNT && set({ requiredOptions }),
     setToMatchMaker: (toMatchMaker) => set({ toMatchMaker }),

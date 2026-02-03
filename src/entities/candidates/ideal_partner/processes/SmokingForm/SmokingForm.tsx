@@ -15,8 +15,8 @@ const smokingRadioMeta: DistributedOmit<RadioMeta<IdealPartnerSmokingSmokingCate
 ];
 
 export const SmokingForm = () => {
-  const smokingCategory = useIdealPartnerStore((state) => state.smoking.smokingCategory);
-  const smokingAmount = useIdealPartnerStore((state) => state.smoking.smokingAmount);
+  const smokingCategory = useIdealPartnerStore((state) => state.smoking?.smokingCategory) ?? 'ETC';
+  const smokingAmount = useIdealPartnerStore((state) => state.smoking?.smokingAmount) ?? '';
   const setSmokingCategory = useIdealPartnerStore((state) => state.setSmokingCategory);
   const setSmokingAmount = useIdealPartnerStore((state) => state.setSmokingAmount);
 

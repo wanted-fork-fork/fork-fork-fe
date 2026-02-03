@@ -21,9 +21,19 @@ export const MyImageForm = () => {
     addTouchedStep('PROFILE_MY_IMAGE');
   };
 
+  const handleFileChanged = () => {
+    addTouchedStep('PROFILE_MY_IMAGE');
+  };
+
   return (
     <section className={styles.Container}>
-      <AvatarList imageDtoList={dtoList} setFiles={setFiles} maxFileCount={10} onClickRemove={handleClickRemove} />
+      <AvatarList
+        imageDtoList={dtoList}
+        setFiles={setFiles}
+        maxFileCount={10}
+        onClickRemove={handleClickRemove}
+        onFileChange={handleFileChanged}
+      />
       <InfoBox className={styles.InfoBox} radiusSize={'M'}>
         <h3>사진 업로드 TIP!</h3>
         <div className={styles.InfoWrapper}>

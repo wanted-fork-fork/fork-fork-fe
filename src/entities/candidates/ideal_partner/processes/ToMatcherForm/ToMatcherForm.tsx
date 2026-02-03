@@ -3,7 +3,7 @@ import styles from 'src/entities/candidates/ideal_partner/processes/ToMatcherFor
 import { useIdealPartnerStore } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
 
 export const ToMatcherForm = () => {
-  const value = useIdealPartnerStore((state) => state.toMatchMaker);
+  const value = useIdealPartnerStore((state) => state.toMatchMaker) ?? '';
   const setValue = useIdealPartnerStore((state) => state.setToMatchMaker);
 
   return (
