@@ -1,3 +1,7 @@
+.Wrapper {
+    height: 100%;
+}
+
 .Form {
     display: flex;
     flex-direction: column;

@@ -43,7 +43,11 @@ export const Button = ({
   children,
   ...props
 }: ButtonProps) => (
-  <button className={`${buttonStyle({ variant, color, widthType, textAlign, size })} ${className}`} {...props}>
+  <button
+    className={`${buttonStyle({ variant, color, widthType, textAlign, size })} ${className}`}
+    type={'button'}
+    {...props}
+  >
     {prefixSlot && <span className={styles.PrefixSlot}>{prefixSlot}</span>}
     {children && <span className={styles.Center}>{children}</span>}
     {suffixSlot && <span className={styles.SuffixSlot}>{suffixSlot}</span>}
