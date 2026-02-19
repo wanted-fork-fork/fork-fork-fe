@@ -45,6 +45,10 @@ export const links: LinksFunction = () => {
       href: '/apple-touch-icon.png',
       sizes: '180x180',
     },
+    {
+      rel: 'manifest',
+      href: '/manifest.json',
+    },
   ];
 };
 
