@@ -16,7 +16,12 @@ export const GroupHistoryRow = ({ history, groupId }: { history: GroupHistoryRes
   return (
     <Flex className={styles.Container} gap={12} direction={'vertical'}>
       <div className={styles.HistoryInfo}>
-        <Avatar fallback={''} shape={'circle'} size={40} src={history.userProfileImage} />
+        <Avatar
+          fallback={''}
+          shape={'circle'}
+          size={40}
+          src={history.userProfileImage ?? '/images/default_profile.png'}
+        />
         <div className={styles.Contents}>
           <p>{HISTORY_TYPE_TO_TEXT[history.type]}</p>
           <div className={styles.Info}>
