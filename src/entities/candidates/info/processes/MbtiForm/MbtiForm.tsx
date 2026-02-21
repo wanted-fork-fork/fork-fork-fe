@@ -29,7 +29,7 @@ export const MbtiForm = () => {
   const mbtiState = `${eiState ?? ''}${snState ?? ''}${tfState ?? ''}${jpState ?? ''}`;
   useEffect(() => {
     if (isValidMbti(mbtiState)) {
-      setMbti(mbti);
+      setMbti(mbtiState);
       addTouchedStep('PROFILE_MBTI');
     } else {
       setMbti(null);
