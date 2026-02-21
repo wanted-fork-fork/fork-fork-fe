@@ -10,7 +10,7 @@ import { FloatingButton } from 'src/shared/ui/FloatingButton/FloatingButton';
 import { InfoList } from 'src/widgets/info/InfoList';
 import { createSharedGroupLink } from 'src/shared/functions/linkUtil';
 import { AvatarWithComment } from 'src/entities/users/profiles/components/AvatarWithComment/AvatarWithComment';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Avatar } from 'src/shared/ui/Avatar/Avatar';
 import styles from './GroupMainPage.module.css';
 
@@ -27,13 +27,16 @@ export const GroupMainPage = ({
   const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
+  const prevPageRef = useRef(-1);
+  const isLoading = useRef(false);
+
   const [profileList, setProfileList] = useState<GroupInfoWithDetailResponse[]>([]);
   const fetcher = useFetcher<{ profileList: GroupInfoWithDetailResponse[]; hasMore: boolean; totalCount: number }>();
 
   const totalCount = fetcher?.data?.totalCount ?? 0;
 
   const handleIntersectBottom = useCallback(() => {
-    if (!fetcher.data?.hasMore) {
+    if (!fetcher.data?.hasMore || isLoading.current) {
       return;
     }
 
@@ -41,6 +44,10 @@ export const GroupMainPage = ({
   }, [fetcher.data?.hasMore]);
 
   useEffect(() => {
+    if (prevPageRef.current === page) {
+      return;
+    }
+
     const params = Object.entries(filter)
       .map(([k, v]) => `${k}=${v}`)
       .join('&');
