@@ -10,11 +10,13 @@ import { TempFormSave, tempSaveScheme } from 'src/entities/candidates/_common/li
 export const useFormTempSave = ({
   key,
   step,
+  disabled = false,
   setStep,
   onSaveDetected,
 }: {
   key: string;
   step: number;
+  disabled?: boolean;
   setStep: (step: number) => void;
   onSaveDetected: () => void;
 }) => {
@@ -51,6 +53,7 @@ export const useFormTempSave = ({
   const touchedKeysRef = useRef(touchedProfileKeys + touchedIdealKeys);
   const prevTouchedKeysRef = useRef(touchedProfileKeys + touchedIdealKeys);
 
+  // 임시저장된 데이터를 스토어에 덮어쓰기
   const handleOverride = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
@@ -68,17 +71,26 @@ export const useFormTempSave = ({
     }
   }, [overrideIdealPartner, overrideMyProfile, setIdealStepIdx, setMyProfileStepIdx, setStep, storageKey]);
 
+  // 임시저장된 데이터 제거
   const handleReset = useCallback(() => {
     localStorage.removeItem(storageKey);
   }, [storageKey]);
 
+  // 폼 작성 여부 업데이트
   useEffect(() => {
     touchedKeysRef.current = touchedProfileKeys + touchedIdealKeys;
   }, [touchedIdealKeys, touchedProfileKeys]);
 
   useEffect(() => {
+    if (disabled) {
+      handleReset();
+    }
+  }, []);
+
+  // 현재 폼 데이터 상태에 따라 임시저장 트리거
+  useEffect(() => {
     const saveInfo = () => {
-      if (touchedKeysRef.current === prevTouchedKeysRef.current) {
+      if (disabled || step === 0 || touchedKeysRef.current === prevTouchedKeysRef.current) {
         return;
       }
       prevTouchedKeysRef.current = touchedKeysRef.current;
@@ -106,6 +118,7 @@ export const useFormTempSave = ({
     };
   }, [idealPartnerStore, storageKey, myProfileStore, step, myProfileStepIdx, idealStepIdx]);
 
+  // 임시저장된 데이터 존재하는지 체크
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');

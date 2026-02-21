@@ -107,13 +107,17 @@ export default function ProfileFormPage() {
 
   const showShortcut = [1, 3, 4].includes(step);
 
-  useBeforeUnload((e) => e.preventDefault());
+  useBeforeUnload((e) => {
+    if (step < 6) {
+      e.preventDefault();
+    }
+  });
 
   return (
     <div className={styles.Wrapper}>
       <SwitchCase value={step} caseBy={formPageStep} />
       {showShortcut && <Shortcut right={'20px'} bottom={'100px'} />}
-      <FormTempSave linkKey={linkKey} step={step} lastStep={MAX_STEP_COUNT} setStep={setStep} />
+      <FormTempSave linkKey={linkKey} step={step} lastStep={MAX_STEP_COUNT - 1} setStep={setStep} />
     </div>
   );
 }
