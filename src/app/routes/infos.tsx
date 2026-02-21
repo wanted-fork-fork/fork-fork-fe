@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
 
   let reqParams: Omit<SearchInfoRequestDto, 'townList'> = {
-    page: 0,
+    page: Number(searchParams.get('page')) || 0,
     size: 10,
   };
 
@@ -31,8 +31,6 @@ export const loader: LoaderFunction = async ({ request }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ...(townList && townList.length > 0 ? { townList: townList.join(',') } : undefined),
-      page: Number(searchParams.get('page')) || 0,
-      size: 10,
       sortBy: align.sortBy,
       sortDirection: align.sortDirection,
       ageTo: ageFrom,

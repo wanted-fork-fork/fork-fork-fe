@@ -5,7 +5,7 @@ import { ArchivedInfoResponse, getUserEnrollmentStatus, info } from 'src/types';
 import { InfoListPage } from 'src/pages/main/info_list/InfoListPage';
 import { useFetcher, useLoaderData } from '@remix-run/react';
 import { commitSession } from 'src/app/server/sessions';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
@@ -61,6 +61,9 @@ export default function Index() {
   const [showEmailBannerState, setShowEmailBannerState] = useState(showEmailBanner);
 
   const [page, setPage] = useState(0);
+  const prevPageRef = useRef(-1);
+  const isLoading = useRef(false);
+
   const [profileList, setProfileList] = useState<ArchivedInfoResponse[]>([]);
   const fetcher = useFetcher<{ profileList: ArchivedInfoResponse[]; hasMore: boolean; totalCount: number }>();
 
@@ -75,16 +78,24 @@ export default function Index() {
   );
 
   const handleIntersectBottom = useCallback(() => {
-    if (!fetcher.data?.hasMore) {
+    if (!fetcher.data?.hasMore || isLoading.current) {
       return;
     }
+
+    isLoading.current = true;
 
     setPage((prev) => prev + 1);
   }, [fetcher.data?.hasMore]);
 
   useEffect(() => {
+    if (prevPageRef.current === page) {
+      return;
+    }
+
     fetcher.load(`/infos?page=${page}&${filterParams}`);
-  }, [filterParams, page]);
+    prevPageRef.current = page;
+    isLoading.current = false;
+  }, [fetcher.state, filterParams, page]);
 
   useEffect(() => {
     if (!fetcher.data) return;

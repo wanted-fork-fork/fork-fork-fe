@@ -22,7 +22,7 @@ export const ProfileCardGrid = <InfoType extends ProfileSummary>({
   return (
     <ul className={styles.Container}>
       {profileList.map((profile) => (
-        <li key={profile.name + profile.birthDate}>
+        <li key={profile.id}>
           <Link to={getLink(profile.id!)}>
             <ProfileSmallCardV2
               profile={profile}
