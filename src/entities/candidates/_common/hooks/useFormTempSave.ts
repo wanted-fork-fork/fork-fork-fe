@@ -85,7 +85,7 @@ export const useFormTempSave = ({
     if (disabled) {
       handleReset();
     }
-  }, []);
+  }, [disabled, handleReset]);
 
   // 현재 폼 데이터 상태에 따라 임시저장 트리거
   useEffect(() => {
