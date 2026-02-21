@@ -13,9 +13,7 @@ export default meta;
 type Story = StoryObj<typeof ProfilePage>;
 
 export const Default: Story = {
-  args: {
-    infoId: '123',
-  },
+  args: {},
   decorators: [
     (fn) => (
       <MyProfileProvider initialState={fullProfileMock}>

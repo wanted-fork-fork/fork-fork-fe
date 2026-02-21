@@ -11,10 +11,10 @@ type Story = StoryObj<typeof AddCandidatePage>;
 
 export const Default: Story = {
   args: {
-    groupId: 1,
+    groupId: '1',
     candidates: Array.from({ length: 10 }).map((_, idx) => ({
-      profile: { ...profileMock, id: idx.toString() },
-      isAdded: idx % 4 === 0,
+      info: { ...profileMock, id: idx.toString() },
+      isAlreadyInGroup: idx % 4 === 0,
     })),
   },
 };

@@ -10,7 +10,7 @@ export type AvatarProp = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, 
   onClick?: () => void;
 };
 
-export const Avatar = ({ className = '', actionSlot, shape, size, alt, fallback, onClick, ...props }: AvatarProp) => {
+export const Avatar = ({ className = '', actionSlot, shape, size, alt, onClick, ...props }: AvatarProp) => {
   const loadingStatus = useImageLoadingStatus(props.src);
 
   return (
@@ -28,7 +28,15 @@ export const Avatar = ({ className = '', actionSlot, shape, size, alt, fallback,
         {loadingStatus === 'success' && (
           <img className={styles.Image} alt={alt ?? '이미지'} data-loading={false} {...props} />
         )}
-        {loadingStatus === 'error' && <span className={styles.Fallback}>{fallback}</span>}
+        {loadingStatus === 'error' && (
+          <img
+            className={styles.Image}
+            alt={alt ?? '이미지'}
+            data-loading={false}
+            {...props}
+            src={'/images/default_profile.png'}
+          />
+        )}
         {actionSlot && (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
           <span className={styles.ActionSlot} onClick={(e) => e.stopPropagation()}>

@@ -11,6 +11,6 @@ type Story = StoryObj<typeof GroupSummaryCard>;
 
 export const Default: Story = {
   args: {
-    ...groupInfoMock,
+    group: groupInfoMock,
   },
 };

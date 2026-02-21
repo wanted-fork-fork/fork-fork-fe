@@ -9,6 +9,29 @@ servers:
 security:
 - Bearer Token: []
 paths:
+  /:
+    get:
+      tags:
+      - health-controller
+      operationId: root
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - health-controller
+      operationId: root_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
   /api/v1/link/link-open:
     put:
       tags:
@@ -1084,12 +1107,7 @@ components:
           $ref: '#/components/schemas/DetailedInfoIdealPartner'
     DetailedInfoIdealPartner:
       required:
-      - drinking
-      - hobbies
-      - religion
       - requiredOptions
-      - smoking
-      - toMatchMaker
       type: object
       properties:
         ageRange:
@@ -1714,12 +1732,7 @@ components:
           type: string
     IdealPartnerRequest:
       required:
-      - drinking
-      - hobbies
-      - religion
       - requiredOptions
-      - smoking
-      - toMatchMaker
       type: object
       properties:
         ageRange:
@@ -3212,6 +3225,10 @@ components:
           type: string
         comment:
           type: string
+        status:
+          type: string
+          enum:
+          - IN_RELATIONSHIP
         isCreatedByMe:
           type: boolean
     SearchGroupInfoResponse:
@@ -3237,6 +3254,8 @@ components:
         userId:
           type: string
         userName:
+          type: string
+        userProfileImage:
           type: string
         status:
           type: string

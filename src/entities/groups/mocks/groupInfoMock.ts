@@ -1,15 +1,29 @@
-import { profileMock } from 'src/entities/candidates/info/mocks/profile.mock';
-import { ProfileSummary } from 'src/entities/candidates/info/types/profileSummary';
-import { CreateGroupRequestIcon } from 'src/types';
+import { CreateGroupRequestIcon, GroupHistoryResponse, GroupInfoResponse, GroupMemberResponse } from 'src/types';
 
 export const groupInfoMock = {
-  id: '1',
-  name: '유부 프로젝트',
-  icon: 'LOCK' as CreateGroupRequestIcon,
-  candidateCounts: 5,
+  candidateCount: 5,
+  groupIcon: 'LOCK' as const,
+  groupId: '1',
+  groupName: '유부 프로젝트',
+  memberCount: 2,
+  myStatus: 'MEMBER' as const,
+  pendingCount: 2,
+} as GroupInfoResponse;
+
+export const groupMemberMock: GroupMemberResponse = {
+  status: 'MEMBER',
+  userId: '123',
+  userName: '구구',
 };
 
-export type GroupSummary = typeof groupInfoMock;
+export const groupHistoryMock: GroupHistoryResponse = {
+  infoId: '123',
+  infoName: '김구구',
+  timestamp: Date.now().toString(),
+  type: 'INFO_ADDED',
+  userId: '123',
+  userName: 'asdf',
+};
 
 export const iconMap: Record<CreateGroupRequestIcon, string> = {
   [CreateGroupRequestIcon.WINE_GLASS]: '/images/group/asset_1.png',
@@ -25,28 +39,3 @@ export const iconMap: Record<CreateGroupRequestIcon, string> = {
 };
 
 export const iconList = Object.entries(iconMap) as [CreateGroupRequestIcon, string][];
-
-export const groupMemberMock = {
-  id: 1,
-  name: '김감자',
-  profileImage: '/images/default_profile.png',
-  isAdmin: false,
-};
-
-export type GroupMember = typeof groupMemberMock;
-
-export type GroupHistory = {
-  id: number;
-  member: GroupMember;
-  contents: string;
-  info: ProfileSummary;
-  date: Date;
-};
-
-export const groupHistoryMock = {
-  id: 1,
-  member: groupMemberMock,
-  contents: '외부 정보 공유',
-  info: profileMock,
-  date: new Date(),
-} satisfies GroupHistory;

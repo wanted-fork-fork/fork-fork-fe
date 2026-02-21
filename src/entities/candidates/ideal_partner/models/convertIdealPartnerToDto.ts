@@ -1,6 +1,5 @@
 import { DetailedInfoIdealPartner, IdealPartnerRequest, ImageDto } from 'src/types';
 import { IdealPartner } from 'src/entities/candidates/ideal_partner/models/idealPartnerStore';
-import { undefined } from 'zod';
 
 export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: ImageDto[]): IdealPartnerRequest => {
   return {
@@ -10,15 +9,15 @@ export const convertIdealPartnerToDto = (idealPartner: IdealPartner, images: Ima
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     heightRange: idealPartner.heightRange || undefined,
-    style: idealPartner.style,
+    style: idealPartner.style || undefined,
     images,
-    location: idealPartner.locations,
-    hobbies: idealPartner.hobbies,
-    drinking: idealPartner.drinking,
-    religion: idealPartner.religion,
-    smoking: idealPartner.smoking,
+    location: idealPartner.locations || undefined,
+    hobbies: idealPartner.hobbies || undefined,
+    drinking: idealPartner.drinking || undefined,
+    religion: idealPartner.religion || undefined,
+    smoking: idealPartner.smoking || undefined,
     requiredOptions: idealPartner.requiredOptions,
-    toMatchMaker: idealPartner.toMatchMaker,
+    toMatchMaker: idealPartner.toMatchMaker || undefined,
   };
 };
 
@@ -26,15 +25,15 @@ export const convertDtoToIdealPartner = (dto: DetailedInfoIdealPartner): IdealPa
   return {
     skipped: false,
     ageRange: dto.ageRange,
-    drinking: dto.drinking,
+    drinking: dto.drinking || null,
     heightRange: dto.heightRange,
-    hobbies: dto.hobbies,
+    hobbies: dto.hobbies || null,
     images: [],
     imageDtoList: dto.images ?? [],
     locations: dto.location ?? 'NOT_IMPORTANT',
-    religion: dto.religion,
+    religion: dto.religion || null,
     requiredOptions: dto.requiredOptions ?? [],
-    smoking: dto.smoking,
+    smoking: dto.smoking || null,
     style: dto.style ?? '',
     toMatchMaker: dto.toMatchMaker ?? '',
   };

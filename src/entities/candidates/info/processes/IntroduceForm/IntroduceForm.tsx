@@ -10,7 +10,7 @@ export const IntroduceForm = () => {
   const introduction = useMyProfileStore((state) => state.introduction);
   const setIntroduction = useMyProfileStore((state) => state.setIntroduction);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIntroduction(e.target.value);
     addTouchedStep('PROFILE_INTRODUCE');
   };

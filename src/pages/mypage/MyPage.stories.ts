@@ -15,6 +15,7 @@ export const Default: Story = {
       userId: '123',
       email: 'orobos654@gmail.com',
       receiveEmail: false,
+      joinType: 'KAKAO',
     },
   },
 };

@@ -1,44 +1,16 @@
 import { json, LoaderFunction } from '@remix-run/node';
-import { filterAlignList, filterSchema } from 'src/entities/candidates/_common/libs/filter';
-import { calculateBirthDate, convertDateObjectToDate } from 'src/shared/functions/date';
-import { searchInfo, SearchInfoParams, SearchInfoRequestDto } from 'src/types';
+import { searchInfo } from 'src/types';
 import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
+import { searchInfoParams } from 'src/entities/candidates/_common/libs/searchInfoParams';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
 
   const searchParams = new URL(request.url).searchParams;
-  const param = { ...Object.fromEntries(searchParams) };
-  delete param.townList;
-  const { data: filterParams } = filterSchema.safeParse(param);
-  const townList = searchParams.get('townList')?.split(',').filter(Boolean) ?? [];
-  const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
+  const reqParams = searchInfoParams(searchParams);
 
-  let reqParams: Omit<SearchInfoRequestDto, 'townList'> = {
-    page: Number(searchParams.get('page')) || 0,
-    size: 10,
-  };
-
-  if (hasFilter) {
-    const align = filterAlignList.find((ali) => ali.id === filterParams?.alignId) ?? filterAlignList[0];
-    const { ageFrom: ageFromValue, ageTo: ageToValue } = filterParams ?? {};
-    const ageFrom = ageFromValue ? convertDateObjectToDate(calculateBirthDate(ageFromValue)).toISOString() : undefined;
-    const ageTo = ageToValue ? convertDateObjectToDate(calculateBirthDate(ageToValue)).toISOString() : undefined;
-    reqParams = {
-      ...reqParams,
-      ...filterParams,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ...(townList && townList.length > 0 ? { townList: townList.join(',') } : undefined),
-      sortBy: align.sortBy,
-      sortDirection: align.sortDirection,
-      ageTo: ageFrom,
-      ageFrom: ageTo,
-    };
-  }
-
-  const { data } = await searchInfo(reqParams as unknown as SearchInfoParams, {
+  const { data } = await searchInfo(reqParams, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

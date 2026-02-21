@@ -12,6 +12,6 @@ type Story = StoryObj<typeof GroupHistoryRow>;
 export const Default: Story = {
   args: {
     history: groupHistoryMock,
-    groupId: 1,
+    groupId: '1',
   },
 };

@@ -16,6 +16,7 @@ export const Default: Story = {
       name: '김구구',
       profileImage: '',
       receiveEmail: false,
+      joinType: 'KAKAO',
     },
     onEndOnboarding: () => alert('온보딩 끝'),
   },

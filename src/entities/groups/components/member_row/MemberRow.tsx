@@ -16,7 +16,7 @@ export const MemberRow = ({
 }) => {
   return (
     <Flex className={styles.Container} gap={12}>
-      <Avatar fallback={''} src={member.userId} size={40} shape={'circle'} />
+      <Avatar fallback={''} src={member.userProfileImage} size={40} shape={'circle'} />
       <Flex direction={'vertical'} gap={8}>
         <Flex>
           <div className={styles.Name}>

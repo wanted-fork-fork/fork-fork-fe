@@ -4,7 +4,7 @@ import { authenticate } from 'src/app/server/authenticate';
 import { commitSession } from 'src/app/server/sessions';
 import { getGroupInfo, searchGroupInfo } from 'src/types';
 import { useLoaderData } from '@remix-run/react';
-import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
+import { parseParamsToFilter } from 'src/entities/candidates/_common/libs/searchInfoParams';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
@@ -12,13 +12,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   if (!id) return null;
 
-  const searchParams = new URL(request.url).searchParams;
-  const param = { ...Object.fromEntries(searchParams) };
-  delete param.townList;
-  const { data: filterParams } = filterSchema.safeParse(param);
-  const townList = searchParams.get('townList[]')?.split(',').filter(Boolean) ?? [];
-
-  const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
+  const { filterParams, townList, hasFilter } = parseParamsToFilter(new URL(request.url).searchParams);
 
   const { data } = await getGroupInfo(id, {
     headers: { Authorization: `Bearer ${accessToken}` },

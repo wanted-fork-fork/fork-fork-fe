@@ -9,19 +9,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { OnboardingPage } from 'src/pages/main/onboarding_coachmark/OnboardingPage';
 import { EmailBannerBottomSheet } from 'src/entities/users/profiles/components/EmailBanner/EmailBannerBottomSheet';
 import { EmailConfigPage } from 'src/pages/mypage/email/EmailConfigPage';
-import { filterSchema } from 'src/entities/candidates/_common/libs/filter';
 import { GenerateFormLinkProvider } from 'src/entities/candidates/_common/components/GenerateFormLink/GenerateFormLinkContext';
+import { parseParamsToFilter } from 'src/entities/candidates/_common/libs/searchInfoParams';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { accessToken, newSession } = await authenticate(request);
 
-  const searchParams = new URL(request.url).searchParams;
-  const param = { ...Object.fromEntries(searchParams) };
-  delete param.townList;
-  const { data: filterParams } = filterSchema.safeParse(param);
-  const townList = searchParams.get('townList[]')?.split(',').filter(Boolean) ?? [];
-
-  const hasFilter = townList.length > 0 || (filterParams && Object.keys(filterParams).length > 0);
+  const { filterParams, townList, hasFilter } = parseParamsToFilter(new URL(request.url).searchParams);
 
   const { data: userInfo } = await info({
     headers: {

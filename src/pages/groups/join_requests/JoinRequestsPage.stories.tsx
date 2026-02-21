@@ -11,7 +11,7 @@ type Story = StoryObj<typeof JoinRequestsPage>;
 
 export const Default: Story = {
   args: {
-    groupId: 1,
+    groupId: '1',
     requestList: Array.from({ length: 3 }).map((_, idx) => ({
       ...groupMemberMock,
       id: idx,
