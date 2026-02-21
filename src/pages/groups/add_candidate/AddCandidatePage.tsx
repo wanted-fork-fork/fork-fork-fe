@@ -12,6 +12,7 @@ import { BottomSheet } from 'src/shared/ui/BottomSheet/BottomSheet';
 import { InfoBox } from 'src/shared/ui/InfoBox/InfoBox';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import toast from 'react-hot-toast';
+import { useMutation } from '@tanstack/react-query';
 
 export const AddCandidatePage = ({
   groupId,
@@ -25,23 +26,27 @@ export const AddCandidatePage = ({
 
   const { value: isConfirmOpen, setTrue: openConfirm, setFalse: closeConfirm } = useBoolean(false);
 
-  const handleClickSubmit = async () => {
-    try {
-      await createGroupInfoList({
-        groupInfoList: Array.from(selectedCandidates).map(([id, comment]) => ({
-          infoId: id,
-          groupId,
-          message: comment,
-        })),
-      });
-
+  const { mutate, isPending } = useMutation({
+    mutationFn: createGroupInfoList,
+    onSuccess: () => {
       closeConfirm();
       navigate(`/groups/${groupId}`);
       toast('후보자를 그룹에 공유했습니다.');
-    } catch (e) {
+    },
+    onError: (e) => {
       console.error(e);
       toast.error('오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-    }
+    },
+  });
+
+  const handleClickSubmit = async () => {
+    mutate({
+      groupInfoList: Array.from(selectedCandidates).map(([id, comment]) => ({
+        infoId: id,
+        groupId,
+        message: comment,
+      })),
+    });
   };
 
   const toggleCandidate = (candidateId: string) => {
@@ -107,7 +112,7 @@ export const AddCandidatePage = ({
         </Flex>
       </ScrollView>
       <div className={styles.Footer}>
-        <Button widthType={'fill'} onClick={openConfirm} disabled={selectedCandidates.size === 0}>
+        <Button widthType={'fill'} onClick={openConfirm} disabled={selectedCandidates.size === 0 || isPending}>
           추가하기 ({selectedCandidates.size}/{candidates.filter((c) => !c.isAlreadyInGroup).length})
         </Button>
       </div>
@@ -137,7 +142,7 @@ export const AddCandidatePage = ({
               </p>
             </InfoBox>
           </Flex>
-          <Button widthType={'fill'} onClick={() => handleClickSubmit()}>
+          <Button widthType={'fill'} onClick={() => handleClickSubmit()} disabled={isPending}>
             확인했어요
           </Button>
         </BottomSheet.Content>
