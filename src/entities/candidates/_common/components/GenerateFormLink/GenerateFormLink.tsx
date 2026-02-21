@@ -2,7 +2,6 @@ import styles from 'src/entities/candidates/_common/components/GenerateFormLink/
 import { Close, Edit, Share } from 'src/shared/ui/icons';
 import { useBoolean } from 'src/shared/functions/useBoolean';
 import { lazy, Suspense, useState } from 'react';
-import { Link } from '@remix-run/react';
 import { ProfileAddFloatingButton } from 'src/entities/candidates/_common/components/GenerateFormLink/ProfileAddFloatingButton';
 
 const GenerateFormLinkBottomSheet = lazy(async () => {
@@ -33,14 +32,14 @@ export const GenerateFormLink = ({
       {isTriggerOpen && (
         <div className={styles.Dim} onClick={() => setTriggerOpen(false)}>
           <div className={styles.DimButtonWrapper}>
-            <Link to={'/form/me'}>
+            <a href={'/form/me'}>
               <button className={styles.FloatingButtonWithText}>
                 <span>직접 입력하기</span>
                 <div className={styles.Icon}>
                   <Edit color={'white'} />
                 </div>
               </button>
-            </Link>
+            </a>
             <button className={styles.FloatingButtonWithText} onClick={onClick}>
               <span>입력 요청하기</span>
               <div className={styles.Icon}>
