@@ -5,7 +5,7 @@ import { Button } from 'src/shared/ui/Button/Button';
 import styles from './EmailLoginPage.module.css';
 import { useRemixForm } from 'remix-hook-form';
 import { LoginFormData, loginResolver } from 'src/app/routes/login.email';
-import { useMemo } from 'react';
+import { FormEvent, MouseEvent, useMemo } from 'react';
 import { EMAIL_REGEX } from 'src/shared/constants/regex';
 import { LoadingSpinner } from 'src/shared/ui/client/LoadingSpinner';
 import Flex from 'src/shared/ui/Flex/Flex';
@@ -14,7 +14,7 @@ export const EmailLoginPage = () => {
   const navigate = useNavigate();
 
   const {
-    handleSubmit,
+    handleSubmit: _handleSubmit,
     watch,
     formState: { errors, isSubmitting },
     register,
@@ -25,8 +25,13 @@ export const EmailLoginPage = () => {
   const email = watch('email');
   const isLoginEnabled = useMemo(() => EMAIL_REGEX.test(email), [email]);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    _handleSubmit();
+  };
+
   return (
-    <form className={styles.Wrapper} onSubmit={handleSubmit}>
+    <form className={styles.Wrapper} onSubmit={(e) => handleSubmit(e)}>
       <FormLayout.Container>
         <FormLayout.Header onPrev={() => navigate('/login')}>로그인</FormLayout.Header>
         <FormLayout.Body>
@@ -72,7 +77,7 @@ export const EmailLoginPage = () => {
           <Button
             type={'submit'}
             widthType={'fill'}
-            onClick={() => handleSubmit()}
+            onClick={(e) => handleSubmit(e)}
             disabled={!isLoginEnabled || isSubmitting}
           >
             {isSubmitting ? (
